@@ -44,3 +44,10 @@ vercel deploy --prod
 ## 근거
 산업안전보건기준에 관한 규칙(제450호) 제301~327조 · KOSHA GUIDE C-C-49-2026 · P-94-2017 ·
 산업안전보건연구원 위험성평가표 작성방법(3×3) · CSI 사고사례 2021~2026 전기 부문 661건.
+
+## Claude API 키 입력 (화면 ⑦)
+
+왼쪽 패널 맨 아래 **⑦ Claude API 키** 에 키를 넣고 저장하면 그 브라우저의 `localStorage`(`esafety_key`)에만
+보관되고, AI 판독 요청 때 `POST /api/read` 본문의 `key` 로 서버 함수를 거쳐 Anthropic 에만 전달됩니다.
+비워 두면 서버 환경변수 `ANTHROPIC_API_KEY` 를 사용합니다. 키가 거부되면(`bad_key`) 키워드 판독으로 대체하고
+⑦ 에서 확인하라는 안내를 표시합니다.

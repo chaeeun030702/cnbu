@@ -1,13 +1,14 @@
 // ─────────────────────────────────────────────────────────────────────
 //  /api/read — 현장사진 AI 판독 (Vercel Serverless Function, Node 20)
 //
-//  입력  POST { image: "data:image/jpeg;base64,…", name, site:{kind,place,no}, lang }
+//  입력  POST { image: "data:image/jpeg;base64,…", name, site:{kind,place,no}, lang, key? }
+//        key = 화면 ⑦에서 사용자가 브라우저에 저장한 Anthropic API 키(선택). 없으면 서버 환경변수 사용.
 //  출력  { ok, model, hits:[{id,x,y,conf,evidence:[ko,foreign]}],
 //          scene:[ko,foreign], extra:[[ko,foreign],…] }
 //
 //  지식베이스 19종(data/indicators.json)을 시스템 프롬프트에 넣고 Claude 비전
 //  모델에 사진을 보내, 사진에서 실제로 확인되는 위험 표지만 근거와 함께 받는다.
-//  ANTHROPIC_API_KEY 가 없거나 호출이 실패하면 ok:false 를 돌려주고,
+//  키가 없거나(no_key) 거부되거나(bad_key) 호출이 실패하면 ok:false 를 돌려주고,
 //  프런트엔드는 키워드 판독으로 대체한다.
 // ─────────────────────────────────────────────────────────────────────
 const KB = require('../data/indicators.json');
@@ -74,11 +75,17 @@ module.exports = async function handler(req, res) {
   }
   if (req.method !== 'POST') return res.status(405).json({ ok: false, reason: 'method' });
 
-  var key = process.env.ANTHROPIC_API_KEY;
-  if (!key) return res.status(200).json({ ok: false, reason: 'no_key' });
-
   var body = req.body || {};
   if (typeof body === 'string') { try { body = JSON.parse(body); } catch (e) { body = {}; } }
+
+  // 키 우선순위: 화면 ⑦에서 사용자가 저장한 키(요청 본문) → 서버 환경변수
+  var clientKey = typeof body.key === 'string' ? body.key.trim() : '';
+  if (clientKey && !/^sk-ant-[A-Za-z0-9_\-]{20,}$/.test(clientKey)) {
+    return res.status(200).json({ ok: false, reason: 'bad_key' });
+  }
+  var key = clientKey || process.env.ANTHROPIC_API_KEY;
+  var keyFrom = clientKey ? 'client' : 'server';
+  if (!key) return res.status(200).json({ ok: false, reason: 'no_key' });
   var img = parseDataUrl(body.image);
   if (!img) return res.status(400).json({ ok: false, reason: 'bad_image' });
   if (img.b64.length * 0.75 > MAX_BYTES) return res.status(413).json({ ok: false, reason: 'too_large' });
@@ -114,8 +121,8 @@ module.exports = async function handler(req, res) {
     clearTimeout(timer);
     var data = await r.json();
     if (!r.ok) {
-      return res.status(200).json({ ok: false, reason: 'api_' + r.status,
-        detail: data && data.error && data.error.message });
+      return res.status(200).json({ ok: false, reason: r.status === 401 ? 'bad_key' : 'api_' + r.status,
+        keyFrom: keyFrom, detail: data && data.error && data.error.message });
     }
     var text = (data.content || []).filter(function (c) { return c.type === 'text'; })
       .map(function (c) { return c.text; }).join('\n');
@@ -134,7 +141,7 @@ module.exports = async function handler(req, res) {
     var extra = (Array.isArray(out.extra) ? out.extra : []).slice(0, 3).map(function (e) {
       return (Array.isArray(e) ? e : [String(e)]).slice(0, 2).map(String); });
     return res.status(200).json({ ok: true, model: MODEL, lang: lang, hits: hits, scene: scene, extra: extra,
-      usage: data.usage });
+      keyFrom: keyFrom, usage: data.usage });
   } catch (e) {
     clearTimeout(timer);
     return res.status(200).json({ ok: false, reason: e.name === 'AbortError' ? 'timeout' : 'error',
