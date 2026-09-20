@@ -115,6 +115,18 @@
      "Giấy phép làm việc đã cắt điện trở thành điều kiện tiên quyết. Ghi đủ 6 bước — cô lập, khóa, thử điện, tiếp đất — theo sơ đồ một sợi.",
      "Elektrsiz ish ruxsatnomasi ish sharti bo'ladi. Bir chiziqli sxema asosida uzish, qulflash, tekshirish, yerga ulash — olti bosqichni yozib borish."
     ]
+   },
+   "dom": "elec",
+   "p94": {
+    "supp": [
+     "jeon"
+    ],
+    "safe": [
+     1,
+     12,
+     13,
+     14
+    ]
    }
   },
   {
@@ -216,6 +228,15 @@
      "以绝缘破损导致漏电为前提,将切断·标识与绝缘保护具指定为必须措施。",
      "Giả định có dòng rò do hỏng vỏ, nên cô lập kèm biển báo và PTBVCN cách điện là bắt buộc.",
      "Izolyatsiya shikastidan oqim chiqishi taxmin qilinadi; uzish, belgi va izolyatsion himoya vositalari majburiy chora sifatida belgilanadi."
+    ]
+   },
+   "dom": "elec",
+   "p94": {
+    "supp": [],
+    "safe": [
+     1,
+     12,
+     13
     ]
    }
   },
@@ -323,6 +344,16 @@
      "Phải ngắt nguồn trước khi cắm/rút, nên đồng thời yêu cầu giấy phép cắt điện và PTBVCN cách điện.",
      "Ulash va uzishdan oldin tok o'chirilishi shart, shuning uchun elektrsiz ish ruxsatnomasi va izolyatsion vositalar birga talab qilinadi."
     ]
+   },
+   "dom": "elec",
+   "p94": {
+    "supp": [
+     "jeon"
+    ],
+    "safe": [
+     12,
+     13
+    ]
    }
   },
   {
@@ -425,6 +456,16 @@
      "Dòng rò sẽ không được cắt, nên cô lập kèm biển báo và xác nhận tách nguồn thứ hai là điều kiện tiên quyết.",
      "Oqim uzilmaydi, shuning uchun uzish, belgi va ikkinchi manbani ajratishni tasdiqlash oldindan shart qilinadi."
     ]
+   },
+   "dom": "elec",
+   "p94": {
+    "supp": [
+     "jeon"
+    ],
+    "safe": [
+     12,
+     13
+    ]
    }
   },
   {
@@ -521,6 +562,14 @@
      "将保护具的佩戴与作业前安全教育(班前会)指定为签发许可的先行条件。",
      "Việc mang PTBVCN và họp an toàn đầu ca là điều kiện tiên quyết để cấp phép.",
      "Himoya vositalarini kiyish va ishdan oldingi yig'ilish ruxsatnoma berish sharti qilinadi."
+    ]
+   },
+   "dom": "elec",
+   "p94": {
+    "supp": [],
+    "safe": [
+     12,
+     13
     ]
    }
   },
@@ -620,6 +669,15 @@
      "人体电阻降低使低压亦致命,因此指定作业面干燥·绝缘垫与照明确保。",
      "Điện trở cơ thể giảm nên điện áp thấp vẫn chết người; yêu cầu làm khô mặt bằng, thảm cách điện và bảo đảm chiếu sáng.",
      "Tana qarshiligi pasayib, past kuchlanish ham halokatli bo'ladi; yuzani quritish, izolyatsion gilam va yoritish talab qilinadi."
+    ]
+   },
+   "dom": "elec",
+   "p94": {
+    "supp": [],
+    "safe": [
+     1,
+     12,
+     13
     ]
    }
   },
@@ -723,6 +781,14 @@
      "Vỏ kim loại có thể mang điện, nên đồng thời yêu cầu cô lập kèm biển báo, xả điện dư và PTBVCN cách điện.",
      "Metall korpus kuchlanish olishi mumkin, shuning uchun uzish, qoldiq zaryadni chiqarish va izolyatsion vositalar birga belgilanadi."
     ]
+   },
+   "dom": "elec",
+   "p94": {
+    "supp": [],
+    "safe": [
+     12,
+     13
+    ]
    }
   },
   {
@@ -821,6 +887,14 @@
      "增加了过热引起电气火灾的危险,因此指定配备C类灭火器与切断·标识。",
      "Thêm nguy cơ cháy điện do quá nhiệt, nên yêu cầu bình chữa cháy loại C và cô lập kèm biển báo.",
      "Qizishdan elektr yong'ini xavfi qo'shiladi, shuning uchun C toifali o't o'chirgich va uzish belgisi talab qilinadi."
+    ]
+   },
+   "dom": "elec",
+   "p94": {
+    "supp": [],
+    "safe": [
+     12,
+     13
     ]
    }
   },
@@ -926,6 +1000,21 @@
      "Yêu cầu vạch ranh giới 90 cm và 300 cm, lắp chụp cách điện và bố trí người giám sát chuyên trách.",
      "90 sm va 300 sm chegarani belgilash, izolyatsion qoplama o'rnatish va maxsus kuzatuvchi talab qilinadi."
     ]
+   },
+   "dom": "elec",
+   "p94": {
+    "supp": [
+     "jung"
+    ],
+    "jungItems": [
+     4,
+     5
+    ],
+    "safe": [
+     1,
+     13,
+     14
+    ]
    }
   },
   {
@@ -1027,6 +1116,24 @@
      "需要重型设备作业许可。记载300cm隔离距离的确保、臂杆限位装置的设定与信号员的配置。",
      "Cần giấy phép thiết bị nặng. Ghi việc giữ khoảng cách 300 cm, đặt giới hạn cần và bố trí người ra hiệu.",
      "Og'ir texnika ruxsatnomasi kerak. 300 sm masofa, strela chegaralagichi va signalchi tayinlanishi yoziladi."
+    ]
+   },
+   "dom": "elec",
+   "p94": {
+    "supp": [
+     "jung"
+    ],
+    "jungItems": [
+     0,
+     1,
+     2,
+     4,
+     5
+    ],
+    "safe": [
+     1,
+     13,
+     14
     ]
    }
   },
@@ -1130,6 +1237,20 @@
      "Tồn tại đường tiếp xúc gián tiếp qua vật tư, nên yêu cầu khoanh vùng và người giám sát chuyên trách.",
      "Material orqali bilvosita tegish yo'li mavjud, shuning uchun zonani belgilash va maxsus kuzatuvchi talab qilinadi."
     ]
+   },
+   "dom": "elec",
+   "p94": {
+    "supp": [
+     "jung"
+    ],
+    "jungItems": [
+     4,
+     5
+    ],
+    "safe": [
+     1,
+     13
+    ]
    }
   },
   {
@@ -1231,6 +1352,21 @@
      "Cần giấy phép làm việc trên cao. Ghi sàn thao tác, lan can, điểm neo dây an toàn và lưới chống ngã.",
      "Balandlikdagi ish ruxsatnomasi kerak. Ish maydonchasi, to'siq, kamar biriktirish nuqtasi va to'r yoziladi."
     ]
+   },
+   "dom": "elec",
+   "p94": {
+    "supp": [
+     "go"
+    ],
+    "goItems": [
+     1,
+     2
+    ],
+    "safe": [
+     12,
+     13,
+     14
+    ]
    }
   },
   {
@@ -1331,6 +1467,20 @@
      "Thuộc diện giấy phép làm việc trên cao; điều kiện cấp phép là dùng sàn nâng hoặc giàn giáo thay thang.",
      "Balandlikdagi ish ruxsatnomasiga kiradi; narvon o'rniga platforma yoki iskaladan foydalanish shart qilib qo'yiladi."
     ]
+   },
+   "dom": "elec",
+   "p94": {
+    "supp": [
+     "go"
+    ],
+    "goItems": [
+     0,
+     1
+    ],
+    "safe": [
+     12,
+     13
+    ]
    }
   },
   {
@@ -1430,6 +1580,14 @@
      "14-band va 12-tekshiruv bandi belgilanadi, shunda ish rahbari va maxsus kuzatuvchi tayinlanishi ruxsatnoma berishdan oldin bo'ladi."
     ],
     "added": true
+   },
+   "dom": "elec",
+   "p94": {
+    "supp": [],
+    "safe": [
+     13,
+     14
+    ]
    }
   },
   {
@@ -1527,6 +1685,13 @@
      "13-band belgilanadi: ishdan oldingi xavfsizlik ta'limi ko'p tilda o'tkaziladi va tushunganlik imzosi olinadi."
     ],
     "added": true
+   },
+   "dom": "elec",
+   "p94": {
+    "supp": [],
+    "safe": [
+     13
+    ]
    }
   },
   {
@@ -1632,6 +1797,18 @@
      "Kuchlanish uzilishi tasdiqlanmagan, shuning uchun kuchlanishsiz ish ruxsatnomasi beriladi va 319-modda olti bosqichi ruxsatnomada tasdiqlanadi."
     ],
     "added": true
+   },
+   "dom": "elec",
+   "p94": {
+    "supp": [
+     "jeon"
+    ],
+    "safe": [
+     1,
+     12,
+     13,
+     14
+    ]
    }
   },
   {
@@ -1673,6 +1850,21 @@
      "Cần giấy phép vào không gian kín. Ghi việc kiểm tra oxy 18–23,5 %, đo 3 điểm và tổ trực 2 người. Lưu giấy phép 3 năm.",
      "Yopiq joyga kirish ruxsatnomasi kerak. Kislorod 18–23,5 %, uch nuqtada o'lchash va 2 kishilik navbatchi guruh yoziladi. Ruxsatnoma 3 yil saqlanadi."
     ]
+   },
+   "dom": "elec",
+   "p94": {
+    "supp": [
+     "mil"
+    ],
+    "safe": [
+     2,
+     8,
+     9,
+     10,
+     12,
+     13,
+     14
+    ]
    }
   },
   {
@@ -1711,6 +1903,18 @@
      "Cần giấy phép đào. Ghi việc rà bản vẽ công trình ngầm và đoạn đào thủ công.",
      "Qazish ruxsatnomasi kerak. Yer osti tarmoqlari chizmasini ko'rib chiqish va qo'lda qaziladigan qismlar yoziladi."
     ]
+   },
+   "dom": "elec",
+   "p94": {
+    "supp": [
+     "gul"
+    ],
+    "safe": [
+     1,
+     12,
+     13,
+     14
+    ]
    }
   },
   {
@@ -1747,6 +1951,1920 @@
      "主许可转换为动火作业。增加防火花隔离幕、可燃物残留确认与消防设备待命。",
      "Giấy phép chính chuyển sang công việc sinh nhiệt. Bổ sung màn chắn tia lửa, kiểm tra chất cháy còn sót và thiết bị chữa cháy chờ sẵn.",
      "Asosiy ruxsat olovli ishga o'tadi. Uchqun to'sig'i, yonuvchi qoldiqni tekshirish va o't o'chirish vositalari qo'shiladi."
+    ]
+   },
+   "dom": "elec",
+   "p94": {
+    "main": "hot",
+    "supp": [],
+    "safe": [
+     1,
+     2,
+     5,
+     11,
+     12,
+     13,
+     14
+    ]
+   }
+  },
+  {
+   "id": "G01",
+   "e": null,
+   "p": null,
+   "dom": "gen",
+   "grp": [
+    "추락",
+    "추락",
+    "추락",
+    "추락",
+    "추락"
+   ],
+   "tag": [
+    "개구부·단부 안전난간 미설치 · 덮개 없음",
+    "Opening or edge without guardrail or cover",
+    "洞口·临边未设置安全护栏·无盖板",
+    "Lỗ mở, mép sàn không có lan can, không nắp đậy",
+    "Teshik yoki chekka to'siqsiz, qopqoqsiz"
+   ],
+   "ra": {
+    "work": [
+     "슬래브 단부·개구부 주변 작업",
+     "Work near slab edges and floor openings",
+     "楼板临边·洞口周边作业",
+     "Làm việc gần mép sàn và lỗ mở",
+     "Plita chekkasi va teshik atrofida ish"
+    ],
+    "cls": [
+     "기계적 요인(추락)",
+     "Mechanical (fall)",
+     "机械性因素(坠落)",
+     "Yếu tố cơ học (ngã cao)",
+     "Mexanik omil (yiqilish)"
+    ],
+    "cause": [
+     "떨어짐 — 개구부·단부 추락",
+     "Fall — through an opening or over an edge",
+     "坠落 — 洞口·临边坠落",
+     "Ngã cao — qua lỗ mở hoặc mép sàn",
+     "Yiqilish — teshik yoki chekkadan"
+    ],
+    "haz": [
+     "슬래브 개구부와 단부에 안전난간·덮개가 없어 이동 중 발을 헛디디거나 뒷걸음질만 해도 하부로 추락한다. 덮개가 있어도 고정·표시가 없으면 밟는 순간 뒤집혀 같은 결과가 된다.",
+     "Floor openings and slab edges have no guardrail or cover, so a misstep or a backward step while moving sends the worker straight down. An unfixed, unmarked cover flips the moment it is stepped on with the same result.",
+     "楼板洞口与临边无安全护栏·盖板，移动中踩空或后退即坠落至下层。即使有盖板，若未固定·未标识，踩上瞬间翻转，后果相同。",
+     "Lỗ mở và mép sàn không có lan can, nắp đậy nên chỉ cần hụt chân hoặc bước lùi là rơi xuống dưới. Nắp không cố định, không đánh dấu sẽ lật ngay khi giẫm lên.",
+     "Plita teshiklari va chekkalarida to'siq yoki qopqoq yo'q, harakat paytida qoqilish yoki orqaga qadam ham pastga yiqilishga olib keladi. Mahkamlanmagan, belgilanmagan qopqoq bosilganda ag'dariladi."
+    ],
+    "law": [
+     "안전보건규칙 제42조 [추락의 방지]·제43조 [개구부 등의 방호 조치]·제13조 [안전난간의 구조 및 설치요건]",
+     "OSH Rule Art.42 [fall prevention], Art.43 [guarding of openings], Art.13 [guardrail structure]",
+     "安全保健规则 第42条[坠落的防止]·第43条[洞口等的防护措施]·第13条[安全护栏的构造及设置要求]",
+     "Quy chuẩn Điều 42 [phòng ngã cao], Điều 43 [che chắn lỗ mở], Điều 13 [kết cấu lan can]",
+     "Qoidalar 42-modda [yiqilishni oldini olish], 43-modda [teshiklarni himoyalash], 13-modda [to'siq tuzilishi]"
+    ],
+    "csi": [
+     "CSI 떨어짐 5,126건 사망 603명(치명률 11.3%) — 난간 관련 275건 사망 35명, 개구부 관련 165건 사망 21명",
+     "CSI: 5,126 falls, 603 deaths (11.3% fatality) — 275 guardrail-related cases with 35 deaths, 165 opening-related with 21 deaths",
+     "CSI 坠落5,126起 死亡603人(致死率11.3%) — 护栏相关275起死亡35人，洞口相关165起死亡21人",
+     "CSI: 5.126 vụ ngã cao, 603 tử vong (11,3%) — 275 vụ liên quan lan can (35 tử vong), 165 vụ lỗ mở (21 tử vong)",
+     "CSI: 5 126 yiqilish, 603 o'lim (11,3%) — to'siq bilan bog'liq 275 holat, 35 o'lim; teshik bilan 165 holat, 21 o'lim"
+    ],
+    "cur": [
+     "안전난간·덮개 없음, 경고표지 없음",
+     "No guardrail or cover, no warning sign",
+     "无护栏·盖板，无警示标识",
+     "Không lan can, nắp đậy, không biển cảnh báo",
+     "To'siq, qopqoq va ogohlantirish belgisi yo'q"
+    ],
+    "act": [
+     "① 단부·개구부에 상부난간(90~120cm)·중간난간·발끝막이판을 갖춘 안전난간 설치 ② 개구부는 충분한 강도의 덮개를 고정하고 \"개구부 추락주의\" 표지를 다국어로 부착 ③ 난간 해체가 불가피하면 안전대 부착설비를 먼저 설치하고 안전대 체결 후 작업 ④ 하부 추락방호망 병행",
+     "(1) Fit guardrails with a top rail (90–120 cm), mid rail and toe board along edges and openings. (2) Fix covers of adequate strength over openings and post a multilingual “opening — fall hazard” sign. (3) Where a guardrail must be removed, install an anchorage first and clip on a harness before work. (4) Add a fall-arrest net below.",
+     "① 在临边·洞口设置带上栏杆(90~120cm)·中栏杆·踢脚板的安全护栏 ② 洞口固定足够强度的盖板并以多语种张贴“当心洞口坠落”标识 ③ 不得不拆除护栏时先设置安全带附着设备并系挂后作业 ④ 下方并设坠落防护网",
+     "(1) Lắp lan can có thanh trên (90–120 cm), thanh giữa và tấm chắn chân dọc mép và lỗ mở. (2) Cố định nắp đủ cứng trên lỗ mở, dán biển “lỗ mở — nguy cơ ngã” đa ngữ. (3) Nếu phải tháo lan can, lắp điểm neo trước và móc dây an toàn rồi mới làm. (4) Lắp thêm lưới chống ngã bên dưới.",
+     "(1) Chekka va teshiklarga yuqori (90–120 sm), o'rta to'siq va oyoq taxtasi bilan to'siq o'rnatish. (2) Teshiklarni yetarli mustahkam qopqoq bilan mahkamlash va ko'p tilli ogohlantirish belgisi. (3) To'siqni olish zarur bo'lsa, avval ankraj o'rnatib, kamar bog'lab ishlash. (4) Pastda yiqilishga qarshi to'r."
+    ],
+    "p": 3,
+    "s": 3,
+    "p2": 1,
+    "s2": 3
+   },
+   "p94": {
+    "supp": [
+     "go"
+    ],
+    "goItems": [
+     0,
+     1,
+     2
+    ],
+    "safe": [
+     1,
+     12,
+     13,
+     14
+    ]
+   }
+  },
+  {
+   "id": "G02",
+   "e": null,
+   "p": null,
+   "dom": "gen",
+   "grp": [
+    "추락",
+    "추락",
+    "추락",
+    "추락",
+    "추락"
+   ],
+   "tag": [
+    "고소작업 중 안전대 미착용·미체결 · 부착설비 없음",
+    "Work at height with no harness worn or clipped, no anchorage",
+    "高处作业未佩戴·未系挂安全带·无附着设备",
+    "Làm việc trên cao không đeo, không móc dây an toàn, không điểm neo",
+    "Balandlikda kamarsiz yoki bog'lanmagan, ankraj yo'q"
+   ],
+   "ra": {
+    "work": [
+     "철골·지붕·외벽 등 2m 이상 고소작업",
+     "Work at 2 m or higher on steel, roofs or facades",
+     "钢结构·屋面·外墙等2m以上高处作业",
+     "Làm việc trên cao từ 2 m trên kết cấu thép, mái, mặt ngoài",
+     "Po'lat, tom, tashqi devorda 2 m dan baland ish"
+    ],
+    "cls": [
+     "기계적 요인(추락)",
+     "Mechanical (fall)",
+     "机械性因素(坠落)",
+     "Yếu tố cơ học (ngã cao)",
+     "Mexanik omil (yiqilish)"
+    ],
+    "cause": [
+     "떨어짐 — 신체 보호 없는 고소 추락",
+     "Fall — unprotected fall from height",
+     "坠落 — 无身体防护的高处坠落",
+     "Ngã cao — không có bảo vệ cơ thể",
+     "Yiqilish — himoyasiz balandlikdan"
+    ],
+    "haz": [
+     "2m 이상 높이에서 안전대를 착용하지 않았거나 걸 곳(부착설비·구명줄)이 없어 체결하지 못한 채 작업한다. 균형을 잃는 순간 붙잡을 것이 없어 그대로 추락하며, 높이 10m 이상 추락의 치명률은 72.9%에 이른다.",
+     "The worker is above 2 m without a harness, or with one that cannot be clipped because there is no anchorage or lifeline. Nothing arrests a loss of balance, and falls from 10 m or more are fatal in 72.9% of cases.",
+     "在2m以上高处未佩戴安全带，或因无附着设备·生命绳而无法系挂即作业。失去平衡瞬间无物可抓直接坠落，10m以上坠落致死率达72.9%。",
+     "Ở độ cao trên 2 m, người lao động không đeo dây an toàn hoặc không móc được vì không có điểm neo, dây cứu sinh. Mất thăng bằng là rơi ngay; ngã từ 10 m trở lên tử vong 72,9%.",
+     "2 m dan balandda kamar kiyilmagan yoki ankraj va qutqaruv arqoni yo'qligidan bog'lanmagan. Muvozanat yo'qolganda ushlanadigan narsa yo'q; 10 m dan yuqoridan yiqilish 72,9% o'limga olib keladi."
+    ],
+    "law": [
+     "안전보건규칙 제42조 [추락의 방지]·제44조 [안전대의 부착설비 등]·제32조 [보호구의 지급 등]",
+     "OSH Rule Art.42 [fall prevention], Art.44 [harness anchorage], Art.32 [provision of PPE]",
+     "安全保健规则 第42条[坠落的防止]·第44条[安全带的附着设备等]·第32条[保护具的发放等]",
+     "Quy chuẩn Điều 42 [phòng ngã cao], Điều 44 [điểm neo dây an toàn], Điều 32 [cấp phát PTBVCN]",
+     "Qoidalar 42-modda, 44-modda [kamar ankraji], 32-modda [himoya vositalari]"
+    ],
+    "csi": [
+     "CSI 떨어짐 높이별 치명률 2m 미만 1.9% → 3~5m 14.1% → 5~10m 39.1% → 10m 이상 72.9%; 지붕 추락 163건 사망 67명(39.2%)",
+     "CSI fatality by fall height: <2 m 1.9%, 3–5 m 14.1%, 5–10 m 39.1%, ≥10 m 72.9%; 163 roof falls with 67 deaths (39.2%)",
+     "CSI 按坠落高度致死率：2m以下1.9%→3~5m 14.1%→5~10m 39.1%→10m以上72.9%；屋面坠落163起死亡67人(39.2%)",
+     "CSI tử vong theo độ cao: <2 m 1,9%, 3–5 m 14,1%, 5–10 m 39,1%, ≥10 m 72,9%; 163 vụ ngã mái, 67 tử vong (39,2%)",
+     "CSI balandlik bo'yicha o'lim: <2 m 1,9%, 3–5 m 14,1%, 5–10 m 39,1%, ≥10 m 72,9%; tomdan 163 yiqilish, 67 o'lim (39,2%)"
+    ],
+    "cur": [
+     "안전대 미착용, 부착설비·구명줄 없음",
+     "No harness; no anchorage or lifeline",
+     "未佩戴安全带，无附着设备·生命绳",
+     "Không dây an toàn, không điểm neo, dây cứu sinh",
+     "Kamar yo'q, ankraj va qutqaruv arqoni yo'q"
+    ],
+    "act": [
+     "① 작업 전 수직·수평 구명줄 또는 안전대 부착설비를 먼저 설치 ② 전신식 안전대 + 더블 랜야드로 이동 중에도 무체결 구간 제거 ③ 작업발판·안전난간 설치가 가능한 곳은 추락방지 설비를 우선 ④ 안전대 착용 여부를 감시인이 확인한 뒤 작업 개시",
+     "(1) Install vertical/horizontal lifelines or anchorages before work starts. (2) Use a full-body harness with twin lanyards so there is no unclipped interval even while moving. (3) Prefer platforms and guardrails wherever they can be installed. (4) A watcher confirms harness use before work begins.",
+     "① 作业前先设置垂直·水平生命绳或安全带附着设备 ② 全身式安全带+双钩安全绳，移动中也消除未系挂区间 ③ 可设置作业平台·护栏处优先采用防坠设施 ④ 监视人确认安全带佩戴后再开工",
+     "(1) Lắp dây cứu sinh dọc/ngang hoặc điểm neo trước khi làm. (2) Dây an toàn toàn thân hai móc để không có khoảng hở khi di chuyển. (3) Ưu tiên sàn thao tác và lan can ở nơi lắp được. (4) Người giám sát xác nhận đeo dây rồi mới bắt đầu.",
+     "(1) Ishdan oldin vertikal/gorizontal qutqaruv arqoni yoki ankraj o'rnatish. (2) Ikki karabinli to'liq tana kamari bilan harakatda ham bog'lanmagan oraliqni yo'qotish. (3) Iloji bo'lgan joyda platforma va to'siqni afzal ko'rish. (4) Kuzatuvchi kamarni tekshirgach ish boshlash."
+    ],
+    "p": 3,
+    "s": 3,
+    "p2": 1,
+    "s2": 3
+   },
+   "p94": {
+    "supp": [
+     "go"
+    ],
+    "goItems": [
+     1,
+     2
+    ],
+    "safe": [
+     1,
+     12,
+     13,
+     14
+    ]
+   }
+  },
+  {
+   "id": "G03",
+   "e": null,
+   "p": null,
+   "dom": "gen",
+   "grp": [
+    "추락",
+    "추락",
+    "추락",
+    "추락",
+    "추락"
+   ],
+   "tag": [
+    "비계 작업발판·안전난간 미비 · 벽이음 부족",
+    "Scaffold without proper platforms, guardrails or wall ties",
+    "脚手架作业平台·安全护栏不全·连墙件不足",
+    "Giàn giáo thiếu sàn thao tác, lan can, neo tường",
+    "Ishchi maydon, to'siq va devorga bog'lanish yetarli bo'lmagan iskala"
+   ],
+   "ra": {
+    "work": [
+     "강관비계·시스템비계 조립·해체 및 비계 위 작업",
+     "Erecting, dismantling and working on tube or system scaffolds",
+     "钢管脚手架·系统脚手架的组装·拆除及架上作业",
+     "Lắp dựng, tháo dỡ và làm việc trên giàn giáo ống hoặc hệ",
+     "Quvurli va tizimli iskalani yig'ish, buzish va ustida ishlash"
+    ],
+    "cls": [
+     "기계적 요인(추락·붕괴)",
+     "Mechanical (fall, collapse)",
+     "机械性因素(坠落·倒塌)",
+     "Yếu tố cơ học (ngã, sập)",
+     "Mexanik omil (yiqilish, qulash)"
+    ],
+    "cause": [
+     "떨어짐 — 비계에서의 추락·비계 도괴",
+     "Fall — from scaffold, or scaffold collapse",
+     "坠落 — 脚手架坠落·倒塌",
+     "Ngã cao — từ giàn giáo hoặc giàn giáo đổ",
+     "Yiqilish — iskaladan yoki iskala qulashi"
+    ],
+    "haz": [
+     "작업발판이 폭 40cm 미만이거나 틈이 벌어져 있고 안전난간이 빠져 있다. 벽이음 간격이 넓어 비계 전체가 흔들리며, 발판 위에서 자재를 나르다 균형을 잃으면 난간이 없는 쪽으로 그대로 떨어진다.",
+     "Platforms are narrower than 40 cm or gapped, and guardrails are missing. Wall ties are too far apart so the whole scaffold sways; a worker carrying material who loses balance falls where the rail is missing.",
+     "作业平台宽度不足40cm或有缝隙，安全护栏缺失。连墙件间距过大致整架晃动，在平台上搬运材料失去平衡时从无护栏一侧直接坠落。",
+     "Sàn thao tác hẹp dưới 40 cm hoặc hở khe, thiếu lan can. Neo tường thưa khiến cả giàn rung lắc; người mang vật liệu mất thăng bằng sẽ rơi ở phía không có lan can.",
+     "Ishchi maydon 40 sm dan tor yoki oraliqli, to'siq yo'q. Devorga bog'lanish siyrak bo'lgani uchun butun iskala tebranadi; material tashiyotgan ishchi to'siqsiz tomondan yiqiladi."
+    ],
+    "law": [
+     "안전보건규칙 제56조 [작업발판의 구조]·제60조 [강관비계의 구조]·제62조 [강관비계 조립 시의 준수사항]·제13조 [안전난간]",
+     "OSH Rule Art.56 [platform structure], Art.60 [tube scaffold structure], Art.62 [tube scaffold erection], Art.13 [guardrails]",
+     "安全保健规则 第56条[作业平台的构造]·第60条[钢管脚手架的构造]·第62条[钢管脚手架组装时的遵守事项]·第13条[安全护栏]",
+     "Quy chuẩn Điều 56 [kết cấu sàn thao tác], Điều 60, Điều 62 [lắp dựng giàn giáo ống], Điều 13 [lan can]",
+     "Qoidalar 56-modda [maydon tuzilishi], 60-, 62-modda [quvurli iskala], 13-modda [to'siq]"
+    ],
+    "csi": [
+     "CSI 비계 관련 떨어짐 711건 사망 98명(치명률 13.4%) — 사고객체 중 비계 1,843건으로 자재·공구류 다음 규모",
+     "CSI: 711 scaffold-related falls, 98 deaths (13.4%) — scaffolds account for 1,843 cases, third after materials and tools",
+     "CSI 脚手架相关坠落711起 死亡98人(致死率13.4%) — 事故对象中脚手架1,843起，仅次于材料·工具",
+     "CSI: 711 vụ ngã liên quan giàn giáo, 98 tử vong (13,4%) — giàn giáo chiếm 1.843 vụ, thứ ba sau vật liệu và dụng cụ",
+     "CSI: iskala bilan bog'liq 711 yiqilish, 98 o'lim (13,4%) — iskala 1 843 holat, material va asbobdan keyin uchinchi"
+    ],
+    "cur": [
+     "발판 틈·난간 누락, 벽이음 미확인",
+     "Gapped platforms, missing rails, wall ties unverified",
+     "平台有缝隙·护栏缺失，连墙件未确认",
+     "Sàn hở, thiếu lan can, chưa kiểm tra neo tường",
+     "Maydon oraliqli, to'siq yo'q, bog'lanish tekshirilmagan"
+    ],
+    "act": [
+     "① 작업발판은 폭 40cm 이상·틈 3cm 이하로 전면 깔고 고정 ② 안전난간(상부·중간·발끝막이판) 전 구간 설치 ③ 벽이음은 수직 5m·수평 5m 이내(강관비계) 간격으로 설치하고 조립도와 대조 ④ 조립·해체·변경 후 작업 전 점검을 기록하고 관리감독자가 서명",
+     "(1) Lay platforms at least 40 cm wide with gaps under 3 cm over the full width and fix them. (2) Install guardrails (top, mid, toe board) over the whole length. (3) Place wall ties within 5 m vertically and horizontally for tube scaffolds and check against the assembly drawing. (4) Record a pre-work inspection after erection, dismantling or alteration, signed by the supervisor.",
+     "① 作业平台宽度≥40cm·缝隙≤3cm满铺并固定 ② 全区间设置安全护栏(上栏杆·中栏杆·踢脚板) ③ 钢管脚手架连墙件按垂直5m·水平5m以内设置并与组装图核对 ④ 组装·拆除·变更后作业前检查记录并由管理监督者签字",
+     "(1) Sàn rộng ≥40 cm, khe ≤3 cm, lát kín và cố định. (2) Lan can (trên, giữa, tấm chắn chân) toàn tuyến. (3) Neo tường trong 5 m dọc và ngang cho giàn ống, đối chiếu bản vẽ lắp. (4) Ghi kiểm tra trước khi làm sau mỗi lần lắp, tháo, thay đổi; giám sát ký.",
+     "(1) Maydon kengligi ≥40 sm, oraliq ≤3 sm, to'liq yotqizib mahkamlash. (2) Butun uzunlikda to'siq (yuqori, o'rta, oyoq taxtasi). (3) Quvurli iskalada devorga bog'lanish vertikal va gorizontal 5 m ichida, yig'ish chizmasi bilan solishtirish. (4) Yig'ish, buzish, o'zgartirishdan keyin ishdan oldingi tekshiruvni yozib, nazoratchi imzolaydi."
+    ],
+    "p": 3,
+    "s": 3,
+    "p2": 1,
+    "s2": 3
+   },
+   "p94": {
+    "supp": [
+     "go"
+    ],
+    "goItems": [
+     0,
+     1
+    ],
+    "safe": [
+     1,
+     12,
+     13,
+     14
+    ]
+   }
+  },
+  {
+   "id": "G04",
+   "e": null,
+   "p": null,
+   "dom": "gen",
+   "grp": [
+    "추락",
+    "추락",
+    "추락",
+    "추락",
+    "추락"
+   ],
+   "tag": [
+    "이동식 사다리 위 작업 · 2인 1조·전도방지 미이행",
+    "Working from a portable ladder without a second person or anti-tip measure",
+    "在移动式梯子上作业·未两人一组·未防倾倒",
+    "Làm việc trên thang di động không có người thứ hai, không chống lật",
+    "Ko'chma narvonda ish — ikkinchi odam va ag'darilishga qarshi chora yo'q"
+   ],
+   "ra": {
+    "work": [
+     "천장·벽체 마감, 설비 설치 등 사다리 이용 작업",
+     "Ceiling and wall finishing or fixture installation from a ladder",
+     "利用梯子进行的天花·墙体装修、设备安装等作业",
+     "Hoàn thiện trần, tường, lắp thiết bị trên thang",
+     "Narvon yordamida shift, devor pardozi va uskuna o'rnatish"
+    ],
+    "cls": [
+     "기계적 요인(추락)",
+     "Mechanical (fall)",
+     "机械性因素(坠落)",
+     "Yếu tố cơ học (ngã cao)",
+     "Mexanik omil (yiqilish)"
+    ],
+    "cause": [
+     "떨어짐 — 사다리 전도·미끄러짐",
+     "Fall — ladder tipping or slipping",
+     "坠落 — 梯子倾倒·滑动",
+     "Ngã cao — thang lật hoặc trượt",
+     "Yiqilish — narvon ag'darilishi yoki sirpanishi"
+    ],
+    "haz": [
+     "A형 사다리를 펼친 채 최상단이나 그 아래 단에 올라 양손으로 작업한다. 붙잡아 주는 사람이 없고 아웃트리거·미끄럼방지 장치도 없어 몸이 옆으로 쏠리면 사다리째 넘어지며, 손에 든 공구 때문에 낙법도 불가능하다.",
+     "The worker stands on the top or second step of an open A-frame ladder using both hands. Nobody is holding it and there are no outriggers or anti-slip feet, so any sideways lean tips the ladder over, and the tools in hand prevent a controlled fall.",
+     "展开A型梯后站在最上层或次上层双手作业。无人扶持，无外撑·防滑装置，身体侧倾即连梯倾倒，且手持工具无法自我保护。",
+     "Đứng trên bậc trên cùng hoặc bậc kế của thang chữ A làm hai tay. Không ai giữ, không chân chống lật, chống trượt nên nghiêng người là thang đổ; dụng cụ trên tay khiến không thể đỡ ngã.",
+     "Ochilgan A-narvonning yuqori yoki undan pastki pog'onasida ikki qo'l bilan ishlaydi. Ushlab turuvchi yo'q, tayanch va sirpanishga qarshi oyoq yo'q; yon tomonga og'sa narvon bilan birga yiqiladi, qo'ldagi asbob tufayli o'zini himoya qila olmaydi."
+    ],
+    "law": [
+     "안전보건규칙 제42조 [추락의 방지] 제2항(이동식 사다리 사용 기준)·제24조 [사다리식 통로 등의 구조] / 고용노동부 이동식 사다리 안전작업지침(2019)",
+     "OSH Rule Art.42(2) [portable ladder use], Art.24 [ladder-way structure] / MOEL portable-ladder safe-work guideline (2019)",
+     "安全保健规则 第42条[坠落的防止]第2款(移动式梯子使用基准)·第24条[梯式通道等的构造] / 雇佣劳动部移动式梯子安全作业指南(2019)",
+     "Quy chuẩn Điều 42(2) [dùng thang di động], Điều 24 / Hướng dẫn thang di động của Bộ LĐ (2019)",
+     "Qoidalar 42-modda 2-band [ko'chma narvon], 24-modda / Mehnat vazirligi narvon yo'riqnomasi (2019)"
+    ],
+    "csi": [
+     "CSI 사다리 관련 떨어짐 357건 사망 31명(치명률 8.6%) — 대부분 2m 미만 높이지만 머리 부위 손상으로 사망",
+     "CSI: 357 ladder falls, 31 deaths (8.6%) — mostly from under 2 m, yet fatal through head injury",
+     "CSI 梯子相关坠落357起 死亡31人(致死率8.6%) — 多为2m以下高度，但因头部损伤致死",
+     "CSI: 357 vụ ngã thang, 31 tử vong (8,6%) — phần lớn dưới 2 m nhưng tử vong do chấn thương đầu",
+     "CSI: narvondan 357 yiqilish, 31 o'lim (8,6%) — ko'pi 2 m dan past, ammo bosh jarohatidan o'lim"
+    ],
+    "cur": [
+     "최상단 탑승, 2인 1조·전도방지 없음",
+     "Standing on top step; no second person, no anti-tip",
+     "站在最上层，无两人一组·防倾倒",
+     "Đứng bậc trên cùng; không người giữ, không chống lật",
+     "Yuqori pog'onada; ikkinchi odam va ag'darilishga qarshi chora yo'q"
+    ],
+    "act": [
+     "① 사다리는 이동 통로로만 쓰고 작업은 말비계·이동식 비계·고소작업대로 대체 ② 부득이 사용 시 1.2m 이하 높이, 최상부·바로 아래 단 탑승 금지, 2인 1조로 한 명이 사다리를 잡음 ③ 아웃트리거 또는 전도방지 장치와 미끄럼방지 발판 사용 ④ 2m 이상이면 안전모 착용과 안전대 체결",
+     "(1) Use ladders only for access; do work from trestle or mobile scaffolds or an aerial platform. (2) If unavoidable, stay below 1.2 m, never on the top two steps, and work in pairs with one person holding the ladder. (3) Use outriggers or anti-tip devices and non-slip feet. (4) Above 2 m wear a helmet and clip on a harness.",
+     "① 梯子仅作通行用，作业改用马凳脚手架·移动脚手架·高处作业平台 ② 不得已使用时高度≤1.2m，禁止站在最上两层，两人一组一人扶梯 ③ 使用外撑或防倾倒装置及防滑脚 ④ 2m以上佩戴安全帽并系挂安全带",
+     "(1) Thang chỉ để đi lại; làm việc trên giàn giáo ngựa, giàn di động hoặc xe nâng người. (2) Nếu bắt buộc: dưới 1,2 m, không đứng hai bậc trên cùng, hai người với một người giữ thang. (3) Dùng chân chống lật và đế chống trượt. (4) Trên 2 m đội mũ và móc dây an toàn.",
+     "(1) Narvon faqat o'tish uchun; ishni taglik, ko'chma iskala yoki ko'taruvchi platformada bajarish. (2) Ilojsiz bo'lsa 1,2 m dan past, yuqori ikki pog'onaga chiqmaslik, ikki kishi — biri narvonni ushlaydi. (3) Tayanch yoki ag'darilishga qarshi moslama va sirpanmaydigan oyoq. (4) 2 m dan yuqorida qalpoq va kamar."
+    ],
+    "p": 3,
+    "s": 2,
+    "p2": 1,
+    "s2": 2
+   },
+   "p94": {
+    "supp": [
+     "go"
+    ],
+    "goItems": [
+     0,
+     1
+    ],
+    "safe": [
+     12,
+     13
+    ]
+   }
+  },
+  {
+   "id": "G05",
+   "e": null,
+   "p": null,
+   "dom": "gen",
+   "grp": [
+    "추락",
+    "추락",
+    "추락",
+    "추락",
+    "추락"
+   ],
+   "tag": [
+    "고소작업대(차) 안전난간 이탈·과상승·작업대 밖 작업",
+    "Aerial work platform with worker outside the basket, over-raised or leaning out",
+    "高处作业平台(车)脱离安全护栏·过度上升·平台外作业",
+    "Xe nâng người: ra ngoài lồng, nâng quá cao, làm ngoài sàn",
+    "Ko'taruvchi platforma: savatdan chiqish, haddan tashqari ko'tarish, tashqarida ishlash"
+   ],
+   "ra": {
+    "work": [
+     "고소작업대를 이용한 천장·외벽·설비 작업",
+     "Ceiling, facade and utility work from a mobile elevated work platform",
+     "利用高处作业平台的天花·外墙·设备作业",
+     "Làm trần, mặt ngoài, thiết bị bằng xe nâng người",
+     "Ko'taruvchi platformada shift, tashqi devor va uskuna ishi"
+    ],
+    "cls": [
+     "기계적 요인(추락·끼임)",
+     "Mechanical (fall, crushing)",
+     "机械性因素(坠落·夹压)",
+     "Yếu tố cơ học (ngã, kẹp)",
+     "Mexanik omil (yiqilish, qisilish)"
+    ],
+    "cause": [
+     "떨어짐·끼임 — 작업대 이탈, 천장·구조물과의 협착",
+     "Fall or crushing — leaving the basket, or trapped against ceiling or structure",
+     "坠落·夹压 — 脱离平台，与天花·结构物挤压",
+     "Ngã, kẹp — ra khỏi lồng, bị ép vào trần hoặc kết cấu",
+     "Yiqilish, qisilish — savatdan chiqish, shift yoki konstruksiyaga qisilish"
+    ],
+    "haz": [
+     "작업대 난간을 넘어 구조물에 올라서거나 난간 위에 발을 딛고 작업한다. 안전대를 작업대에 걸지 않았고, 상승 중 천장 보와의 간격을 보는 사람이 없어 조작 실수 한 번에 작업대와 구조물 사이에 끼이거나 튕겨 추락한다.",
+     "The worker climbs over the basket rail onto the structure or stands on the rail. No harness is tied to the basket, and nobody watches the gap to the ceiling beam while raising, so a single control error crushes the worker against the structure or throws them out.",
+     "越过平台护栏登上结构物或踩在护栏上作业。安全带未系于平台，上升时无人观察与天花梁的间距，一次误操作即被夹在平台与结构之间或弹出坠落。",
+     "Trèo qua lan can lồng lên kết cấu hoặc đứng trên lan can. Không móc dây vào lồng, không ai quan sát khoảng cách tới dầm trần khi nâng, một thao tác sai là bị kẹp hoặc văng ra ngoài.",
+     "Savat to'sig'idan oshib konstruksiyaga chiqadi yoki to'siq ustida turadi. Kamar savatga bog'lanmagan, ko'tarishda shift to'siniga masofani kuzatuvchi yo'q — bitta xato qisilish yoki uloqtirilishga olib keladi."
+    ],
+    "law": [
+     "안전보건규칙 제186조 [고소작업대 설치 등의 조치]·제42조 [추락의 방지]·제38조 [사전조사 및 작업계획서의 작성 등]",
+     "OSH Rule Art.186 [aerial work platform measures], Art.42 [fall prevention], Art.38 [work plan]",
+     "安全保健规则 第186条[高处作业平台设置等措施]·第42条[坠落的防止]·第38条[事前调查及作业计划书的编制等]",
+     "Quy chuẩn Điều 186 [xe nâng người], Điều 42 [phòng ngã cao], Điều 38 [kế hoạch làm việc]",
+     "Qoidalar 186-modda [ko'taruvchi platforma], 42-modda, 38-modda [ish rejasi]"
+    ],
+    "csi": [
+     "CSI 고소작업대 관련 떨어짐 98건 사망 34명(치명률 27.0%) — 떨어짐 평균 11.3%의 2.4배",
+     "CSI: 98 aerial-platform falls, 34 deaths (27.0%) — 2.4× the 11.3% average for falls",
+     "CSI 高处作业平台相关坠落98起 死亡34人(致死率27.0%) — 为坠落平均11.3%的2.4倍",
+     "CSI: 98 vụ ngã từ xe nâng người, 34 tử vong (27,0%) — gấp 2,4 lần mức trung bình 11,3%",
+     "CSI: ko'taruvchi platformadan 98 yiqilish, 34 o'lim (27,0%) — o'rtacha 11,3% dan 2,4 baravar"
+    ],
+    "cur": [
+     "난간 이탈, 안전대 미체결, 감시자 없음",
+     "Outside the rail, harness unclipped, no spotter",
+     "脱离护栏，未系安全带，无监视者",
+     "Ra ngoài lan can, không móc dây, không người quan sát",
+     "To'siqdan tashqarida, kamar bog'lanmagan, kuzatuvchi yo'q"
+    ],
+    "act": [
+     "① 작업대 안에서만 작업하고 난간 위 탑승·구조물 이동 금지 ② 안전대를 작업대 지정 고리에 체결 ③ 상승·이동 시 지상 감시자가 상부 장애물과의 간격을 확인, 과상승 방지장치·비상정지 작동 확인 ④ 작업계획서에 작업 위치·장애물·아웃트리거 설치 지반 상태를 기재",
+     "(1) Work only inside the basket; never stand on the rail or step onto the structure. (2) Tie the harness to the designated anchor in the basket. (3) A ground spotter checks clearance to overhead obstacles while raising or moving; verify over-raise limiter and emergency stop. (4) State work position, obstacles and outrigger ground conditions in the work plan.",
+     "① 仅在平台内作业，禁止站在护栏上·移至结构物 ② 安全带系于平台指定挂点 ③ 上升·移动时地面监视者确认与上方障碍物间距，确认防过升装置·紧急停止有效 ④ 作业计划书记载作业位置·障碍物·外撑设置地面状况",
+     "(1) Chỉ làm trong lồng; không đứng trên lan can, không bước sang kết cấu. (2) Móc dây vào điểm neo quy định trên lồng. (3) Người quan sát dưới đất kiểm tra khoảng cách chướng ngại phía trên khi nâng, di chuyển; kiểm tra bộ chống nâng quá và dừng khẩn. (4) Ghi vị trí, chướng ngại, nền đặt chân chống vào kế hoạch.",
+     "(1) Faqat savat ichida ishlash; to'siqqa chiqmaslik, konstruksiyaga o'tmaslik. (2) Kamarni savatdagi belgilangan halqaga bog'lash. (3) Ko'tarish va harakatda yerdagi kuzatuvchi yuqoridagi to'siqlarga masofani tekshiradi; haddan tashqari ko'tarilish cheklagichi va favqulodda to'xtatish tekshiriladi. (4) Ish rejasida joy, to'siqlar va tayanch yer holatini yozish."
+    ],
+    "p": 2,
+    "s": 3,
+    "p2": 1,
+    "s2": 3
+   },
+   "p94": {
+    "supp": [
+     "go",
+     "jung"
+    ],
+    "goItems": [
+     1
+    ],
+    "jungItems": [
+     1,
+     2,
+     4,
+     5
+    ],
+    "safe": [
+     1,
+     12,
+     13,
+     14
+    ]
+   }
+  },
+  {
+   "id": "G06",
+   "e": null,
+   "p": null,
+   "dom": "gen",
+   "grp": [
+    "낙하",
+    "낙하",
+    "낙하",
+    "낙하",
+    "낙하"
+   ],
+   "tag": [
+    "인양·양중물 하부 통행 · 줄걸이·훅 해지장치 불량",
+    "Walking under a suspended load; poor slinging or missing hook latch",
+    "吊装·起重物下方通行·吊索·吊钩防脱装置不良",
+    "Đi lại dưới tải treo; móc cáp kém, thiếu chốt an toàn móc",
+    "Osilgan yuk ostidan o'tish; noto'g'ri bog'lash, ilgak qulfi yo'q"
+   ],
+   "ra": {
+    "work": [
+     "크레인·호이스트 자재 인양 및 하역",
+     "Lifting and unloading materials with cranes or hoists",
+     "起重机·卷扬机材料吊装及卸载",
+     "Cẩu và hạ vật liệu bằng cần trục, tời",
+     "Kran va telfer bilan material ko'tarish va tushirish"
+    ],
+    "cls": [
+     "기계적 요인(낙하)",
+     "Mechanical (falling object)",
+     "机械性因素(落物)",
+     "Yếu tố cơ học (vật rơi)",
+     "Mexanik omil (tushayotgan jism)"
+    ],
+    "cause": [
+     "물체에 맞음 — 인양물 낙하·흔들림",
+     "Struck by — dropped or swinging load",
+     "物体打击 — 吊物坠落·摆动",
+     "Vật rơi — tải rơi hoặc văng",
+     "Jism urishi — yuk tushishi yoki tebranishi"
+    ],
+    "haz": [
+     "인양물이 근로자 머리 위를 지나가고 그 아래로 사람이 통행한다. 와이어로프 한 줄 걸이나 마모된 슬링, 해지장치 없는 훅은 흔들림 한 번에 자재를 놓치며, 수 톤의 자재가 떨어지면 안전모로는 막을 수 없다.",
+     "Loads pass over workers’ heads while people walk beneath. A single-leg sling, a worn strap or a hook without a safety latch drops the load on the first swing, and a helmet cannot stop several tonnes of material.",
+     "吊物从作业者头顶经过且下方有人通行。单绳吊挂、磨损吊带、无防脱装置吊钩在一次摆动中即脱落，数吨材料坠落安全帽无法防护。",
+     "Tải đi qua đầu người trong khi người đi lại phía dưới. Cáp một nhánh, dây mòn, móc không chốt sẽ rơi tải ngay lần văng đầu; mũ không đỡ nổi vài tấn vật liệu.",
+     "Yuk ishchilar boshi ustidan o'tadi, ostida odamlar yuradi. Bir tarmoqli arqon, eskirgan sling yoki qulfsiz ilgak birinchi tebranishda yukni tushiradi; qalpoq bir necha tonna materialni to'xtata olmaydi."
+    ],
+    "law": [
+     "안전보건규칙 제38조 [작업계획서]·제135조 [과부하의 제한 등]·제146조 [크레인 작업 시의 조치]·제168조 [변형되어 있는 훅·샤클 등의 사용금지]·제163조 [와이어로프 등 달기구의 안전계수]",
+     "OSH Rule Art.38 [work plan], Art.135 [overload limit], Art.146 [crane operation], Art.168 [deformed hooks and shackles], Art.163 [safety factor of slings]",
+     "安全保健规则 第38条[作业计划书]·第135条[过载的限制等]·第146条[起重机作业时的措施]·第168条[禁止使用变形的吊钩·卸扣等]·第163条[钢丝绳等吊具的安全系数]",
+     "Quy chuẩn Điều 38 [kế hoạch], Điều 135 [giới hạn tải], Điều 146 [vận hành cần trục], Điều 168 [móc, ma ní biến dạng], Điều 163 [hệ số an toàn cáp]",
+     "Qoidalar 38-modda [ish rejasi], 135-modda [ortiqcha yuk], 146-modda [kran ishi], 168-modda [deformatsiyalangan ilgak], 163-modda [arqon xavfsizlik koeffitsienti]"
+    ],
+    "csi": [
+     "CSI 인양·양중·하역 중 물체에 맞음 163건 사망 17명(치명률 10.1%) — 물체에 맞음 전체 4,382건 평균 2.8%의 3.6배; 크레인 관련 59건 사망 10명",
+     "CSI: 163 struck-by cases during lifting or unloading, 17 deaths (10.1%) — 3.6× the 2.8% average of 4,382 struck-by cases; 59 crane cases with 10 deaths",
+     "CSI 吊装·起重·卸载中物体打击163起 死亡17人(致死率10.1%) — 为物体打击总计4,382起平均2.8%的3.6倍；起重机相关59起死亡10人",
+     "CSI: 163 vụ vật rơi khi cẩu, hạ tải, 17 tử vong (10,1%) — gấp 3,6 lần mức 2,8% của 4.382 vụ; 59 vụ cần trục, 10 tử vong",
+     "CSI: ko'tarish va tushirishda 163 jism urishi, 17 o'lim (10,1%) — 4 382 holatdagi 2,8% dan 3,6 baravar; kran bilan 59 holat, 10 o'lim"
+    ],
+    "cur": [
+     "하부 통행 통제 없음, 훅 해지장치 미확인",
+     "No exclusion zone below; hook latch unchecked",
+     "下方无通行管制，吊钩防脱装置未确认",
+     "Không vùng cấm phía dưới; chưa kiểm tra chốt móc",
+     "Pastda taqiq zonasi yo'q; ilgak qulfi tekshirilmagan"
+    ],
+    "act": [
+     "① 인양 반경을 안전띠·표지로 구획하고 신호수가 하부 통행을 통제 ② 2줄 걸이 이상, 슬링 손상 여부와 훅 해지장치를 작업 전 점검 ③ 인양물에 유도 로프를 매어 흔들림 제어, 사람 머리 위 통과 금지 ④ 정격하중·작업반경을 작업계획서에 기재하고 신호 방법을 사전 통일",
+     "(1) Cordon off the lifting radius with barrier tape and signs; a signaller keeps people out from below. (2) Use two or more sling legs and check sling damage and the hook latch before each lift. (3) Attach a tag line to control swing; never pass loads over people. (4) State rated load and radius in the work plan and agree hand signals in advance.",
+     "① 以警戒带·标识划定吊装半径，信号员管制下方通行 ② 两绳以上吊挂，作业前检查吊索损伤及吊钩防脱装置 ③ 吊物系导向绳控制摆动，禁止从人员头顶经过 ④ 作业计划书记载额定载荷·作业半径并事先统一信号方式",
+     "(1) Rào vùng cẩu bằng dây và biển; người ra hiệu chặn người đi dưới. (2) Móc từ hai nhánh trở lên, kiểm tra hư hỏng cáp và chốt móc trước mỗi lần cẩu. (3) Buộc dây dẫn hướng để kiểm soát văng; không đưa tải qua đầu người. (4) Ghi tải định mức, bán kính vào kế hoạch; thống nhất tín hiệu trước.",
+     "(1) Ko'tarish radiusini lenta va belgi bilan to'sish; signalchi pastdan o'tishni taqiqlaydi. (2) Kamida ikki tarmoqli bog'lash, har ko'tarishdan oldin sling va ilgak qulfini tekshirish. (3) Tebranishni boshqarish uchun yo'naltiruvchi arqon; yukni odamlar ustidan o'tkazmaslik. (4) Ish rejasida nominal yuk va radiusni yozish, signallarni oldindan kelishish."
+    ],
+    "p": 3,
+    "s": 3,
+    "p2": 1,
+    "s2": 3
+   },
+   "p94": {
+    "supp": [
+     "jung"
+    ],
+    "jungItems": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "safe": [
+     1,
+     12,
+     13,
+     14
+    ]
+   }
+  },
+  {
+   "id": "G07",
+   "e": null,
+   "p": null,
+   "dom": "gen",
+   "grp": [
+    "낙하",
+    "낙하",
+    "낙하",
+    "낙하",
+    "낙하"
+   ],
+   "tag": [
+    "자재 불안정 적재 · 낙하물 방지망·방호선반 없음",
+    "Unstable stacking of materials; no debris net or catch platform",
+    "材料堆放不稳·无落物防护网·防护棚",
+    "Xếp vật liệu không ổn định; không lưới, mái che chống vật rơi",
+    "Materiallar beqaror taxlangan; tushishga qarshi to'r yoki ayvon yo'q"
+   ],
+   "ra": {
+    "work": [
+     "상층 자재 적치·정리 및 하부 통행",
+     "Storing and tidying materials on upper floors with traffic below",
+     "上层材料堆放·整理及下方通行",
+     "Chứa, dọn vật liệu tầng trên khi bên dưới có người",
+     "Yuqori qavatda material saqlash va tartiblash, pastda odamlar"
+    ],
+    "cls": [
+     "기계적 요인(낙하)",
+     "Mechanical (falling object)",
+     "机械性因素(落物)",
+     "Yếu tố cơ học (vật rơi)",
+     "Mexanik omil (tushayotgan jism)"
+    ],
+    "cause": [
+     "물체에 맞음 — 적재물·공구·잔재 낙하",
+     "Struck by — falling stacked material, tools or debris",
+     "物体打击 — 堆放物·工具·残料坠落",
+     "Vật rơi — vật liệu xếp, dụng cụ, phế liệu",
+     "Jism urishi — taxlangan material, asbob, chiqindi tushishi"
+    ],
+    "haz": [
+     "슬래브 단부 가까이에 자재가 높게 쌓여 있고 바람이나 접촉으로 쉽게 무너질 상태다. 외부 비계에 낙하물 방지망이 없고 출입구 상부에 방호선반도 없어, 떨어진 자재가 하부 통로의 근로자를 직접 타격한다.",
+     "Material is stacked high near the slab edge and can topple with wind or a touch. There is no debris net on the outer scaffold and no catch platform above the entrance, so anything that falls strikes the workers on the walkway below directly.",
+     "楼板临边附近材料堆放过高，风吹或触碰即倒塌。外脚手架无落物防护网，出入口上方无防护棚，坠落材料直接击中下方通道作业者。",
+     "Vật liệu xếp cao sát mép sàn, gió hoặc va chạm nhẹ là đổ. Giàn giáo ngoài không có lưới, cửa ra vào không có mái che nên vật rơi đánh thẳng vào người bên dưới.",
+     "Material plita chekkasiga yaqin baland taxlangan, shamol yoki tegishdan qulaydi. Tashqi iskalada to'r, kirish ustida ayvon yo'q — tushgan material pastdagi ishchilarga to'g'ridan-to'g'ri uradi."
+    ],
+    "law": [
+     "안전보건규칙 제14조 [낙하물에 의한 위험의 방지]·제15조 [투하설비 등]·제173조 [화물적재 시의 조치]·제3조 [전도의 방지]",
+     "OSH Rule Art.14 [falling-object protection], Art.15 [chutes], Art.173 [stacking of loads], Art.3 [prevention of toppling]",
+     "安全保健规则 第14条[落物危险的防止]·第15条[投放设备等]·第173条[货物堆放时的措施]·第3条[倾倒的防止]",
+     "Quy chuẩn Điều 14 [chống vật rơi], Điều 15 [máng đổ], Điều 173 [xếp hàng], Điều 3 [chống đổ]",
+     "Qoidalar 14-modda [tushayotgan jismdan himoya], 15-modda, 173-modda [yuk taxlash], 3-modda"
+    ],
+    "csi": [
+     "CSI 인적사고 최다 유형 물체에 맞음 4,382건(14.2%) 사망 123명 — 외국인 근로자 808건으로 외국인 사고 중 1위",
+     "CSI: struck-by is the most frequent type, 4,382 cases (14.2%) with 123 deaths — 808 involved foreign workers, the top type among them",
+     "CSI 人身事故最多类型为物体打击4,382起(14.2%) 死亡123人 — 外籍劳工808起，居外籍事故首位",
+     "CSI: vật rơi là loại nhiều nhất, 4.382 vụ (14,2%), 123 tử vong — 808 vụ liên quan lao động nước ngoài, đứng đầu",
+     "CSI: jism urishi eng ko'p tur, 4 382 holat (14,2%), 123 o'lim — 808 tasi chet ellik ishchilar, ular orasida birinchi"
+    ],
+    "cur": [
+     "단부 적재, 방지망·방호선반 없음",
+     "Stacked at the edge; no net or catch platform",
+     "临边堆放，无防护网·防护棚",
+     "Xếp sát mép; không lưới, mái che",
+     "Chekkada taxlangan; to'r va ayvon yo'q"
+    ],
+    "act": [
+     "① 자재는 단부에서 1m 이상 떨어져 낮고 안정되게 적재하고 결속 ② 외부 비계에 낙하물 방지망(10m 이내마다), 출입구·통로 상부에 방호선반 설치 ③ 잔재는 투하설비나 포대로 내리고 상부 작업 중 하부 통행을 통제 ④ 공구는 낙하방지 끈으로 결속",
+     "(1) Stack materials low and stable at least 1 m from the edge and tie them down. (2) Fit debris nets on outer scaffolds (every 10 m) and catch platforms above entrances and walkways. (3) Lower debris through chutes or in bags and stop traffic below while work continues above. (4) Tether tools with drop-prevention lanyards.",
+     "① 材料距临边1m以上、低而稳固堆放并捆扎 ② 外脚手架设置落物防护网(每10m以内)，出入口·通道上方设置防护棚 ③ 残料经投放设备或料袋下放，上方作业时管制下方通行 ④ 工具系防坠绳",
+     "(1) Xếp thấp, ổn định, cách mép ≥1 m và chằng buộc. (2) Lưới chống vật rơi trên giàn ngoài (mỗi ≤10 m), mái che trên cửa và lối đi. (3) Hạ phế liệu bằng máng hoặc bao; chặn người dưới khi làm trên. (4) Buộc dây chống rơi cho dụng cụ.",
+     "(1) Materialni chekkadan ≥1 m uzoqda past va barqaror taxlab bog'lash. (2) Tashqi iskalada to'r (har 10 m), kirish va yo'laklar ustida ayvon. (3) Chiqindini nov yoki qopda tushirish; yuqorida ish paytida pastdan o'tishni to'xtatish. (4) Asboblarni tushishga qarshi ip bilan bog'lash."
+    ],
+    "p": 3,
+    "s": 2,
+    "p2": 1,
+    "s2": 2
+   },
+   "p94": {
+    "supp": [],
+    "safe": [
+     1,
+     12,
+     13
+    ]
+   }
+  },
+  {
+   "id": "G08",
+   "e": null,
+   "p": null,
+   "dom": "gen",
+   "grp": [
+    "장비",
+    "장비",
+    "장비",
+    "장비",
+    "장비"
+   ],
+   "tag": [
+    "굴착기·건설기계 작업반경 내 근로자 · 유도자 없음",
+    "Worker inside excavator or machinery swing radius; no banksman",
+    "挖掘机·建设机械作业半径内有作业者·无引导员",
+    "Người trong bán kính làm việc máy đào; không người hướng dẫn",
+    "Ekskavator yoki mashina radiusida ishchi; yo'naltiruvchi yo'q"
+   ],
+   "ra": {
+    "work": [
+     "굴착·상차·정지 등 건설기계 병행 작업",
+     "Excavation, loading and grading alongside construction machinery",
+     "挖掘·装车·平整等与建设机械并行作业",
+     "Đào, xúc, san cùng máy xây dựng",
+     "Qurilish mashinalari bilan qazish, yuklash, tekislash"
+    ],
+    "cls": [
+     "기계적 요인(충돌·끼임)",
+     "Mechanical (collision, crushing)",
+     "机械性因素(碰撞·夹压)",
+     "Yếu tố cơ học (va đập, kẹp)",
+     "Mexanik omil (to'qnashuv, qisilish)"
+    ],
+    "cause": [
+     "부딪힘·끼임 — 선회하는 버킷·차체와 충돌",
+     "Struck or crushed — by the swinging bucket or body",
+     "碰撞·夹压 — 与回转的铲斗·车体碰撞",
+     "Va đập, kẹp — gầu hoặc thân máy quay",
+     "Urish, qisilish — aylanayotgan chelak yoki korpus"
+    ],
+    "haz": [
+     "굴착기가 선회하는 반경 안에 근로자가 들어가 측량이나 정리작업을 한다. 운전자의 후방·측면 사각에 있고 유도자가 없어, 선회하는 버킷이나 카운터웨이트에 부딪히거나 벽체와 차체 사이에 끼인다.",
+     "A worker enters the excavator’s swing radius to survey or tidy. He is in the operator’s rear or side blind spot with no banksman, so the swinging bucket or counterweight strikes him or pins him between the wall and the body.",
+     "作业者进入挖掘机回转半径内测量或整理。处于操作员后方·侧方盲区且无引导员，被回转的铲斗或配重击中，或夹在墙体与车体之间。",
+     "Người vào bán kính quay của máy đào để đo đạc, dọn dẹp. Ở điểm mù phía sau, bên hông của lái máy, không có người hướng dẫn, nên bị gầu hoặc đối trọng đánh trúng hoặc kẹp vào tường.",
+     "Ishchi ekskavator aylanish radiusiga kirib o'lchash yoki tartiblash qiladi. Haydovchining orqa yoki yon ko'r nuqtasida, yo'naltiruvchi yo'q — chelak yoki qarshi og'irlik uradi yoki devor bilan korpus orasiga qisiladi."
+    ],
+    "law": [
+     "안전보건규칙 제200조 [접촉 방지]·제201조 [작업계획서 등]·제98조 [제한속도의 지정 등]·제38조 [사전조사 및 작업계획서]·제99조 [운전위치 이탈 시의 조치]",
+     "OSH Rule Art.200 [contact prevention], Art.201 [work plan], Art.98 [speed limit], Art.38 [work plan], Art.99 [leaving the operator seat]",
+     "安全保健规则 第200条[接触的防止]·第201条[作业计划书等]·第98条[限速的指定等]·第38条[事前调查及作业计划书]·第99条[离开驾驶位置时的措施]",
+     "Quy chuẩn Điều 200 [chống tiếp xúc], Điều 201, Điều 98 [tốc độ], Điều 38, Điều 99",
+     "Qoidalar 200-modda [tegishni oldini olish], 201-modda, 98-modda, 38-modda, 99-modda"
+    ],
+    "csi": [
+     "CSI 굴착기 관련 사고 576건 사망 70명(치명률 12.3%) — 건설기계·차량 끼임 313건 사망 35명, 깔림 146건 사망 58명(38.4%)",
+     "CSI: 576 excavator cases, 70 deaths (12.3%) — 313 crushing cases with machinery/vehicles (35 deaths) and 146 run-over cases (58 deaths, 38.4%)",
+     "CSI 挖掘机相关事故576起 死亡70人(致死率12.3%) — 建设机械·车辆夹压313起死亡35人，碾压146起死亡58人(38.4%)",
+     "CSI: 576 vụ máy đào, 70 tử vong (12,3%) — 313 vụ kẹp máy/xe (35 tử vong), 146 vụ bị đè (58 tử vong, 38,4%)",
+     "CSI: ekskavator bilan 576 holat, 70 o'lim (12,3%) — mashina/transportga qisilish 313 holat (35 o'lim), bosib ketish 146 holat (58 o'lim, 38,4%)"
+    ],
+    "cur": [
+     "반경 내 진입, 유도자·경계 없음",
+     "Inside the radius; no banksman or barrier",
+     "进入半径内，无引导员·警戒",
+     "Vào trong bán kính; không hướng dẫn, không rào",
+     "Radius ichida; yo'naltiruvchi va to'siq yo'q"
+    ],
+    "act": [
+     "① 작업반경을 표지·안전띠로 구획하고 유도자를 배치, 근로자 진입 시 장비 정지 후 운전자와 눈맞춤 ② 후방 카메라·경보장치 작동 확인, 운전자 사각지대 교육 ③ 작업계획서에 장비 동선·근로자 작업위치·신호 방법 기재 ④ 운전자 이탈 시 버킷을 지면에 내리고 시동 정지",
+     "(1) Mark the swing radius with signs and tape, post a banksman, and stop the machine and make eye contact with the operator before anyone enters. (2) Check the rear camera and alarm work; brief on blind spots. (3) State machine routes, worker positions and signals in the work plan. (4) Lower the bucket to the ground and switch off before the operator leaves the seat.",
+     "① 以标识·警戒带划定作业半径并配置引导员，人员进入时先停机并与操作员对视确认 ② 确认后视摄像头·报警装置有效，进行盲区教育 ③ 作业计划书记载设备动线·作业者位置·信号方式 ④ 操作员离开时铲斗落地并熄火",
+     "(1) Đánh dấu bán kính bằng biển và dây, bố trí người hướng dẫn; dừng máy và nhìn thẳng lái máy trước khi vào. (2) Kiểm tra camera lùi, còi báo; huấn luyện điểm mù. (3) Ghi đường máy, vị trí người, tín hiệu vào kế hoạch. (4) Hạ gầu xuống đất, tắt máy khi lái rời ghế.",
+     "(1) Radiusni belgi va lenta bilan chegaralash, yo'naltiruvchi qo'yish; kirishdan oldin mashinani to'xtatib, haydovchi bilan ko'z bilan tasdiqlash. (2) Orqa kamera va signalni tekshirish; ko'r nuqta bo'yicha yo'riqnoma. (3) Ish rejasida mashina yo'li, ishchi joyi va signallar. (4) Haydovchi ketganda chelakni yerga tushirib, motorni o'chirish."
+    ],
+    "p": 3,
+    "s": 3,
+    "p2": 1,
+    "s2": 3
+   },
+   "p94": {
+    "supp": [
+     "jung"
+    ],
+    "jungItems": [
+     0,
+     1,
+     2,
+     3,
+     5
+    ],
+    "safe": [
+     1,
+     13,
+     14
+    ]
+   }
+  },
+  {
+   "id": "G09",
+   "e": null,
+   "p": null,
+   "dom": "gen",
+   "grp": [
+    "장비",
+    "장비",
+    "장비",
+    "장비",
+    "장비"
+   ],
+   "tag": [
+    "차량·지게차 통행로 미분리 · 신호수 없이 후진",
+    "Vehicle or forklift route not separated from pedestrians; reversing without a signaller",
+    "车辆·叉车通行路线未与人员分离·无信号员倒车",
+    "Đường xe, xe nâng không tách khỏi người đi bộ; lùi xe không người ra hiệu",
+    "Transport va yuk ko'targich yo'li piyodadan ajratilmagan; signalchisiz orqaga yurish"
+   ],
+   "ra": {
+    "work": [
+     "덤프트럭·지게차 자재 반입·운반",
+     "Delivering and moving materials by dump truck or forklift",
+     "自卸车·叉车材料运入·搬运",
+     "Chở, vận chuyển vật liệu bằng xe ben, xe nâng",
+     "Samosval va yuk ko'targich bilan material tashish"
+    ],
+    "cls": [
+     "기계적 요인(충돌·깔림)",
+     "Mechanical (collision, run-over)",
+     "机械性因素(碰撞·碾压)",
+     "Yếu tố cơ học (va đập, bị đè)",
+     "Mexanik omil (to'qnashuv, bosib ketish)"
+    ],
+    "cause": [
+     "부딪힘·깔림 — 후진 차량과 보행자 충돌",
+     "Struck or run over — reversing vehicle hits a pedestrian",
+     "碰撞·碾压 — 倒车车辆与行人碰撞",
+     "Va đập, bị đè — xe lùi đâm người",
+     "Urish, bosib ketish — orqaga yurayotgan transport piyodani uradi"
+    ],
+    "haz": [
+     "차량 통행로와 보행 통로가 구분되지 않은 야적장에서 덤프트럭이 신호수 없이 후진한다. 운전자는 후방 3m 이상을 보지 못하고 근로자는 소음 때문에 후진 경보를 듣지 못해 그대로 깔린다.",
+     "In a yard where vehicle and pedestrian routes are not separated, a dump truck reverses without a signaller. The driver cannot see beyond 3 m behind and the worker cannot hear the reversing alarm over site noise, so he is run over.",
+     "在车辆与人行通道未分离的堆场，自卸车无信号员倒车。驾驶员看不见后方3m以外，作业者因噪音听不到倒车警报而被碾压。",
+     "Ở bãi không tách đường xe và lối đi bộ, xe ben lùi không có người ra hiệu. Lái xe không thấy quá 3 m phía sau, người lao động không nghe còi lùi vì ồn nên bị đè.",
+     "Transport va piyoda yo'li ajratilmagan maydonda samosval signalchisiz orqaga yuradi. Haydovchi orqada 3 m dan narini ko'rmaydi, ishchi shovqin tufayli signalni eshitmaydi va bosib ketiladi."
+    ],
+    "law": [
+     "안전보건규칙 제171조 [전도 등의 방지]·제172조 [접촉의 방지]·제173조 [화물적재 시의 조치]·제98조 [제한속도의 지정 등]·제21조 [통로의 설치]",
+     "OSH Rule Art.171 [prevention of overturning], Art.172 [contact prevention], Art.173, Art.98 [speed limit], Art.21 [walkways]",
+     "安全保健规则 第171条[倾覆等的防止]·第172条[接触的防止]·第173条[货物堆放时的措施]·第98条[限速的指定等]·第21条[通道的设置]",
+     "Quy chuẩn Điều 171, Điều 172 [chống tiếp xúc], Điều 173, Điều 98 [tốc độ], Điều 21 [lối đi]",
+     "Qoidalar 171-modda, 172-modda [tegishni oldini olish], 173-modda, 98-modda, 21-modda [yo'laklar]"
+    ],
+    "csi": [
+     "CSI 깔림 756건 사망 218명(치명률 25.9%) — 장비·차량에 의한 깔림 146건 사망 58명(38.4%); 지게차 사고 119건 사망 7명",
+     "CSI: 756 run-over/crushed-under cases, 218 deaths (25.9%) — 146 by vehicles or machinery with 58 deaths (38.4%); 119 forklift cases, 7 deaths",
+     "CSI 碾压756起 死亡218人(致死率25.9%) — 设备·车辆碾压146起死亡58人(38.4%)；叉车事故119起死亡7人",
+     "CSI: 756 vụ bị đè, 218 tử vong (25,9%) — 146 vụ do xe, máy với 58 tử vong (38,4%); 119 vụ xe nâng, 7 tử vong",
+     "CSI: bosib ketish 756 holat, 218 o'lim (25,9%) — transport va mashina bilan 146 holat, 58 o'lim (38,4%); yuk ko'targich 119 holat, 7 o'lim"
+    ],
+    "cur": [
+     "통로 미분리, 신호수·후진 경보 미확인",
+     "Routes not separated; no signaller, alarm unchecked",
+     "通道未分离，无信号员·倒车警报未确认",
+     "Không tách đường; không người ra hiệu, chưa kiểm tra còi",
+     "Yo'llar ajratilmagan; signalchi yo'q, signal tekshirilmagan"
+    ],
+    "act": [
+     "① 차량 통행로와 보행 통로를 펜스·차선으로 물리적으로 분리하고 제한속도 표지 설치 ② 후진·하역 시 신호수 배치, 후진 경보와 후방 카메라 작동 확인 ③ 지게차는 포크를 내리고 주행, 시야 가림 적재 금지 ④ 운반 작업계획서에 동선·하역 위치·신호 방법 기재",
+     "(1) Physically separate vehicle and pedestrian routes with fences or lane markings and post speed-limit signs. (2) Post a signaller for reversing and unloading; check the reversing alarm and rear camera. (3) Drive forklifts with forks lowered and never with a view-blocking load. (4) State routes, unloading points and signals in the transport work plan.",
+     "① 以围栏·车道线物理分离车辆通道与人行通道并设置限速标识 ② 倒车·卸货时配置信号员，确认倒车警报与后视摄像头有效 ③ 叉车降叉行驶，禁止遮挡视线装载 ④ 搬运作业计划书记载动线·卸货位置·信号方式",
+     "(1) Tách vật lý đường xe và lối đi bằng rào, vạch; đặt biển giới hạn tốc độ. (2) Bố trí người ra hiệu khi lùi, dỡ hàng; kiểm tra còi lùi, camera. (3) Xe nâng hạ càng khi chạy, không chở hàng che tầm nhìn. (4) Ghi tuyến, điểm dỡ, tín hiệu vào kế hoạch vận chuyển.",
+     "(1) Transport va piyoda yo'lini to'siq yoki chiziq bilan jismonan ajratish, tezlik belgisi qo'yish. (2) Orqaga yurish va tushirishda signalchi; signal va orqa kamerani tekshirish. (3) Yuk ko'targich vilkasi tushirilgan holda yuradi, ko'rishni to'suvchi yuk taqiqlanadi. (4) Tashish rejasida yo'l, tushirish joyi va signallar."
+    ],
+    "p": 3,
+    "s": 3,
+    "p2": 1,
+    "s2": 3
+   },
+   "p94": {
+    "supp": [
+     "jung"
+    ],
+    "jungItems": [
+     0,
+     1,
+     2,
+     3,
+     5
+    ],
+    "safe": [
+     1,
+     13,
+     14
+    ]
+   }
+  },
+  {
+   "id": "G10",
+   "e": null,
+   "p": null,
+   "dom": "gen",
+   "grp": [
+    "장비",
+    "장비",
+    "장비",
+    "장비",
+    "장비"
+   ],
+   "tag": [
+    "회전체·동력기계 방호덮개 없음 · 운전 중 정비",
+    "Rotating or powered machine without guard; maintenance while running",
+    "旋转体·动力机械无防护罩·运转中维修",
+    "Máy quay, máy động lực không có che chắn; sửa chữa khi đang chạy",
+    "Aylanuvchi yoki quvvatli mashina himoyasiz; ishlayotganda ta'mirlash"
+   ],
+   "ra": {
+    "work": [
+     "철근 절단기·믹서·컨베이어 등 기계 운전·정비",
+     "Operating and servicing rebar cutters, mixers, conveyors and similar machines",
+     "钢筋切断机·搅拌机·输送机等机械运转·维修",
+     "Vận hành, bảo dưỡng máy cắt thép, máy trộn, băng tải",
+     "Armatura kesgich, mikser, konveyer kabi mashinalarni ishlatish va ta'mirlash"
+    ],
+    "cls": [
+     "기계적 요인(끼임)",
+     "Mechanical (caught-in)",
+     "机械性因素(夹压)",
+     "Yếu tố cơ học (kẹp)",
+     "Mexanik omil (qisilish)"
+    ],
+    "cause": [
+     "끼임 — 회전부·전동부에 신체 말림",
+     "Caught in — limb drawn into rotating or transmission parts",
+     "夹压 — 身体卷入旋转部·传动部",
+     "Kẹp — tay chân cuốn vào bộ phận quay, truyền động",
+     "Qisilish — aylanuvchi yoki uzatma qismga tortilish"
+    ],
+    "haz": [
+     "벨트·기어·회전축이 덮개 없이 노출된 채 가동 중이고 작업자가 장갑을 낀 손으로 걸린 자재를 빼내려 한다. 전원을 끄지 않아 회전부가 장갑째 손을 말아 넣으며, 비상정지 스위치는 손이 닿지 않는 곳에 있다.",
+     "Belts, gears and shafts run exposed without guards while a gloved worker reaches in to free jammed material. The power is not cut, so the rotating part draws the glove and hand in, and the emergency stop is out of reach.",
+     "皮带·齿轮·转轴无罩暴露运转，作业者戴手套伸手取卡住的材料。未断电，旋转部连手套卷入手部，且急停开关在够不到的位置。",
+     "Dây đai, bánh răng, trục quay không che chắn khi đang chạy; người đeo găng thò tay gỡ vật liệu kẹt. Không cắt điện nên bộ phận quay cuốn cả găng lẫn tay; nút dừng khẩn ngoài tầm với.",
+     "Tasma, tishli g'ildirak va val himoyasiz ishlayapti, qo'lqopli ishchi tiqilgan materialni olmoqchi. Tok o'chirilmagan — aylanuvchi qism qo'lqop bilan qo'lni tortadi, favqulodda to'xtatish tugmasi uzoqda."
+    ],
+    "law": [
+     "안전보건규칙 제87조 [원동기·회전축 등의 위험 방지]·제92조 [정비 등의 작업 시의 운전정지 등]·제93조 [방호장치의 해체 금지]·제94조 [작업모 등의 착용]",
+     "OSH Rule Art.87 [guarding of motors and shafts], Art.92 [stopping machines for maintenance], Art.93 [no removal of guards], Art.94 [work caps and clothing]",
+     "安全保健规则 第87条[原动机·转轴等危险的防止]·第92条[维修等作业时的停止运转等]·第93条[禁止拆除防护装置]·第94条[工作帽等的佩戴]",
+     "Quy chuẩn Điều 87 [che chắn động cơ, trục], Điều 92 [dừng máy khi bảo dưỡng], Điều 93 [không tháo che chắn], Điều 94",
+     "Qoidalar 87-modda [dvigatel va val himoyasi], 92-modda [ta'mirda to'xtatish], 93-modda, 94-modda"
+    ],
+    "csi": [
+     "CSI 끼임 3,502건 사망 61명 — 인적사고 2위(11.3%); 외국인 근로자 454건",
+     "CSI: 3,502 caught-in cases, 61 deaths — second most frequent type (11.3%); 454 involved foreign workers",
+     "CSI 夹压3,502起 死亡61人 — 人身事故第2位(11.3%)；外籍劳工454起",
+     "CSI: 3.502 vụ kẹp, 61 tử vong — loại nhiều thứ hai (11,3%); 454 vụ lao động nước ngoài",
+     "CSI: qisilish 3 502 holat, 61 o'lim — ikkinchi ko'p tur (11,3%); chet ellik ishchilar 454"
+    ],
+    "cur": [
+     "방호덮개 없음, 운전 중 정비",
+     "No guard; serviced while running",
+     "无防护罩，运转中维修",
+     "Không che chắn; sửa khi đang chạy",
+     "Himoya yo'q; ishlayotganda ta'mirlanadi"
+    ],
+    "act": [
+     "① 회전부·전동부에 덮개·울을 설치하고 임의 해체 금지 ② 걸림 제거·정비 시 전원 차단 후 기동장치에 잠금·표지(LOTO) ③ 비상정지 스위치를 조작 위치에서 닿는 곳에 설치 ④ 회전체 취급 시 말릴 수 있는 장갑·헐거운 옷 착용 금지",
+     "(1) Fit guards or fences on rotating and transmission parts and forbid removal. (2) Cut power and lock/tag the starter (LOTO) before clearing jams or servicing. (3) Put the emergency stop within reach of the operating position. (4) No gloves or loose clothing that can be drawn in when handling rotating parts.",
+     "① 旋转部·传动部安装防护罩·围栏并禁止擅自拆除 ② 清除卡料·维修时先断电并对启动装置上锁·挂牌(LOTO) ③ 急停开关设置在操作位置可触及处 ④ 操作旋转体时禁止佩戴易卷入的手套·宽松衣物",
+     "(1) Lắp che chắn, rào bộ phận quay, truyền động; cấm tháo. (2) Cắt điện, khóa và treo thẻ bộ khởi động (LOTO) trước khi gỡ kẹt, bảo dưỡng. (3) Nút dừng khẩn trong tầm với tại vị trí vận hành. (4) Không đeo găng, mặc đồ rộng khi thao tác bộ phận quay.",
+     "(1) Aylanuvchi va uzatma qismlarga qopqoq yoki to'siq o'rnatish, olishni taqiqlash. (2) Tiqilishni tozalash va ta'mirdan oldin tokni uzib, ishga tushirgichni qulflab belgilash (LOTO). (3) Favqulodda to'xtatish tugmasi ish joyidan yetadigan joyda. (4) Aylanuvchi qism bilan ishlashda tortilishi mumkin qo'lqop va keng kiyim taqiqlanadi."
+    ],
+    "p": 3,
+    "s": 2,
+    "p2": 1,
+    "s2": 2
+   },
+   "p94": {
+    "supp": [
+     "jeon"
+    ],
+    "safe": [
+     12,
+     13,
+     14
+    ]
+   }
+  },
+  {
+   "id": "G11",
+   "e": null,
+   "p": null,
+   "dom": "gen",
+   "grp": [
+    "붕괴",
+    "붕괴",
+    "붕괴",
+    "붕괴",
+    "붕괴"
+   ],
+   "tag": [
+    "굴착면 기울기·흙막이 미확보 · 굴착 저면 작업",
+    "Excavation without safe slope or shoring; working at the bottom of the cut",
+    "开挖面坡度·挡土支护未确保·在开挖底部作业",
+    "Hố đào không đủ mái dốc, không chống vách; làm việc dưới đáy hố",
+    "Qazish qiyaligi va tirgak yo'q; chuqur tubida ish"
+   ],
+   "ra": {
+    "work": [
+     "관로·기초 터파기 및 배관 매설",
+     "Trenching for pipes and foundations and laying pipe",
+     "管道·基础开挖及管道埋设",
+     "Đào rãnh ống, móng và đặt ống",
+     "Quvur va poydevor uchun qazish, quvur yotqizish"
+    ],
+    "cls": [
+     "기계적 요인(붕괴)",
+     "Mechanical (collapse)",
+     "机械性因素(坍塌)",
+     "Yếu tố cơ học (sập)",
+     "Mexanik omil (qulash)"
+    ],
+    "cause": [
+     "깔림·무너짐 — 굴착면 붕괴로 매몰",
+     "Buried — collapse of the excavation face",
+     "掩埋·坍塌 — 开挖面坍塌被埋",
+     "Bị vùi — sập vách hố đào",
+     "Ko'milish — qazish devori qulashi"
+    ],
+    "haz": [
+     "깊이 1.5m 이상 수직으로 판 도랑 안에서 흙막이나 기울기 없이 배관을 맞추고 있다. 굴착 토사가 가장자리에 그대로 쌓여 하중을 더하고 있어, 강우나 장비 진동으로 벽면이 무너지면 작업자는 한 번에 허리 위까지 매몰된다.",
+     "A worker aligns pipe inside a vertical trench deeper than 1.5 m with no shoring or benching. Spoil is heaped at the edge, adding load, so rain or machine vibration collapses the wall and buries the worker to the waist in an instant.",
+     "在1.5m以上垂直开挖的沟槽内无支护·无放坡对接管道。开挖土堆在沟边增加荷载，降雨或设备振动导致壁面坍塌时，作业者瞬间被埋至腰部以上。",
+     "Người căn chỉnh ống trong rãnh thẳng đứng sâu hơn 1,5 m không chống vách, không bậc. Đất đào chất ở mép tăng tải; mưa hoặc rung máy làm vách sập, vùi người tới thắt lưng ngay lập tức.",
+     "Ishchi 1,5 m dan chuqur tik xandaqda tirgak va qiyaliksiz quvur to'g'rilaydi. Qazilgan tuproq chetda uyulgan bo'lib yuk qo'shadi; yomg'ir yoki mashina tebranishi devorni qulatib, ishchini belgacha ko'madi."
+    ],
+    "law": [
+     "안전보건규칙 제338조 [굴착작업 사전조사 등]·제339조 [굴착면의 붕괴 등에 의한 위험방지]·제340조·제347조 [붕괴 등의 위험 방지, 흙막이지보공]·제38조 [작업계획서] / KOSHA C-39 굴착공사 안전작업지침",
+     "OSH Rule Art.338 [pre-survey], Art.339 [slope of cut face], Art.340, Art.347 [shoring], Art.38 [work plan] / KOSHA C-39",
+     "安全保健规则 第338条[开挖作业事前调查等]·第339条[开挖面坍塌等危险的防止]·第340条·第347条[挡土支护]·第38条[作业计划书] / KOSHA C-39",
+     "Quy chuẩn Điều 338 [khảo sát trước], Điều 339 [mái dốc hố đào], Điều 340, Điều 347 [chống vách], Điều 38 / KOSHA C-39",
+     "Qoidalar 338-modda, 339-modda [qazish qiyaligi], 340-, 347-modda [tirgak], 38-modda / KOSHA C-39"
+    ],
+    "csi": [
+     "CSI 깔림 756건 사망 218명(치명률 25.9%) — 흙막이·지반 관련 850건; 무너짐 22건 사망 7명(19.4%)",
+     "CSI: 756 buried/crushed cases, 218 deaths (25.9%) — 850 cases involving shoring or ground; 22 collapses with 7 deaths (19.4%)",
+     "CSI 掩埋756起 死亡218人(致死率25.9%) — 挡土·地基相关850起；坍塌22起死亡7人(19.4%)",
+     "CSI: 756 vụ bị vùi, đè, 218 tử vong (25,9%) — 850 vụ liên quan chống vách, nền đất; 22 vụ sập, 7 tử vong (19,4%)",
+     "CSI: ko'milish/bosilish 756 holat, 218 o'lim (25,9%) — tirgak va grunt bilan 850 holat; qulash 22 holat, 7 o'lim (19,4%)"
+    ],
+    "cur": [
+     "흙막이·기울기 없음, 굴착토 가장자리 적치",
+     "No shoring or slope; spoil at the edge",
+     "无支护·放坡，开挖土堆于沟边",
+     "Không chống vách, không mái dốc; đất chất ở mép",
+     "Tirgak va qiyalik yo'q; tuproq chetda uyulgan"
+    ],
+    "act": [
+     "① 굴착 전 지반·지하매설물 사전조사 후 굴착면 기울기(규칙 별표 11) 확보 또는 흙막이지보공·트렌치박스 설치 ② 굴착토는 굴착면 상단에서 1m 이상 떨어뜨려 적치 ③ 승강 사다리를 설치하고 감시인 배치, 강우 후에는 작업 전 벽면 점검 ④ 작업계획서에 굴착 깊이·기울기·지보공 도면 첨부",
+     "(1) Survey ground and buried utilities before digging; keep the slope in Rule Annex 11 or install shoring or a trench box. (2) Keep spoil at least 1 m back from the top of the cut. (3) Provide an access ladder and a watcher; inspect the walls after rain before work resumes. (4) Attach depth, slope and shoring drawings to the work plan.",
+     "① 开挖前调查地基·地下埋设物，确保开挖面坡度(规则附表11)或设置挡土支护·沟槽箱 ② 开挖土堆放于开挖面上缘1m以外 ③ 设置上下梯并配置监视人，降雨后作业前检查壁面 ④ 作业计划书附开挖深度·坡度·支护图纸",
+     "(1) Khảo sát nền và công trình ngầm trước khi đào; giữ mái dốc theo Phụ lục 11 hoặc chống vách, hộp rãnh. (2) Đất đào cách mép ≥1 m. (3) Có thang lên xuống, người giám sát; kiểm tra vách sau mưa. (4) Đính bản vẽ độ sâu, mái dốc, chống vách vào kế hoạch.",
+     "(1) Qazishdan oldin grunt va yer osti kommunikatsiyalarini o'rganish; 11-ilova qiyaligini saqlash yoki tirgak, xandaq qutisi. (2) Tuproqni chekkadan ≥1 m uzoqda uyish. (3) Chiqish narvoni va kuzatuvchi; yomg'irdan keyin devorlarni tekshirish. (4) Ish rejasiga chuqurlik, qiyalik va tirgak chizmalari."
+    ],
+    "p": 2,
+    "s": 3,
+    "p2": 1,
+    "s2": 3
+   },
+   "p94": {
+    "supp": [
+     "gul",
+     "jung"
+    ],
+    "jungItems": [
+     0,
+     1,
+     2,
+     5
+    ],
+    "safe": [
+     1,
+     12,
+     13,
+     14
+    ]
+   }
+  },
+  {
+   "id": "G12",
+   "e": null,
+   "p": null,
+   "dom": "gen",
+   "grp": [
+    "붕괴",
+    "붕괴",
+    "붕괴",
+    "붕괴",
+    "붕괴"
+   ],
+   "tag": [
+    "거푸집·동바리 조립 불량 · 타설 중 과하중",
+    "Poorly assembled formwork or shoring; overload during concrete pour",
+    "模板·支撑组装不良·浇筑中超载",
+    "Cốp pha, cây chống lắp kém; quá tải khi đổ bê tông",
+    "Qolip va tirgak sifatsiz yig'ilgan; beton quyishda ortiqcha yuk"
+   ],
+   "ra": {
+    "work": [
+     "슬래브·보 거푸집 동바리 설치 및 콘크리트 타설",
+     "Installing slab and beam formwork shoring and pouring concrete",
+     "楼板·梁模板支撑安装及混凝土浇筑",
+     "Lắp cây chống cốp pha sàn, dầm và đổ bê tông",
+     "Plita va to'sin qolipi tirgaklarini o'rnatish, beton quyish"
+    ],
+    "cls": [
+     "기계적 요인(붕괴)",
+     "Mechanical (collapse)",
+     "机械性因素(坍塌)",
+     "Yếu tố cơ học (sập)",
+     "Mexanik omil (qulash)"
+    ],
+    "cause": [
+     "무너짐·깔림 — 동바리 좌굴로 슬래브 붕괴",
+     "Collapse — buckled shores bring the slab down",
+     "坍塌·掩埋 — 支撑屈曲致楼板坍塌",
+     "Sập — cây chống oằn làm sàn đổ",
+     "Qulash — tirgaklar bukilib plita qulaydi"
+    ],
+    "haz": [
+     "동바리 간격이 조립도보다 넓고 수평연결재·가새가 빠져 있으며 상단 U헤드가 멍에에 제대로 걸려 있지 않다. 타설 시 한쪽에 콘크리트를 몰아 붓고 진동기를 대면 동바리가 좌굴해 슬래브 전체가 근로자 위로 내려앉는다.",
+     "Shores are spaced wider than the assembly drawing, horizontal ties and bracing are missing, and the U-heads do not seat properly on the bearers. Concrete piled on one side and vibrated buckles the shores and the whole slab comes down on the workers.",
+     "支撑间距大于组装图，缺少水平连接件·斜撑，顶部U形头未正确搁置于横梁。浇筑时混凝土集中一侧并振捣，支撑屈曲，整块楼板压向作业者。",
+     "Cây chống thưa hơn bản vẽ, thiếu giằng ngang, giằng chéo; đầu U không gối đúng lên xà gồ. Đổ dồn bê tông một bên và đầm rung khiến cây chống oằn, cả sàn sập lên người.",
+     "Tirgaklar chizmadan siyrak, gorizontal bog'lam va diagonal yo'q, U-bosh to'siqqa to'g'ri o'tirmagan. Betonni bir tomonga uyib vibratsiya berilganda tirgaklar bukilib, butun plita ishchilar ustiga tushadi."
+    ],
+    "law": [
+     "안전보건규칙 제331조 [조립도]·제332조 [동바리 조립 시의 안전조치]·제332조의2 [동바리 유형에 따른 안전조치]·제334조 [콘크리트의 타설작업]·제335조 [콘크리트 타설장비 사용 시의 준수사항]",
+     "OSH Rule Art.331 [assembly drawing], Art.332 [shoring assembly], Art.332-2 [measures by shoring type], Art.334 [concrete pouring], Art.335 [pouring equipment]",
+     "安全保健规则 第331条[组装图]·第332条[支撑组装时的安全措施]·第332条之2[按支撑类型的安全措施]·第334条[混凝土浇筑作业]·第335条",
+     "Quy chuẩn Điều 331 [bản vẽ lắp], Điều 332 [lắp cây chống], Điều 332-2, Điều 334 [đổ bê tông], Điều 335",
+     "Qoidalar 331-modda [yig'ish chizmasi], 332-modda [tirgak yig'ish], 332-2-modda, 334-modda [beton quyish], 335-modda"
+    ],
+    "csi": [
+     "CSI 거푸집·동바리 관련 사고 2,882건 사망 51명 — 외국인 근로자 666건으로 사고객체 중 외국인 비중 최고(23.1%)",
+     "CSI: 2,882 formwork and shoring cases, 51 deaths — 666 involved foreign workers, the highest foreign share among objects (23.1%)",
+     "CSI 模板·支撑相关事故2,882起 死亡51人 — 外籍劳工666起，为事故对象中外籍比重最高(23.1%)",
+     "CSI: 2.882 vụ cốp pha, cây chống, 51 tử vong — 666 vụ lao động nước ngoài, tỷ lệ cao nhất theo đối tượng (23,1%)",
+     "CSI: qolip va tirgak bilan 2 882 holat, 51 o'lim — 666 tasi chet ellik ishchilar, obyektlar ichida eng yuqori ulush (23,1%)"
+    ],
+    "cur": [
+     "조립도 미준수, 가새·수평재 누락",
+     "Drawing not followed; bracing and ties missing",
+     "未遵守组装图，缺斜撑·水平件",
+     "Không theo bản vẽ; thiếu giằng",
+     "Chizmaga rioya qilinmagan; bog'lam va diagonal yo'q"
+    ],
+    "act": [
+     "① 구조검토를 거친 조립도대로 동바리 간격·수평연결재·가새를 설치하고 조립 후 관리감독자 점검 ② U헤드·받침판 밀착과 지반 침하 방지 조치 확인 ③ 타설은 편심이 생기지 않도록 분산하고 진동기 사용 중 동바리 변형을 감시 ④ 타설 중 하부 출입 금지·감시인 배치",
+     "(1) Install shore spacing, horizontal ties and bracing exactly as the structurally checked drawing and have the supervisor inspect after assembly. (2) Check U-heads and base plates seat fully and the ground cannot settle. (3) Spread the pour to avoid eccentric load and watch shores for deformation while vibrating. (4) Keep everyone out from below during the pour and post a watcher.",
+     "① 按经结构复核的组装图设置支撑间距·水平连接件·斜撑，组装后由管理监督者检查 ② 确认U形头·底板密贴及防止地基沉降措施 ③ 浇筑分散避免偏心，振捣时监视支撑变形 ④ 浇筑中禁止下方出入并配置监视人",
+     "(1) Lắp khoảng cách cây chống, giằng ngang, giằng chéo đúng bản vẽ đã kiểm tra kết cấu; giám sát kiểm tra sau lắp. (2) Đầu U, tấm đế tiếp xúc hoàn toàn, nền không lún. (3) Đổ phân tán tránh lệch tâm, theo dõi biến dạng khi đầm. (4) Cấm vào dưới khi đổ; có người giám sát.",
+     "(1) Konstruktiv tekshirilgan chizma bo'yicha tirgak oralig'i, bog'lam va diagonallarni o'rnatish; yig'ishdan keyin nazoratchi tekshiradi. (2) U-bosh va tayanch plita zich o'tirganini, grunt cho'kmasligini tekshirish. (3) Betonni tarqatib quyish, vibratsiyada tirgak deformatsiyasini kuzatish. (4) Quyish paytida pastga kirish taqiqlanadi, kuzatuvchi qo'yiladi."
+    ],
+    "p": 2,
+    "s": 3,
+    "p2": 1,
+    "s2": 3
+   },
+   "p94": {
+    "supp": [],
+    "safe": [
+     1,
+     12,
+     13,
+     14
+    ]
+   }
+  },
+  {
+   "id": "G13",
+   "e": null,
+   "p": null,
+   "dom": "gen",
+   "grp": [
+    "붕괴",
+    "붕괴",
+    "붕괴",
+    "붕괴",
+    "붕괴"
+   ],
+   "tag": [
+    "해체작업 — 순서 미준수·잔존 구조물 불안정",
+    "Demolition out of sequence; unstable remaining structure",
+    "拆除作业 — 未遵守顺序·残余结构不稳定",
+    "Phá dỡ sai trình tự; kết cấu còn lại không ổn định",
+    "Buzish tartibi buzilgan; qolgan konstruksiya beqaror"
+   ],
+   "ra": {
+    "work": [
+     "건축물·가시설 해체 및 철거",
+     "Demolishing buildings and dismantling temporary works",
+     "建筑物·临时设施拆除及撤除",
+     "Phá dỡ công trình và tháo dỡ công trình tạm",
+     "Bino va vaqtinchalik inshootlarni buzish"
+    ],
+    "cls": [
+     "기계적 요인(붕괴·낙하)",
+     "Mechanical (collapse, falling object)",
+     "机械性因素(坍塌·落物)",
+     "Yếu tố cơ học (sập, vật rơi)",
+     "Mexanik omil (qulash, tushayotgan jism)"
+    ],
+    "cause": [
+     "무너짐·물체에 맞음 — 해체 부재 낙하·잔존 벽체 전도",
+     "Collapse or struck-by — falling demolished members, toppling of remaining walls",
+     "坍塌·物体打击 — 拆除构件坠落·残余墙体倾倒",
+     "Sập, vật rơi — cấu kiện rơi, tường còn lại đổ",
+     "Qulash, jism urishi — buzilgan element tushishi, qolgan devor ag'darilishi"
+    ],
+    "haz": [
+     "해체계획서 없이 하부 벽체와 기둥을 먼저 뜯어내 상부 슬래브가 캔틸레버로 남아 있다. 근로자가 그 아래에서 잔재를 치우고 있고, 굴착기 붐이 벽체를 당길 때 잔존 구조물이 어느 쪽으로 넘어질지 통제되지 않는다.",
+     "Lower walls and columns were removed first without a demolition plan, leaving the upper slab cantilevered. Workers clear debris beneath it, and when the excavator boom pulls a wall nobody controls which way the remaining structure falls.",
+     "无拆除计划书即先拆下部墙体与柱，上部楼板成悬臂残留。作业者在其下方清理残料，挖掘机臂拉扯墙体时残余结构倾倒方向不受控。",
+     "Tháo tường, cột phía dưới trước mà không có kế hoạch phá dỡ, sàn trên thành công-xôn. Người dọn phế liệu ngay dưới; khi cần máy đào kéo tường, hướng đổ của phần còn lại không được kiểm soát.",
+     "Buzish rejasisiz pastki devor va ustunlar avval olib tashlangan, yuqori plita konsol bo'lib qolgan. Ishchilar uning ostida chiqindi tozalaydi; ekskavator devorni tortganda qolgan konstruksiya qaysi tomonga qulashi nazorat qilinmaydi."
+    ],
+    "law": [
+     "안전보건규칙 제38조 [작업계획서(해체계획서)]·제384조 [해체작업 시 준수사항]·제14조 [낙하물 방지]·제3조 [전도의 방지] / 건축물관리법 제30조 해체계획서",
+     "OSH Rule Art.38 [demolition plan], Art.384 [demolition work], Art.14 [falling objects], Art.3 [toppling] / Building Management Act Art.30",
+     "安全保健规则 第38条[作业计划书(拆除计划书)]·第384条[拆除作业时的遵守事项]·第14条[落物防止]·第3条[倾倒的防止] / 建筑物管理法第30条",
+     "Quy chuẩn Điều 38 [kế hoạch phá dỡ], Điều 384 [phá dỡ], Điều 14, Điều 3 / Luật quản lý công trình Điều 30",
+     "Qoidalar 38-modda [buzish rejasi], 384-modda [buzish ishi], 14-modda, 3-modda / Binolarni boshqarish qonuni 30-modda"
+    ],
+    "csi": [
+     "CSI 해체작업 중 사고 3,216건 사망 148명(치명률 4.5%) — 작업프로세스 중 사망자 최다; 외국인 근로자 603건",
+     "CSI: 3,216 demolition-process cases, 148 deaths (4.5%) — the most deaths of any work process; 603 involved foreign workers",
+     "CSI 拆除作业中事故3,216起 死亡148人(致死率4.5%) — 作业过程中死亡最多；外籍劳工603起",
+     "CSI: 3.216 vụ trong phá dỡ, 148 tử vong (4,5%) — nhiều tử vong nhất theo quy trình; 603 vụ lao động nước ngoài",
+     "CSI: buzish jarayonida 3 216 holat, 148 o'lim (4,5%) — jarayonlar ichida eng ko'p o'lim; chet ellik ishchilar 603"
+    ],
+    "cur": [
+     "해체계획서 없음, 하부 통행·잔재 정리 병행",
+     "No demolition plan; traffic and clearing beneath",
+     "无拆除计划书，下方通行·残料清理并行",
+     "Không kế hoạch; đi lại, dọn dẹp bên dưới",
+     "Buzish rejasi yo'q; pastda o'tish va tozalash"
+    ],
+    "act": [
+     "① 구조 안전성을 검토한 해체계획서에 따라 상부에서 하부로, 슬래브→보→기둥·벽 순서로 해체 ② 해체 구역을 출입 통제하고 잔재 정리는 해체 장비 정지 후 실시 ③ 잔존 벽체는 버팀대·와이어로 전도 방향을 고정 ④ 살수로 분진 억제, 해체 부재는 투하설비·크레인으로 하강",
+     "(1) Follow a structurally reviewed demolition plan, top-down and slab → beam → column/wall. (2) Exclude entry from the demolition zone; clear debris only after the machine stops. (3) Brace remaining walls with struts or wires to control the direction of fall. (4) Suppress dust with water; lower members by chute or crane.",
+     "① 按经结构安全复核的拆除计划书自上而下、按楼板→梁→柱·墙顺序拆除 ② 拆除区域管制出入，残料清理在拆除设备停机后进行 ③ 残余墙体以支撑·钢丝固定倾倒方向 ④ 洒水抑尘，拆除构件经投放设备·起重机下放",
+     "(1) Theo kế hoạch phá dỡ đã kiểm tra kết cấu, từ trên xuống, sàn → dầm → cột, tường. (2) Cấm vào khu phá dỡ; dọn phế liệu sau khi máy dừng. (3) Chống, neo cáp tường còn lại để cố định hướng đổ. (4) Phun nước chống bụi; hạ cấu kiện bằng máng, cần trục.",
+     "(1) Konstruktiv tekshirilgan buzish rejasi bo'yicha yuqoridan pastga: plita → to'sin → ustun/devor. (2) Buzish zonasiga kirish taqiqlanadi; chiqindi mashina to'xtagach tozalanadi. (3) Qolgan devorlarni tirgak yoki sim bilan yiqilish yo'nalishini mahkamlash. (4) Suv bilan chang bosish; elementlarni nov yoki kran bilan tushirish."
+    ],
+    "p": 2,
+    "s": 3,
+    "p2": 1,
+    "s2": 3
+   },
+   "p94": {
+    "supp": [
+     "jung"
+    ],
+    "jungItems": [
+     0,
+     1,
+     2,
+     5
+    ],
+    "safe": [
+     1,
+     12,
+     13,
+     14
+    ]
+   }
+  },
+  {
+   "id": "G14",
+   "e": null,
+   "p": null,
+   "dom": "gen",
+   "grp": [
+    "화기",
+    "화기",
+    "화기",
+    "화기",
+    "화기"
+   ],
+   "tag": [
+    "용접·절단 불티 — 인화물 미제거·화재감시자 없음",
+    "Welding or cutting sparks with combustibles not removed and no fire watch",
+    "焊接·切割火花 — 未清除易燃物·无火灾监视人",
+    "Tia lửa hàn, cắt khi chưa dọn vật dễ cháy, không người canh lửa",
+    "Payvandlash va kesish uchqunlari — yonuvchi material olinmagan, olov kuzatuvchisi yo'q"
+   ],
+   "ra": {
+    "work": [
+     "철골·배관 용접, 산소 절단, 그라인딩",
+     "Steel and pipe welding, oxy-cutting and grinding",
+     "钢结构·管道焊接、氧气切割、打磨",
+     "Hàn thép, ống; cắt oxy; mài",
+     "Po'lat va quvur payvandlash, kislorodli kesish, silliqlash"
+    ],
+    "cls": [
+     "화학적 요인(화재·폭발)",
+     "Chemical (fire, explosion)",
+     "化学性因素(火灾·爆炸)",
+     "Yếu tố hóa học (cháy, nổ)",
+     "Kimyoviy omil (yong'in, portlash)"
+    ],
+    "cause": [
+     "화재·폭발 — 비산 불티가 단열재·도료·가스에 착화",
+     "Fire or explosion — flying sparks ignite insulation, paint or gas",
+     "火灾·爆炸 — 飞溅火花引燃保温材·涂料·气体",
+     "Cháy, nổ — tia lửa bắn vào vật liệu cách nhiệt, sơn, khí",
+     "Yong'in, portlash — uchqun izolyatsiya, bo'yoq yoki gazni yoqadi"
+    ],
+    "haz": [
+     "우레탄 단열재와 도료통이 놓인 자리 옆에서 용접·절단을 하고 있다. 비산불티 차단막·불받이포가 없고 화재감시자와 소화기도 보이지 않아, 하부로 떨어진 불티가 단열재에 착화하면 유독가스와 함께 순식간에 번진다.",
+     "Welding and cutting are done right next to urethane insulation and paint cans. There is no spark shield or fire blanket, no fire watch and no extinguisher, so sparks that drop below ignite the insulation and the fire spreads in seconds with toxic smoke.",
+     "在聚氨酯保温材和涂料桶旁进行焊接·切割。无飞溅火花隔离屏·接火布，无火灾监视人与灭火器，落下的火花引燃保温材后伴随有毒气体瞬间蔓延。",
+     "Hàn, cắt ngay cạnh xốp cách nhiệt PU và thùng sơn. Không màn chắn tia lửa, chăn hứng lửa, không người canh lửa, không bình chữa cháy; tia lửa rơi xuống bắt vào xốp và cháy lan trong vài giây kèm khí độc.",
+     "Poliuretan izolyatsiya va bo'yoq idishlari yonida payvandlash va kesish. Uchqun to'sig'i, olovga chidamli mato, olov kuzatuvchisi va o't o'chirgich yo'q; pastga tushgan uchqun izolyatsiyani yoqib, zaharli tutun bilan bir necha soniyada tarqaladi."
+    ],
+    "law": [
+     "안전보건규칙 제241조 [화재위험작업 시의 준수사항]·제241조의2 [화재감시자]·제239조 [위험물 등이 있는 장소에서 화기 등의 사용 금지]·제236조 [화재 위험이 있는 작업의 장소 등] / KOSHA GUIDE P-94-2021 6.1 화기작업 허가",
+     "OSH Rule Art.241 [fire-risk work], Art.241-2 [fire watch], Art.239 [no ignition near hazardous materials], Art.236 / KOSHA GUIDE P-94-2021 §6.1 hot-work permit",
+     "安全保健规则 第241条[火灾危险作业时的遵守事项]·第241条之2[火灾监视人]·第239条·第236条 / KOSHA GUIDE P-94-2021 6.1 动火作业许可",
+     "Quy chuẩn Điều 241 [công việc nguy cơ cháy], Điều 241-2 [người canh lửa], Điều 239, Điều 236 / KOSHA GUIDE P-94-2021 §6.1",
+     "Qoidalar 241-modda [yong'in xavfli ish], 241-2-modda [olov kuzatuvchisi], 239-, 236-modda / KOSHA GUIDE P-94-2021 6.1"
+    ],
+    "csi": [
+     "CSI 화재·폭발 394건 사망 15명 부상 410명 — 용접작업 중 사고 282건 사망 23명(치명률 8.0%)",
+     "CSI: 394 fires and explosions, 15 deaths, 410 injuries — 282 cases during welding with 23 deaths (8.0%)",
+     "CSI 火灾·爆炸394起 死亡15人 受伤410人 — 焊接作业中事故282起死亡23人(致死率8.0%)",
+     "CSI: 394 vụ cháy nổ, 15 tử vong, 410 bị thương — 282 vụ khi hàn, 23 tử vong (8,0%)",
+     "CSI: yong'in va portlash 394 holat, 15 o'lim, 410 jarohat — payvandlashda 282 holat, 23 o'lim (8,0%)"
+    ],
+    "cur": [
+     "인화물 미제거, 차단막·감시자·소화기 없음",
+     "Combustibles in place; no shield, fire watch or extinguisher",
+     "未清除易燃物，无隔离屏·监视人·灭火器",
+     "Chưa dọn vật dễ cháy; không màn chắn, canh lửa, bình cứu hỏa",
+     "Yonuvchi material olinmagan; to'siq, kuzatuvchi va o't o'chirgich yo'q"
+    ],
+    "act": [
+     "① 화기작업 허가서를 발급하고 반경 11m 내 가연물 제거 또는 불연 덮개로 차단 ② 비산불티 차단막·불받이포 설치, 하부 개구부 밀폐 ③ 화재감시자 배치와 소화기 2대 이상 비치, 작업 종료 후 30분 이상 잔불 확인 ④ 가스 용기는 전도 방지·역화방지기 부착, 밀폐공간이면 가스농도 측정",
+     "(1) Issue a hot-work permit; remove combustibles within 11 m or cover them with fire-resistant sheets. (2) Install spark shields and fire blankets and seal openings below. (3) Post a fire watch with at least two extinguishers and check for smouldering for 30 minutes after finishing. (4) Secure gas cylinders against toppling with flashback arrestors; measure gas if in a confined space.",
+     "① 签发动火作业许可，清除半径11m内可燃物或以不燃覆盖物隔离 ② 设置飞溅火花隔离屏·接火布，封闭下方开口 ③ 配置火灾监视人及2具以上灭火器，作业结束后确认余火30分钟以上 ④ 气瓶防倾倒并装回火防止器，密闭空间须测气",
+     "(1) Cấp phép hàn cắt; dọn vật dễ cháy trong bán kính 11 m hoặc che bằng tấm chống cháy. (2) Màn chắn tia lửa, chăn hứng lửa, bịt lỗ hở phía dưới. (3) Người canh lửa và ≥2 bình chữa cháy; kiểm tra tàn lửa ≥30 phút sau khi xong. (4) Chai khí chống đổ, có van chống cháy ngược; đo khí nếu trong không gian kín.",
+     "(1) Olovli ish ruxsatnomasi; 11 m radiusda yonuvchi materialni olib tashlash yoki yonmas mato bilan yopish. (2) Uchqun to'sig'i va olovga chidamli mato, pastdagi teshiklarni berkitish. (3) Olov kuzatuvchisi va kamida 2 o't o'chirgich; ish tugagach 30 daqiqa cho'g'ni tekshirish. (4) Gaz ballonlarini ag'darilishdan himoyalash, teskari alanga to'sig'i; yopiq joyda gaz o'lchash."
+    ],
+    "p": 3,
+    "s": 3,
+    "p2": 1,
+    "s2": 3
+   },
+   "p94": {
+    "main": "hot",
+    "supp": [],
+    "safe": [
+     1,
+     2,
+     5,
+     11,
+     12,
+     13,
+     14
+    ]
+   }
+  },
+  {
+   "id": "G15",
+   "e": null,
+   "p": null,
+   "dom": "gen",
+   "grp": [
+    "밀폐",
+    "밀폐",
+    "밀폐",
+    "밀폐",
+    "밀폐"
+   ],
+   "tag": [
+    "밀폐공간 진입 — 산소·유해가스 측정·환기 없음",
+    "Entering a confined space without gas measurement or ventilation",
+    "进入密闭空间 — 未测氧气·有害气体·未通风",
+    "Vào không gian kín không đo khí, không thông gió",
+    "Yopiq joyga kirish — gaz o'lchovi va shamollatish yo'q"
+   ],
+   "ra": {
+    "work": [
+     "맨홀·정화조·탱크·피트 내부 작업",
+     "Work inside manholes, septic tanks, tanks and pits",
+     "检查井·化粪池·储罐·坑内作业",
+     "Làm trong hố ga, bể phốt, bồn, hố",
+     "Quduq, septik, rezervuar va chuqurlik ichida ish"
+    ],
+    "cls": [
+     "화학적 요인(산소결핍·중독)",
+     "Chemical (oxygen deficiency, poisoning)",
+     "化学性因素(缺氧·中毒)",
+     "Yếu tố hóa học (thiếu oxy, ngộ độc)",
+     "Kimyoviy omil (kislorod tanqisligi, zaharlanish)"
+    ],
+    "cause": [
+     "질식 — 산소결핍·황화수소 중독",
+     "Asphyxiation — oxygen deficiency or hydrogen-sulphide poisoning",
+     "窒息 — 缺氧·硫化氢中毒",
+     "Ngạt — thiếu oxy, ngộ độc H₂S",
+     "Bo'g'ilish — kislorod tanqisligi, vodorod sulfid zaharlanishi"
+    ],
+    "haz": [
+     "맨홀 뚜껑을 열자마자 측정 없이 사다리로 내려간다. 송기마스크·감시인·구명줄이 없고 환기도 하지 않아, 바닥에 고인 황화수소를 한 번 들이마시면 쓰러지며 구조하러 들어간 동료까지 연쇄 질식한다.",
+     "The worker climbs down the ladder as soon as the manhole cover is off, with no measurement. There is no air-line mask, no attendant, no lifeline and no ventilation; one breath of the hydrogen sulphide pooled at the bottom drops him, and the colleague who goes in to help is asphyxiated too.",
+     "打开井盖即未测量便顺梯下入。无送气面罩·监视人·救生绳，也未通风，吸入一口积于底部的硫化氢即倒下，进入救援的同伴也连锁窒息。",
+     "Mở nắp hố là xuống thang ngay không đo khí. Không mặt nạ cấp khí, người canh, dây cứu sinh, không thông gió; hít một hơi H₂S tích ở đáy là gục, đồng nghiệp vào cứu cũng ngạt theo.",
+     "Quduq qopqog'i ochilishi bilan o'lchovsiz narvondan tushadi. Havo beruvchi niqob, kuzatuvchi, qutqaruv arqoni va shamollatish yo'q; tubda to'plangan vodorod sulfiddan bir nafas yiqitadi, qutqarishga kirgan hamkasb ham bo'g'iladi."
+    ],
+    "law": [
+     "안전보건규칙 제619조 [밀폐공간 작업 프로그램의 수립·시행]·제619조의2 [산소 및 유해가스 농도의 측정]·제620조 [환기 등]·제621조 [인원의 점검]·제623조 [감시인의 배치 등] / KOSHA GUIDE P-94-2021 6.3(1) 밀폐공간출입작업 허가",
+     "OSH Rule Art.619 [confined-space programme], Art.619-2 [gas measurement], Art.620 [ventilation], Art.621 [head count], Art.623 [attendant] / KOSHA GUIDE P-94-2021 §6.3(1)",
+     "安全保健规则 第619条[密闭空间作业程序的制定·实施]·第619条之2[氧气及有害气体浓度的测定]·第620条[通风等]·第621条·第623条[监视人的配置等] / KOSHA GUIDE P-94-2021 6.3(1)",
+     "Quy chuẩn Điều 619 [chương trình không gian kín], Điều 619-2 [đo khí], Điều 620 [thông gió], Điều 621, Điều 623 [người canh] / KOSHA GUIDE P-94-2021 §6.3(1)",
+     "Qoidalar 619-modda [yopiq joy dasturi], 619-2-modda [gaz o'lchash], 620-modda [shamollatish], 621-, 623-modda [kuzatuvchi] / KOSHA GUIDE P-94-2021 6.3(1)"
+    ],
+    "csi": [
+     "CSI 질식 23건 사망 11명(치명률 23.4%) — 건수는 적으나 사망 비율은 떨어짐(11.3%)의 2배",
+     "CSI: 23 asphyxiation cases, 11 deaths (23.4%) — few cases, but a fatality share twice that of falls (11.3%)",
+     "CSI 窒息23起 死亡11人(致死率23.4%) — 起数少但死亡比率为坠落(11.3%)的2倍",
+     "CSI: 23 vụ ngạt, 11 tử vong (23,4%) — ít vụ nhưng tỷ lệ tử vong gấp đôi ngã cao (11,3%)",
+     "CSI: bo'g'ilish 23 holat, 11 o'lim (23,4%) — kam holat, ammo o'lim ulushi yiqilishdan (11,3%) ikki baravar"
+    ],
+    "cur": [
+     "측정·환기 없음, 감시인·구명줄 없음",
+     "No measurement or ventilation; no attendant or lifeline",
+     "未测量·通风，无监视人·救生绳",
+     "Không đo, không thông gió; không người canh, dây cứu sinh",
+     "O'lchov va shamollatish yo'q; kuzatuvchi va arqon yo'q"
+    ],
+    "act": [
+     "① 밀폐공간 출입허가서 발급, 진입 전·중 산소 18~23.5%·황화수소 10ppm 미만·일산화탄소 30ppm 미만 확인 ② 진입 전 강제환기 후 작업 중 계속 환기 ③ 감시인 배치, 구명줄·안전대·송기마스크 비치, 구조 시 송기마스크 없이 진입 금지 ④ 통신수단 확보와 출입 인원 점검",
+     "(1) Issue a confined-space entry permit; confirm O₂ 18–23.5%, H₂S < 10 ppm and CO < 30 ppm before and during entry. (2) Force-ventilate before entry and keep ventilating during work. (3) Post an attendant; provide lifeline, harness and air-line masks; never enter for rescue without a supplied-air mask. (4) Keep communication and a head count of everyone inside.",
+     "① 签发密闭空间出入许可，进入前·中确认氧气18~23.5%、硫化氢<10ppm、一氧化碳<30ppm ② 进入前强制通风并在作业中持续通风 ③ 配置监视人，备救生绳·安全带·送气面罩，救援时禁止无送气面罩进入 ④ 确保通信手段并清点出入人员",
+     "(1) Cấp phép vào không gian kín; xác nhận O₂ 18–23,5%, H₂S < 10 ppm, CO < 30 ppm trước và trong khi vào. (2) Thông gió cưỡng bức trước, duy trì trong khi làm. (3) Người canh; dây cứu sinh, dây an toàn, mặt nạ cấp khí; không vào cứu khi không có mặt nạ cấp khí. (4) Liên lạc và điểm danh người vào.",
+     "(1) Yopiq joyga kirish ruxsatnomasi; kirishdan oldin va davomida O₂ 18–23,5%, H₂S < 10 ppm, CO < 30 ppm. (2) Kirishdan oldin majburiy shamollatish, ish davomida davom ettirish. (3) Kuzatuvchi; qutqaruv arqoni, kamar, havo beruvchi niqob; niqobsiz qutqarishga kirmaslik. (4) Aloqa va kirganlar ro'yxati."
+    ],
+    "p": 2,
+    "s": 3,
+    "p2": 1,
+    "s2": 3
+   },
+   "p94": {
+    "supp": [
+     "mil"
+    ],
+    "safe": [
+     2,
+     8,
+     9,
+     10,
+     12,
+     13,
+     14
+    ]
+   }
+  },
+  {
+   "id": "G16",
+   "e": null,
+   "p": null,
+   "dom": "gen",
+   "grp": [
+    "보호구",
+    "보호구",
+    "보호구",
+    "보호구",
+    "보호구"
+   ],
+   "tag": [
+    "안전모·안전화·안전대 등 보호구 미착용·불량 착용",
+    "Helmet, safety boots, harness or other PPE not worn or worn incorrectly",
+    "未佩戴·不规范佩戴安全帽·安全鞋·安全带等保护具",
+    "Không đeo hoặc đeo sai mũ, giày, dây an toàn và PTBVCN khác",
+    "Qalpoq, xavfsizlik poyabzali, kamar va boshqa himoya vositalari kiyilmagan yoki noto'g'ri kiyilgan"
+   ],
+   "ra": {
+    "work": [
+     "현장 내 모든 작업(공통)",
+     "All site work (common)",
+     "现场所有作业(通用)",
+     "Mọi công việc tại công trường (chung)",
+     "Maydonchadagi barcha ishlar (umumiy)"
+    ],
+    "cls": [
+     "관리적 요인(보호구)",
+     "Management (PPE)",
+     "管理性因素(保护具)",
+     "Yếu tố quản lý (PTBVCN)",
+     "Boshqaruv omili (himoya vositasi)"
+    ],
+    "cause": [
+     "맞음·떨어짐·찔림 등 모든 재해의 상해 가중",
+     "Aggravates injury in every accident type — struck-by, fall, puncture",
+     "加重物体打击·坠落·刺伤等所有事故的伤害",
+     "Làm nặng thêm chấn thương ở mọi loại tai nạn",
+     "Har qanday baxtsiz hodisada jarohatni og'irlashtiradi"
+    ],
+    "haz": [
+     "안전모를 벗어 두거나 턱끈을 매지 않았고 슬리퍼·운동화 차림으로 철근 위를 다닌다. 같은 낙하물·같은 높이에서도 보호구가 없으면 머리·발 손상이 그대로 치명상이 되며, CSI에서 개인보호 비조치 사고의 치명률은 조치 사고의 4배가 넘는다.",
+     "Helmets are left off or worn without the chin strap, and workers walk over rebar in slippers or trainers. With the same falling object or fall height, no PPE turns a head or foot injury into a fatal one; in CSI data the fatality rate of cases without PPE is over four times that of cases with it.",
+     "摘下安全帽或未系下颚带，穿拖鞋·运动鞋在钢筋上行走。同样的落物·同样高度，无保护具时头·足损伤直接成为致命伤，CSI中个人防护未措施事故的致死率是已措施的4倍以上。",
+     "Bỏ mũ hoặc không cài quai, đi dép, giày thể thao trên thép. Cùng vật rơi, cùng độ cao, không PTBVCN thì chấn thương đầu, chân thành tử vong; theo CSI, tỷ lệ tử vong khi không có PTBVCN cao hơn 4 lần.",
+     "Qalpoq yechilgan yoki iyak tasmasi bog'lanmagan, shippak yoki krossovkada armatura ustida yuradi. Xuddi shu tushayotgan jism va balandlikda himoyasiz bosh va oyoq jarohati o'limga aylanadi; CSI da himoyasiz holatlar o'limi 4 baravardan yuqori."
+    ],
+    "law": [
+     "안전보건규칙 제32조 [보호구의 지급 등]·제33조 [보호구의 관리]·제34조 [전용 보호구 등] / 산업안전보건법 제38조·보호구 안전인증 고시",
+     "OSH Rule Art.32 [provision of PPE], Art.33 [PPE management], Art.34 / OSH Act Art.38, PPE certification notice",
+     "安全保健规则 第32条[保护具的发放等]·第33条[保护具的管理]·第34条 / 产业安全保健法第38条·保护具安全认证告示",
+     "Quy chuẩn Điều 32 [cấp phát PTBVCN], Điều 33, Điều 34 / Luật ATVSLĐ Điều 38",
+     "Qoidalar 32-modda [himoya vositalari], 33-, 34-modda / Mehnat xavfsizligi qonuni 38-modda"
+    ],
+    "csi": [
+     "CSI 개인보호 비조치 사고 1,245건 사망 214명(치명률 16.6%) vs 전체 평균 3.7% — 4.5배; 외국인 근로자 210건",
+     "CSI: 1,245 cases with no PPE, 214 deaths (16.6%) vs 3.7% overall — 4.5×; 210 involved foreign workers",
+     "CSI 个人防护未措施事故1,245起 死亡214人(致死率16.6%) vs 整体平均3.7% — 4.5倍；外籍劳工210起",
+     "CSI: 1.245 vụ không PTBVCN, 214 tử vong (16,6%) so với 3,7% chung — gấp 4,5 lần; 210 vụ lao động nước ngoài",
+     "CSI: himoyasiz 1 245 holat, 214 o'lim (16,6%) umumiy 3,7% ga nisbatan — 4,5 baravar; chet ellik ishchilar 210"
+    ],
+    "cur": [
+     "안전모 미착용·턱끈 미체결, 안전화 미착용",
+     "No helmet or chin strap; no safety boots",
+     "未戴安全帽·未系下颚带，未穿安全鞋",
+     "Không mũ, không quai; không giày bảo hộ",
+     "Qalpoq va iyak tasmasi yo'q; xavfsizlik poyabzali yo'q"
+    ],
+    "act": [
+     "① 작업별 필요 보호구(안전모·안전화·안전대·보안경·방진마스크 등)를 지급하고 출입 시 착용 상태 확인 ② 턱끈 체결·안전대 부착 등 올바른 착용법을 다국어 그림으로 교육 ③ 미착용자 작업 중지 규정을 안전보건교육에 명시 ④ 보호구 상태(균열·마모·인증표시)를 정기 점검하고 불량품 교체",
+     "(1) Issue the PPE each task needs (helmet, safety boots, harness, goggles, dust mask) and check it is worn at the gate. (2) Teach correct use — chin strap fastened, harness clipped — with multilingual pictograms. (3) Write a stop-work rule for anyone without PPE into the safety training. (4) Inspect PPE condition (cracks, wear, certification mark) regularly and replace defective items.",
+     "① 按作业发放所需保护具(安全帽·安全鞋·安全带·护目镜·防尘口罩等)并在出入时确认佩戴 ② 以多语种图示教育系下颚带·安全带系挂等正确佩戴方法 ③ 在安全保健教育中明确未佩戴者停止作业规定 ④ 定期检查保护具状态(裂纹·磨损·认证标识)并更换不良品",
+     "(1) Cấp PTBVCN theo công việc (mũ, giày, dây an toàn, kính, khẩu trang) và kiểm tra khi vào cổng. (2) Huấn luyện cách đeo đúng — cài quai, móc dây — bằng hình ảnh đa ngữ. (3) Ghi quy định dừng việc với người không đeo vào huấn luyện. (4) Kiểm tra định kỳ tình trạng (nứt, mòn, dấu chứng nhận), thay hỏng.",
+     "(1) Har ish uchun zarur himoya vositalarini (qalpoq, poyabzal, kamar, ko'zoynak, niqob) berish va kirishda tekshirish. (2) To'g'ri kiyishni — iyak tasmasi, kamar — ko'p tilli rasmlar bilan o'rgatish. (3) Himoyasiz ishchini to'xtatish qoidasini ta'limga kiritish. (4) Holatini (yoriq, eskirish, sertifikat belgisi) muntazam tekshirib, nosozini almashtirish."
+    ],
+    "p": 3,
+    "s": 2,
+    "p2": 1,
+    "s2": 2
+   },
+   "p94": {
+    "supp": [],
+    "safe": [
+     12,
+     13
+    ]
+   }
+  },
+  {
+   "id": "G17",
+   "e": null,
+   "p": null,
+   "dom": "gen",
+   "grp": [
+    "환경",
+    "환경",
+    "환경",
+    "환경",
+    "환경"
+   ],
+   "tag": [
+    "통로 자재·잔재 방치 · 정리정돈 불량 · 조명 부족",
+    "Materials and debris left on walkways; poor housekeeping; inadequate lighting",
+    "通道材料·残料放置·整理整顿不良·照明不足",
+    "Vật liệu, phế liệu để trên lối đi; sắp xếp kém; thiếu ánh sáng",
+    "Yo'laklarda material va chiqindi; tartibsizlik; yorug'lik yetarli emas"
+   ],
+   "ra": {
+    "work": [
+     "자재 운반·이동 및 정리작업",
+     "Carrying and moving materials, tidying",
+     "材料搬运·移动及整理作业",
+     "Mang, di chuyển vật liệu, dọn dẹp",
+     "Material tashish, ko'chish va tartiblash"
+    ],
+    "cls": [
+     "작업환경 요인",
+     "Environment",
+     "作业环境因素",
+     "Yếu tố môi trường",
+     "Ish muhiti omili"
+    ],
+    "cause": [
+     "넘어짐 — 걸림·미끄러짐",
+     "Slip or trip — over obstacles or on wet floors",
+     "摔倒 — 绊倒·滑倒",
+     "Vấp, trượt ngã",
+     "Qoqilib, sirpanib yiqilish"
+    ],
+    "haz": [
+     "통로에 철근 토막·거푸집 조각·호스가 널려 있고 결로로 바닥이 젖어 있으며 조명이 어둡다. 자재를 안고 이동하면 발밑이 보이지 않아 걸려 넘어지고, 넘어지면서 철근 끝이나 개구부 쪽으로 쓰러진다.",
+     "Rebar offcuts, formwork pieces and hoses lie across the walkway, the floor is wet with condensation and the lighting is dim. A worker carrying material cannot see his feet, trips, and falls toward rebar ends or an opening.",
+     "通道上散落钢筋段·模板碎片·软管，地面因结露潮湿且照明昏暗。抱材料移动时看不见脚下而绊倒，倒向钢筋端头或洞口。",
+     "Đoạn thép, mảnh cốp pha, ống vòi nằm trên lối đi, sàn ướt do đọng nước, ánh sáng mờ. Người ôm vật liệu không thấy chân, vấp ngã về phía đầu thép hoặc lỗ mở.",
+     "Yo'lakda armatura bo'laklari, qolip parchalari va shlanglar, pol kondensatdan ho'l, yorug'lik xira. Material ko'tarib yurgan ishchi oyog'ini ko'rmay qoqiladi va armatura uchi yoki teshik tomon yiqiladi."
+    ],
+    "law": [
+     "안전보건규칙 제3조 [전도의 방지]·제21조 [통로의 설치]·제22조 [통로의 조명]·제4조 [작업장의 청결]·제17조 [비상구의 설치] / 산업안전보건법 제38조",
+     "OSH Rule Art.3 [prevention of slips and trips], Art.21 [walkways], Art.22 [walkway lighting], Art.4 [cleanliness], Art.17 / OSH Act Art.38",
+     "安全保健规则 第3条[摔倒的防止]·第21条[通道的设置]·第22条[通道的照明]·第4条[作业场所的清洁]·第17条 / 产业安全保健法第38条",
+     "Quy chuẩn Điều 3 [chống vấp ngã], Điều 21 [lối đi], Điều 22 [chiếu sáng], Điều 4 [vệ sinh], Điều 17",
+     "Qoidalar 3-modda [yiqilishni oldini olish], 21-modda [yo'laklar], 22-modda [yoritish], 4-modda [tozalik], 17-modda"
+    ],
+    "csi": [
+     "CSI 넘어짐 7,981건(전체 25.8%, 최다) 부상 7,990명 — 외국인 근로자 1,038건으로 외국인 재해 1위 유형",
+     "CSI: 7,981 slips and trips (25.8%, the most frequent) with 7,990 injuries — 1,038 involved foreign workers, their top accident type",
+     "CSI 摔倒7,981起(占25.8%，最多) 受伤7,990人 — 外籍劳工1,038起，为外籍事故第1类型",
+     "CSI: 7.981 vụ vấp, trượt ngã (25,8%, nhiều nhất), 7.990 bị thương — 1.038 vụ lao động nước ngoài, loại số một",
+     "CSI: qoqilib yiqilish 7 981 holat (25,8%, eng ko'p), 7 990 jarohat — chet ellik ishchilar 1 038, ular uchun birinchi tur"
+    ],
+    "cur": [
+     "통로 적치, 바닥 물기, 조명 미흡",
+     "Walkway obstructed, wet floor, poor light",
+     "通道堆放，地面潮湿，照明不足",
+     "Lối đi bị chắn, sàn ướt, thiếu sáng",
+     "Yo'lak to'silgan, pol ho'l, yorug'lik kam"
+    ],
+    "act": [
+     "① 통로 폭 확보(통로 표시)와 자재·잔재 즉시 정리, 작업 종료 시 정리정돈을 일과로 지정 ② 통로 조도 75lux 이상(통로 기준) 확보, 어두운 구간에 이동식 조명 ③ 바닥 물기·결로는 흡수·배수하고 미끄럼방지 매트 ④ 철근 끝 캡 설치, 호스·케이블은 통로 밖으로 우회 또는 덮개",
+     "(1) Keep a marked clear walkway, remove materials and debris at once, and make end-of-shift tidying routine. (2) Provide at least 75 lux on walkways, with portable lights in dark sections. (3) Absorb or drain water and condensation and lay anti-slip mats. (4) Cap rebar ends; route hoses and cables off the walkway or cover them.",
+     "① 确保通道宽度(标示通道)并立即清理材料·残料，收工时整理整顿作为日常 ② 通道照度75lux以上，昏暗区段设置移动照明 ③ 地面水分·结露吸收·排水并铺防滑垫 ④ 钢筋端头加护帽，软管·电缆绕出通道或加盖",
+     "(1) Giữ lối đi rộng có vạch, dọn vật liệu, phế liệu ngay; dọn cuối ca thành nề nếp. (2) Lối đi ≥75 lux, đèn di động ở đoạn tối. (3) Thấm, thoát nước đọng, trải thảm chống trượt. (4) Bịt đầu thép; dẫn ống, cáp ra ngoài lối đi hoặc che.",
+     "(1) Belgilangan bo'sh yo'lak, material va chiqindini darhol yig'ishtirish, smena oxirida tartiblash. (2) Yo'lakda kamida 75 lyuks, qorong'i joyda ko'chma chiroq. (3) Suv va kondensatni shimdirish, sirpanmas gilam. (4) Armatura uchiga qalpoqcha; shlang va kabelni yo'lakdan tashqariga yoki qopqoq bilan."
+    ],
+    "p": 3,
+    "s": 1,
+    "p2": 1,
+    "s2": 1
+   },
+   "p94": {
+    "supp": [],
+    "safe": [
+     1,
+     10,
+     13
+    ]
+   }
+  },
+  {
+   "id": "G18",
+   "e": null,
+   "p": null,
+   "dom": "gen",
+   "grp": [
+    "환경",
+    "환경",
+    "환경",
+    "환경",
+    "환경"
+   ],
+   "tag": [
+    "절단·연마 공구 방호덮개 제거 · 보안경 없이 사용",
+    "Cutting or grinding tool with guard removed, used without eye protection",
+    "切割·打磨工具拆除防护罩·未戴护目镜使用",
+    "Dụng cụ cắt, mài tháo che chắn, dùng không kính bảo hộ",
+    "Kesish va silliqlash asbobi himoyasi olingan, ko'zoynaksiz ishlatilmoqda"
+   ],
+   "ra": {
+    "work": [
+     "그라인더·원형톱·철근 절단 작업",
+     "Grinding, circular sawing and rebar cutting",
+     "角磨机·圆锯·钢筋切割作业",
+     "Mài, cưa đĩa, cắt thép",
+     "Silliqlash, dumaloq arra, armatura kesish"
+    ],
+    "cls": [
+     "기계적 요인(절단·비래)",
+     "Mechanical (cut, flying particle)",
+     "机械性因素(切割·飞溅)",
+     "Yếu tố cơ học (cắt, văng)",
+     "Mexanik omil (kesish, uchish)"
+    ],
+    "cause": [
+     "절단·베임·찔림 — 숫돌 파손·킥백·파편 비래",
+     "Cut or puncture — disc burst, kickback, flying fragments",
+     "切割·刺伤 — 砂轮破裂·反弹·碎片飞溅",
+     "Cắt, đâm — vỡ đĩa, giật ngược, mảnh văng",
+     "Kesish, sanchilish — disk yorilishi, teskari zarba, parchalar uchishi"
+    ],
+    "haz": [
+     "그라인더 방호덮개를 떼어 낸 채 절단용 숫돌로 철근을 자르고 있고 보안경·안면보호구가 없다. 숫돌이 물리면 공구가 튀어 오르며(킥백) 손·허벅지를 베고, 파손된 숫돌 조각은 초당 80m 속도로 얼굴을 향한다.",
+     "The grinder’s guard has been removed and rebar is being cut with a cutting disc, with no goggles or face shield. A pinched disc kicks the tool back into the hand or thigh, and fragments of a burst disc fly toward the face at 80 m/s.",
+     "拆除角磨机防护罩用切割片切钢筋，且无护目镜·面罩。砂轮被卡时工具反弹割伤手·大腿，破裂的砂轮碎片以每秒80m速度飞向面部。",
+     "Máy mài đã tháo che chắn, cắt thép bằng đĩa cắt, không kính, không mặt nạ. Đĩa kẹt làm máy giật ngược cắt vào tay, đùi; mảnh đĩa vỡ bay vào mặt với tốc độ 80 m/s.",
+     "Silliqlagich himoyasi olingan, kesish diski bilan armatura kesilmoqda, ko'zoynak va yuz niqobi yo'q. Disk qisilganda asbob qo'l yoki songa sakraydi, yorilgan disk parchalari sekundiga 80 m tezlikda yuzga uchadi."
+    ],
+    "law": [
+     "안전보건규칙 제122조 [연삭숫돌의 덮개 등]·제93조 [방호장치의 해체 금지]·제32조 [보호구의 지급 등]·제104조 [운전 시작 전 조치]",
+     "OSH Rule Art.122 [grinding-wheel guards], Art.93 [no removal of guards], Art.32 [PPE], Art.104 [pre-start checks]",
+     "安全保健规则 第122条[砂轮的防护罩等]·第93条[禁止拆除防护装置]·第32条[保护具的发放等]·第104条[开始运转前的措施]",
+     "Quy chuẩn Điều 122 [che chắn đá mài], Điều 93, Điều 32 [PTBVCN], Điều 104",
+     "Qoidalar 122-modda [silliqlash diski himoyasi], 93-modda, 32-modda, 104-modda"
+    ],
+    "csi": [
+     "CSI 절단·베임·찔림 2,844건 — 공구류 관련 사고 3,014건으로 사고객체 2위; 외국인 근로자 469건",
+     "CSI: 2,844 cuts and punctures — 3,014 tool-related cases, second among objects; 469 involved foreign workers",
+     "CSI 切割·刺伤2,844起 — 工具类相关事故3,014起，事故对象第2位；外籍劳工469起",
+     "CSI: 2.844 vụ cắt, đâm — 3.014 vụ liên quan dụng cụ, thứ hai theo đối tượng; 469 vụ lao động nước ngoài",
+     "CSI: kesish va sanchilish 2 844 holat — asboblar bilan 3 014 holat, obyektlar ichida ikkinchi; chet ellik ishchilar 469"
+    ],
+    "cur": [
+     "덮개 제거, 보안경 미착용",
+     "Guard removed; no goggles",
+     "拆除防护罩，未戴护目镜",
+     "Tháo che chắn; không kính",
+     "Himoya olingan; ko'zoynak yo'q"
+    ],
+    "act": [
+     "① 방호덮개를 부착한 상태로만 사용하고 덮개 제거 공구는 회수 ② 숫돌은 용도(절단·연마)와 최고사용회전수에 맞는 것을 쓰고 시운전 1분 후 사용 ③ 보안경 또는 안면보호구·방진마스크·절단방지장갑 착용 ④ 절단물은 고정하고 작업 방향에 사람이 없도록 배치",
+     "(1) Use grinders only with the guard fitted and withdraw any tool whose guard has been removed. (2) Match the disc to the job (cutting vs grinding) and to the maximum speed; run for one minute before use. (3) Wear goggles or a face shield, dust mask and cut-resistant gloves. (4) Clamp the workpiece and keep people out of the line of the disc.",
+     "① 仅在安装防护罩状态下使用，回收已拆罩的工具 ② 砂轮须符合用途(切割·打磨)及最高使用转速，试运转1分钟后使用 ③ 佩戴护目镜或面罩·防尘口罩·防切割手套 ④ 固定被切件并使作业方向无人",
+     "(1) Chỉ dùng máy có che chắn; thu hồi máy đã tháo che chắn. (2) Đĩa đúng công dụng (cắt/mài) và tốc độ tối đa; chạy thử 1 phút. (3) Đeo kính hoặc mặt nạ, khẩu trang, găng chống cắt. (4) Kẹp chặt vật cắt, không để người ở hướng đĩa.",
+     "(1) Faqat himoya bilan ishlatish, himoyasi olingan asbobni olib qo'yish. (2) Disk vazifasiga (kesish/silliqlash) va maksimal tezlikka mos; ishlatishdan oldin 1 daqiqa sinash. (3) Ko'zoynak yoki yuz niqobi, chang niqobi, kesishga chidamli qo'lqop. (4) Kesiladigan buyumni mahkamlash, disk yo'nalishida odam bo'lmasin."
+    ],
+    "p": 3,
+    "s": 2,
+    "p2": 1,
+    "s2": 2
+   },
+   "p94": {
+    "supp": [],
+    "safe": [
+     12,
+     13
+    ]
+   }
+  },
+  {
+   "id": "G19",
+   "e": null,
+   "p": null,
+   "dom": "gen",
+   "grp": [
+    "환경",
+    "환경",
+    "환경",
+    "환경",
+    "환경"
+   ],
+   "tag": [
+    "중량물 인력 운반 · 무리한 자세·2인 작업 미실시",
+    "Manual handling of heavy loads with poor posture and no two-person lift",
+    "人力搬运重物·姿势不当·未两人作业",
+    "Khuân vác nặng bằng tay, tư thế sai, không làm hai người",
+    "Og'ir yukni qo'lda tashish, noto'g'ri holat, ikki kishi bo'lmagan"
+   ],
+   "ra": {
+    "work": [
+     "자재·장비 인력 운반 및 상하차",
+     "Manual carrying and loading of materials and equipment",
+     "材料·设备人力搬运及装卸",
+     "Khuân vác, bốc xếp vật liệu, thiết bị bằng tay",
+     "Material va uskunani qo'lda tashish, yuklash"
+    ],
+    "cls": [
+     "인간공학적 요인",
+     "Ergonomic",
+     "人体工学因素",
+     "Yếu tố công thái học",
+     "Ergonomik omil"
+    ],
+    "cause": [
+     "요통·근골격계 손상, 낙하물에 맞음·발등 협착",
+     "Back and musculoskeletal injury; dropped load striking feet",
+     "腰痛·肌肉骨骼损伤，落物砸伤·脚背夹压",
+     "Đau lưng, tổn thương cơ xương; vật rơi vào chân",
+     "Bel va tayanch-harakat jarohati; tushgan yuk oyoqni uradi"
+    ],
+    "haz": [
+     "40kg가 넘는 시멘트 포대·자재를 혼자 허리를 굽혀 들어 올리고, 계단을 오르며 시야가 가려진다. 허리 손상뿐 아니라 균형을 잃으면 자재를 발등에 떨어뜨리거나 계단에서 함께 굴러떨어진다.",
+     "A worker alone bends at the waist to lift cement bags or material over 40 kg and climbs stairs with the load blocking his view. Beyond back injury, a loss of balance drops the load on his feet or sends both down the stairs.",
+     "单人弯腰抬举超过40kg的水泥袋·材料，登楼梯时视线被遮挡。除腰部损伤外，失去平衡时材料砸伤脚背或连人带物滚落楼梯。",
+     "Một người khom lưng nâng bao xi măng, vật liệu trên 40 kg và leo cầu thang bị che tầm nhìn. Ngoài tổn thương lưng, mất thăng bằng làm vật rơi vào chân hoặc cả người lẫn vật lăn xuống.",
+     "Ishchi yolg'iz belini bukib 40 kg dan og'ir sement qopi yoki materialni ko'taradi va yuk ko'rishni to'sgan holda zinadan chiqadi. Bel jarohatidan tashqari muvozanat yo'qolsa yuk oyoqqa tushadi yoki ikkalasi zinadan dumalaydi."
+    ],
+    "law": [
+     "안전보건규칙 제663조 [중량물의 제한]·제665조 [중량의 표시 등]·제666조 [작업자세 등]·제385조 [중량물 취급] / 근골격계부담작업 고시",
+     "OSH Rule Art.663 [limits on heavy loads], Art.665 [weight marking], Art.666 [working posture], Art.385 / MSD-burden work notice",
+     "安全保健规则 第663条[重物的限制]·第665条[重量的标示等]·第666条[作业姿势等]·第385条[重物搬运] / 肌肉骨骼负担作业告示",
+     "Quy chuẩn Điều 663 [giới hạn vật nặng], Điều 665 [ghi trọng lượng], Điều 666 [tư thế], Điều 385",
+     "Qoidalar 663-modda [og'ir yuk chegarasi], 665-modda [og'irlik belgisi], 666-modda [ish holati], 385-modda"
+    ],
+    "csi": [
+     "CSI 운반작업 중 사고 2,804건 사망 62명 — 외국인 근로자 360건; 물체에 맞음·끼임의 상당수가 인력 운반 중 발생",
+     "CSI: 2,804 cases during manual transport, 62 deaths — 360 involved foreign workers; many struck-by and caught-in cases occur while carrying",
+     "CSI 搬运作业中事故2,804起 死亡62人 — 外籍劳工360起；物体打击·夹压中相当部分发生于人力搬运",
+     "CSI: 2.804 vụ khi vận chuyển, 62 tử vong — 360 vụ lao động nước ngoài; nhiều vụ vật rơi, kẹp xảy ra khi khuân vác",
+     "CSI: tashishda 2 804 holat, 62 o'lim — chet ellik ishchilar 360; jism urishi va qisilishning ko'pi qo'lda tashishda"
+    ],
+    "cur": [
+     "1인 운반, 시야 가림, 허리 굽힘",
+     "One-person carry, view blocked, bent back",
+     "单人搬运，视线遮挡，弯腰",
+     "Một người mang, che tầm nhìn, khom lưng",
+     "Bir kishi tashiydi, ko'rish to'silgan, bel bukilgan"
+    ],
+    "act": [
+     "① 25kg 초과 자재는 2인 이상 또는 대차·리프트 등 운반기구 사용 ② 무릎을 굽혀 허리를 편 자세로 들고, 몸 가까이 붙여 운반 ③ 자재에 중량·취급 방법을 표시하고 운반 경로의 장애물 제거 ④ 시야가 가려지는 크기는 분할하거나 2인 운반",
+     "(1) Use two or more people or a trolley or lift for anything over 25 kg. (2) Lift with bent knees and a straight back, holding the load close to the body. (3) Mark weight and handling method on materials and clear the route. (4) Split loads that block the view or carry them in pairs.",
+     "① 超过25kg的材料由两人以上或使用手推车·升降机等搬运工具 ② 屈膝直腰抬举并贴近身体搬运 ③ 在材料上标示重量·搬运方法并清除搬运路线障碍 ④ 遮挡视线的尺寸应分割或两人搬运",
+     "(1) Trên 25 kg dùng ≥2 người hoặc xe đẩy, thang nâng. (2) Gập gối, thẳng lưng, giữ vật sát người. (3) Ghi trọng lượng, cách mang lên vật liệu; dọn chướng ngại trên đường. (4) Vật che tầm nhìn thì chia nhỏ hoặc hai người mang.",
+     "(1) 25 kg dan og'ir yukka kamida ikki kishi yoki aravacha, lift. (2) Tizzani bukib, belni to'g'ri tutib, yukni tanaga yaqin ko'tarish. (3) Materialga og'irlik va tashish usulini yozish, yo'ldagi to'siqlarni olish. (4) Ko'rishni to'suvchi yukni bo'lish yoki ikki kishi tashish."
+    ],
+    "p": 3,
+    "s": 1,
+    "p2": 1,
+    "s2": 1
+   },
+   "p94": {
+    "supp": [],
+    "safe": [
+     12,
+     13
+    ]
+   }
+  },
+  {
+   "id": "G20",
+   "e": null,
+   "p": null,
+   "dom": "gen",
+   "grp": [
+    "환경",
+    "환경",
+    "환경",
+    "환경",
+    "환경"
+   ],
+   "tag": [
+    "폭염 노출 — 그늘·물·휴식 없이 옥외 작업",
+    "Heat exposure — outdoor work with no shade, water or rest",
+    "高温暴露 — 无遮阳·饮水·休息的室外作业",
+    "Nắng nóng — làm ngoài trời không bóng mát, nước, nghỉ",
+    "Jazirama — soyasiz, suvsiz va dam olishsiz ochiq havoda ish"
+   ],
+   "ra": {
+    "work": [
+     "여름철 옥외 철근·콘크리트·포장 작업",
+     "Summer outdoor rebar, concrete and paving work",
+     "夏季室外钢筋·混凝土·铺装作业",
+     "Làm thép, bê tông, lát đường ngoài trời mùa hè",
+     "Yozda ochiq havoda armatura, beton, yotqizish ishi"
+    ],
+    "cls": [
+     "물리적 요인(온열)",
+     "Physical (heat)",
+     "物理性因素(高温)",
+     "Yếu tố vật lý (nhiệt)",
+     "Fizik omil (issiqlik)"
+    ],
+    "cause": [
+     "온열질환 — 열사병·열탈진, 의식 저하로 2차 재해",
+     "Heat illness — heat stroke or exhaustion, secondary accidents from impaired awareness",
+     "热病 — 中暑·热衰竭，意识下降引发二次事故",
+     "Bệnh nhiệt — say nắng, kiệt sức; tai nạn thứ cấp do giảm ý thức",
+     "Issiqlik kasalligi — issiqlik urishi, holsizlik; hushsizlikdan ikkilamchi hodisa"
+    ],
+    "haz": [
+     "체감온도 33℃가 넘는 한낮에 그늘막·음료 없이 옥외 콘크리트 타설을 계속한다. 방진마스크와 안전모 안에 열이 갇혀 체온이 오르고, 어지러움으로 균형을 잃으면 고소·장비 주변에서 2차 재해로 이어진다.",
+     "Outdoor concrete work continues through midday above a 33 °C heat index with no shade or drinks. Heat builds inside the dust mask and helmet, and dizziness near height or machinery turns into a secondary accident.",
+     "体感温度超过33℃的正午无遮阳棚·饮料仍持续室外混凝土浇筑。热量积聚于防尘口罩与安全帽内使体温上升，眩晕失去平衡时在高处·设备周边引发二次事故。",
+     "Đổ bê tông ngoài trời giữa trưa với nhiệt độ cảm nhận trên 33 °C, không mái che, không nước. Nhiệt tích trong khẩu trang, mũ làm thân nhiệt tăng; chóng mặt mất thăng bằng gần độ cao, máy móc dẫn tới tai nạn thứ cấp.",
+     "His qilinadigan harorat 33 °C dan yuqori tush paytida soyabon va ichimliksiz ochiq havoda beton ishi davom etadi. Niqob va qalpoq ichida issiqlik to'planib tana harorati ko'tariladi; bosh aylanishi balandlik yoki mashina yonida ikkilamchi hodisaga olib keladi."
+    ],
+    "law": [
+     "안전보건규칙 제566조 [휴식 등]·제567조 [휴게시설의 설치]·제559조 [고열작업 등]·제571조 [소금과 음료수 등의 비치] / 2025.6 개정 폭염작업 기준(체감온도 33℃ 이상 2시간마다 20분 휴식)",
+     "OSH Rule Art.566 [rest], Art.567 [rest facilities], Art.559 [hot work], Art.571 [salt and drinks] / 2025.6 heat-wave rule (heat index ≥33 °C: 20 min rest every 2 h)",
+     "安全保健规则 第566条[休息等]·第567条[休息设施的设置]·第559条[高热作业等]·第571条[盐和饮料等的配备] / 2025.6修订高温作业基准(体感温度33℃以上每2小时休息20分钟)",
+     "Quy chuẩn Điều 566 [nghỉ], Điều 567 [nơi nghỉ], Điều 559, Điều 571 [muối, nước] / Quy định nắng nóng 2025.6 (≥33 °C: nghỉ 20 phút mỗi 2 giờ)",
+     "Qoidalar 566-modda [dam olish], 567-modda [dam olish joyi], 559-, 571-modda / 2025.6 jazirama qoidasi (≥33 °C: har 2 soatda 20 daqiqa dam)"
+    ],
+    "csi": [
+     "CSI 온열질환 20건 사망 3명(치명률 15.0%) — 외국인 근로자 7건(35.0%)으로 외국인 비중이 전체 평균 13.8%의 2.5배",
+     "CSI: 20 heat-illness cases, 3 deaths (15.0%) — 7 involved foreign workers (35.0%), 2.5× the 13.8% overall share",
+     "CSI 热病20起 死亡3人(致死率15.0%) — 外籍劳工7起(35.0%)，外籍比重为整体平均13.8%的2.5倍",
+     "CSI: 20 vụ bệnh nhiệt, 3 tử vong (15,0%) — 7 vụ lao động nước ngoài (35,0%), gấp 2,5 lần mức 13,8%",
+     "CSI: issiqlik kasalligi 20 holat, 3 o'lim (15,0%) — chet ellik ishchilar 7 (35,0%), umumiy 13,8% dan 2,5 baravar"
+    ],
+    "cur": [
+     "그늘막·음료·휴식 없음, 한낮 연속 작업",
+     "No shade, drinks or rest; continuous midday work",
+     "无遮阳·饮料·休息，正午连续作业",
+     "Không bóng mát, nước, nghỉ; làm liên tục giữa trưa",
+     "Soya, ichimlik va dam yo'q; tush paytida uzluksiz ish"
+    ],
+    "act": [
+     "① 체감온도 33℃ 이상이면 2시간마다 20분 이상 그늘에서 휴식, 35℃ 이상이면 14~17시 옥외작업 중지 검토 ② 작업장 가까이 그늘막·휴게시설과 시원한 물·이온음료 상시 비치 ③ 온열질환 증상(어지러움·구토·의식저하)과 응급조치를 다국어로 교육, 2인 1조로 상호 관찰 ④ 무더위 시간대를 피해 작업시간 조정",
+     "(1) At a heat index of 33 °C or more, rest at least 20 minutes in shade every 2 hours; at 35 °C or more consider stopping outdoor work 14:00–17:00. (2) Keep shade, rest facilities, cool water and electrolyte drinks close to the work area. (3) Teach heat-illness signs (dizziness, vomiting, confusion) and first aid multilingually; work in pairs and watch each other. (4) Reschedule work away from the hottest hours.",
+     "① 体感温度33℃以上时每2小时在阴凉处休息20分钟以上，35℃以上时考虑停止14~17时室外作业 ② 作业场附近常备遮阳棚·休息设施与凉水·电解质饮料 ③ 以多语种教育热病症状(眩晕·呕吐·意识下降)与急救措施，两人一组相互观察 ④ 避开酷热时段调整作业时间",
+     "(1) Nhiệt độ cảm nhận ≥33 °C: nghỉ ≥20 phút trong bóng mát mỗi 2 giờ; ≥35 °C cân nhắc dừng việc ngoài trời 14–17 giờ. (2) Mái che, nơi nghỉ, nước mát, nước điện giải gần nơi làm. (3) Huấn luyện đa ngữ dấu hiệu (chóng mặt, nôn, lơ mơ) và sơ cứu; làm theo cặp, quan sát nhau. (4) Điều chỉnh giờ làm tránh giờ nóng nhất.",
+     "(1) His qilinadigan harorat ≥33 °C da har 2 soatda kamida 20 daqiqa soyada dam; ≥35 °C da 14–17 da ochiq ishni to'xtatishni ko'rib chiqish. (2) Ish joyi yonida soyabon, dam olish joyi, salqin suv va elektrolit ichimlik. (3) Belgilarni (bosh aylanishi, qusish, hushsizlik) va birinchi yordamni ko'p tilda o'rgatish; juftlikda bir-birini kuzatish. (4) Eng issiq soatlardan qochib ish vaqtini o'zgartirish."
+    ],
+    "p": 2,
+    "s": 2,
+    "p2": 1,
+    "s2": 2
+   },
+   "p94": {
+    "supp": [],
+    "safe": [
+     12,
+     13,
+     14
     ]
    }
   }
@@ -1805,7 +3923,7 @@
    "화기작업 표지",
    "Hot-work indicators",
    "动火作业标志",
-   "Dấu hiệu công việc sinh nhiệt",
+   "Dấu hiệu làm việc có lửa",
    "Olovli ish belgilari"
   ],
   "관리": [
@@ -1814,6 +3932,34 @@
    "管理性标志",
    "Dấu hiệu quản lý",
    "Boshqaruv belgilari"
+  ],
+  "추락": [
+   "추락 위험 표지",
+   "Fall-from-height indicators",
+   "坠落危险标志",
+   "Dấu hiệu nguy cơ ngã cao",
+   "Balandlikdan yiqilish belgilari"
+  ],
+  "낙하": [
+   "낙하·비래 표지",
+   "Falling-object indicators",
+   "落物·飞来物标志",
+   "Dấu hiệu vật rơi",
+   "Tushayotgan jism belgilari"
+  ],
+  "장비": [
+   "건설기계·차량 표지",
+   "Construction machinery and vehicle indicators",
+   "建设机械·车辆标志",
+   "Dấu hiệu máy xây dựng và xe",
+   "Qurilish mashinalari va transport belgilari"
+  ],
+  "붕괴": [
+   "붕괴·무너짐 표지",
+   "Collapse indicators",
+   "坍塌·倒塌标志",
+   "Dấu hiệu sập đổ",
+   "Qulash belgilari"
   ]
  },
  "grpOrder": [
@@ -1827,6 +3973,32 @@
   "굴착",
   "화기"
  ],
+ "grpOrderGen": [
+  "추락",
+  "낙하",
+  "장비",
+  "붕괴",
+  "화기",
+  "밀폐",
+  "보호구",
+  "환경"
+ ],
+ "dom": {
+  "elec": [
+   "전기설비부문 표지 (U01–U19)",
+   "Electrical indicators (U01–U19)",
+   "电气设备部门标志 (U01–U19)",
+   "Dấu hiệu thiết bị điện (U01–U19)",
+   "Elektr uskunalari belgilari (U01–U19)"
+  ],
+  "gen": [
+   "일반작업 표지 (G01–G20)",
+   "General work indicators (G01–G20)",
+   "一般作业标志 (G01–G20)",
+   "Dấu hiệu công việc chung (G01–G20)",
+   "Umumiy ish belgilari (G01–G20)"
+  ]
+ },
  "sample": {
   "hits": [
    [
@@ -2063,11 +4235,9 @@
    "boom"
   ],
   "U11": [
-   "비계",
    "파이프",
    "철근",
    "장척",
-   "scaffold",
    "pipe",
    "rebar"
   ],
@@ -2140,12 +4310,229 @@
    "화기",
    "welding",
    "grinding"
+  ],
+  "G01": [
+   "개구부",
+   "단부",
+   "난간",
+   "덮개",
+   "슬래브",
+   "opening",
+   "edge",
+   "guardrail"
+  ],
+  "G02": [
+   "고소",
+   "안전대",
+   "추락",
+   "지붕",
+   "철골",
+   "외벽",
+   "height",
+   "harness",
+   "roof",
+   "fall"
+  ],
+  "G03": [
+   "비계",
+   "발판",
+   "벽이음",
+   "scaffold",
+   "platform"
+  ],
+  "G04": [
+   "사다리",
+   "ladder",
+   "stepladder"
+  ],
+  "G05": [
+   "고소작업대",
+   "고소작업차",
+   "스카이",
+   "리프트",
+   "붐리프트",
+   "시저",
+   "aerial",
+   "mewp",
+   "boom lift",
+   "scissor"
+  ],
+  "G06": [
+   "인양",
+   "양중",
+   "크레인",
+   "호이스트",
+   "슬링",
+   "줄걸이",
+   "훅",
+   "hoist",
+   "crane",
+   "sling",
+   "rigging",
+   "lifting"
+  ],
+  "G07": [
+   "낙하",
+   "적재",
+   "자재",
+   "방지망",
+   "방호선반",
+   "낙하물",
+   "stack",
+   "debris",
+   "falling object"
+  ],
+  "G08": [
+   "굴착기",
+   "포크레인",
+   "백호",
+   "장비",
+   "중장비",
+   "excavator",
+   "backhoe",
+   "machinery"
+  ],
+  "G09": [
+   "덤프",
+   "트럭",
+   "지게차",
+   "차량",
+   "후진",
+   "신호수",
+   "dump",
+   "truck",
+   "forklift",
+   "reversing",
+   "vehicle"
+  ],
+  "G10": [
+   "회전",
+   "벨트",
+   "컨베이어",
+   "믹서",
+   "절곡기",
+   "절단기",
+   "끼임",
+   "conveyor",
+   "mixer",
+   "rotating",
+   "guard"
+  ],
+  "G11": [
+   "굴착",
+   "터파기",
+   "흙막이",
+   "도랑",
+   "트렌치",
+   "매몰",
+   "trench",
+   "excavation",
+   "shoring"
+  ],
+  "G12": [
+   "거푸집",
+   "동바리",
+   "타설",
+   "서포트",
+   "formwork",
+   "shoring",
+   "pour",
+   "concrete"
+  ],
+  "G13": [
+   "해체",
+   "철거",
+   "demolition",
+   "dismantl"
+  ],
+  "G14": [
+   "용접",
+   "용단",
+   "절단",
+   "그라인딩",
+   "불티",
+   "화기",
+   "welding",
+   "cutting",
+   "hot work",
+   "spark"
+  ],
+  "G15": [
+   "맨홀",
+   "밀폐",
+   "탱크",
+   "정화조",
+   "피트",
+   "질식",
+   "manhole",
+   "confined",
+   "tank",
+   "pit"
+  ],
+  "G16": [
+   "안전모",
+   "안전화",
+   "보호구",
+   "미착용",
+   "턱끈",
+   "helmet",
+   "ppe",
+   "boots"
+  ],
+  "G17": [
+   "통로",
+   "정리",
+   "정돈",
+   "잔재",
+   "미끄럼",
+   "조명",
+   "넘어짐",
+   "housekeeping",
+   "walkway",
+   "slip",
+   "trip"
+  ],
+  "G18": [
+   "그라인더",
+   "원형톱",
+   "절단",
+   "숫돌",
+   "보안경",
+   "grinder",
+   "saw",
+   "disc",
+   "goggles"
+  ],
+  "G19": [
+   "운반",
+   "중량물",
+   "들기",
+   "상하차",
+   "포대",
+   "manual",
+   "lifting",
+   "carry",
+   "heavy"
+  ],
+  "G20": [
+   "폭염",
+   "온열",
+   "더위",
+   "여름",
+   "heat",
+   "hot weather",
+   "summer"
   ]
  },
  "base": [
   "U01",
   "U05",
   "U16"
+ ],
+ "baseGen": [
+  "G16",
+  "G17",
+  "G07"
  ],
  "ptw": {
   "title": [
@@ -3154,5 +5541,804 @@
    "Đóng điện lại — chỉ khi người giám sát yêu cầu sau khi hoàn tất. Đóng theo <b>thứ tự ngược</b> ①–④. Người yêu cầu 　　　 giờ 　:　 người xác nhận 　　　 (ký)",
    "Qayta ulash — barcha ish tugagach, faqat kuzatuvchi so'roviga ko'ra. ①–④ ning <b>teskari tartibida</b>. So'rovchi 　　　 vaqt 　:　 tasdiqlovchi 　　　 (imzo)"
   ]
+ },
+ "p94": {
+  "title": [
+   "일 반 위 험 작 업   허 가 서",
+   "GENERAL HAZARDOUS WORK PERMIT",
+   "一 般 危 险 作 业 许 可 证",
+   "GIẤY PHÉP CÔNG VIỆC NGUY HIỂM CHUNG",
+   "UMUMIY XAVFLI ISH RUXSATNOMASI"
+  ],
+  "titleHot": [
+   "화 기 작 업   허 가 서",
+   "HOT WORK PERMIT",
+   "动 火 作 业 许 可 证",
+   "GIẤY PHÉP LÀM VIỆC CÓ LỬA",
+   "OLOVLI ISH RUXSATNOMASI"
+  ],
+  "sub": [
+   "KOSHA GUIDE P-94-2021 「안전작업허가지침」 <별지 양식2> 준용 · 건설현장 일반작업(비전기) 적용",
+   "Based on KOSHA GUIDE P-94-2021 Safe Work Permit Guideline, Annex Form 2 · applied to general (non-electrical) construction work",
+   "依据 KOSHA GUIDE P-94-2021《安全作业许可指南》<附件格式2> · 适用于建设现场一般(非电气)作业",
+   "Theo KOSHA GUIDE P-94-2021 Hướng dẫn giấy phép làm việc an toàn, Mẫu phụ lục 2 · áp dụng cho công việc chung (không phải điện) tại công trường",
+   "KOSHA GUIDE P-94-2021 Xavfsiz ish ruxsatnomasi yo'riqnomasi, 2-ilova shakli asosida · umumiy (elektr bo'lmagan) qurilish ishiga qo'llanadi"
+  ],
+  "subHot": [
+   "KOSHA GUIDE P-94-2021 <별지 양식1> 준용 · 용접·용단·연마 등 화기작업이 확인되어 화기작업 허가서로 전환",
+   "Based on P-94-2021 Annex Form 1 · switched to a hot-work permit because welding, cutting or grinding was identified",
+   "依据 P-94-2021 <附件格式1> · 确认焊接·切割·打磨等动火作业，转换为动火作业许可证",
+   "Theo P-94-2021 Mẫu phụ lục 1 · chuyển sang giấy phép làm việc có lửa vì phát hiện hàn, cắt, mài",
+   "P-94-2021 1-ilova shakli asosida · payvandlash, kesish, silliqlash aniqlangani uchun olovli ish ruxsatnomasiga o'tildi"
+  ],
+  "L": {
+   "no": [
+    "허가번호",
+    "Permit No.",
+    "许可编号",
+    "Số giấy phép",
+    "Ruxsatnoma raqami"
+   ],
+   "date": [
+    "허가일자",
+    "Permit date",
+    "许可日期",
+    "Ngày cấp",
+    "Berilgan sana"
+   ],
+   "appl": [
+    "신청인",
+    "Applicant",
+    "申请人",
+    "Người xin phép",
+    "So'rovchi"
+   ],
+   "dept": [
+    "부서",
+    "Dept.",
+    "部门",
+    "Bộ phận",
+    "Bo'lim"
+   ],
+   "pos": [
+    "직책",
+    "Position",
+    "职务",
+    "Chức vụ",
+    "Lavozim"
+   ],
+   "name": [
+    "성명",
+    "Name",
+    "姓名",
+    "Họ tên",
+    "Ism"
+   ],
+   "sign": [
+    "(서명)",
+    "(signature)",
+    "(签名)",
+    "(ký tên)",
+    "(imzo)"
+   ],
+   "period": [
+    "작업허가기간",
+    "Permit period",
+    "作业许可期间",
+    "Thời hạn giấy phép",
+    "Ruxsat muddati"
+   ],
+   "periodf": [
+    "년   월   일   시부터   시까지",
+    "YYYY-MM-DD, from __:__ to __:__",
+    "年   月   日   时 至   时",
+    "ngày __/__/____, từ __:__ đến __:__",
+    "____-__-__, __:__ dan __:__ gacha"
+   ],
+   "placeEq": [
+    "작업장소 및 설비(기기)",
+    "Work location and equipment",
+    "作业场所及设备(机器)",
+    "Nơi làm việc và thiết bị",
+    "Ish joyi va uskuna"
+   ],
+   "reqno": [
+    "정비작업 신청번호",
+    "Maintenance request No.",
+    "维修作业申请编号",
+    "Số yêu cầu bảo trì",
+    "Ta'mirlash so'rovi raqami"
+   ],
+   "eqno": [
+    "장치번호",
+    "Equipment No.",
+    "装置编号",
+    "Số thiết bị",
+    "Uskuna raqami"
+   ],
+   "area": [
+    "작업지역(장소)",
+    "Work area (location)",
+    "作业区域(场所)",
+    "Khu vực làm việc",
+    "Ish hududi"
+   ],
+   "eqname": [
+    "장치명",
+    "Equipment name",
+    "装置名称",
+    "Tên thiết bị",
+    "Uskuna nomi"
+   ],
+   "scope": [
+    "작업 개요",
+    "Work description",
+    "作业概要",
+    "Mô tả công việc",
+    "Ish tavsifi"
+   ],
+   "attach": [
+    "첨부 서류",
+    "Attachments",
+    "附件资料",
+    "Tài liệu đính kèm",
+    "Ilova hujjatlar"
+   ],
+   "proc": [
+    "작업 전 작업절차서",
+    "Pre-work procedure",
+    "作业前作业程序书",
+    "Quy trình trước khi làm việc",
+    "Ishdan oldingi tartib hujjati"
+   ],
+   "raneed": [
+    "위험성평가 필요(변화, 작업상이)",
+    "Risk assessment required (change or different work)",
+    "需要风险评估(变化、作业相异)",
+    "Cần đánh giá rủi ro (thay đổi, việc khác)",
+    "Xavfni baholash zarur (o'zgarish, boshqa ish)"
+   ],
+   "yes": [
+    "유",
+    "Yes",
+    "有",
+    "Có",
+    "Bor"
+   ],
+   "no2": [
+    "무",
+    "No",
+    "无",
+    "Không",
+    "Yo'q"
+   ],
+   "s1": [
+    "안전조치 요구사항",
+    "Safety measure requirements",
+    "安全措施要求事项",
+    "Yêu cầu biện pháp an toàn",
+    "Xavfsizlik chorasi talablari"
+   ],
+   "s1n": [
+    "* 필요한 부분에 표시, 확인은 ○∨ 표시",
+    "* Tick required items; confirm with ○∨",
+    "* 在需要的部分标记，确认以○∨标示",
+    "* Đánh dấu mục cần thiết; xác nhận bằng ○∨",
+    "* Kerakli bandni belgilang; tasdiq ○∨ bilan"
+   ],
+   "s2": [
+    "보충작업허가",
+    "Supplementary work permits",
+    "补充作业许可",
+    "Giấy phép công việc bổ sung",
+    "Qo'shimcha ish ruxsatnomalari"
+   ],
+   "s3": [
+    "가스농도 측정",
+    "Gas concentration measurement",
+    "气体浓度测定",
+    "Đo nồng độ khí",
+    "Gaz konsentratsiyasini o'lchash"
+   ],
+   "s4": [
+    "기타 특별사항",
+    "Other special notes",
+    "其他特别事项",
+    "Ghi chú đặc biệt khác",
+    "Boshqa maxsus izohlar"
+   ],
+   "s5": [
+    "작업 완료",
+    "Work completion",
+    "作业完成",
+    "Hoàn thành công việc",
+    "Ish yakuni"
+   ],
+   "s6": [
+    "안전조치 확인",
+    "Confirmation of safety measures",
+    "安全措施确认",
+    "Xác nhận biện pháp an toàn",
+    "Xavfsizlik choralarini tasdiqlash"
+   ],
+   "s7": [
+    "관련부서 협조자",
+    "Cooperating related departments",
+    "相关部门协助人",
+    "Người phối hợp bộ phận liên quan",
+    "Hamkor bo'limlar"
+   ],
+   "s8": [
+    "발급자 / 승인자",
+    "Issuer / Approver",
+    "签发人 / 批准人",
+    "Người cấp / Người phê duyệt",
+    "Beruvchi / Tasdiqlovchi"
+   ],
+   "s9": [
+    "작업허가 연장",
+    "Permit extension",
+    "作业许可延长",
+    "Gia hạn giấy phép",
+    "Ruxsatni uzaytirish"
+   ],
+   "issuer": [
+    "발급자",
+    "Issuer",
+    "签发人",
+    "Người cấp",
+    "Beruvchi"
+   ],
+   "approver": [
+    "승인자",
+    "Approver",
+    "批准人",
+    "Người phê duyệt",
+    "Tasdiqlovchi"
+   ],
+   "confirmer": [
+    "확인자",
+    "Checker",
+    "确认人",
+    "Người xác nhận",
+    "Tekshiruvchi"
+   ],
+   "suppPeriod": [
+    "허가기간",
+    "Period",
+    "许可期间",
+    "Thời hạn",
+    "Muddat"
+   ],
+   "substance": [
+    "물질명",
+    "Substance",
+    "物质名",
+    "Chất",
+    "Modda"
+   ],
+   "result": [
+    "결과",
+    "Result",
+    "结果",
+    "Kết quả",
+    "Natija"
+   ],
+   "mtime": [
+    "측정시간",
+    "Time",
+    "测定时间",
+    "Thời gian đo",
+    "O'lchov vaqti"
+   ],
+   "measurer": [
+    "측정자/확인자",
+    "Measured by / checked by",
+    "测定者/确认者",
+    "Người đo / xác nhận",
+    "O'lchovchi / tekshiruvchi"
+   ],
+   "doneTime": [
+    "작업완료 시간",
+    "Completion time",
+    "作业完成时间",
+    "Thời gian hoàn thành",
+    "Yakunlangan vaqt"
+   ],
+   "attend": [
+    "입회자",
+    "Attending supervisor",
+    "监护人",
+    "Người giám sát",
+    "Nazoratchi"
+   ],
+   "worker": [
+    "작업자",
+    "Worker",
+    "作业者",
+    "Người làm việc",
+    "Ishchi"
+   ],
+   "restore": [
+    "복원(조치)상태",
+    "Restoration status",
+    "复原(措施)状态",
+    "Tình trạng khôi phục",
+    "Tiklash holati"
+   ],
+   "workHead": [
+    "작업(공무)부서 책임자",
+    "Head of work (maintenance) dept.",
+    "作业(工务)部门负责人",
+    "Trưởng bộ phận thi công",
+    "Ish bo'limi rahbari"
+   ],
+   "extIssuer": [
+    "발급자 (서명)",
+    "Issuer (signature)",
+    "签发人 (签名)",
+    "Người cấp (ký)",
+    "Beruvchi (imzo)"
+   ],
+   "check": [
+    "☐ 표시 / ○ 확인",
+    "☐ tick / ○ confirm",
+    "☐ 标记 / ○ 确认",
+    "☐ đánh dấu / ○ xác nhận",
+    "☐ belgi / ○ tasdiq"
+   ],
+   "chkHead": [
+    "표시",
+    "Tick",
+    "标记",
+    "Đánh dấu",
+    "Belgi"
+   ],
+   "cfmHead": [
+    "확인",
+    "Confirm",
+    "确认",
+    "Xác nhận",
+    "Tasdiq"
+   ],
+   "noh": [
+    "번호",
+    "No.",
+    "序号",
+    "STT",
+    "№"
+   ],
+   "item": [
+    "항목",
+    "Item",
+    "项目",
+    "Hạng mục",
+    "Band"
+   ],
+   "ptwNote": [
+    "P-94-2021 6.2(1)(나): 위험한 작업의 종류는 사업장 또는 공정의 특성을 고려하여 정한다 — 이 플랫폼은 CSI 재해유형(추락·낙하·장비·붕괴·화기·밀폐 등)에서 확인된 표지를 기준으로 필요한 항목만 자동 표시한다.",
+    "P-94-2021 §6.2(1)(b): the kinds of hazardous work are defined by the site or process — this platform auto-ticks only the items derived from indicators found in the photograph (fall, falling object, machinery, collapse, hot work, confined space, etc.).",
+    "P-94-2021 6.2(1)(乙)：危险作业的种类根据事业场或工艺特性确定 — 本平台仅根据照片中确认的标志(坠落·落物·设备·坍塌·动火·密闭等)自动标记所需项目。",
+    "P-94-2021 §6.2(1)(b): loại công việc nguy hiểm do cơ sở hoặc quy trình quy định — nền tảng chỉ tự động đánh dấu các mục suy ra từ dấu hiệu trong ảnh (ngã cao, vật rơi, máy móc, sập, lửa, không gian kín…).",
+    "P-94-2021 6.2(1)(b): xavfli ish turlari korxona yoki jarayon xususiyatiga ko'ra belgilanadi — platforma faqat suratdagi belgilardan kelib chiqqan bandlarni avtomatik belgilaydi."
+   ],
+   "placef": [
+    "② 현장 정보의 작업장소가 자동 입력됩니다",
+    "Filled from the site information in ②",
+    "自动填入②现场信息的作业场所",
+    "Tự động điền từ thông tin hiện trường ②",
+    "② ish joyi ma'lumotidan avtomatik to'ldiriladi"
+   ]
+  },
+  "attach": [
+   [
+    "작업계획서",
+    "Work plan",
+    "作业计划书",
+    "Kế hoạch làm việc",
+    "Ish rejasi"
+   ],
+   [
+    "소화기 목록",
+    "Extinguisher list",
+    "灭火器目录",
+    "Danh mục bình chữa cháy",
+    "O't o'chirgichlar ro'yxati"
+   ],
+   [
+    "특수작업 절차서",
+    "Special work procedure",
+    "特殊作业程序书",
+    "Quy trình công việc đặc biệt",
+    "Maxsus ish tartibi"
+   ],
+   [
+    "기술자료(도면)",
+    "Technical data (drawings)",
+    "技术资料(图纸)",
+    "Tài liệu kỹ thuật (bản vẽ)",
+    "Texnik hujjatlar (chizmalar)"
+   ],
+   [
+    "안전장구 목록",
+    "Safety equipment list",
+    "安全装备目录",
+    "Danh mục trang bị an toàn",
+    "Xavfsizlik jihozlari ro'yxati"
+   ],
+   [
+    "굴착도면",
+    "Excavation drawing",
+    "开挖图纸",
+    "Bản vẽ đào đất",
+    "Qazish chizmasi"
+   ]
+  ],
+  "safe": [
+   [
+    "작업구역 설정(출입경고 표지)",
+    "Work zone set up (entry warning signs)",
+    "作业区域设定(出入警告标识)",
+    "Thiết lập khu vực làm việc (biển cảnh báo)",
+    "Ish zonasi belgilangan (kirish ogohlantirish belgisi)"
+   ],
+   [
+    "가스농도 측정",
+    "Gas concentration measured",
+    "气体浓度测定",
+    "Đo nồng độ khí",
+    "Gaz konsentratsiyasi o'lchangan"
+   ],
+   [
+    "밸브차단 및 차단표지 부착(도면 비교)",
+    "Valves isolated and tagged (checked against drawing)",
+    "阀门切断及切断标识粘贴(图纸比对)",
+    "Cách ly van và gắn thẻ (đối chiếu bản vẽ)",
+    "Klapanlar yopilgan va belgilangan (chizma bilan solishtirilgan)"
+   ],
+   [
+    "맹판설치 및 표지 부착(도면 비교)",
+    "Blind plates fitted and tagged (checked against drawing)",
+    "盲板设置及标识粘贴(图纸比对)",
+    "Lắp bích mù và gắn thẻ (đối chiếu bản vẽ)",
+    "Ko'r flanets o'rnatilgan va belgilangan"
+   ],
+   [
+    "위험물질(가연성분진 포함) 방출 및 처리",
+    "Hazardous materials (incl. combustible dust) released and treated",
+    "危险物质(含可燃粉尘)排放及处理",
+    "Xả và xử lý chất nguy hiểm (kể cả bụi cháy)",
+    "Xavfli moddalar (yonuvchi chang bilan) chiqarilgan va qayta ishlangan"
+   ],
+   [
+    "용기개방 및 압력방출",
+    "Vessel opened and pressure released",
+    "容器开放及压力释放",
+    "Mở bồn và xả áp",
+    "Idish ochilgan va bosim chiqarilgan"
+   ],
+   [
+    "용기내부 세정 및 처리",
+    "Vessel interior cleaned and treated",
+    "容器内部清洗及处理",
+    "Làm sạch và xử lý bên trong bồn",
+    "Idish ichi tozalangan"
+   ],
+   [
+    "불활성가스 치환 및 환기",
+    "Inert-gas purge and ventilation",
+    "惰性气体置换及通风",
+    "Thay khí trơ và thông gió",
+    "Inert gaz bilan almashtirish va shamollatish"
+   ],
+   [
+    "환기장비",
+    "Ventilation equipment",
+    "通风设备",
+    "Thiết bị thông gió",
+    "Shamollatish uskunasi"
+   ],
+   [
+    "조명장비",
+    "Lighting equipment",
+    "照明设备",
+    "Thiết bị chiếu sáng",
+    "Yoritish uskunasi"
+   ],
+   [
+    "소화기",
+    "Fire extinguisher",
+    "灭火器",
+    "Bình chữa cháy",
+    "O't o'chirgich"
+   ],
+   [
+    "안전장구",
+    "Safety equipment (PPE)",
+    "安全装备",
+    "Trang bị an toàn",
+    "Xavfsizlik jihozlari"
+   ],
+   [
+    "안전교육",
+    "Safety training",
+    "安全教育",
+    "Huấn luyện an toàn",
+    "Xavfsizlik ta'limi"
+   ],
+   [
+    "운전요원의 입회",
+    "Operating staff in attendance",
+    "运行人员的监护",
+    "Nhân viên vận hành giám sát",
+    "Operator xodimi ishtiroki"
+   ]
+  ],
+  "hotExtra": [
+   [
+    "작업주위 가연성물질 제거",
+    "Combustible materials removed around the work",
+    "清除作业周围可燃物",
+    "Dọn vật liệu dễ cháy quanh nơi làm",
+    "Ish atrofidagi yonuvchi materiallar olib tashlangan"
+   ],
+   [
+    "비산불티 차단막 설치",
+    "Spark shield installed",
+    "设置飞溅火花隔离屏",
+    "Lắp màn chắn tia lửa",
+    "Uchqun to'sig'i o'rnatilgan"
+   ]
+  ],
+  "suppOrder": [
+   "mil",
+   "jeon",
+   "gul",
+   "bang",
+   "go",
+   "jung"
+  ],
+  "suppName": {
+   "mil": [
+    "밀폐공간",
+    "Confined space",
+    "密闭空间",
+    "Không gian kín",
+    "Yopiq joy"
+   ],
+   "jeon": [
+    "정전",
+    "De-energised (electrical isolation)",
+    "停电",
+    "Cắt điện",
+    "Kuchlanishsiz"
+   ],
+   "gul": [
+    "굴착",
+    "Excavation",
+    "挖掘",
+    "Đào đất",
+    "Qazish"
+   ],
+   "bang": [
+    "방사선",
+    "Radiation",
+    "放射线",
+    "Bức xạ",
+    "Radiatsiya"
+   ],
+   "go": [
+    "고소",
+    "Work at height",
+    "高处",
+    "Trên cao",
+    "Balandlik"
+   ],
+   "jung": [
+    "중장비",
+    "Heavy equipment",
+    "重型设备",
+    "Thiết bị nặng",
+    "Og'ir texnika"
+   ]
+  },
+  "suppItems": {
+   "mil": [
+    [
+     "통신수단",
+     "Means of communication",
+     "通信手段",
+     "Phương tiện liên lạc",
+     "Aloqa vositasi"
+    ],
+    [
+     "구명장구(줄, 송기마스크)",
+     "Rescue equipment (lifeline, air-line mask)",
+     "救生装备(绳、送气面罩)",
+     "Trang bị cứu hộ (dây, mặt nạ cấp khí)",
+     "Qutqaruv jihozi (arqon, havo niqobi)"
+    ]
+   ],
+   "jeon": [
+    [
+     "차단기기 : 제어실(   )  현장(   )",
+     "Isolation device: control room (   )  field (   )",
+     "切断设备：控制室(   )  现场(   )",
+     "Thiết bị cách ly: phòng điều khiển (   )  hiện trường (   )",
+     "Uzish qurilmasi: boshqaruv xonasi (   )  maydon (   )"
+    ],
+    [
+     "제어실 : 스위치·차단기 내림",
+     "Control room: switch and breaker opened",
+     "控制室：开关·断路器断开",
+     "Phòng điều khiển: hạ công tắc, CB",
+     "Boshqaruv xonasi: kalit va avtomat o'chirilgan"
+    ],
+    [
+     "제어실 : 잠금장치 시건·표지 부착",
+     "Control room: locked and tagged",
+     "控制室：上锁·挂牌",
+     "Phòng điều khiển: khóa và treo thẻ",
+     "Boshqaruv xonasi: qulflangan va belgilangan"
+    ],
+    [
+     "현장 : 스위치·차단기 내림",
+     "Field: switch and breaker opened",
+     "现场：开关·断路器断开",
+     "Hiện trường: hạ công tắc, CB",
+     "Maydon: kalit va avtomat o'chirilgan"
+    ],
+    [
+     "현장 : 잠금장치 시건·표지 부착",
+     "Field: locked and tagged",
+     "现场：上锁·挂牌",
+     "Hiện trường: khóa và treo thẻ",
+     "Maydon: qulflangan va belgilangan"
+    ]
+   ],
+   "gul": [
+    [
+     "설비 : 가스·기계·소방배관 — 점검자",
+     "Utilities: gas, mechanical, fire piping — checked by",
+     "设施：燃气·机械·消防管道 — 检查人",
+     "Công trình ngầm: gas, cơ khí, ống cứu hỏa — người kiểm tra",
+     "Kommunikatsiya: gaz, mexanik, yong'in quvurlari — tekshiruvchi"
+    ],
+    [
+     "설비 : 전기·계장·통신 — 점검자",
+     "Utilities: electrical, instrumentation, telecom — checked by",
+     "设施：电气·仪表·通信 — 检查人",
+     "Công trình ngầm: điện, đo lường, viễn thông — người kiểm tra",
+     "Kommunikatsiya: elektr, asbob, aloqa — tekshiruvchi"
+    ]
+   ],
+   "bang": [
+    [
+     "비인가자 출입제한",
+     "Entry of unauthorised persons restricted",
+     "非授权人员出入限制",
+     "Hạn chế người không phận sự",
+     "Ruxsatsiz kirish cheklangan"
+    ],
+    [
+     "방사선 위험경고·표지",
+     "Radiation warning signs",
+     "放射线危险警告·标识",
+     "Biển cảnh báo bức xạ",
+     "Radiatsiya ogohlantirish belgisi"
+    ],
+    [
+     "자격증 소지",
+     "Licence held",
+     "持有资格证",
+     "Có chứng chỉ",
+     "Litsenziya mavjud"
+    ],
+    [
+     "방사선 방사점 도면 첨부",
+     "Radiation source location drawing attached",
+     "附放射点图纸",
+     "Đính bản vẽ vị trí nguồn bức xạ",
+     "Radiatsiya manbai chizmasi ilova qilingan"
+    ]
+   ],
+   "go": [
+    [
+     "작업발판·안전난간",
+     "Work platform and guardrail",
+     "作业平台·安全护栏",
+     "Sàn thao tác, lan can",
+     "Ish maydoni va to'siq"
+    ],
+    [
+     "안전대 착용·부착",
+     "Harness worn and anchored",
+     "安全带佩戴·系挂",
+     "Đeo và móc dây an toàn",
+     "Kamar kiyilgan va bog'langan"
+    ],
+    [
+     "추락방지망",
+     "Fall-arrest net",
+     "坠落防护网",
+     "Lưới chống ngã",
+     "Yiqilishga qarshi to'r"
+    ]
+   ],
+   "jung": [
+    [
+     "투입장비 : (        )",
+     "Equipment deployed: (        )",
+     "投入设备：(        )",
+     "Thiết bị đưa vào: (        )",
+     "Jalb qilingan texnika: (        )"
+    ],
+    [
+     "자격증 소지",
+     "Operator licence held",
+     "持有资格证",
+     "Có chứng chỉ vận hành",
+     "Operator litsenziyasi mavjud"
+    ],
+    [
+     "현장책임자 감독",
+     "Supervised by site manager",
+     "现场负责人监督",
+     "Người phụ trách hiện trường giám sát",
+     "Maydon rahbari nazorati"
+    ],
+    [
+     "기상·노면상태",
+     "Weather and ground conditions",
+     "气象·路面状态",
+     "Thời tiết, mặt đất",
+     "Ob-havo va yer holati"
+    ],
+    [
+     "전선·설비 간섭",
+     "Interference with lines and equipment",
+     "电线·设备干涉",
+     "Vướng đường dây, thiết bị",
+     "Simlar va uskunalar bilan to'qnashuv"
+    ],
+    [
+     "신호수 배치",
+     "Signaller posted",
+     "配置信号员",
+     "Bố trí người ra hiệu",
+     "Signalchi qo'yilgan"
+    ],
+    [
+     "매트 등 부속장구",
+     "Mats and other accessories",
+     "垫板等附属装备",
+     "Tấm lót và phụ kiện",
+     "Mat va boshqa jihozlar"
+    ],
+    [
+     "운전원 : (        )",
+     "Operator: (        )",
+     "操作员：(        )",
+     "Người vận hành: (        )",
+     "Haydovchi: (        )"
+    ]
+   ]
+  },
+  "suppNote": {
+   "mil": [
+    "가스농도 측정결과 기준 — 1. HC: 0 %  2. O₂: 18 % 이상 23.5 % 미만  3. CO: 30 ppm 미만  4. CO₂: 1.5 % 미만  5. H₂S: 10 ppm 미만",
+    "Gas criteria — 1. HC 0 %  2. O₂ 18–23.5 %  3. CO < 30 ppm  4. CO₂ < 1.5 %  5. H₂S < 10 ppm",
+    "气体浓度测定基准 — 1. HC: 0 %  2. O₂: 18 %以上23.5 %未满  3. CO: 30 ppm未满  4. CO₂: 1.5 %未满  5. H₂S: 10 ppm未满",
+    "Tiêu chí khí — 1. HC 0 %  2. O₂ 18–23,5 %  3. CO < 30 ppm  4. CO₂ < 1,5 %  5. H₂S < 10 ppm",
+    "Gaz mezonlari — 1. HC 0 %  2. O₂ 18–23,5 %  3. CO < 30 ppm  4. CO₂ < 1,5 %  5. H₂S < 10 ppm"
+   ],
+   "jeon": [
+    "전원복구 : 모든 작업이 완료된 후 운전부서 입회자의 요청에 의해서만 전원을 복구하여야 한다. ※ 전원복구 요청자 :          복구시간 :          확인자 :",
+    "Power restoration: only at the request of the operating department’s attendant after all work is complete. ※ Requested by:          Time:          Checked by:",
+    "电源恢复：所有作业完成后，仅经运行部门监护人要求方可恢复电源。※ 恢复申请人：          恢复时间：          确认人：",
+    "Khôi phục điện: chỉ theo yêu cầu của người giám sát bộ phận vận hành sau khi hoàn thành toàn bộ công việc. ※ Người yêu cầu:          Thời gian:          Người xác nhận:",
+    "Tokni tiklash: barcha ish tugagach faqat operatsion bo'lim nazoratchisi so'rovi bilan. ※ So'rovchi:          Vaqt:          Tekshiruvchi:"
+   ]
+  }
  }
 }
