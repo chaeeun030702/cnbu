@@ -1,0 +1,80 @@
+[
+ {
+  "id": "sum",
+  "grp": null,
+  "lab": [
+   "6~8월 작업",
+   "Work in June–August",
+   "6~8月作业",
+   "Làm việc tháng 6–8",
+   "6–8 oylardagi ish"
+  ],
+  "why": [
+   "감전 사상자의 34.2 %가 6~8월에 집중",
+   "34.2 % of shock casualties occur in June–August",
+   "触电伤亡者的34.2%集中在6~8月",
+   "34,2 % nạn nhân điện giật tập trung vào tháng 6–8",
+   "Tok urishi qurbonlarining 34,2 % iyun–avgustga to'g'ri keladi"
+  ]
+ },
+ {
+  "id": "rain",
+  "grp": [
+   "전기",
+   "보호구",
+   "환경"
+  ],
+  "lab": [
+   "강우 중·직후",
+   "During or right after rain",
+   "降雨中·雨后",
+   "Trong hoặc ngay sau mưa",
+   "Yomg'ir paytida yoki keyin"
+  ],
+  "why": [
+   "습윤이 인체저항을 낮춰 저압에서도 치명적",
+   "Wetness lowers body resistance; even low voltage becomes lethal",
+   "潮湿降低人体电阻，低压也可致命",
+   "Ẩm ướt làm giảm điện trở cơ thể, điện áp thấp cũng gây chết người",
+   "Namlik tana qarshiligini pasaytiradi, past kuchlanish ham halokatli"
+  ]
+ },
+ {
+  "id": "morn",
+  "grp": null,
+  "lab": [
+   "08~10시 작업 개시",
+   "Work starting 08:00–10:00",
+   "08~10时开始作业",
+   "Bắt đầu làm việc 08–10 giờ",
+   "Ish 08:00–10:00 da boshlanadi"
+  ],
+  "why": [
+   "시간대별 감전 사상자 최다 89명",
+   "Highest hourly count of shock casualties: 89",
+   "按时段触电伤亡者最多89人",
+   "Số nạn nhân điện giật theo giờ cao nhất: 89 người",
+   "Soatlik eng ko'p tok urishi qurbonlari: 89 kishi"
+  ]
+ },
+ {
+  "id": "fore",
+  "grp": [
+   "관리"
+  ],
+  "lab": [
+   "외국인 근로자 포함",
+   "Foreign workers involved",
+   "包含外籍劳工",
+   "Có lao động nước ngoài",
+   "Chet ellik ishchilar bor"
+  ],
+  "why": [
+   "전기 부문 외국인 42건의 감전 비율이 전체 평균의 2배",
+   "Electric shock share among 42 foreign-worker cases is twice the average",
+   "电气部门外籍劳工42起中触电比例为整体平均的2倍",
+   "Tỷ lệ điện giật trong 42 vụ lao động nước ngoài gấp đôi mức trung bình",
+   "42 chet ellik ishchi holatida tok urishi ulushi o'rtachadan ikki baravar"
+  ]
+ }
+]

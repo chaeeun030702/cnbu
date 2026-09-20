@@ -1,0 +1,3158 @@
+{
+ "langs": [
+  "ko",
+  "en",
+  "zh",
+  "vi",
+  "uz"
+ ],
+ "ind": [
+  {
+   "id": "U01",
+   "e": "E01",
+   "p": "P01",
+   "grp": [
+    "전기",
+    "전기",
+    "전기",
+    "전기",
+    "전기"
+   ],
+   "tag": [
+    "노출된 충전부 · 개방된 분전반/제어반",
+    "Exposed live parts / open distribution or control panel",
+    "裸露带电部·敞开的配电盘或控制盘",
+    "Phần mang điện hở / tủ phân phối, tủ điều khiển mở",
+    "Ochiq kuchlanishli qismlar / ochiq taqsimlash yoki boshqaruv shchiti"
+   ],
+   "ra": {
+    "work": [
+     "분전반·제어반 점검 및 결선",
+     "Inspection and wiring of distribution/control panels",
+     "配电盘·控制盘的检查及接线",
+     "Kiểm tra và đấu dây tủ phân phối/điều khiển",
+     "Shchit va boshqaruv panelini tekshirish va ulash"
+    ],
+    "cls": [
+     "전기적 요인",
+     "Electrical",
+     "电气性因素",
+     "Yếu tố điện",
+     "Elektr omili"
+    ],
+    "cause": [
+     "감전 — 충전부 직접접촉",
+     "Shock — direct contact with live parts",
+     "触电 — 直接接触带电部",
+     "Điện giật — tiếp xúc trực tiếp phần mang điện",
+     "Tok urishi — kuchlanishli qismga bevosita tegish"
+    ],
+    "haz": [
+     "분전반 문이 열린 채 단자대·버스바가 노출되어 있고 방호덮개가 없다. 통행 중 신체·공구가 충전부에 스치기만 해도 감전되며, 저압이라도 습한 손·금속공구를 매개로 치명적 전류가 흐른다.",
+     "The panel door stands open with terminals and busbars exposed and no protective cover fitted. A passing body or tool brushing a live part is enough to cause a shock; even at low voltage a wet hand or metal tool can carry a fatal current.",
+     "配电盘门敞开,端子排·母线裸露且无防护罩。通行中身体·工具只要擦碰带电部即触电,即便低压,经潮湿手部·金属工具也会流过致命电流。",
+     "Cửa tủ mở, thanh cái và đầu nối hở, không có nắp bảo vệ. Chỉ cần người hoặc dụng cụ quệt phải là bị giật; dù điện áp thấp, tay ướt hay dụng cụ kim loại vẫn dẫn dòng chết người.",
+     "Shchit eshigi ochiq, klemma va shinalar ochiq, himoya qopqog'i yo'q. O'tayotgan odam yoki asbobning tegishi tok urishi uchun kifoya; past kuchlanishda ham nam qo'l yoki metall asbob halokatli tokni o'tkazadi."
+    ],
+    "law": [
+     "안전보건규칙 제301조 [전기 기계·기구 등의 충전부 방호]·제305조 [과전류 차단장치] / KOSHA B-E-7-2025 건설현장의 전기설비",
+     "OSH Rule Art.301 [guarding live parts], Art.305 [overcurrent protection] / KOSHA B-E-7-2025",
+     "安全保健规则 第301条[电气机械·器具等带电部的防护]·第305条[过电流切断装置] / KOSHA B-E-7-2025",
+     "Quy chuẩn Điều 301 [che chắn phần mang điện], Điều 305 / KOSHA B-E-7-2025",
+     "Qoidalar 301-modda [kuchlanishli qismlarni himoyalash], 305-modda / KOSHA B-E-7-2025"
+    ],
+    "csi": [
+     "한국전기안전공사 2024 감전형태 직접접촉 162명(43.7%)·사망 18명",
+     "KESCO 2024: 162 direct-contact shock victims (43.7%), 18 deaths",
+     "韩国电气安全公社2024年直接接触触电162人(43.7%)、死亡18人",
+     "KESCO 2024: 162 nạn nhân tiếp xúc trực tiếp (43,7%), 18 tử vong",
+     "KESCO 2024: bevosita tegishdan 162 kishi (43,7%), 18 o‘lim"
+    ],
+    "cur": [
+     "방호덮개 없음, 시건 미실시",
+     "No cover, panel not locked",
+     "无防护罩,未上锁",
+     "Không nắp che, không khóa tủ",
+     "Qopqoq yo'q, qulflanmagan"
+    ],
+    "act": [
+     "① 충전부에 절연덮개·방호판을 설치하고 분전반 문은 상시 시건 ② 결선작업은 정전 후 검전·단락접지 완료 뒤 시행 ③ 충전부 취급 시 절연장갑 착용 ④ \"감전주의\" 표지를 다국어로 부착",
+     "(1) Fit insulating covers or guards over live parts and keep the panel door locked. (2) Carry out wiring only after de-energising, voltage verification and short-circuit earthing. (3) Wear insulating gloves when handling live parts. (4) Post a multilingual “danger — electric shock” sign.",
+     "① 在带电部安装绝缘罩·防护板并对配电盘门常时上锁 ② 接线作业须在停电、验电、短路接地完成后进行 ③ 操作带电部时佩戴绝缘手套 ④ 以多语种张贴“当心触电”标识",
+     "(1) Lắp nắp cách điện/tấm chắn lên phần mang điện và khóa cửa tủ. (2) Chỉ đấu dây sau khi cắt điện, thử điện và tiếp đất ngắn mạch. (3) Đeo găng cách điện khi thao tác. (4) Dán biển “coi chừng điện giật” đa ngữ.",
+     "(1) Kuchlanishli qismlarga izolyatsion qopqoq o'rnatish va shchit eshigini qulflab turish. (2) Ulashni faqat elektr uzilgach, kuchlanish tekshirilgach va yerga ulangach bajarish. (3) Izolyatsion qo'lqop kiyish. (4) Ko'p tilli “tok urishi xavfi” belgisini osish."
+    ],
+    "p": 2,
+    "s": 3,
+    "p2": 1,
+    "s2": 3
+   },
+   "ptw": {
+    "main": null,
+    "supp": [
+     "jeon"
+    ],
+    "safe": [
+     2,
+     3,
+     4,
+     5,
+     6,
+     9,
+     12,
+     14
+    ],
+    "chk": {
+     "2": "Y",
+     "8": "Y",
+     "11": "Y",
+     "12": "Y"
+    },
+    "imp": [
+     "정전작업 허가가 성립 조건이 된다. 전기단선도 대조 후 차단·LOTO·검전·단락접지의 6단계를 모두 기록한다.",
+     "A de-energised-work permit becomes a condition of the job. Record all six steps — isolate, lock out, verify dead, earth — against the single-line diagram.",
+     "停电作业许可成为作业的成立条件。与电气单线图核对后,记录切断·上锁·验电·短路接地的全部6个步骤。",
+     "Giấy phép làm việc đã cắt điện trở thành điều kiện tiên quyết. Ghi đủ 6 bước — cô lập, khóa, thử điện, tiếp đất — theo sơ đồ một sợi.",
+     "Elektrsiz ish ruxsatnomasi ish sharti bo'ladi. Bir chiziqli sxema asosida uzish, qulflash, tekshirish, yerga ulash — olti bosqichni yozib borish."
+    ]
+   }
+  },
+  {
+   "id": "U02",
+   "e": "E02",
+   "p": "P02",
+   "grp": [
+    "전기",
+    "전기",
+    "전기",
+    "전기",
+    "전기"
+   ],
+   "tag": [
+    "이동전선·케이블의 통로 바닥 배선",
+    "Portable cables run across the walkway floor",
+    "移动电线·电缆铺设于通道地面",
+    "Dây điện di động rải trên sàn lối đi",
+    "Ko'chma simlar yo'lak poliga yotqizilgan"
+   ],
+   "ra": {
+    "work": [
+     "이동전선을 이용한 전원 공급",
+     "Power supply through portable cables",
+     "利用移动电线供电",
+     "Cấp điện bằng dây di động",
+     "Ko'chma simlar orqali elektr ta'minoti"
+    ],
+    "cls": [
+     "전기적 요인",
+     "Electrical",
+     "电气性因素",
+     "Yếu tố điện",
+     "Elektr omili"
+    ],
+    "cause": [
+     "감전 — 피복 손상 누전",
+     "Shock — earth fault from damaged insulation",
+     "触电 — 绝缘破损漏电",
+     "Điện giật — dòng rò do hỏng vỏ cách điện",
+     "Tok urishi — izolyatsiya shikastidan oqim"
+    ],
+    "haz": [
+     "이동전선이 통로 바닥에 그대로 깔려 있어 통행·운반 중 밟히고 자재에 눌려 피복이 손상된다. 손상부에서 누전이 발생하면 전선에 닿은 근로자와 젖은 바닥을 통해 감전되고, 동시에 걸려 넘어짐 위험도 겹친다.",
+     "Portable cables lie directly on the walkway, where they are trodden on and crushed by materials until the insulation fails. An earth fault at the damaged point shocks anyone touching the cable, conducted further through the wet floor, and the cable is also a trip hazard.",
+     "移动电线直接铺设于通道地面,通行·搬运中被踩踏、被材料挤压而绝缘破损。破损处漏电时,接触电线的人员经潮湿地面触电,同时还叠加绊倒风险。",
+     "Dây di động nằm trên lối đi, bị giẫm và bị vật tư đè làm hỏng vỏ. Rò điện tại chỗ hỏng gây giật cho người chạm dây, dẫn qua sàn ướt, đồng thời còn là nguy cơ vấp ngã.",
+     "Ko'chma simlar yo'lakda yotadi, oyoq osti bo'lib, materiallar tagida ezilib izolyatsiyasi buziladi. Shikastlangan joydan oqim chiqib, simga tekkan kishini nam pol orqali urib yuboradi; qoqinib yiqilish xavfi ham qo'shiladi."
+    ],
+    "law": [
+     "안전보건규칙 제315조 [통로바닥에서의 전선 등 사용 금지]·제313조 [배선 등의 절연피복]·제314조 [습윤한 장소의 이동전선]",
+     "OSH Rule Art.315 [no cables on walkway floors], Art.313 [insulation of wiring], Art.314 [portable cables in damp locations]",
+     "安全保健规则 第315条[禁止在通道地面使用电线等]·第313条[布线等的绝缘包覆]·第314条[潮湿场所的移动电线]",
+     "Quy chuẩn Điều 315, Điều 313, Điều 314",
+     "Qoidalar 315-modda, 313-modda, 314-modda"
+    ],
+    "csi": [
+     "한국전기안전공사 2024 설비별 감전 저압 전로 64명(17.3%)",
+     "KESCO 2024: 64 shock victims from LV circuits (17.3%)",
+     "韩国电气安全公社2024年按设备分类,低压电路触电64人(17.3%)",
+     "KESCO 2024: 64 nạn nhân từ mạch hạ áp (17,3%)",
+     "KESCO 2024: past kuchlanishli zanjirdan 64 kishi (17,3%)"
+    ],
+    "cur": [
+     "바닥 직접 배선, 보호관 없음",
+     "Laid directly on the floor, no conduit",
+     "直接铺地,无保护管",
+     "Rải thẳng trên sàn, không ống bảo vệ",
+     "To'g'ridan-to'g'ri polda, himoya quvuri yo'q"
+    ],
+    "act": [
+     "① 이동전선은 행거·전선걸이로 상부 가설, 부득이하게 바닥을 지나면 방호관·덮개판으로 보호 ② 매 작업 전 피복 손상·접속부 이완 육안점검 후 점검표 기록 ③ 손상 전선은 테이프 보수 금지, 즉시 교체",
+     "(1) Run portable cables overhead on hangers; where they must cross the floor, protect them with conduit or cover plates. (2) Inspect for damaged insulation and loose joints before each shift and log it. (3) Never repair a damaged cable with tape — replace it at once.",
+     "① 移动电线用吊架·挂钩架设于上方,不得已经过地面时以保护管·盖板防护 ② 每次作业前目视检查绝缘破损·接头松动并记入点检表 ③ 损伤电线禁止以胶带修补,应立即更换",
+     "(1) Treo dây lên cao bằng giá; nếu buộc qua sàn thì dùng ống hoặc tấm che. (2) Kiểm tra vỏ hỏng và mối nối lỏng trước mỗi ca, ghi hồ sơ. (3) Cấm vá bằng băng dính — phải thay dây ngay.",
+     "(1) Simlarni osma ilgaklarda yuqoridan o'tkazish; poldan o'tishi shart bo'lsa, quvur yoki qoplama bilan himoyalash. (2) Har smenadan oldin izolyatsiya va ulanishlarni ko'zdan kechirib yozib borish. (3) Shikastlangan simni lenta bilan tuzatish taqiqlanadi — darhol almashtirish."
+    ],
+    "p": 3,
+    "s": 2,
+    "p2": 1,
+    "s2": 2
+   },
+   "ptw": {
+    "main": null,
+    "supp": [
+     "jeon"
+    ],
+    "safe": [
+     3,
+     7,
+     12
+    ],
+    "chk": {
+     "2": "Y"
+    },
+    "imp": [
+     "피복 손상에 의한 누전이 전제되므로 차단·표지와 절연보호구를 필수 조치로 지정한다.",
+     "An earth fault from damaged insulation must be assumed, so isolation with signage and insulating PPE are set as mandatory measures.",
+     "以绝缘破损导致漏电为前提,将切断·标识与绝缘保护具指定为必须措施。",
+     "Giả định có dòng rò do hỏng vỏ, nên cô lập kèm biển báo và PTBVCN cách điện là bắt buộc.",
+     "Izolyatsiya shikastidan oqim chiqishi taxmin qilinadi; uzish, belgi va izolyatsion himoya vositalari majburiy chora sifatida belgilanadi."
+    ]
+   }
+  },
+  {
+   "id": "U03",
+   "e": "E03",
+   "p": "P03",
+   "grp": [
+    "전기",
+    "전기",
+    "전기",
+    "전기",
+    "전기"
+   ],
+   "tag": [
+    "플러그·콘센트 접속부를 맨손으로 취급",
+    "Plug and socket connections handled with bare hands",
+    "徒手操作插头·插座连接部",
+    "Cầm phích cắm và ổ cắm bằng tay trần",
+    "Vilka va rozetkani yalang qo'l bilan ushlash"
+   ],
+   "ra": {
+    "work": [
+     "전동공구 전원 연결·해제",
+     "Connecting and disconnecting power tools",
+     "电动工具的电源连接·断开",
+     "Cắm và rút nguồn dụng cụ điện",
+     "Elektr asbobni ulash va uzish"
+    ],
+    "cls": [
+     "전기적 요인",
+     "Electrical",
+     "电气性因素",
+     "Yếu tố điện",
+     "Elektr omili"
+    ],
+    "cause": [
+     "감전 — 접속부 노출·접촉불량 아크",
+     "Shock — exposed pins, arcing from a poor contact",
+     "触电 — 接线端裸露·接触不良电弧",
+     "Điện giật — chân cắm hở, hồ quang do tiếp xúc kém",
+     "Tok urishi — ochiq kontaktlar, yomon ulanishdan yoy"
+    ],
+    "haz": [
+     "근로자가 바닥에 무릎을 꿇고 맨손으로 플러그 접속부를 잡고 있다. 무릎·손이 바닥에 밀착해 인체–대지 저항이 크게 낮아진 상태이므로, 접속부 노출 핀이나 접촉불량 아크에 닿으면 심실세동 수준의 전류가 그대로 흐른다.",
+     "The worker kneels on the floor gripping the plug connection with bare hands. With knees and hands pressed to the ground the body-to-earth resistance is greatly reduced, so touching an exposed pin or an arcing poor contact lets a current at ventricular-fibrillation level flow straight through.",
+     "作业者跪在地面徒手握持插头连接部。膝部·手部紧贴地面使人体—大地电阻大幅降低,一旦接触裸露插针或接触不良电弧,即有达到心室颤动水平的电流直接流过。",
+     "Công nhân quỳ trên sàn, tay trần nắm chỗ nối phích cắm. Đầu gối và tay áp sát mặt đất làm điện trở người–đất giảm mạnh, nên chạm chân cắm hở hay hồ quang do tiếp xúc kém sẽ cho dòng ở mức rung thất chạy thẳng qua cơ thể.",
+     "Ishchi polda tiz cho'kib, vilka ulanishini yalang qo'l bilan ushlab turibdi. Tizza va qo'l yerga jips tekkani uchun tana–yer qarshiligi keskin kamayadi; ochiq kontakt yoki yomon ulanish yoyiga tegish yurak fibrillyatsiyasi darajasidagi tokni o'tkazadi."
+    ],
+    "law": [
+     "안전보건규칙 제317조 [이동 및 휴대장비 등의 사용 전기작업]·제301조·제323조 [절연용 보호구] / KOSHA E-4-2012 코드 접속기구",
+     "OSH Rule Art.317 [electrical work with portable and hand-held equipment], Art.301, Art.323 / KOSHA B-E-4-2025 cord connectors",
+     "安全保健规则 第317条[移动及便携装备等使用时的电气作业]·第301条·第323条 / KOSHA B-E-4-2025 线缆连接器具",
+     "Quy chuẩn Điều 317, Điều 301, Điều 323 / KOSHA B-E-4-2025",
+     "Qoidalar 317-modda, 301-modda, 323-modda / KOSHA B-E-4-2025"
+    ],
+    "csi": [
+     "한국전기안전공사 2024 감전 행위별 전기공사·보수 129명(34.8%)",
+     "KESCO 2024: 129 shock victims during electrical work or repair (34.8%)",
+     "韩国电气安全公社2024年按行为分类,电气施工·维修129人(34.8%)",
+     "KESCO 2024: 129 nạn nhân khi thi công/sửa điện (34,8%)",
+     "KESCO 2024: elektr ishi yoki ta'mirda 129 kishi (34,8%)"
+    ],
+    "cur": [
+     "맨손 작업, 절연장갑 미착용",
+     "Bare-handed; no insulating gloves",
+     "徒手作业,未佩戴绝缘手套",
+     "Làm tay trần, không găng cách điện",
+     "Yalang qo'l, izolyatsion qo'lqop yo'q"
+    ],
+    "act": [
+     "① 접속·해제는 반드시 전원 차단 후 시행하고 플러그 몸체를 잡아 분리(코드를 당기지 않음) ② 절연장갑·절연화 착용, 무릎 밑에 절연매트 사용 ③ 파손·변형된 플러그와 콘센트는 즉시 교체 ④ 접지극 있는 3핀 규격만 사용",
+     "(1) Always switch off before connecting or disconnecting and pull the plug body, never the cord. (2) Wear insulating gloves and boots and kneel on an insulating mat. (3) Replace cracked or deformed plugs and sockets at once. (4) Use only earthed three-pin fittings.",
+     "① 连接·断开必须在切断电源后进行,握住插头本体拔出(不得拉扯电线) ② 佩戴绝缘手套·绝缘靴,膝下铺设绝缘垫 ③ 破损·变形的插头与插座立即更换 ④ 仅使用带接地极的三芯规格",
+     "(1) Luôn ngắt nguồn trước khi cắm/rút và nắm thân phích, không kéo dây. (2) Đeo găng, ủng cách điện và quỳ trên thảm cách điện. (3) Thay ngay phích và ổ nứt vỡ, biến dạng. (4) Chỉ dùng loại ba chấu có tiếp đất.",
+     "(1) Ulash va uzishdan oldin albatta tokni o'chirish, vilka korpusidan tortish (simdan emas). (2) Izolyatsion qo'lqop va etik kiyish, tizza ostiga izolyatsion gilam. (3) Yorilgan yoki deformatsiyalangan vilka va rozetkani darhol almashtirish. (4) Faqat yer ulanishli uch kontaktli turdan foydalanish."
+    ],
+    "p": 3,
+    "s": 3,
+    "p2": 1,
+    "s2": 3
+   },
+   "ptw": {
+    "main": null,
+    "supp": [
+     "jeon"
+    ],
+    "safe": [
+     2,
+     3,
+     4,
+     7,
+     12,
+     14
+    ],
+    "chk": {
+     "2": "Y",
+     "12": "Y"
+    },
+    "imp": [
+     "접속·해제 전 전원 차단이 반드시 선행되어야 하므로 정전작업 허가와 절연보호구 착용을 동시에 지정한다.",
+     "The supply must be switched off before connecting or disconnecting, so both the de-energised-work permit and insulating PPE are required.",
+     "连接·断开前必须先切断电源,因此同时指定停电作业许可与绝缘保护具的佩戴。",
+     "Phải ngắt nguồn trước khi cắm/rút, nên đồng thời yêu cầu giấy phép cắt điện và PTBVCN cách điện.",
+     "Ulash va uzishdan oldin tok o'chirilishi shart, shuning uchun elektrsiz ish ruxsatnomasi va izolyatsion vositalar birga talab qilinadi."
+    ]
+   }
+  },
+  {
+   "id": "U04",
+   "e": "E04",
+   "p": "P04",
+   "grp": [
+    "전기",
+    "전기",
+    "전기",
+    "전기",
+    "전기"
+   ],
+   "tag": [
+    "감전방지용 누전차단기 미설치 · 동작시험 미실시",
+    "No residual-current device fitted, or never function-tested",
+    "未设置防触电漏电断路器·未做动作试验",
+    "Không lắp RCD chống điện giật hoặc chưa thử tác động",
+    "Himoya o'chirgich yo'q yoki sinovdan o'tmagan"
+   ],
+   "ra": {
+    "work": [
+     "임시 전원설비 사용",
+     "Use of temporary power supply",
+     "临时电源设备的使用",
+     "Sử dụng nguồn điện tạm",
+     "Vaqtinchalik elektr ta'minotidan foydalanish"
+    ],
+    "cls": [
+     "전기적 요인",
+     "Electrical",
+     "电气性因素",
+     "Yếu tố điện",
+     "Elektr omili"
+    ],
+    "cause": [
+     "감전 — 누전 미차단",
+     "Shock — earth fault not cleared",
+     "触电 — 漏电未切断",
+     "Điện giật — dòng rò không được cắt",
+     "Tok urishi — oqim uzilmaydi"
+    ],
+    "haz": [
+     "사진의 전원 인출부에 감전방지용 누전차단기가 확인되지 않는다. 누전차단기가 없거나 동작하지 않으면 누전전류가 인체를 통해 흐르는 동안에도 회로가 차단되지 않아, 접촉 시간이 길어지며 치사 확률이 급격히 올라간다.",
+     "No residual-current device can be seen at the power take-off in the photograph. Without a working RCD the circuit is not interrupted while the fault current passes through the body, so the contact time lengthens and the probability of death rises sharply.",
+     "照片中的电源引出部未见防触电漏电断路器。若无漏电断路器或其不动作,漏电电流流经人体期间电路不被切断,接触时间延长,致死概率急剧上升。",
+     "Không thấy RCD tại điểm lấy điện trong ảnh. Thiếu RCD hoạt động, mạch không bị cắt khi dòng rò đi qua cơ thể, thời gian tiếp xúc kéo dài và xác suất tử vong tăng vọt.",
+     "Rasmdagi elektr olish nuqtasida himoya o'chirgich ko'rinmaydi. U bo'lmasa yoki ishlamasa, oqim tana orqali o'tayotganda zanjir uzilmaydi; tegish vaqti uzayib, o'lim ehtimoli keskin ortadi."
+    ],
+    "law": [
+     "안전보건규칙 제304조 [누전차단기에 의한 감전방지 — 정격감도전류 30mA·동작시간 0.03초 이내] / KOSHA B-E-14-2026",
+     "OSH Rule Art.304 [shock prevention by RCD — 30 mA rated sensitivity, ≤0.03 s] / KOSHA B-E-14-2026",
+     "安全保健规则 第304条[漏电断路器防触电——额定感度电流30mA·动作时间0.03秒以内] / KOSHA B-E-14-2026",
+     "Quy chuẩn Điều 304 [RCD 30 mA, ≤0,03 s] / KOSHA B-E-14-2026",
+     "Qoidalar 304-modda [30 mA, ≤0,03 s himoya o'chirgich] / KOSHA B-E-14-2026"
+    ],
+    "csi": [
+     "CSI 감전 47건 중 누전·절연파괴 8건(17.0%)·사망 2명",
+     "CSI: 8 of 47 shock cases (17.0%) were earth faults or insulation breakdown, 2 deaths",
+     "CSI 触电47起中漏电·绝缘破坏8起(17.0%)、死亡2人",
+     "CSI: 8/47 vụ (17,0%) do rò điện/hỏng cách điện, 2 tử vong",
+     "CSI: 47 tadan 8 tasi (17,0%) oqim yoki izolyatsiya buzilishi, 2 o'lim"
+    ],
+    "cur": [
+     "누전차단기 확인 불가",
+     "RCD presence cannot be confirmed",
+     "无法确认漏电断路器",
+     "Không xác nhận được RCD",
+     "Himoya o'chirgich tasdiqlanmadi"
+    ],
+    "act": [
+     "① 모든 임시 전원 인출부에 정격감도전류 30mA·동작시간 0.03초 이내 누전차단기 설치 ② 매 작업 개시 전 테스트버튼으로 동작 확인 후 점검표 기록 ③ 이동형 전원은 누전차단기 내장형 사용 ④ 습윤장소는 정격감도 15mA 적용 검토",
+     "(1) Fit a 30 mA / ≤0.03 s RCD at every temporary power take-off. (2) Press the test button before each shift and record the result. (3) Use portable supplies with a built-in RCD. (4) Consider 15 mA sensitivity in damp locations.",
+     "① 所有临时电源引出部设置额定感度电流30mA·动作时间0.03秒以内的漏电断路器 ② 每次开工前按测试按钮确认动作并记入点检表 ③ 移动式电源使用内置漏电断路器型 ④ 潮湿场所研讨采用15mA额定感度",
+     "(1) Lắp RCD 30 mA / ≤0,03 s tại mọi điểm lấy điện tạm. (2) Nhấn nút test trước mỗi ca và ghi kết quả. (3) Dùng nguồn di động có RCD tích hợp. (4) Xem xét dùng loại 15 mA ở nơi ẩm.",
+     "(1) Har bir vaqtinchalik elektr nuqtasiga 30 mA / ≤0,03 s himoya o'chirgich o'rnatish. (2) Har smenadan oldin test tugmasi bilan sinab, natijani yozish. (3) Ichki himoya o'chirgichli ko'chma manbadan foydalanish. (4) Nam joylarda 15 mA ni ko'rib chiqish."
+    ],
+    "p": 2,
+    "s": 3,
+    "p2": 1,
+    "s2": 3
+   },
+   "ptw": {
+    "main": null,
+    "supp": [
+     "jeon"
+    ],
+    "safe": [
+     3,
+     6,
+     11
+    ],
+    "chk": {
+     "2": "Y"
+    },
+    "imp": [
+     "누전이 차단되지 않는 상태이므로 차단·표지와 제2 전원 분리 확인을 선행 조건으로 둔다.",
+     "An earth fault would not be cleared, so isolation with signage and confirmation that secondary sources are separated become preconditions.",
+     "处于漏电不被切断的状态,因此将切断·标识与第二电源分离确认作为先行条件。",
+     "Dòng rò sẽ không được cắt, nên cô lập kèm biển báo và xác nhận tách nguồn thứ hai là điều kiện tiên quyết.",
+     "Oqim uzilmaydi, shuning uchun uzish, belgi va ikkinchi manbani ajratishni tasdiqlash oldindan shart qilinadi."
+    ]
+   }
+  },
+  {
+   "id": "U05",
+   "e": "E05",
+   "p": "P05",
+   "grp": [
+    "보호구",
+    "보호구",
+    "보호구",
+    "보호구",
+    "보호구"
+   ],
+   "tag": [
+    "절연용 보호구(절연장갑·절연화·절연모) 미착용",
+    "Insulating PPE (gloves, boots, helmet) not worn",
+    "未佩戴绝缘保护具(绝缘手套·绝缘靴·绝缘帽)",
+    "Không dùng PTBVCN cách điện (găng, ủng, mũ)",
+    "Izolyatsion himoya vositalari kiyilmagan"
+   ],
+   "ra": {
+    "work": [
+     "전기 취급작업 전반",
+     "All electrical handling work",
+     "电气操作作业全般",
+     "Mọi công việc thao tác điện",
+     "Elektr bilan bog'liq barcha ishlar"
+    ],
+    "cls": [
+     "전기적 요인",
+     "Electrical",
+     "电气性因素",
+     "Yếu tố điện",
+     "Elektr omili"
+    ],
+    "cause": [
+     "감전 — 인체 절연 부재",
+     "Shock — no insulation between body and circuit",
+     "触电 — 人体无绝缘",
+     "Điện giật — không có cách điện cho cơ thể",
+     "Tok urishi — tanada izolyatsiya yo'q"
+    ],
+    "haz": [
+     "안전모는 착용했으나 절연장갑과 절연화가 확인되지 않는다. 전기작업에서 안전모는 감전을 막지 못하며, 손과 발이 유일한 전류 유입·유출 경로가 되어 심장을 통과하는 전류경로가 형성된다.",
+     "A hard hat is worn but no insulating gloves or boots can be seen. In electrical work a hard hat does not prevent shock; the hands and feet become the only entry and exit points, forming a current path straight through the heart.",
+     "虽佩戴安全帽,但未见绝缘手套与绝缘靴。电气作业中安全帽无法防止触电,手与脚成为电流唯一的流入·流出路径,形成经过心脏的电流通路。",
+     "Có đội mũ bảo hộ nhưng không thấy găng và ủng cách điện. Trong công việc điện, mũ không ngăn được điện giật; tay và chân trở thành đường vào–ra duy nhất, tạo đường dòng đi qua tim.",
+     "Kaska kiyilgan, ammo izolyatsion qo'lqop va etik ko'rinmaydi. Elektr ishida kaska tok urishidan saqlamaydi; qo'l va oyoq tokning yagona kirish–chiqish yo'liga aylanib, yurak orqali o'tuvchi zanjir hosil bo'ladi."
+    ],
+    "law": [
+     "안전보건규칙 제323조 [절연용 보호구 등의 사용]·제32조 [보호구의 지급 등] / KOSHA E-189-2022 절연용 보호구 선정·사용·관리",
+     "OSH Rule Art.323 [use of insulating protective equipment], Art.32 [provision of PPE] / KOSHA E-189-2022",
+     "安全保健规则 第323条[绝缘保护具等的使用]·第32条[保护具的发放等] / KOSHA E-189-2022",
+     "Quy chuẩn Điều 323, Điều 32 / KOSHA E-189-2022",
+     "Qoidalar 323-modda, 32-modda / KOSHA E-189-2022"
+    ],
+    "csi": [
+     "한국전기안전공사 2024 감전 직업별 전기기술자 128명(34.5%)·사망 16명",
+     "KESCO 2024: 128 electrician victims (34.5%), 16 deaths",
+     "韩国电气安全公社2024年按职业分类,电气技术人员128人(34.5%)、死亡16人",
+     "KESCO 2024: 128 thợ điện (34,5%), 16 tử vong",
+     "KESCO 2024: elektrchilar 128 kishi (34,5%), 16 o'lim"
+    ],
+    "cur": [
+     "안전모만 착용",
+     "Hard hat only",
+     "仅佩戴安全帽",
+     "Chỉ đội mũ bảo hộ",
+     "Faqat kaska"
+    ],
+    "act": [
+     "① 작업전압 등급에 맞는 절연장갑을 지정·비치하고 착용 전 공기주입 누설시험 ② 절연화·절연모·절연의 병행 착용 ③ 6개월 주기 내전압시험 및 성적서 보관, 손상품 즉시 폐기 ④ 보호구 착용 상태를 작업책임자가 작업 전 확인·서명",
+     "(1) Provide gloves of the class matching the working voltage and air-leak test them before use. (2) Wear insulating boots, helmet and sleeves as well. (3) Dielectric test every six months with certificates on file; scrap damaged items at once. (4) The supervisor checks and signs off PPE before work starts.",
+     "① 按作业电压等级指定并配备绝缘手套,佩戴前做充气检漏试验 ② 同时佩戴绝缘靴·绝缘帽·绝缘衣 ③ 每6个月做耐电压试验并保存成绩书,损伤品立即废弃 ④ 作业负责人在作业前确认并签字确认保护具佩戴状态",
+     "(1) Cấp găng đúng cấp điện áp và thử rò khí trước khi dùng. (2) Dùng kèm ủng, mũ, áo cách điện. (3) Thử điện áp 6 tháng/lần, lưu phiếu; loại bỏ ngay đồ hỏng. (4) Người phụ trách kiểm tra và ký xác nhận trước khi làm.",
+     "(1) Ish kuchlanishiga mos sinfdagi qo'lqop berish va kiyishdan oldin havo bilan sinash. (2) Izolyatsion etik, kaska va yeng ham kiyish. (3) Har 6 oyda kuchlanish sinovi va hujjat; shikastlanganini darhol yo'q qilish. (4) Ish rahbari ishdan oldin tekshirib imzolaydi."
+    ],
+    "p": 3,
+    "s": 3,
+    "p2": 1,
+    "s2": 3
+   },
+   "ptw": {
+    "main": null,
+    "supp": [],
+    "safe": [
+     12,
+     13
+    ],
+    "chk": {},
+    "imp": [
+     "보호구 착용과 작업 전 안전교육(TBM)을 허가 발급의 선행 조건으로 지정한다.",
+     "Wearing the PPE and holding the pre-work toolbox meeting are set as preconditions for issuing the permit.",
+     "将保护具的佩戴与作业前安全教育(班前会)指定为签发许可的先行条件。",
+     "Việc mang PTBVCN và họp an toàn đầu ca là điều kiện tiên quyết để cấp phép.",
+     "Himoya vositalarini kiyish va ishdan oldingi yig'ilish ruxsatnoma berish sharti qilinadi."
+    ]
+   }
+  },
+  {
+   "id": "U06",
+   "e": "E06",
+   "p": "P06",
+   "grp": [
+    "환경",
+    "환경",
+    "환경",
+    "환경",
+    "환경"
+   ],
+   "tag": [
+    "바닥 물기·습윤 · 우천 중 작업",
+    "Wet or damp floor, or work during rain",
+    "地面积水·潮湿·雨中作业",
+    "Sàn ướt, ẩm hoặc làm việc khi mưa",
+    "Nam pol yoki yomg'irda ish"
+   ],
+   "ra": {
+    "work": [
+     "습윤장소에서의 전기작업",
+     "Electrical work in damp locations",
+     "潮湿场所的电气作业",
+     "Làm việc điện ở nơi ẩm ướt",
+     "Nam joyda elektr ishi"
+    ],
+    "cls": [
+     "작업환경 요인",
+     "Work environment",
+     "作业环境因素",
+     "Yếu tố môi trường làm việc",
+     "Ish muhiti omili"
+    ],
+    "cause": [
+     "감전 — 인체저항 저하",
+     "Shock — reduced body resistance",
+     "触电 — 人体电阻下降",
+     "Điện giật — giảm điện trở cơ thể",
+     "Tok urishi — tana qarshiligining pasayishi"
+    ],
+    "haz": [
+     "바닥의 물기와 젖은 작업복·장갑은 인체 저항을 건조 시의 수 분의 일로 낮춘다. 같은 전압에서도 흐르는 전류가 몇 배로 커지므로, 평상시 안전하다고 여겨지는 저압에서도 치명적 감전이 발생한다.",
+     "Water on the floor and wet clothing or gloves cut body resistance to a fraction of its dry value. The same voltage then drives several times the current, so a fatal shock can occur even at low voltages normally regarded as safe.",
+     "地面积水与潮湿的作业服·手套使人体电阻降至干燥时的数分之一。相同电压下流过的电流增大数倍,因此即便在通常视为安全的低压下也会发生致命触电。",
+     "Nước trên sàn và quần áo, găng ẩm làm điện trở cơ thể giảm còn vài phần so với khi khô. Cùng một điện áp sẽ cho dòng lớn gấp nhiều lần, nên vẫn có thể giật chết ở điện áp thấp vốn được coi là an toàn.",
+     "Poldagi suv va nam kiyim tana qarshiligini quruq holatdagidan bir necha marta pasaytiradi. Bir xil kuchlanishda tok bir necha barobar ortadi, shuning uchun odatda xavfsiz deb qaraladigan past kuchlanishda ham halokatli tok urishi sodir bo'ladi."
+    ],
+    "law": [
+     "안전보건규칙 제314조 [습윤한 장소의 이동전선 등]·제304조·제37조 [악천후 시 작업중지] / KOSHA E-100-2021 저압전기설비 감전예방",
+     "OSH Rule Art.314 [portable cables in damp locations], Art.304, Art.37 [stop work in bad weather] / KOSHA E-100-2021",
+     "安全保健规则 第314条[潮湿场所的移动电线等]·第304条·第37条[恶劣天气时停止作业] / KOSHA E-100-2021",
+     "Quy chuẩn Điều 314, Điều 304, Điều 37 / KOSHA E-100-2021",
+     "Qoidalar 314-modda, 304-modda, 37-modda / KOSHA E-100-2021"
+    ],
+    "csi": [
+     "한국전기안전공사 2024 감전 6~8월 127명(34.2%) — 연중 최다",
+     "KESCO 2024: 127 shock victims in June–August (34.2%), the peak of the year",
+     "韩国电气安全公社2024年6~8月触电127人(34.2%)——全年最多",
+     "KESCO 2024: 127 nạn nhân trong tháng 6–8 (34,2%), cao nhất năm",
+     "KESCO 2024: iyun–avgustda 127 kishi (34,2%) — yilning eng yuqori ko'rsatkichi"
+    ],
+    "cur": [
+     "바닥 정리·배수 미실시",
+     "Floor not drained or cleared",
+     "未进行地面整理·排水",
+     "Chưa dọn và thoát nước sàn",
+     "Pol quritilmagan va tozalanmagan"
+    ],
+    "act": [
+     "① 작업 전 바닥 배수·건조 및 절연매트 설치 ② 강우 중·직후 옥외 전기작업 중지 기준을 수치로 명문화 ③ 습윤장소는 이중절연 공구와 15mA급 누전차단기 사용 ④ 젖은 보호구·작업복 즉시 교체",
+     "(1) Drain and dry the floor and lay insulating mats before work. (2) Put stop-work criteria for outdoor electrical work during and just after rain in writing, with figures. (3) In damp locations use double-insulated tools and a 15 mA RCD. (4) Change wet PPE and clothing immediately.",
+     "① 作业前对地面排水·干燥并铺设绝缘垫 ② 将降雨中及降雨后停止室外电气作业的标准以数值明文化 ③ 潮湿场所使用双重绝缘工具与15mA级漏电断路器 ④ 潮湿的保护具·作业服立即更换",
+     "(1) Thoát nước, làm khô sàn và trải thảm cách điện trước khi làm. (2) Ghi thành văn tiêu chí số dừng việc điện ngoài trời khi mưa và ngay sau mưa. (3) Nơi ẩm dùng dụng cụ cách điện kép và RCD 15 mA. (4) Thay ngay PTBVCN và quần áo ướt.",
+     "(1) Ishdan oldin polni quritish va izolyatsion gilam yotqizish. (2) Yomg'irda va undan keyin tashqi elektr ishini to'xtatish mezonini raqamlarda yozish. (3) Nam joyda ikki qavatli izolyatsiyali asbob va 15 mA himoya o'chirgich. (4) Nam himoya vositasi va kiyimni darhol almashtirish."
+    ],
+    "p": 2,
+    "s": 3,
+    "p2": 1,
+    "s2": 3
+   },
+   "ptw": {
+    "main": null,
+    "supp": [],
+    "safe": [
+     7,
+     10
+    ],
+    "chk": {
+     "9": "Y"
+    },
+    "imp": [
+     "인체저항이 낮아져 저압에서도 치명적이므로 작업면 건조·절연매트와 조명 확보를 지정한다.",
+     "Body resistance falls so that even low voltage is lethal; drying the work surface with an insulating mat and securing lighting are specified.",
+     "人体电阻降低使低压亦致命,因此指定作业面干燥·绝缘垫与照明确保。",
+     "Điện trở cơ thể giảm nên điện áp thấp vẫn chết người; yêu cầu làm khô mặt bằng, thảm cách điện và bảo đảm chiếu sáng.",
+     "Tana qarshiligi pasayib, past kuchlanish ham halokatli bo'ladi; yuzani quritish, izolyatsion gilam va yoritish talab qilinadi."
+    ]
+   }
+  },
+  {
+   "id": "U07",
+   "e": "E07",
+   "p": "P07",
+   "grp": [
+    "전기",
+    "전기",
+    "전기",
+    "전기",
+    "전기"
+   ],
+   "tag": [
+    "전동공구 전원코드 피복 손상 · 접지선 결선 불량",
+    "Damaged power-tool cord or faulty earth connection",
+    "电动工具电源线绝缘破损·接地线接线不良",
+    "Dây nguồn dụng cụ hỏng vỏ hoặc đấu tiếp đất kém",
+    "Asbob simi shikastlangan yoki yer ulanishi nosoz"
+   ],
+   "ra": {
+    "work": [
+     "전동공구 사용",
+     "Use of power tools",
+     "电动工具的使用",
+     "Sử dụng dụng cụ điện",
+     "Elektr asboblardan foydalanish"
+    ],
+    "cls": [
+     "전기적 요인",
+     "Electrical",
+     "电气性因素",
+     "Yếu tố điện",
+     "Elektr omili"
+    ],
+    "cause": [
+     "감전 — 공구 외함 충전",
+     "Shock — tool casing becomes live",
+     "触电 — 工具外壳带电",
+     "Điện giật — vỏ dụng cụ mang điện",
+     "Tok urishi — asbob korpusi kuchlanish oladi"
+    ],
+    "haz": [
+     "전동공구의 전원코드가 바닥에 끌리고 접속부가 당겨진 상태다. 피복이 벗겨지거나 접지선이 끊기면 절연이 파괴된 순간 금속 외함 전체가 충전되어, 공구를 쥔 손을 통해 전류가 인체로 유입된다.",
+     "The power tool’s cord is dragged across the floor with the connection under tension. If the insulation is stripped or the earth conductor breaks, the whole metal casing becomes live the instant insulation fails and current enters the body through the hand holding the tool.",
+     "电动工具的电源线在地面拖拽,连接部处于受拉状态。一旦绝缘破损或接地线断开,绝缘击穿瞬间金属外壳整体带电,电流经握持工具的手流入人体。",
+     "Dây nguồn dụng cụ bị kéo lê trên sàn, chỗ nối chịu lực căng. Nếu tróc vỏ hoặc đứt dây tiếp đất, toàn bộ vỏ kim loại mang điện ngay khi cách điện hỏng và dòng đi vào cơ thể qua tay cầm.",
+     "Asbob simi polda sudraladi, ulanish tortilgan holatda. Izolyatsiya yechilsa yoki yer simi uzilsa, izolyatsiya buzilgan zahoti butun metall korpus kuchlanish oladi va tok asbobni ushlagan qo'l orqali tanaga kiradi."
+    ],
+    "law": [
+     "안전보건규칙 제313조 [배선 등의 절연피복]·제302조 [전기 기계·기구의 접지]·제317조 / KOSHA B-E-9-2026 접지설비",
+     "OSH Rule Art.313 [insulation of wiring], Art.302 [earthing of electrical machinery], Art.317 / KOSHA B-E-9-2026",
+     "安全保健规则 第313条[布线等的绝缘包覆]·第302条[电气机械·器具的接地]·第317条 / KOSHA B-E-9-2026",
+     "Quy chuẩn Điều 313, Điều 302, Điều 317 / KOSHA B-E-9-2026",
+     "Qoidalar 313-modda, 302-modda, 317-modda / KOSHA B-E-9-2026"
+    ],
+    "csi": [
+     "한국전기안전공사 2024 전기화재 발화원인 절연열화 1,683건(19.5%)",
+     "KESCO 2024: insulation deterioration caused 1,683 electrical fires (19.5%)",
+     "韩国电气安全公社2024年电气火灾起火原因中绝缘劣化1,683起(19.5%)",
+     "KESCO 2024: suy giảm cách điện gây 1.683 vụ cháy điện (19,5%)",
+     "KESCO 2024: izolyatsiyaning yeyilishi 1 683 ta yong'inga sabab (19,5%)"
+    ],
+    "cur": [
+     "육안점검만, 접지 확인 없음",
+     "Visual check only; earthing not verified",
+     "仅目视检查,未确认接地",
+     "Chỉ kiểm tra bằng mắt, chưa kiểm tra tiếp đất",
+     "Faqat ko'zdan kechirish, yer ulanishi tekshirilmagan"
+    ],
+    "act": [
+     "① 사용 전 코드 전장 피복·접속부 육안점검 및 절연저항 측정(1MΩ 이상) ② 이중절연(□) 표시 공구 우선 사용, 금속외함 공구는 접지 확인 ③ 코드를 당겨 뽑지 않고 바닥 끌림 방지 행거 사용 ④ 손상 코드는 즉시 교체",
+     "(1) Inspect the whole cord and its connections before use and measure insulation resistance (≥1 MΩ). (2) Prefer double-insulated (□) tools; verify earthing on metal-cased tools. (3) Never pull the cord to unplug, and use hangers to keep it off the floor. (4) Replace damaged cords at once.",
+     "① 使用前目视检查电线全长绝缘·接头并测量绝缘电阻(1MΩ以上) ② 优先使用双重绝缘(□)标识工具,金属外壳工具须确认接地 ③ 不得拉扯电线拔插,使用吊架防止拖地 ④ 损伤电线立即更换",
+     "(1) Kiểm tra toàn bộ dây và mối nối trước khi dùng, đo điện trở cách điện (≥1 MΩ). (2) Ưu tiên dụng cụ cách điện kép (□); dụng cụ vỏ kim loại phải kiểm tra tiếp đất. (3) Không rút bằng cách kéo dây, dùng giá treo tránh lê sàn. (4) Thay ngay dây hỏng.",
+     "(1) Ishlatishdan oldin butun simni va ulanishlarni ko'rib chiqib, izolyatsiya qarshiligini o'lchash (≥1 MOm). (2) Ikki qavatli izolyatsiyali (□) asbobni afzal ko'rish; metall korpusli asbobning yer ulanishini tekshirish. (3) Simdan tortib sug'urmaslik, osma ilgak bilan poldan ko'tarish. (4) Shikastlangan simni darhol almashtirish."
+    ],
+    "p": 2,
+    "s": 3,
+    "p2": 1,
+    "s2": 3
+   },
+   "ptw": {
+    "main": null,
+    "supp": [
+     "jeon"
+    ],
+    "safe": [
+     3,
+     5,
+     12
+    ],
+    "chk": {
+     "8": "Y"
+    },
+    "imp": [
+     "금속 외함이 충전될 수 있으므로 차단·표지, 잔류전하 방전, 절연보호구를 함께 지정한다.",
+     "The metal casing may become live, so isolation with signage, discharge of residual charge and insulating PPE are specified together.",
+     "金属外壳可能带电,因此同时指定切断·标识、残留电荷放电与绝缘保护具。",
+     "Vỏ kim loại có thể mang điện, nên đồng thời yêu cầu cô lập kèm biển báo, xả điện dư và PTBVCN cách điện.",
+     "Metall korpus kuchlanish olishi mumkin, shuning uchun uzish, qoldiq zaryadni chiqarish va izolyatsion vositalar birga belgilanadi."
+    ]
+   }
+  },
+  {
+   "id": "U08",
+   "e": "E08",
+   "p": "P08",
+   "grp": [
+    "전기",
+    "전기",
+    "전기",
+    "전기",
+    "전기"
+   ],
+   "tag": [
+    "코드릴을 감은 채 사용 · 콘센트 문어발 접속",
+    "Cable reel used while still coiled, or overloaded socket",
+    "线盘未展开即使用·插座多重连接",
+    "Dùng cuộn dây khi chưa rải hết, ổ cắm quá tải",
+    "O'ralgan holatda barabanni ishlatish, rozetkani ortiqcha yuklash"
+   ],
+   "ra": {
+    "work": [
+     "코드릴·이동식 콘센트 사용",
+     "Use of cable reels and portable sockets",
+     "线盘·移动式插座的使用",
+     "Sử dụng cuộn dây và ổ cắm di động",
+     "Baraban va ko'chma rozetkadan foydalanish"
+    ],
+    "cls": [
+     "전기적 요인",
+     "Electrical",
+     "电气性因素",
+     "Yếu tố điện",
+     "Elektr omili"
+    ],
+    "cause": [
+     "화재·감전 — 과열에 의한 절연열화",
+     "Fire / shock — insulation degraded by overheating",
+     "火灾·触电 — 过热引起的绝缘劣化",
+     "Cháy / điện giật — cách điện suy giảm do quá nhiệt",
+     "Yong'in / tok urishi — qizishdan izolyatsiyaning yeyilishi"
+    ],
+    "haz": [
+     "코드릴이 감긴 상태로 사용되고 있다. 감긴 전선은 방열이 되지 않아 정격의 1/3 부하에서도 과열되며, 절연이 열화되면 층간 단락과 누전으로 이어져 전기화재와 감전이 동시에 발생한다.",
+     "The cable reel is in use while still coiled. Coiled cable cannot dissipate heat and overheats at as little as a third of its rating; as the insulation degrades, turn-to-turn shorts and earth faults follow, causing an electrical fire and a shock hazard at the same time.",
+     "线盘在缠绕状态下使用。缠绕的电线无法散热,即使在额定负载的1/3也会过热,绝缘劣化后导致层间短路与漏电,同时引发电气火灾与触电。",
+     "Cuộn dây được dùng khi chưa rải ra. Dây cuộn không tản nhiệt, quá nhiệt ngay ở 1/3 tải định mức; cách điện suy giảm dẫn đến chập giữa các vòng và rò điện, gây cháy điện và nguy cơ giật cùng lúc.",
+     "Baraban o'ralgan holatda ishlatilmoqda. O'ralgan sim issiqlikni tarqatmaydi va nominal yukning uchdan bir qismida ham qiziydi; izolyatsiya yeyilgach, o'ramlar orasida qisqa tutashuv va oqim yuzaga kelib, yong'in va tok urishi bir vaqtda sodir bo'ladi."
+    ],
+    "law": [
+     "안전보건규칙 제305조 [과전류 차단장치]·제313조·제304조 / KOSHA B-E-7-2025 건설현장의 전기설비 설치 및 관리",
+     "OSH Rule Art.305 [overcurrent protection], Art.313, Art.304 / KOSHA B-E-7-2025",
+     "安全保健规则 第305条[过电流切断装置]·第313条·第304条 / KOSHA B-E-7-2025",
+     "Quy chuẩn Điều 305, Điều 313, Điều 304 / KOSHA B-E-7-2025",
+     "Qoidalar 305-modda, 313-modda, 304-modda / KOSHA B-E-7-2025"
+    ],
+    "csi": [
+     "한국전기안전공사 2024 전기화재 8,634건(총화재의 22.9%)·재산피해 1,701억원",
+     "KESCO 2024: 8,634 electrical fires (22.9% of all fires), KRW 170.1 bn in damage",
+     "韩国电气安全公社2024年电气火灾8,634起(占总火灾22.9%)、财产损失1,701亿韩元",
+     "KESCO 2024: 8.634 vụ cháy điện (22,9% tổng số), thiệt hại 170,1 tỉ KRW",
+     "KESCO 2024: 8 634 ta elektr yong'ini (barcha yong'inlarning 22,9%), 170,1 mlrd KRW zarar"
+    ],
+    "cur": [
+     "코드릴 감긴 상태 사용",
+     "Reel used while coiled",
+     "线盘缠绕状态使用",
+     "Dùng cuộn dây khi còn cuộn",
+     "Baraban o'ralgan holatda ishlatiladi"
+    ],
+    "act": [
+     "① 코드릴은 반드시 전량 풀어서 사용하고 정격용량 표시 확인 ② 문어발 접속 금지, 부하별 전용 회로 분기 ③ 누전차단기 내장형 코드릴 사용 ④ 사용 중 코드릴 표면 온도·냄새 이상 시 즉시 정지",
+     "(1) Always unwind the reel completely before use and check its rated capacity. (2) Prohibit daisy-chained sockets; branch a dedicated circuit per load. (3) Use reels with a built-in RCD. (4) Stop immediately if the reel becomes hot or smells.",
+     "① 线盘必须全部放开后使用并确认额定容量标示 ② 禁止多重串接,按负载分设专用回路 ③ 使用内置漏电断路器的线盘 ④ 使用中线盘表面温度·气味异常时立即停止",
+     "(1) Luôn rải hết cuộn dây trước khi dùng và kiểm tra công suất định mức. (2) Cấm nối tiếp nhiều ổ; tách mạch riêng cho từng tải. (3) Dùng cuộn dây có RCD tích hợp. (4) Dừng ngay nếu cuộn dây nóng hoặc có mùi khét.",
+     "(1) Barabanni to'liq yozib ishlatish va nominal quvvatini tekshirish. (2) Rozetkalarni zanjirband qilish taqiqlanadi; har bir yuk uchun alohida zanjir. (3) Ichki himoya o'chirgichli barabandan foydalanish. (4) Baraban qizisa yoki hid chiqsa, darhol to'xtatish."
+    ],
+    "p": 2,
+    "s": 2,
+    "p2": 1,
+    "s2": 2
+   },
+   "ptw": {
+    "main": null,
+    "supp": [],
+    "safe": [
+     3,
+     11
+    ],
+    "chk": {
+     "10": "Y"
+    },
+    "imp": [
+     "과열에 의한 전기화재 위험이 더해지므로 C급 소화기 비치와 차단·표지를 지정한다.",
+     "The risk of an electrical fire from overheating is added, so a Class C extinguisher and isolation with signage are specified.",
+     "增加了过热引起电气火灾的危险,因此指定配备C类灭火器与切断·标识。",
+     "Thêm nguy cơ cháy điện do quá nhiệt, nên yêu cầu bình chữa cháy loại C và cô lập kèm biển báo.",
+     "Qizishdan elektr yong'ini xavfi qo'shiladi, shuning uchun C toifali o't o'chirgich va uzish belgisi talab qilinadi."
+    ]
+   }
+  },
+  {
+   "id": "U09",
+   "e": "E09",
+   "p": "P09",
+   "grp": [
+    "가공전선",
+    "가공전선",
+    "가공전선",
+    "가공전선",
+    "가공전선"
+   ],
+   "tag": [
+    "작업반경 내 가공전선 · 전주 존재",
+    "Overhead line or utility pole within the working radius",
+    "作业半径内存在架空线路·电杆",
+    "Có đường dây trên không hoặc cột điện trong bán kính làm việc",
+    "Ish radiusida havo liniyasi yoki ustun bor"
+   ],
+   "ra": {
+    "work": [
+     "가공전선 인근 작업",
+     "Work near overhead lines",
+     "架空线路附近作业",
+     "Làm việc gần đường dây trên không",
+     "Havo liniyasi yonida ish"
+    ],
+    "cls": [
+     "전기적 요인",
+     "Electrical",
+     "电气性因素",
+     "Yếu tố điện",
+     "Elektr omili"
+    ],
+    "cause": [
+     "감전 — 접근한계거리 침범",
+     "Shock — approach boundary violated",
+     "触电 — 侵入接近界限距离",
+     "Điện giật — vi phạm khoảng cách tiếp cận",
+     "Tok urishi — yaqinlashish chegarasi buzilishi"
+    ],
+    "haz": [
+     "작업 위치 상부 또는 측면에 가공전선이 지나간다. 22.9kV 배전선의 유자격자 접근한계거리는 90cm이며, 육안으로는 전압과 실제 이격거리를 판단할 수 없어 근로자가 안전하다고 오인한 채 접근한다.",
+     "An overhead line passes above or beside the work position. For a 22.9 kV distribution line the approach boundary for a qualified person is 90 cm; voltage and true clearance cannot be judged by eye, so workers approach believing they are safe.",
+     "作业位置上方或侧面有架空线路经过。22.9kV配电线路对有资格者的接近界限距离为90cm,肉眼无法判断电压与实际隔离距离,作业者误以为安全而靠近。",
+     "Có đường dây đi phía trên hoặc bên cạnh vị trí làm việc. Với đường 22,9 kV, khoảng cách giới hạn cho người có chứng chỉ là 90 cm; không thể ước lượng điện áp và khoảng cách bằng mắt nên công nhân lại gần vì tưởng an toàn.",
+     "Ish joyining tepasida yoki yonida havo liniyasi o'tadi. 22,9 kV taqsimlash liniyasi uchun malakali shaxsning yaqinlashish chegarasi 90 sm; kuchlanish va haqiqiy masofani ko'z bilan baholab bo'lmaydi, shuning uchun ishchi xavfsiz deb o'ylab yaqinlashadi."
+    ],
+    "law": [
+     "안전보건규칙 제321조제1항제8호 [접근한계거리 — 15~37kV 90cm]·제320조 / KOSHA B-E-11-2026 부록1·E-1-2012 가공 전선로에서의 위험방지",
+     "OSH Rule Art.321(1)8 [approach boundary — 15–37 kV → 90 cm], Art.320 / KOSHA B-E-11-2026 Annex 1, E-1-2012",
+     "安全保健规则 第321条第1项第8号[接近界限距离——15~37kV 90cm]·第320条 / KOSHA B-E-11-2026 附录1·E-1-2012",
+     "Quy chuẩn Điều 321(1) khoản 8 [15–37 kV → 90 cm], Điều 320 / KOSHA B-E-11-2026 Phụ lục 1, E-1-2012",
+     "Qoidalar 321-modda 1-band 8 [15–37 kV → 90 sm], 320-modda / KOSHA B-E-11-2026 1-ilova, E-1-2012"
+    ],
+    "csi": [
+     "CSI 감전 47건 중 사고객체 전주·전선 21건(44.7%)",
+     "CSI: poles and lines were the accident object in 21 of 47 shock cases (44.7%)",
+     "CSI 触电47起中事故客体为电杆·电线21起(44.7%)",
+     "CSI: cột và dây là đối tượng sự cố trong 21/47 vụ (44,7%)",
+     "CSI: 47 ta hodisadan 21 tasida obyekt ustun va sim (44,7%)"
+    ],
+    "cur": [
+     "이격 표시·절연방호구 없음",
+     "No boundary marking or line cover",
+     "无隔离标识·绝缘防护具",
+     "Không vạch giới hạn, không chụp cách điện",
+     "Chegara belgisi va izolyatsion qoplama yo'q"
+    ],
+    "act": [
+     "① 전선 관리주체와 협의해 정전 또는 절연방호관 설치 ② 바닥·구조물에 접근한계거리 한계선을 로프와 표지로 명시 ③ 전담 감시인 배치 ④ 작업계획서에 전선 경로·전압·이격거리를 도면으로 표기",
+     "(1) Agree an outage or the fitting of insulating line covers with the line owner. (2) Mark the approach boundary on the ground and structure with rope and signs. (3) Assign a dedicated observer. (4) Show the line route, voltage and clearance on a drawing in the work plan.",
+     "① 与线路管理方协商停电或安装绝缘防护管 ② 在地面·结构上以绳索和标志明示接近界限距离界线 ③ 配置专职监视人 ④ 在作业计划书中以图纸标明线路路径·电压·隔离距离",
+     "(1) Thỏa thuận với đơn vị quản lý để cắt điện hoặc lắp chụp cách điện. (2) Đánh dấu ranh giới bằng dây và biển báo. (3) Bố trí người giám sát chuyên trách. (4) Thể hiện tuyến, điện áp, khoảng cách trên bản vẽ trong phương án.",
+     "(1) Liniya egasi bilan kelishib, o'chirish yoki izolyatsion qoplama o'rnatish. (2) Yer va konstruksiyada chegarani arqon va belgi bilan ko'rsatish. (3) Maxsus kuzatuvchi tayinlash. (4) Ish rejasida liniya yo'li, kuchlanishi va masofani chizmada ko'rsatish."
+    ],
+    "p": 2,
+    "s": 3,
+    "p2": 1,
+    "s2": 3
+   },
+   "ptw": {
+    "main": null,
+    "supp": [
+     "jung"
+    ],
+    "safe": [
+     1,
+     9,
+     14
+    ],
+    "chk": {
+     "11": "Y",
+     "12": "Y",
+     "14": "Y"
+    },
+    "imp": [
+     "접근한계거리 90cm·이격거리 300cm 구획과 절연방호구 설치, 전담 감시인 배치를 지정한다.",
+     "Demarcation at the 90 cm approach boundary and 300 cm clearance, installation of insulating line covers and a dedicated attendant are specified.",
+     "指定接近界限距离90cm·隔离距离300cm的区划、绝缘防护具的安装与专职监视人的配置。",
+     "Yêu cầu vạch ranh giới 90 cm và 300 cm, lắp chụp cách điện và bố trí người giám sát chuyên trách.",
+     "90 sm va 300 sm chegarani belgilash, izolyatsion qoplama o'rnatish va maxsus kuzatuvchi talab qilinadi."
+    ]
+   }
+  },
+  {
+   "id": "U10",
+   "e": "E10",
+   "p": "P10",
+   "grp": [
+    "가공전선",
+    "가공전선",
+    "가공전선",
+    "가공전선",
+    "가공전선"
+   ],
+   "tag": [
+    "장비 붐·와이어의 가공전선 접근",
+    "Crane boom or rope approaching an overhead line",
+    "设备臂杆·钢丝绳接近架空线路",
+    "Cần cẩu hoặc cáp tiến gần đường dây",
+    "Kran strelasi yoki arqonining liniyaga yaqinlashuvi"
+   ],
+   "ra": {
+    "work": [
+     "이동식크레인·굴착기·고소작업차 운용",
+     "Operating mobile cranes, excavators and aerial platforms",
+     "移动式起重机·挖掘机·高空作业车的运行",
+     "Vận hành cẩu di động, máy đào, sàn nâng",
+     "Ko'chma kran, ekskavator va platformani boshqarish"
+    ],
+    "cls": [
+     "전기적 요인",
+     "Electrical",
+     "电气性因素",
+     "Yếu tố điện",
+     "Elektr omili"
+    ],
+    "cause": [
+     "감전 — 차량·기계장치 간접접촉",
+     "Shock — indirect contact via vehicle or plant",
+     "触电 — 车辆·机械装置间接接触",
+     "Điện giật — tiếp xúc gián tiếp qua xe/thiết bị",
+     "Tok urishi — transport yoki mexanizm orqali bilvosita tegish"
+    ],
+    "haz": [
+     "장비의 붐·와이어가 가공전선의 이격거리 300cm 이내로 들어와 있다. 접촉 순간 차체와 주변 지표가 충전되어 운전원뿐 아니라 하차자·유도자·인양 보조자까지 보폭전압과 접촉전압으로 동시에 감전된다.",
+     "The boom or rope is within the 300 cm clearance from the overhead line. On contact the machine body and the surrounding ground become live, so not only the operator but anyone dismounting, signalling or handling the load is shocked at once by step and touch voltage.",
+     "设备的臂杆·钢丝绳已进入架空线路300cm隔离距离以内。接触瞬间车体与周围地表带电,不仅司机,连下车者·指挥人员·吊装辅助人员也因跨步电压与接触电压同时触电。",
+     "Cần hoặc cáp đã vào trong khoảng cách 300 cm với đường dây. Khi chạm, thân máy và mặt đất quanh đó mang điện, không chỉ người lái mà cả người xuống xe, ra hiệu, phụ cẩu đều bị giật do điện áp bước và tiếp xúc.",
+     "Strela yoki arqon liniyadan 300 sm masofa ichiga kirgan. Tegish zahoti korpus va atrofdagi yer kuchlanish oladi; nafaqat operator, balki tushayotgan, signal berayotgan va yuk bilan ishlayotganlar ham qadam va tegish kuchlanishidan bir vaqtda tok uradi."
+    ],
+    "law": [
+     "안전보건규칙 제322조제1항 [차량·기계장치 이격거리 300cm, 50kV 초과 시 10kV당 10cm 가산]·제322조제2항 [감시인 배치]",
+     "OSH Rule Art.322(1) [300 cm clearance; +10 cm per 10 kV above 50 kV], Art.322(2) [assign an observer]",
+     "安全保健规则 第322条第1项[车辆·机械装置隔离距离300cm,超过50kV时每10kV增加10cm]·第322条第2项[配置监视人]",
+     "Quy chuẩn Điều 322(1) [300 cm; +10 cm/10 kV trên 50 kV], Điều 322(2)",
+     "Qoidalar 322-modda 1-band [300 sm; 50 kV dan yuqorida har 10 kV ga +10 sm], 2-band"
+    ],
+    "csi": [
+     "CSI 감전 47건 중 장비·자재 매개 간접접촉 12건(25.5%)·사망 3명",
+     "CSI: 12 of 47 shock cases (25.5%) were indirect contact via plant or materials, 3 deaths",
+     "CSI 触电47起中经设备·材料的间接接触12起(25.5%)、死亡3人",
+     "CSI: 12/47 vụ (25,5%) là tiếp xúc gián tiếp qua thiết bị/vật tư, 3 tử vong",
+     "CSI: 47 tadan 12 tasi (25,5%) mexanizm yoki material orqali, 3 o'lim"
+    ],
+    "cur": [
+     "붐 제한장치 미설정, 유도자 겸직",
+     "No boom limiter; signaller has other duties",
+     "未设定臂杆限位装置,指挥人员兼职",
+     "Chưa đặt giới hạn cần, người ra hiệu kiêm nhiệm",
+     "Strela chegaralagichi yo'q, signalchi qo'shimcha vazifada"
+    ],
+    "act": [
+     "① 이격거리 300cm 확보 및 전선 직하부 작업금지구역 로프 구획 ② 붐 상승·선회 제한장치 설정 후 작동 확인 ③ 다른 업무를 겸하지 않는 전담 유도자 배치와 무선 교신 상시 유지 ④ 접촉 시 운전원 차내 대기 절차 교육",
+     "(1) Keep 300 cm clearance and rope off the area directly beneath the line. (2) Set boom height and slew limiters and verify them. (3) Assign a dedicated signaller with no other duties and keep continuous radio contact. (4) Train operators to stay in the cab if contact occurs.",
+     "① 确保300cm隔离距离并用绳索围隔线路正下方禁止作业区 ② 设定臂杆升降·回转限位装置后确认动作 ③ 配置不兼任其他工作的专职指挥人员并保持无线电常时通话 ④ 培训司机在接触时于车内待命的程序",
+     "(1) Giữ 300 cm và rào vùng ngay dưới đường dây. (2) Đặt và kiểm tra giới hạn nâng/quay cần. (3) Bố trí người ra hiệu chuyên trách, giữ liên lạc bộ đàm liên tục. (4) Huấn luyện người lái ở trong cabin khi chạm dây.",
+     "(1) 300 sm masofani saqlash va liniya ostini arqon bilan to'sish. (2) Strela chegaralagichini o'rnatib tekshirish. (3) Boshqa vazifasiz maxsus signalchi va doimiy radioaloqa. (4) Tegish holatida operatorning kabinada qolish tartibini o'rgatish."
+    ],
+    "p": 2,
+    "s": 3,
+    "p2": 1,
+    "s2": 3
+   },
+   "ptw": {
+    "main": null,
+    "supp": [
+     "jung"
+    ],
+    "safe": [
+     1,
+     14
+    ],
+    "chk": {
+     "11": "Y",
+     "14": "Y"
+    },
+    "imp": [
+     "중장비사용작업 허가가 필요하다. 이격거리 300cm 확보, 붐 제한장치 설정, 신호수 배치를 기재한다.",
+     "A heavy-equipment permit is required. Record the 300 cm clearance, the boom limiter setting and the signaller assignment.",
+     "需要重型设备作业许可。记载300cm隔离距离的确保、臂杆限位装置的设定与信号员的配置。",
+     "Cần giấy phép thiết bị nặng. Ghi việc giữ khoảng cách 300 cm, đặt giới hạn cần và bố trí người ra hiệu.",
+     "Og'ir texnika ruxsatnomasi kerak. 300 sm masofa, strela chegaralagichi va signalchi tayinlanishi yoziladi."
+    ]
+   }
+  },
+  {
+   "id": "U11",
+   "e": "E11",
+   "p": "P11",
+   "grp": [
+    "가공전선",
+    "가공전선",
+    "가공전선",
+    "가공전선",
+    "가공전선"
+   ],
+   "tag": [
+    "비계파이프·철근 등 도전성 장척물을 세워 취급",
+    "Long conductive items (scaffold tubes, rebar) handled upright",
+    "竖立搬运脚手架钢管·钢筋等导电性长条材料",
+    "Mang vật tư dài dẫn điện (ống giàn giáo, thép) ở thế đứng",
+    "Uzun o'tkazuvchi buyumlarni tik holatda tashish"
+   ],
+   "ra": {
+    "work": [
+     "자재 운반·설치",
+     "Material handling and erection",
+     "材料搬运·安装",
+     "Vận chuyển và lắp dựng vật tư",
+     "Materiallarni tashish va o'rnatish"
+    ],
+    "cls": [
+     "전기적 요인",
+     "Electrical",
+     "电气性因素",
+     "Yếu tố điện",
+     "Elektr omili"
+    ],
+    "cause": [
+     "감전 — 자재 매개 간접접촉",
+     "Shock — indirect contact through materials",
+     "触电 — 经材料的间接接触",
+     "Điện giật — tiếp xúc gián tiếp qua vật tư",
+     "Tok urishi — material orqali bilvosita tegish"
+    ],
+    "haz": [
+     "길고 도전성 있는 자재를 세운 자세로 운반·조작하고 있다. 작업자는 손에 든 자재의 상단 높이를 인지하지 못하므로, 상단이 가공전선에 닿는 순간 자재 전체가 도체가 되어 전류가 그대로 인체로 유입된다.",
+     "Long conductive items are being carried or handled upright. The worker cannot judge the height of the top end in their hands, so the moment it touches the overhead line the whole item becomes a conductor and the current passes straight into the body.",
+     "以竖立姿势搬运·操作长条导电材料。作业者无法察觉手中材料上端的高度,上端一旦接触架空线路,整根材料即成为导体,电流直接流入人体。",
+     "Vật tư dài dẫn điện được mang ở thế đứng. Người mang không ước lượng được độ cao đầu trên, nên khi đầu đó chạm đường dây, cả vật tư thành dây dẫn và dòng đi thẳng vào cơ thể.",
+     "Uzun o'tkazuvchi buyum tik holatda tashilmoqda. Ishchi qo'lidagi buyumning yuqori uchi balandligini bilmaydi; u liniyaga tekkan zahoti butun buyum o'tkazgichga aylanib, tok to'g'ridan-to'g'ri tanaga kiradi."
+    ],
+    "law": [
+     "안전보건규칙 제321조제1항제2호 [도전재료·공구를 통한 간접접촉 방지]·제322조 / KOSHA E-65-2012 가공전선 주변 작업",
+     "OSH Rule Art.321(1)2 [prevent indirect contact via conductive materials or tools], Art.322 / KOSHA E-65-2012",
+     "安全保健规则 第321条第1项第2号[防止经导电材料·工具的间接接触]·第322条 / KOSHA E-65-2012",
+     "Quy chuẩn Điều 321(1) khoản 2, Điều 322 / KOSHA E-65-2012",
+     "Qoidalar 321-modda 1-band 2, 322-modda / KOSHA E-65-2012"
+    ],
+    "csi": [
+     "CSI 간접접촉 12건에 크레인 와이어·비계파이프·천공기·장대롤러·전정톱 접촉 포함",
+     "CSI: the 12 indirect-contact cases include crane ropes, scaffold tubes, drilling rigs, extension rollers and pole saws",
+     "CSI 间接接触12起中包含起重机钢丝绳·脚手架钢管·钻孔机·长杆滚筒·高枝锯的接触",
+     "CSI: 12 vụ tiếp xúc gián tiếp gồm cáp cẩu, ống giàn giáo, máy khoan, con lăn dài, cưa cần",
+     "CSI: 12 ta bilvosita tegish holatida kran arqoni, iskala quvuri, burg'u, uzun rolik va uzun arra bor"
+    ],
+    "cur": [
+     "운반 경로·자세 기준 없음",
+     "No rule on carrying route or posture",
+     "无搬运路径·姿势标准",
+     "Không có quy định lối và thế mang",
+     "Tashish yo'li va holati bo'yicha qoida yo'q"
+    ],
+    "act": [
+     "① 장척물은 수평으로 눕혀 2인 1조 운반, 세운 상태 이동 금지 ② 전선 직하 통과 경로를 우회 지정하고 바닥에 표시 ③ 부득이한 경우 절연 로프로 유도하고 감시인이 상단 높이를 통제 ④ 절연 손잡이 공구 사용",
+     "(1) Carry long items horizontally in pairs; never move them upright. (2) Designate a detour away from directly beneath the line and mark it on the ground. (3) Where unavoidable, guide with an insulating rope while the observer controls the top height. (4) Use insulated-handle tools.",
+     "① 长条材料水平放倒由2人1组搬运,禁止竖立移动 ② 指定绕行路径避开线路正下方并在地面标示 ③ 不得已时用绝缘绳索牵引,由监视人控制上端高度 ④ 使用绝缘手柄工具",
+     "(1) Mang vật tư dài ở thế ngang, 2 người/tổ; cấm di chuyển ở thế dựng. (2) Chỉ định lối vòng tránh dưới đường dây, vạch dấu trên sàn. (3) Nếu buộc phải, dẫn bằng dây cách điện, người giám sát khống chế độ cao. (4) Dùng dụng cụ tay cầm cách điện.",
+     "(1) Uzun buyumlarni gorizontal holatda 2 kishi tashiydi; tik yurish taqiqlanadi. (2) Liniya ostidan o'tmaydigan aylanma yo'lni belgilab, yerga chizish. (3) Zarur bo'lsa izolyatsion arqon bilan boshqarish, kuzatuvchi balandlikni nazorat qiladi. (4) Izolyatsion dastali asbob."
+    ],
+    "p": 2,
+    "s": 3,
+    "p2": 1,
+    "s2": 3
+   },
+   "ptw": {
+    "main": null,
+    "supp": [
+     "jung"
+    ],
+    "safe": [
+     1,
+     14
+    ],
+    "chk": {
+     "11": "Y",
+     "14": "Y"
+    },
+    "imp": [
+     "자재 매개 간접접촉 경로가 성립하므로 작업구역 구획과 전담 감시인을 지정한다.",
+     "An indirect-contact path through the material exists, so zone demarcation and a dedicated attendant are specified.",
+     "经材料的间接接触路径成立,因此指定作业区域的区划与专职监视人。",
+     "Tồn tại đường tiếp xúc gián tiếp qua vật tư, nên yêu cầu khoanh vùng và người giám sát chuyên trách.",
+     "Material orqali bilvosita tegish yo'li mavjud, shuning uchun zonani belgilash va maxsus kuzatuvchi talab qilinadi."
+    ]
+   }
+  },
+  {
+   "id": "U12",
+   "e": "E12",
+   "p": "P12",
+   "grp": [
+    "고소",
+    "고소",
+    "고소",
+    "고소",
+    "고소"
+   ],
+   "tag": [
+    "고소 전기작업 — 안전대 미체결 · 구명줄 부재",
+    "Electrical work at height with no harness clipped on and no lifeline",
+    "高处电气作业——未系挂安全带·无生命绳",
+    "Làm việc điện trên cao, chưa móc dây an toàn, không dây cứu sinh",
+    "Balandlikda elektr ishi — kamar biriktirilmagan, qutqaruv arqoni yo'q"
+   ],
+   "ra": {
+    "work": [
+     "고소 전기설비 설치·보수",
+     "Installing and repairing electrical equipment at height",
+     "高处电气设备的安装·维修",
+     "Lắp đặt và sửa chữa thiết bị điện trên cao",
+     "Balandlikda elektr uskunalarini o'rnatish va ta'mirlash"
+    ],
+    "cls": [
+     "복합 요인(전기적+기계적)",
+     "Combined (electrical + mechanical)",
+     "复合因素(电气+机械)",
+     "Yếu tố kết hợp (điện + cơ khí)",
+     "Kombinatsiyalangan omil (elektr + mexanik)"
+    ],
+    "cause": [
+     "감전 + 떨어짐 — 전격에 의한 반사적 낙하",
+     "Shock + fall — reflex fall caused by the shock",
+     "触电+坠落 — 电击引起的反射性坠落",
+     "Điện giật + ngã — ngã phản xạ do bị giật",
+     "Tok urishi + yiqilish — tok urishidan refleksli yiqilish"
+    ],
+    "haz": [
+     "고소에서 전기작업을 하면서 안전대가 체결되어 있지 않다. 충전부 접촉 시 근육 경직과 반사적 이탈이 일어나 그대로 낙하하므로, 전격 상해에 추락 상해가 중첩되어 치명률이 급격히 올라간다.",
+     "Electrical work is being done at height with the harness unclipped. Contact with a live part causes muscle tetany and a reflex jerk that throws the worker off, so fall injuries compound the electrical injury and the fatality rate rises sharply.",
+     "在高处进行电气作业却未系挂安全带。接触带电部时发生肌肉强直与反射性脱手而直接坠落,电击伤害与坠落伤害叠加,致死率急剧上升。",
+     "Làm việc điện trên cao mà chưa móc dây an toàn. Chạm phần mang điện gây co cứng cơ và giật phản xạ khiến ngã ngay, chấn thương do ngã chồng lên chấn thương điện, tỉ lệ tử vong tăng vọt.",
+     "Balandlikda elektr ishi kamarsiz bajarilmoqda. Kuchlanishli qismga tegishda mushaklar qotib, refleksli siltanish yuz beradi va ishchi yiqiladi; elektr shikastiga yiqilish qo'shilib, o'lim ehtimoli keskin ortadi."
+    ],
+    "law": [
+     "안전보건규칙 제42조 [추락의 방지]·제44조 [안전대의 부착설비 등]·제321조 / KOSHA B-E-12-2026 5.5",
+     "OSH Rule Art.42 [fall prevention], Art.44 [harness anchorage], Art.321 / KOSHA B-E-12-2026 §5.5",
+     "安全保健规则 第42条[坠落的防止]·第44条[安全带的附着设备等]·第321条 / KOSHA B-E-12-2026 5.5",
+     "Quy chuẩn Điều 42, Điều 44, Điều 321 / KOSHA B-E-12-2026 §5.5",
+     "Qoidalar 42-modda, 44-modda, 321-modda / KOSHA B-E-12-2026 5.5"
+    ],
+    "csi": [
+     "CSI 감전 후 2차 낙하 6건 중 4건 사망(66.7%) — 낙하 없는 감전 41건 사망률 17.1%의 3.9배",
+     "CSI: 4 of the 6 shock-plus-fall cases were fatal (66.7%) — 3.9× the 17.1% rate of the 41 cases without a fall",
+     "CSI 触电后二次坠落6起中4起死亡(66.7%)——为无坠落触电41起死亡率17.1%的3.9倍",
+     "CSI: 4/6 vụ giật kèm ngã tử vong (66,7%) — gấp 3,9 lần mức 17,1% của 41 vụ không ngã",
+     "CSI: tok urishi va yiqilish bo'lgan 6 holatdan 4 tasi o'lim (66,7%) — yiqilishsiz 41 holatdagi 17,1% dan 3,9 baravar yuqori"
+    ],
+    "cur": [
+     "안전대 미체결, 정전 미시행",
+     "Harness not clipped on; circuit not de-energised",
+     "未系挂安全带,未实施停电",
+     "Chưa móc dây, chưa cắt điện",
+     "Kamar biriktirilmagan, elektr uzilmagan"
+    ],
+    "act": [
+     "① 고소 전기작업은 정전작업을 원칙으로 하고 검전·단락접지 완료 후 착수 ② 수직·수평 구명줄 선설치, 전신식 안전대 + 더블 랜야드로 무체결 구간 제거 ③ 하부 추락방호망 설치 ④ 전담 감시인 배치 및 구조·응급 절차 사전 지정",
+     "(1) Treat de-energised working as the rule; start only after voltage verification and short-circuit earthing. (2) Pre-install vertical and horizontal lifelines and use a full-body harness with twin lanyards so there is no unclipped interval. (3) Install a fall-arrest net below. (4) Post a dedicated observer and pre-assign rescue and first-aid procedures.",
+     "① 高处电气作业原则上实施停电,完成验电·短路接地后开工 ② 预先设置垂直·水平生命绳,使用全身式安全带+双钩安全绳消除未系挂区间 ③ 下方设置坠落防护网 ④ 配置专职监视人并事先指定救援·急救程序",
+     "(1) Lấy cắt điện làm nguyên tắc; chỉ bắt đầu sau khi thử điện và tiếp đất ngắn mạch. (2) Lắp sẵn dây cứu sinh dọc/ngang, dùng dây an toàn toàn thân hai móc để không có khoảng hở. (3) Lắp lưới chống ngã bên dưới. (4) Bố trí người giám sát chuyên trách và định sẵn quy trình cứu hộ.",
+     "(1) Elektrni uzish asosiy qoida; kuchlanish tekshirilib, yerga ulangach boshlash. (2) Vertikal va gorizontal qutqaruv arqonini oldindan o'rnatish, ikki karabinli to'liq tana kamari bilan bog'lanmagan oraliqni yo'qotish. (3) Pastda yiqilishga qarshi to'r. (4) Maxsus kuzatuvchi va oldindan belgilangan qutqaruv tartibi."
+    ],
+    "p": 3,
+    "s": 3,
+    "p2": 1,
+    "s2": 3
+   },
+   "ptw": {
+    "main": null,
+    "supp": [
+     "go"
+    ],
+    "safe": [
+     14
+    ],
+    "chk": {
+     "13": "Y",
+     "12": "Y"
+    },
+    "imp": [
+     "고소작업 허가가 필요하다. 작업발판·안전난간, 안전대 부착설비, 추락방호망을 기재한다.",
+     "A work-at-height permit is required. Record the working platform and guardrails, the harness anchorage and the fall-arrest net.",
+     "需要高处作业许可。记载作业平台·安全护栏、安全带附着设备与坠落防护网。",
+     "Cần giấy phép làm việc trên cao. Ghi sàn thao tác, lan can, điểm neo dây an toàn và lưới chống ngã.",
+     "Balandlikdagi ish ruxsatnomasi kerak. Ish maydonchasi, to'siq, kamar biriktirish nuqtasi va to'r yoziladi."
+    ]
+   }
+  },
+  {
+   "id": "U13",
+   "e": "E13",
+   "p": "P13",
+   "grp": [
+    "고소",
+    "고소",
+    "고소",
+    "고소",
+    "고소"
+   ],
+   "tag": [
+    "이동식 사다리 상부에서 양손 작업",
+    "Two-handed work from the top of a portable ladder",
+    "在移动式梯子上部进行双手作业",
+    "Làm việc hai tay trên đỉnh thang di động",
+    "Ko'chma narvon tepasida ikki qo'l bilan ish"
+   ],
+   "ra": {
+    "work": [
+     "사다리를 이용한 전기작업",
+     "Electrical work from a ladder",
+     "利用梯子的电气作业",
+     "Làm việc điện từ thang",
+     "Narvondan turib elektr ishi"
+    ],
+    "cls": [
+     "기계적 요인",
+     "Mechanical",
+     "机械性因素",
+     "Yếu tố cơ khí",
+     "Mexanik omil"
+    ],
+    "cause": [
+     "떨어짐 — 부적정 작업발판",
+     "Fall — unsuitable working platform",
+     "坠落 — 作业平台不适当",
+     "Ngã cao — sàn thao tác không phù hợp",
+     "Yiqilish — noto'g'ri ish maydonchasi"
+    ],
+    "haz": [
+     "이동식 사다리 상부에서 양손을 쓰는 작업이 이루어져 지지점이 없다. 사다리는 전도·미끄러짐에 취약하고 전격이 겹치면 지지할 수단이 전혀 없어 그대로 낙하한다.",
+     "Two-handed work is being done from the top of a portable ladder, leaving no point of support. Ladders are prone to tipping and slipping, and if a shock occurs there is nothing to hold on to, so the worker falls straight down.",
+     "在移动式梯子上部进行需双手操作的作业,处于无支撑状态。梯子易倾倒·打滑,一旦叠加电击则毫无支撑手段,直接坠落。",
+     "Làm việc bằng hai tay trên đỉnh thang, không còn điểm tựa. Thang dễ lật và trượt; nếu bị giật thì không có gì để bám nên ngã thẳng xuống.",
+     "Ko'chma narvon tepasida ikki qo'l bilan ishlanmoqda, tayanch nuqtasi yo'q. Narvon ag'darilish va sirpanishga moyil; tok ursa, ushlanadigan narsa qolmaydi va ishchi to'g'ridan-to'g'ri yiqiladi."
+    ],
+    "law": [
+     "안전보건규칙 제24조 [사다리식 통로 등의 구조]·제42조·제32조 / KOSHA B-E-15-2026 전기작업시의 작업공간 확보",
+     "OSH Rule Art.24 [construction of ladder passageways], Art.42, Art.32 / KOSHA B-E-15-2026",
+     "安全保健规则 第24条[梯子式通道等的构造]·第42条·第32条 / KOSHA B-E-15-2026",
+     "Quy chuẩn Điều 24, Điều 42, Điều 32 / KOSHA B-E-15-2026",
+     "Qoidalar 24-modda, 42-modda, 32-modda / KOSHA B-E-15-2026"
+    ],
+    "csi": [
+     "KOSHA SIF 전기·기계설비공사 525건 중 추락 316건(60.2%) — 재해형태 1위",
+     "KOSHA SIF: 316 of 525 electrical and mechanical installation cases were falls (60.2%), the leading type",
+     "KOSHA SIF 电气·机械设备工程525起中坠落316起(60.2%)——灾害形态第1位",
+     "KOSHA SIF: 316/525 vụ thi công điện & cơ là ngã cao (60,2%), đứng đầu",
+     "KOSHA SIF: 525 ta elektr va mexanika ishidan 316 tasi yiqilish (60,2%) — birinchi o'rin"
+    ],
+    "cur": [
+     "이동식 사다리 사용 중",
+     "Portable ladder in use",
+     "正在使用移动式梯子",
+     "Đang dùng thang di động",
+     "Ko'chma narvon ishlatilmoqda"
+    ],
+    "act": [
+     "① 양손 작업은 고소작업대·이동식 비계 사용을 원칙화 ② 사다리 불가피 시 최상부 2단 작업 금지, 미끄럼·전도방지 조치 후 보조자가 하부 고정 ③ 작업발판 폭 40cm 이상 확보 ④ 사다리 위 전기작업은 정전 상태에서만 허용",
+     "(1) Make aerial platforms or mobile scaffolds the rule for two-handed work. (2) Where a ladder is unavoidable, prohibit the top two rungs, fit anti-slip and anti-tip measures and have an assistant hold the base. (3) Provide a platform at least 40 cm wide. (4) Allow electrical work from a ladder only on a de-energised circuit.",
+     "① 双手作业原则上使用高空作业台·移动式脚手架 ② 不得已使用梯子时禁止最上部2级作业,采取防滑·防倾倒措施并由辅助人员在下方固定 ③ 确保作业平台宽度40cm以上 ④ 梯上电气作业仅在停电状态下允许",
+     "(1) Quy định dùng sàn nâng hoặc giàn giáo cho việc cần hai tay. (2) Nếu buộc dùng thang, cấm 2 bậc trên cùng, có chống trượt/lật và người giữ chân thang. (3) Sàn rộng ≥40 cm. (4) Chỉ cho phép làm việc điện trên thang khi đã cắt điện.",
+     "(1) Ikki qo'l talab qiladigan ishda platforma yoki iskalani qoidaga aylantirish. (2) Narvon zarur bo'lsa, yuqori 2 pog'ona taqiqlanadi, sirpanish va ag'darilishga qarshi chora, yordamchi pastda ushlaydi. (3) Maydoncha eni ≥40 sm. (4) Narvonda elektr ishiga faqat uzilgan zanjirda ruxsat."
+    ],
+    "p": 2,
+    "s": 3,
+    "p2": 1,
+    "s2": 3
+   },
+   "ptw": {
+    "main": null,
+    "supp": [
+     "go"
+    ],
+    "safe": [
+     14
+    ],
+    "chk": {
+     "13": "Y"
+    },
+    "imp": [
+     "고소작업 허가 대상이며, 사다리 대신 고소작업대·비계 사용을 허가 조건으로 명시한다.",
+     "This falls under the work-at-height permit; using an aerial platform or scaffold instead of a ladder is stated as a condition of the permit.",
+     "属于高处作业许可对象,将使用高空作业台·脚手架代替梯子明示为许可条件。",
+     "Thuộc diện giấy phép làm việc trên cao; điều kiện cấp phép là dùng sàn nâng hoặc giàn giáo thay thang.",
+     "Balandlikdagi ish ruxsatnomasiga kiradi; narvon o'rniga platforma yoki iskaladan foydalanish shart qilib qo'yiladi."
+    ]
+   }
+  },
+  {
+   "id": "U14",
+   "e": "E14",
+   "p": null,
+   "grp": [
+    "관리",
+    "관리",
+    "관리",
+    "관리",
+    "관리"
+   ],
+   "tag": [
+    "유자격자·작업책임자 미지정 · 감시인 부재",
+    "No qualified person or supervisor appointed, no observer present",
+    "未指定有资格者·作业负责人,无监视人",
+    "Chưa chỉ định người có chứng chỉ/phụ trách, không có người giám sát",
+    "Malakali shaxs yoki rahbar tayinlanmagan, kuzatuvchi yo'q"
+   ],
+   "ra": {
+    "work": [
+     "전기작업 관리·감독",
+     "Supervision and control of electrical work",
+     "电气作业的管理·监督",
+     "Quản lý và giám sát công việc điện",
+     "Elektr ishini boshqarish va nazorat qilish"
+    ],
+    "cls": [
+     "관리적 요인",
+     "Managerial",
+     "管理性因素",
+     "Yếu tố quản lý",
+     "Boshqaruv omili"
+    ],
+    "cause": [
+     "감전 — 무자격자 단독작업",
+     "Shock — unqualified person working alone",
+     "触电 — 无资格者单独作业",
+     "Điện giật — người không chứng chỉ làm một mình",
+     "Tok urishi — malakasiz shaxsning yolg'iz ishlashi"
+    ],
+    "haz": [
+     "사진에 작업책임자나 감시인이 보이지 않고 근로자가 단독으로 위험을 판단·수행하고 있다. 감전은 피재자가 스스로 이탈할 수 없는 재해이므로, 목격자와 즉시 전원을 차단할 사람이 없으면 접촉 시간이 길어져 사망으로 직결된다.",
+     "No supervisor or observer appears in the photograph; the worker is judging and carrying out the hazardous task alone. Electric shock is an injury the victim cannot escape unaided, so with no witness and no one to cut the supply the contact time lengthens and death follows directly.",
+     "照片中未见作业负责人或监视人,作业者独自判断并实施危险作业。触电是受灾者无法自行脱离的灾害,若无目击者与能即刻切断电源的人员,接触时间延长将直接导致死亡。",
+     "Không thấy người phụ trách hay giám sát trong ảnh; công nhân tự đánh giá và làm việc nguy hiểm một mình. Điện giật là tai nạn nạn nhân không tự thoát ra được, nên không có người chứng kiến và ngắt điện thì thời gian tiếp xúc kéo dài, dẫn thẳng tới tử vong.",
+     "Rasmda ish rahbari yoki kuzatuvchi ko'rinmaydi; ishchi xavfli ishni yolg'iz baholab bajarmoqda. Tok urishida jabrlanuvchi o'zi ajrala olmaydi, shuning uchun guvoh va tokni darhol uzadigan odam bo'lmasa, tegish vaqti uzayib, o'limga olib keladi."
+    ],
+    "law": [
+     "안전보건규칙 제318조 [전기작업자의 제한 — 유자격자]·제322조제2항 [감시인 배치]·산업안전보건법 제16조 [관리감독자] / KOSHA B-E-12-2026 5.3",
+     "OSH Rule Art.318 [electrical work restricted to qualified persons], Art.322(2) [assign an observer], OSH Act Art.16 [supervisors] / KOSHA B-E-12-2026 §5.3",
+     "安全保健规则 第318条[电气作业者的限制——有资格者]·第322条第2项[配置监视人]·产业安全保健法 第16条[管理监督者] / KOSHA B-E-12-2026 5.3",
+     "Quy chuẩn Điều 318, Điều 322(2), Luật ATVSLĐ Điều 16 / KOSHA B-E-12-2026 §5.3",
+     "Qoidalar 318-modda, 322-modda 2-band, Qonun 16-modda / KOSHA B-E-12-2026 5.3"
+    ],
+    "csi": [
+     "CSI 전기 부문 661건 사고원인 개인귀책 496건(75.0%) vs 시스템·관리 117건(17.7%) — 감전만 보면 40.4%가 관리적 결함",
+     "CSI: of 661 electrical-sector cases, 496 (75.0%) were attributed to the individual and 117 (17.7%) to systems or management — but among shock cases alone 40.4% were managerial failures",
+     "CSI 电气部门661起事故原因中个人归责496起(75.0%)对系统·管理117起(17.7%)——仅看触电则40.4%为管理性缺陷",
+     "CSI: trong 661 vụ, 496 (75,0%) quy cho cá nhân và 117 (17,7%) cho hệ thống/quản lý — riêng điện giật thì 40,4% là lỗi quản lý",
+     "CSI: 661 ta holatdan 496 tasi (75,0%) shaxsga, 117 tasi (17,7%) tizim va boshqaruvga bog'langan — tok urishida esa 40,4% boshqaruv nuqsoni"
+    ],
+    "cur": [
+     "작업책임자 미지정, 단독작업",
+     "No supervisor appointed; working alone",
+     "未指定作业负责人,单独作业",
+     "Chưa chỉ định người phụ trách, làm một mình",
+     "Rahbar tayinlanmagan, yolg'iz ishlash"
+    ],
+    "act": [
+     "① 유자격자 명부를 서면 작성·게시하고 작업책임자를 지정해 상주 ② 전기작업은 2인 1조 편성, 단독작업 금지 ③ 감시인은 다른 업무를 겸하지 않고 전원 차단 위치와 방법을 사전 숙지 ④ 안전작업허가서(PTW) 발행 후 착수",
+     "(1) Keep and post a written register of qualified persons and appoint a supervisor who stays on site. (2) Work in pairs; solo electrical work is prohibited. (3) The observer has no other duties and knows in advance where and how to cut the supply. (4) Start only after a permit to work is issued.",
+     "① 书面编制并公示有资格者名册,指定作业负责人常驻现场 ② 电气作业编成2人1组,禁止单独作业 ③ 监视人不兼任其他工作,事先熟知断电位置与方法 ④ 签发安全作业许可(PTW)后开工",
+     "(1) Lập và niêm yết danh sách người có chứng chỉ, chỉ định người phụ trách thường trực. (2) Làm theo tổ 2 người; cấm làm một mình. (3) Người giám sát không kiêm nhiệm và biết trước vị trí, cách cắt điện. (4) Chỉ khởi công sau khi có PTW.",
+     "(1) Malakali shaxslar ro'yxatini yozma tuzib e'lon qilish va doimiy ish rahbarini tayinlash. (2) 2 kishilik guruh; yolg'iz ishlash taqiqlanadi. (3) Kuzatuvchi boshqa vazifani bajarmaydi va tokni qayerdan uzishni oldindan biladi. (4) Ruxsatnoma berilgandan keyin boshlash."
+    ],
+    "p": 2,
+    "s": 3,
+    "p2": 1,
+    "s2": 3
+   },
+   "ptw": {
+    "main": null,
+    "supp": [],
+    "safe": [
+     14
+    ],
+    "chk": {
+     "12": "Y"
+    },
+    "imp": [
+     "작업책임자와 전담 감시인의 지정이 허가 발급의 선행 조건이 되도록 안전조치 제14항과 점검 제12항을 지정한다.",
+     "Requirement 14 and inspection item 12 are set so that appointing a work supervisor and a dedicated watcher precedes permit issue.",
+     "指定安全措施第14项和检查第12项，使作业负责人与专职监护人的指定成为签发许可的前提。",
+     "Chỉ định mục 14 và mục kiểm tra 12 để việc bổ nhiệm người phụ trách và người giám sát chuyên trách là điều kiện tiên quyết cấp phép.",
+     "14-band va 12-tekshiruv bandi belgilanadi, shunda ish rahbari va maxsus kuzatuvchi tayinlanishi ruxsatnoma berishdan oldin bo'ladi."
+    ],
+    "added": true
+   }
+  },
+  {
+   "id": "U15",
+   "e": "E15",
+   "p": null,
+   "grp": [
+    "관리",
+    "관리",
+    "관리",
+    "관리",
+    "관리"
+   ],
+   "tag": [
+    "외국인 근로자 — 한국어 전용 표지·작업지시",
+    "Migrant workers — signs and instructions in Korean only",
+    "外籍劳动者——仅韩语标识·作业指示",
+    "Lao động nước ngoài — biển báo và chỉ dẫn chỉ bằng tiếng Hàn",
+    "Chet ellik ishchilar — belgi va ko'rsatmalar faqat koreys tilida"
+   ],
+   "ra": {
+    "work": [
+     "작업지시 전달 및 안전교육",
+     "Conveying work instructions and safety training",
+     "作业指示的传达及安全教育",
+     "Truyền đạt chỉ dẫn và huấn luyện an toàn",
+     "Ish topshirig'ini yetkazish va xavfsizlik o'qitish"
+    ],
+    "cls": [
+     "관리적 요인",
+     "Managerial",
+     "管理性因素",
+     "Yếu tố quản lý",
+     "Boshqaruv omili"
+    ],
+    "cause": [
+     "감전 — 언어장벽에 의한 위험정보 미전달",
+     "Shock — hazard information not conveyed (language barrier)",
+     "触电 — 语言障碍导致危险信息未传达",
+     "Điện giật — không truyền được thông tin nguy hiểm do rào cản ngôn ngữ",
+     "Tok urishi — til to'sig'i tufayli xavf ma'lumoti yetkazilmagan"
+    ],
+    "haz": [
+     "정전구간과 활선구간의 구분, 접근한계거리, 작업중지 요건이 한국어로만 전달된다. 외국인 근로자는 위험의 존재 자체를 인지하지 못한 채 작업하게 되며, 사고 발생 시 구조 요청과 응급조치도 지연된다.",
+     "The boundary between de-energised and live sections, the approach limit and the stop-work rules are conveyed in Korean only. Migrant workers then work without knowing the hazard exists, and in an accident both the call for help and first aid are delayed.",
+     "停电区段与带电区段的区分、接近界限距离、停止作业条件仅以韩语传达。外籍劳动者在未察觉危险存在的情况下作业,事故发生时求救与急救也被延误。",
+     "Ranh giới vùng đã cắt điện và vùng mang điện, khoảng cách giới hạn và điều kiện dừng việc chỉ được truyền bằng tiếng Hàn. Lao động nước ngoài làm việc mà không biết có nguy hiểm, khi xảy ra tai nạn thì gọi cứu và sơ cứu cũng chậm.",
+     "O'chirilgan va kuchlanishli uchastkalar farqi, yaqinlashish chegarasi va ishni to'xtatish shartlari faqat koreys tilida beriladi. Chet ellik ishchi xavf borligini bilmay ishlaydi; hodisada yordam chaqirish va birinchi yordam ham kechikadi."
+    ],
+    "law": [
+     "산업안전보건법 제29조 [근로자 안전보건교육]·제31조 [건설업 기초안전보건교육]·제52조 [근로자의 작업중지]·안전보건규칙 제321조",
+     "OSH Act Art.29 [worker safety training], Art.31 [basic construction safety training], Art.52 [worker’s right to stop work], OSH Rule Art.321",
+     "产业安全保健法 第29条[劳动者安全保健教育]·第31条[建设业基础安全保健教育]·第52条[劳动者的作业中止]·安全保健规则 第321条",
+     "Luật ATVSLĐ Điều 29, Điều 31, Điều 52, Quy chuẩn Điều 321",
+     "Mehnat xavfsizligi qonuni 29, 31 va 52-moddalar, Qoidalar 321-modda"
+    ],
+    "csi": [
+     "CSI 전기 부문 외국인 관련 42건 중 감전 6건(14.3%) — 전체 감전 비율 7.1%의 2배 / 2022-07 사망사례에 \"크레인 기사와 외국인 작업자 간 의사소통 지연\" 기록",
+     "CSI: 6 of the 42 migrant-related electrical cases were shocks (14.3%), twice the overall 7.1% / a July-2022 fatality records “delayed communication between the crane operator and the migrant worker”",
+     "CSI 电气部门涉外籍42起中触电6起(14.3%)——为整体触电比率7.1%的2倍 / 2022-07死亡案例记载“起重机司机与外籍作业者沟通延迟”",
+     "CSI: 6/42 vụ liên quan lao động nước ngoài là điện giật (14,3%), gấp đôi mức 7,1% chung / vụ tử vong 7-2022 ghi “chậm trao đổi giữa người lái cẩu và lao động nước ngoài”",
+     "CSI: chet ellik ishchilarga oid 42 holatdan 6 tasi tok urishi (14,3%) — umumiy 7,1% dan ikki baravar / 2022-07 o'lim hodisasida “kran operatori va chet ellik ishchi aloqasining kechikishi” qayd etilgan"
+    ],
+    "cur": [
+     "한국어 TBM·표지만 운영",
+     "Toolbox meetings and signage in Korean only",
+     "仅以韩语实施班前会·标识",
+     "Chỉ họp đầu ca và biển báo tiếng Hàn",
+     "TBM va belgilar faqat koreys tilida"
+    ],
+    "act": [
+     "① 작업지시서·위험표지·작업중지 카드를 영어·중국어·베트남어·우즈베키스탄어로 병기 ② 그림 중심 TBM 자료 사용 후 재현하게 하여 이해도 확인·서명 ③ 통역 가능자 또는 다국어 안전관리자를 위험작업 구간에 배치 ④ 다국어 비상연락·응급처치 절차 게시",
+     "(1) Issue work orders, hazard signs and stop-work cards in English, Chinese, Vietnamese and Uzbek. (2) Use pictorial toolbox material, have workers demonstrate it back, and record comprehension with a signature. (3) Station an interpreter or multilingual safety officer in the hazardous work zone. (4) Post multilingual emergency contact and first-aid procedures.",
+     "① 作业指示书·危险标识·停止作业卡以英语·中文·越南语·乌兹别克语并记 ② 使用以图示为主的班前会资料并令其复演以确认理解程度并签字 ③ 在危险作业区段配置可翻译人员或多语种安全管理者 ④ 张贴多语种紧急联络·急救程序",
+     "(1) Phát phiếu giao việc, biển cảnh báo và thẻ dừng việc bằng tiếng Anh, Trung, Việt, Uzbek. (2) Dùng tài liệu hình ảnh, cho làm lại và ký xác nhận đã hiểu. (3) Bố trí phiên dịch hoặc cán bộ an toàn đa ngữ tại khu vực nguy hiểm. (4) Niêm yết quy trình liên lạc khẩn cấp và sơ cứu đa ngữ.",
+     "(1) Ish topshirig'i, xavf belgilari va ishni to'xtatish kartasini ingliz, xitoy, vyetnam va o'zbek tillarida berish. (2) Rasmli materiallardan foydalanib, takrorlatib, imzo bilan tasdiqlash. (3) Xavfli zonaga tarjimon yoki ko'p tilli xavfsizlik mutaxassisini qo'yish. (4) Favqulodda aloqa va birinchi yordam tartibini ko'p tilda e'lon qilish."
+    ],
+    "p": 2,
+    "s": 3,
+    "p2": 1,
+    "s2": 3
+   },
+   "ptw": {
+    "main": null,
+    "supp": [],
+    "safe": [
+     13
+    ],
+    "chk": {},
+    "imp": [
+     "작업 전 안전교육을 다국어로 실시하고 이해도 확인 서명을 받도록 안전조치 제13항을 지정한다.",
+     "Requirement 13 is set so that the pre-work safety briefing is delivered multilingually with a comprehension signature.",
+     "指定安全措施第13项，作业前安全教育以多语种实施并取得理解确认签名。",
+     "Chỉ định mục 13 để huấn luyện an toàn trước khi làm việc được thực hiện đa ngữ và có chữ ký xác nhận đã hiểu.",
+     "13-band belgilanadi: ishdan oldingi xavfsizlik ta'limi ko'p tilda o'tkaziladi va tushunganlik imzosi olinadi."
+    ],
+    "added": true
+   }
+  },
+  {
+   "id": "U16",
+   "e": "E16",
+   "p": null,
+   "grp": [
+    "관리",
+    "관리",
+    "관리",
+    "관리",
+    "관리"
+   ],
+   "tag": [
+    "정전 확인·안전작업허가(PTW) 절차 미시행",
+    "No dead-state verification or permit-to-work procedure",
+    "未实施停电确认·安全作业许可(PTW)程序",
+    "Chưa thực hiện xác nhận mất điện / quy trình giấy phép làm việc",
+    "Kuchlanish yo'qligini tasdiqlash va ruxsatnoma tartibi bajarilmagan"
+   ],
+   "ra": {
+    "work": [
+     "전기작업 착수 전 절차",
+     "Procedure before starting electrical work",
+     "电气作业开工前程序",
+     "Quy trình trước khi bắt đầu công việc điện",
+     "Elektr ishini boshlashdan oldingi tartib"
+    ],
+    "cls": [
+     "관리적 요인",
+     "Managerial",
+     "管理性因素",
+     "Yếu tố quản lý",
+     "Boshqaruv omili"
+    ],
+    "cause": [
+     "감전 — \"차단했다고 믿은\" 상태",
+     "Shock — the circuit was only believed to be dead",
+     "触电 — “以为已断电”的状态",
+     "Điện giật — chỉ tin rằng đã cắt điện",
+     "Tok urishi — “uzilgan deb ishonilgan” holat"
+    ],
+    "haz": [
+     "전원 차단 여부를 절차와 기록이 아니라 기억과 구두 확인에 의존하고 있다. 잔류전하, 유도전압, 타 작업자의 재투입, 복수 전원 계통의 미인지 회로 때문에 \"차단했다고 믿은\" 회로가 실제로는 충전 상태인 경우가 반복적으로 발생한다.",
+     "Whether the supply is off rests on memory and verbal confirmation rather than a documented procedure. Residual charge, induced voltage, re-energisation by another worker and unrecognised circuits in multi-source systems repeatedly leave a circuit live that everyone believed was dead.",
+     "是否已断电依赖记忆与口头确认而非程序与记录。因残留电荷、感应电压、其他作业者再送电、多电源系统中未被认知的回路,“以为已断电”的回路实际仍带电的情况反复发生。",
+     "Việc đã cắt điện hay chưa dựa vào trí nhớ và xác nhận miệng thay vì quy trình có hồ sơ. Điện tích dư, điện áp cảm ứng, người khác đóng lại và mạch chưa được nhận biết trong hệ nhiều nguồn khiến mạch “tưởng đã cắt” vẫn mang điện, lặp đi lặp lại.",
+     "Tok uzilgan-uzilmagani hujjatlashtirilgan tartib emas, xotira va og'zaki tasdiqqa tayanadi. Qoldiq zaryad, induksiya kuchlanishi, boshqaning qayta ulashi va ko'p manbali tizimdagi e'tibordan chetda qolgan zanjirlar tufayli “uzilgan deb ishonilgan” zanjir aslida kuchlanishli bo'lib qolaveradi."
+    ],
+    "law": [
+     "안전보건규칙 제319조 [정전전로에서의 전기작업 — 도면확인·단로기 개방·잠금 및 표지·잔류전하 방전·검전기 확인·단락접지] / KOSHA B-E-10-2026 6.3 안전작업허가·C-C-49-2026",
+     "OSH Rule Art.319 [work on de-energised circuits — check drawings, open the isolator, lock and tag, discharge residual charge, verify with a detector, apply short-circuit earth] / KOSHA B-E-10-2026 §6.3, C-C-49-2026",
+     "安全保健规则 第319条[停电线路的电气作业——图纸确认·隔离开关断开·上锁挂牌·残留电荷放电·验电器确认·短路接地] / KOSHA B-E-10-2026 6.3·C-C-49-2026",
+     "Quy chuẩn Điều 319 [làm việc trên mạch đã cắt điện — kiểm tra bản vẽ, mở dao cách ly, khóa và treo thẻ, xả điện dư, thử điện, tiếp đất ngắn mạch] / KOSHA B-E-10-2026 §6.3, C-C-49-2026",
+     "Qoidalar 319-modda [uzilgan zanjirda ish — chizmani tekshirish, ajratgichni ochish, qulflash va yorliq, qoldiq zaryadni chiqarish, indikator bilan tekshirish, qisqa tutashuv yerga ulash] / KOSHA B-E-10-2026 6.3, C-C-49-2026"
+    ],
+    "csi": [
+     "CSI 감전 47건 중 충전부 직접접촉 21건(44.7%)·사망 5명 — 최다 발생경로",
+     "CSI: direct contact with live parts accounted for 21 of 47 shock cases (44.7%) and 5 deaths — the leading pathway",
+     "CSI 触电47起中直接接触带电部21起(44.7%)、死亡5人——发生路径第1位",
+     "CSI: tiếp xúc trực tiếp chiếm 21/47 vụ (44,7%) và 5 tử vong — đường dẫn phổ biến nhất",
+     "CSI: bevosita tegish 47 tadan 21 tasi (44,7%) va 5 o'lim — eng ko'p uchraydigan yo'l"
+    ],
+    "cur": [
+     "구두 확인만, 허가서 없음",
+     "Verbal confirmation only; no permit issued",
+     "仅口头确认,无许可证",
+     "Chỉ xác nhận miệng, không có giấy phép",
+     "Faqat og'zaki tasdiq, ruxsatnoma yo'q"
+    ],
+    "act": [
+     "① 제319조 6단계(도면확인→단로기 개방→잠금·표찰→잔류전하 방전→검전→단락접지)를 체크리스트로 만들어 단계별 서명 ② 검전은 해당 전압용 검전기로 2인이 상호 확인 ③ 안전작업허가서(PTW) 발행 후 착수, 계획 변경 시 기존 허가 취소 후 재발행 ④ 복수 전원 계통은 단선도로 전 회로 확인",
+     "(1) Turn the six steps of Art.319 (check drawings → open the isolator → lock and tag → discharge residual charge → verify dead → apply short-circuit earth) into a checklist signed at each step. (2) Verify with a detector rated for the circuit, cross-checked by two persons. (3) Start only after a permit to work is issued; if the plan changes, cancel the old permit and reissue. (4) For multi-source systems check every circuit against the single-line diagram.",
+     "① 将第319条6个步骤(图纸确认→隔离开关断开→上锁挂牌→残留电荷放电→验电→短路接地)制成检查表并逐步签字 ② 用相应电压验电器由2人相互确认 ③ 签发安全作业许可(PTW)后开工,计划变更时取消原许可并重新签发 ④ 多电源系统须按单线图确认全部回路",
+     "(1) Biến 6 bước của Điều 319 (kiểm tra bản vẽ → mở dao cách ly → khóa và treo thẻ → xả điện dư → thử điện → tiếp đất) thành bảng kiểm ký từng bước. (2) Thử bằng bút đúng cấp điện áp, 2 người cùng xác nhận. (3) Chỉ khởi công sau khi có PTW; đổi phương án thì hủy giấy cũ và cấp lại. (4) Hệ nhiều nguồn phải rà toàn bộ mạch theo sơ đồ một sợi.",
+     "(1) 319-moddaning 6 bosqichini (chizma → ajratgichni ochish → qulflash va yorliq → qoldiq zaryad → tekshirish → yerga ulash) nazorat ro'yxatiga aylantirib, har bosqichda imzolash. (2) Tegishli kuchlanish indikatori bilan 2 kishi o'zaro tasdiqlaydi. (3) Ruxsatnoma berilgach boshlash; reja o'zgarsa, eskisini bekor qilib, qaytadan berish. (4) Ko'p manbali tizimda bir chiziqli sxema bo'yicha barcha zanjirni tekshirish."
+    ],
+    "p": 2,
+    "s": 3,
+    "p2": 1,
+    "s2": 3
+   },
+   "ptw": {
+    "main": null,
+    "supp": [
+     "jeon"
+    ],
+    "safe": [
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "chk": {
+     "2": "Y"
+    },
+    "imp": [
+     "정전 확인 절차가 시행되지 않은 상태이므로 정전작업 허가를 발급하고 규칙 제319조 6단계를 허가서 위에서 확인한다.",
+     "De-energisation has not been verified, so a de-energised work permit is issued and the six steps of Article 319 are confirmed on the permit.",
+     "未执行停电确认程序，因此签发停电作业许可，并在许可证上确认第319条六个步骤。",
+     "Chưa xác nhận cắt điện nên cấp giấy phép làm việc mất điện và xác nhận sáu bước của Điều 319 trên giấy phép.",
+     "Kuchlanish uzilishi tasdiqlanmagan, shuning uchun kuchlanishsiz ish ruxsatnomasi beriladi va 319-modda olti bosqichi ruxsatnomada tasdiqlanadi."
+    ],
+    "added": true
+   }
+  },
+  {
+   "id": "U17",
+   "e": null,
+   "p": "P14",
+   "grp": [
+    "밀폐",
+    "밀폐",
+    "밀폐",
+    "밀폐",
+    "밀폐"
+   ],
+   "tag": [
+    "전력구·맨홀·케이블 피트 진입",
+    "Entry into a cable tunnel, manhole or cable pit",
+    "进入电力沟·人孔·电缆坑",
+    "Vào hầm cáp, hố ga hoặc hố cáp",
+    "Kabel tunneli, quduq yoki chuqurga kirish"
+   ],
+   "ptw": {
+    "main": null,
+    "supp": [
+     "mil"
+    ],
+    "safe": [
+     8,
+     10
+    ],
+    "chk": {
+     "1": "Y",
+     "9": "Y",
+     "12": "Y"
+    },
+    "imp": [
+     "밀폐공간 출입작업 허가가 필요하다. 산소 18~23.5% 확인, 상·중·하 3점 측정, 2인 대기조를 기재한다. 허가서 보존 3년.",
+     "A confined-space entry permit is required. Record the 18–23.5 % oxygen check, three-point measurement and the two-person standby team. Retain the permit for three years.",
+     "需要密闭空间进入作业许可。记载氧气18~23.5%确认、上中下3点测定与2人待命组。许可证保存3年。",
+     "Cần giấy phép vào không gian kín. Ghi việc kiểm tra oxy 18–23,5 %, đo 3 điểm và tổ trực 2 người. Lưu giấy phép 3 năm.",
+     "Yopiq joyga kirish ruxsatnomasi kerak. Kislorod 18–23,5 %, uch nuqtada o'lchash va 2 kishilik navbatchi guruh yoziladi. Ruxsatnoma 3 yil saqlanadi."
+    ]
+   }
+  },
+  {
+   "id": "U18",
+   "e": null,
+   "p": "P15",
+   "grp": [
+    "굴착",
+    "굴착",
+    "굴착",
+    "굴착",
+    "굴착"
+   ],
+   "tag": [
+    "지중 케이블 포설 · 접지극 매설 (깊이 30cm 이상)",
+    "Laying underground cable or burying an earth electrode (depth ≥30 cm)",
+    "地下电缆敷设·接地极埋设(深度30cm以上)",
+    "Rải cáp ngầm hoặc chôn cọc tiếp đất (sâu ≥30 cm)",
+    "Yer osti kabeli yotqizish yoki yer elektrodini ko'mish (≥30 sm)"
+   ],
+   "ptw": {
+    "main": null,
+    "supp": [
+     "gul"
+    ],
+    "safe": [
+     1
+    ],
+    "chk": {
+     "3": "Y"
+    },
+    "imp": [
+     "굴착작업 허가가 필요하다. 매설물 도면 검토와 수동굴착 구간을 기재한다.",
+     "An excavation permit is required. Record the review of the buried-services drawing and the hand-dig sections.",
+     "需要挖掘作业许可。记载埋设物图纸的审查与人工挖掘区段。",
+     "Cần giấy phép đào. Ghi việc rà bản vẽ công trình ngầm và đoạn đào thủ công.",
+     "Qazish ruxsatnomasi kerak. Yer osti tarmoqlari chizmasini ko'rib chiqish va qo'lda qaziladigan qismlar yoziladi."
+    ]
+   }
+  },
+  {
+   "id": "U19",
+   "e": null,
+   "p": "P16",
+   "grp": [
+    "화기",
+    "화기",
+    "화기",
+    "화기",
+    "화기"
+   ],
+   "tag": [
+    "용접·용단·연마 등 불꽃 발생 작업 병행",
+    "Welding, cutting or grinding carried out alongside the work",
+    "并行进行焊接·切割·打磨等产生火花的作业",
+    "Có hàn, cắt, mài phát sinh tia lửa kèm theo",
+    "Payvandlash, kesish yoki jilvirlash bilan birga bajarish"
+   ],
+   "ptw": {
+    "main": "h",
+    "supp": [],
+    "safe": [
+     11
+    ],
+    "chk": {
+     "6": "Y",
+     "10": "Y"
+    },
+    "imp": [
+     "주 허가가 화기작업으로 전환된다. 비산불티차단막, 가연물 잔류 확인, 소화설비 대기가 추가된다.",
+     "The main permit changes to hot work. Spark screens, checks for residual combustibles and standby firefighting equipment are added.",
+     "主许可转换为动火作业。增加防火花隔离幕、可燃物残留确认与消防设备待命。",
+     "Giấy phép chính chuyển sang công việc sinh nhiệt. Bổ sung màn chắn tia lửa, kiểm tra chất cháy còn sót và thiết bị chữa cháy chờ sẵn.",
+     "Asosiy ruxsat olovli ishga o'tadi. Uchqun to'sig'i, yonuvchi qoldiqni tekshirish va o't o'chirish vositalari qo'shiladi."
+    ]
+   }
+  }
+ ],
+ "grp": {
+  "전기": [
+   "전기적 위험 표지",
+   "Electrical indicators",
+   "电气性危险标志",
+   "Dấu hiệu nguy hiểm điện",
+   "Elektr xavf belgilari"
+  ],
+  "보호구": [
+   "보호구 표지",
+   "PPE indicators",
+   "保护具标志",
+   "Dấu hiệu PTBVCN",
+   "Himoya vositasi belgilari"
+  ],
+  "환경": [
+   "작업환경 표지",
+   "Environment indicators",
+   "作业环境标志",
+   "Dấu hiệu môi trường",
+   "Ish muhiti belgilari"
+  ],
+  "가공전선": [
+   "가공전선 관련 표지",
+   "Overhead-line indicators",
+   "架空线路相关标志",
+   "Dấu hiệu đường dây trên không",
+   "Havo liniyasi belgilari"
+  ],
+  "고소": [
+   "고소작업 표지",
+   "Work-at-height indicators",
+   "高处作业标志",
+   "Dấu hiệu làm việc trên cao",
+   "Balandlikdagi ish belgilari"
+  ],
+  "밀폐": [
+   "밀폐공간 표지",
+   "Confined-space indicators",
+   "密闭空间标志",
+   "Dấu hiệu không gian kín",
+   "Yopiq joy belgilari"
+  ],
+  "굴착": [
+   "굴착 표지",
+   "Excavation indicators",
+   "挖掘标志",
+   "Dấu hiệu đào đất",
+   "Qazish belgilari"
+  ],
+  "화기": [
+   "화기작업 표지",
+   "Hot-work indicators",
+   "动火作业标志",
+   "Dấu hiệu công việc sinh nhiệt",
+   "Olovli ish belgilari"
+  ],
+  "관리": [
+   "관리적 표지",
+   "Management indicators",
+   "管理性标志",
+   "Dấu hiệu quản lý",
+   "Boshqaruv belgilari"
+  ]
+ },
+ "grpOrder": [
+  "전기",
+  "보호구",
+  "환경",
+  "가공전선",
+  "고소",
+  "관리",
+  "밀폐",
+  "굴착",
+  "화기"
+ ],
+ "sample": {
+  "hits": [
+   [
+    "U01",
+    46,
+    26
+   ],
+   [
+    "U16",
+    71,
+    62
+   ],
+   [
+    "U14",
+    28,
+    44
+   ],
+   [
+    "U05",
+    50,
+    57
+   ],
+   [
+    "U06",
+    26,
+    85
+   ]
+  ],
+  "name": [
+   "옥외 변압기 주변 물청소 중 감전",
+   "Electric shock while hosing down an outdoor transformer",
+   "室外变压器周边冲洗作业中触电",
+   "Điện giật khi xịt rửa quanh máy biến áp ngoài trời",
+   "Ochiq havodagi transformator atrofini yuvishda tok urishi"
+  ],
+  "desc": [
+   "전주에 설치된 개방형 변압기의 고압 부싱이 노출된 상태에서, 정전 확인 없이 물청소와 볼트 조임을 함께 수행하고 있다. 작업자는 절연장갑·절연모를 착용하지 않았고 바닥은 물로 젖어 있으며, 감시인 없이 혼자 작업하고 있다. 습윤으로 인체저항이 낮아진 상태에서 충전부에 접근하여 감전 위험이 중첩된다.",
+   "The high-voltage bushings of an open pole-mounted transformer are exposed, yet washing and bolt tightening are carried out without confirming de-energisation. The worker wears no insulating gloves or helmet, the floor is wet, and no watcher is present. Body resistance is lowered by the water, so the hazards compound.",
+   "杆上开放式变压器的高压套管处于裸露状态，未确认停电即进行冲洗与螺栓紧固。作业者未佩戴绝缘手套与绝缘帽，地面积水，且无监护人单独作业。潮湿使人体电阻降低，接近带电部位时触电风险叠加。",
+   "Sứ cao áp của máy biến áp kiểu hở trên cột đang để trần, nhưng việc xịt rửa và siết bu lông vẫn tiến hành mà chưa xác nhận cắt điện. Người lao động không đeo găng và mũ cách điện, nền ướt, làm việc một mình không có người giám sát. Nước làm giảm điện trở cơ thể nên các mối nguy chồng lên nhau.",
+   "Ustundagi ochiq transformatorning yuqori kuchlanishli izolyatorlari ochiq, ammo kuchlanish uzilishi tasdiqlanmasdan yuvish va bolt tortish bajarilmoqda. Ishchi izolyatsion qo'lqop va qalpoq kiymagan, pol ho'l, kuzatuvchi yo'q. Namlik tana qarshiligini pasaytirgani uchun xavflar qo'shilib ketadi."
+  ],
+  "work": [
+   "옥외 주상 변압기 주변 물청소 및 단자 볼트 조임 작업 (활선 상태·젖은 바닥)",
+   "Hosing down and bolt tightening around an outdoor pole-mounted transformer (live, wet floor)",
+   "室外杆上变压器周边冲洗及端子螺栓紧固作业（带电状态·地面潮湿）",
+   "Xịt rửa và siết bu lông đầu cực quanh máy biến áp trên cột ngoài trời (đang mang điện, nền ướt)",
+   "Ochiq havodagi ustun transformatori atrofini yuvish va terminal boltlarini tortish (kuchlanish ostida, ho'l pol)"
+  ]
+ },
+ "corr": [
+  {
+   "id": "sum",
+   "grp": null,
+   "lab": [
+    "6~8월 작업",
+    "Work in June–August",
+    "6~8月作业",
+    "Làm việc tháng 6–8",
+    "6–8 oylardagi ish"
+   ],
+   "why": [
+    "감전 사상자의 34.2 %가 6~8월에 집중",
+    "34.2 % of shock casualties occur in June–August",
+    "触电伤亡者的34.2%集中在6~8月",
+    "34,2 % nạn nhân điện giật tập trung vào tháng 6–8",
+    "Tok urishi qurbonlarining 34,2 % iyun–avgustga to'g'ri keladi"
+   ]
+  },
+  {
+   "id": "rain",
+   "grp": [
+    "전기",
+    "보호구",
+    "환경"
+   ],
+   "lab": [
+    "강우 중·직후",
+    "During or right after rain",
+    "降雨中·雨后",
+    "Trong hoặc ngay sau mưa",
+    "Yomg'ir paytida yoki keyin"
+   ],
+   "why": [
+    "습윤이 인체저항을 낮춰 저압에서도 치명적",
+    "Wetness lowers body resistance; even low voltage becomes lethal",
+    "潮湿降低人体电阻，低压也可致命",
+    "Ẩm ướt làm giảm điện trở cơ thể, điện áp thấp cũng gây chết người",
+    "Namlik tana qarshiligini pasaytiradi, past kuchlanish ham halokatli"
+   ]
+  },
+  {
+   "id": "morn",
+   "grp": null,
+   "lab": [
+    "08~10시 작업 개시",
+    "Work starting 08:00–10:00",
+    "08~10时开始作业",
+    "Bắt đầu làm việc 08–10 giờ",
+    "Ish 08:00–10:00 da boshlanadi"
+   ],
+   "why": [
+    "시간대별 감전 사상자 최다 89명",
+    "Highest hourly count of shock casualties: 89",
+    "按时段触电伤亡者最多89人",
+    "Số nạn nhân điện giật theo giờ cao nhất: 89 người",
+    "Soatlik eng ko'p tok urishi qurbonlari: 89 kishi"
+   ]
+  },
+  {
+   "id": "fore",
+   "grp": [
+    "관리"
+   ],
+   "lab": [
+    "외국인 근로자 포함",
+    "Foreign workers involved",
+    "包含外籍劳工",
+    "Có lao động nước ngoài",
+    "Chet ellik ishchilar bor"
+   ],
+   "why": [
+    "전기 부문 외국인 42건의 감전 비율이 전체 평균의 2배",
+    "Electric shock share among 42 foreign-worker cases is twice the average",
+    "电气部门外籍劳工42起中触电比例为整体平均的2倍",
+    "Tỷ lệ điện giật trong 42 vụ lao động nước ngoài gấp đôi mức trung bình",
+    "42 chet ellik ishchi holatida tok urishi ulushi o'rtachadan ikki baravar"
+   ]
+  }
+ ],
+ "keys": {
+  "U01": [
+   "충전부",
+   "분전반",
+   "배전반",
+   "제어반",
+   "개폐기",
+   "변압기",
+   "부싱",
+   "단자",
+   "활선",
+   "수전",
+   "큐비클",
+   "panel",
+   "busbar",
+   "transformer",
+   "live"
+  ],
+  "U02": [
+   "이동전선",
+   "케이블",
+   "코드",
+   "배선",
+   "바닥배선",
+   "cable",
+   "cord"
+  ],
+  "U03": [
+   "플러그",
+   "콘센트",
+   "접속부",
+   "plug",
+   "socket",
+   "outlet"
+  ],
+  "U04": [
+   "누전",
+   "차단기",
+   "누전차단기",
+   "elcb",
+   "rcd",
+   "접지"
+  ],
+  "U05": [
+   "보호구",
+   "절연장갑",
+   "절연화",
+   "절연모",
+   "안전모",
+   "맨손",
+   "미착용",
+   "glove",
+   "ppe",
+   "helmet"
+  ],
+  "U06": [
+   "물기",
+   "습윤",
+   "우천",
+   "빗물",
+   "젖",
+   "물청소",
+   "세척",
+   "침수",
+   "wet",
+   "rain",
+   "water"
+  ],
+  "U07": [
+   "전동공구",
+   "드릴",
+   "그라인더",
+   "공구",
+   "전원코드",
+   "tool",
+   "drill"
+  ],
+  "U08": [
+   "코드릴",
+   "릴",
+   "멀티탭",
+   "문어발",
+   "reel",
+   "extension"
+  ],
+  "U09": [
+   "가공전선",
+   "전주",
+   "고압선",
+   "배전선",
+   "overhead",
+   "pole"
+  ],
+  "U10": [
+   "크레인",
+   "굴착기",
+   "고소작업차",
+   "붐",
+   "장비",
+   "중장비",
+   "차량",
+   "crane",
+   "excavator",
+   "boom"
+  ],
+  "U11": [
+   "비계",
+   "파이프",
+   "철근",
+   "장척",
+   "scaffold",
+   "pipe",
+   "rebar"
+  ],
+  "U12": [
+   "고소",
+   "안전대",
+   "추락",
+   "구명줄",
+   "height",
+   "harness",
+   "fall"
+  ],
+  "U13": [
+   "사다리",
+   "발판",
+   "ladder",
+   "stepladder"
+  ],
+  "U14": [
+   "단독",
+   "감시인",
+   "유자격",
+   "작업책임자",
+   "혼자",
+   "alone",
+   "watcher"
+  ],
+  "U15": [
+   "외국인",
+   "다국어",
+   "통역",
+   "이주",
+   "foreign",
+   "migrant"
+  ],
+  "U16": [
+   "정전",
+   "활선",
+   "작업허가",
+   "허가서",
+   "검전",
+   "ptw",
+   "loto"
+  ],
+  "U17": [
+   "맨홀",
+   "전력구",
+   "피트",
+   "지하",
+   "밀폐",
+   "manhole",
+   "pit",
+   "vault"
+  ],
+  "U18": [
+   "굴착",
+   "지중",
+   "매설",
+   "접지극",
+   "터파기",
+   "excavation",
+   "buried"
+  ],
+  "U19": [
+   "용접",
+   "용단",
+   "연마",
+   "그라인딩",
+   "불꽃",
+   "화기",
+   "welding",
+   "grinding"
+  ]
+ },
+ "base": [
+  "U01",
+  "U05",
+  "U16"
+ ],
+ "ptw": {
+  "title": [
+   "사 전 작 업 허 가 서",
+   "PERMIT TO WORK",
+   "事 前 作 业 许 可 证",
+   "GIẤY PHÉP LÀM VIỆC",
+   "ISHGA RUXSATNOMA"
+  ],
+  "sub": [
+   "전기설비부문 · KOSHA GUIDE C-C-49-2026 「안전작업허가에 관한 기술지원규정」 준용",
+   "Electrical installation works · in accordance with KOSHA GUIDE C-C-49-2026",
+   "电气设备部门 · 依据 KOSHA GUIDE C-C-49-2026《安全作业许可技术支援规定》",
+   "Lĩnh vực thiết bị điện · theo KOSHA GUIDE C-C-49-2026",
+   "Elektr uskunalari sohasi · KOSHA GUIDE C-C-49-2026 asosida"
+  ],
+  "L": {
+   "no": [
+    "허가번호",
+    "Permit No.",
+    "许可编号",
+    "Số giấy phép",
+    "Ruxsatnoma raqami"
+   ],
+   "date": [
+    "허가일자",
+    "Date of issue",
+    "许可日期",
+    "Ngày cấp",
+    "Berilgan sana"
+   ],
+   "type": [
+    "주 허가 구분",
+    "Permit type",
+    "主许可区分",
+    "Loại giấy phép",
+    "Ruxsatnoma turi"
+   ],
+   "gen": [
+    "일반위험작업",
+    "General hazardous work",
+    "一般危险作业",
+    "Công việc nguy hiểm chung",
+    "Umumiy xavfli ish"
+   ],
+   "hot": [
+    "화기작업",
+    "Hot work",
+    "动火作业",
+    "Công việc sinh nhiệt",
+    "Olovli ish"
+   ],
+   "appl": [
+    "신 청 인",
+    "Applicant",
+    "申 请 人",
+    "Người đề nghị",
+    "Ariza beruvchi"
+   ],
+   "dept": [
+    "부서",
+    "Dept.",
+    "部门",
+    "Bộ phận",
+    "Bo'lim"
+   ],
+   "pos": [
+    "직책",
+    "Position",
+    "职务",
+    "Chức vụ",
+    "Lavozim"
+   ],
+   "name": [
+    "성명",
+    "Name",
+    "姓名",
+    "Họ tên",
+    "F.I.Sh."
+   ],
+   "sign": [
+    "서명",
+    "Signature",
+    "签名",
+    "Chữ ký",
+    "Imzo"
+   ],
+   "period": [
+    "작업허가기간",
+    "Permit period",
+    "作业许可期间",
+    "Thời hạn giấy phép",
+    "Ruxsat muddati"
+   ],
+   "ymd": [
+    "년 　 월 　 일 　 시 　 분 부터 　 시 　 분 까지",
+    "from 　:　 to 　:　 on 　/　/　",
+    "年 　 月 　 日 　 时 　 分 至 　 时 　 分",
+    "từ 　:　 đến 　:　 ngày 　/　/　",
+    "　/　/　 sanada 　:　 dan 　:　 gacha"
+   ],
+   "nextday": [
+    "익일 연속 — 재발급 필요",
+    "Continues to the next day — re-issue required",
+    "延续至次日 — 需重新签发",
+    "Kéo dài sang ngày hôm sau — phải cấp lại",
+    "Ertangi kunga o'tadi — qayta berish shart"
+   ],
+   "place": [
+    "작업장소<br>및 설비",
+    "Location<br>and equipment",
+    "作业场所<br>及设备",
+    "Địa điểm<br>và thiết bị",
+    "Joy va<br>uskuna"
+   ],
+   "placef": [
+    "신청번호 　　　　　 장치(설비)번호 　　　　　 작업지역(장소) 　　　　　 장치(설비)명 　　　　",
+    "Request No. 　　　 Equipment No. 　　　 Work area 　　　 Equipment name 　　　",
+    "申请编号 　　　 装置(设备)编号 　　　 作业区域(场所) 　　　 装置(设备)名称 　　　",
+    "Số đề nghị 　　　 Số thiết bị 　　　 Khu vực làm việc 　　　 Tên thiết bị 　　　",
+    "Ariza raqami 　　　 Uskuna raqami 　　　 Ish hududi 　　　 Uskuna nomi 　　　"
+   ],
+   "scope": [
+    "작업 개요",
+    "Scope of work",
+    "作业概要",
+    "Nội dung công việc",
+    "Ish mazmuni"
+   ],
+   "attach": [
+    "첨부서류",
+    "Attachments",
+    "附件",
+    "Tài liệu đính kèm",
+    "Ilova hujjatlar"
+   ],
+   "a1": [
+    "작업계획서",
+    "Work plan",
+    "作业计划书",
+    "Phương án thi công",
+    "Ish rejasi"
+   ],
+   "a2": [
+    "기술자료(도면)",
+    "Technical data (drawings)",
+    "技术资料(图纸)",
+    "Tài liệu kỹ thuật (bản vẽ)",
+    "Texnik hujjat (chizma)"
+   ],
+   "a3": [
+    "전기단선도",
+    "Single-line diagram",
+    "电气单线图",
+    "Sơ đồ một sợi",
+    "Bir chiziqli sxema"
+   ],
+   "a4": [
+    "특수작업절차서",
+    "Special work procedure",
+    "特殊作业程序书",
+    "Quy trình đặc biệt",
+    "Maxsus ish tartibi"
+   ],
+   "a5": [
+    "안전장구 목록",
+    "Safety equipment list",
+    "安全装备清单",
+    "Danh mục thiết bị an toàn",
+    "Xavfsizlik vositalari ro'yxati"
+   ],
+   "a6": [
+    "굴착도면",
+    "Excavation drawing",
+    "挖掘图纸",
+    "Bản vẽ đào",
+    "Qazish chizmasi"
+   ],
+   "ra": [
+    "위험성평가 실시",
+    "Risk assessment carried out",
+    "已实施风险评估",
+    "Đã thực hiện đánh giá rủi ro",
+    "Xavf baholash o‘tkazilgan"
+   ],
+   "ranum": [
+    "평가서 번호",
+    "Assessment No.",
+    "评估书编号",
+    "Số bản đánh giá",
+    "Baholash raqami"
+   ],
+   "proc": [
+    "작업 전 작업절차서",
+    "Work procedure available",
+    "作业前作业程序书",
+    "Có quy trình trước khi làm",
+    "Ishdan oldin tartib bor"
+   ],
+   "yes": [
+    "유",
+    "Yes",
+    "有",
+    "Có",
+    "Bor"
+   ],
+   "no2": [
+    "무",
+    "No",
+    "无",
+    "Không",
+    "Yo'q"
+   ],
+   "s1": [
+    "Ⅰ. 안전조치 요구사항",
+    "Ⅰ. Required safety measures",
+    "Ⅰ. 安全措施要求事项",
+    "Ⅰ. Biện pháp an toàn bắt buộc",
+    "Ⅰ. Talab qilinadigan xavfsizlik choralari"
+   ],
+   "s1n": [
+    "해당 항목에 체크(□)하고 조치 완료 시 확인(○) 표시",
+    "Tick (□) the applicable items and mark (○) when the measure is completed",
+    "在适用项目上打勾(□),措施完成后标记(○)",
+    "Đánh dấu (□) mục áp dụng và (○) khi đã hoàn thành",
+    "Tegishli bandni (□) belgilang, chora bajarilgach (○) qo'ying"
+   ],
+   "s2": [
+    "Ⅱ. 작업허가 전 점검항목",
+    "Ⅱ. Pre-permit inspection items",
+    "Ⅱ. 作业许可前检查项目",
+    "Ⅱ. Hạng mục kiểm tra trước khi cấp phép",
+    "Ⅱ. Ruxsatdan oldingi tekshiruv bandlari"
+   ],
+   "s2n": [
+    "발급자와 작업 현장 감독자가 서명 전에 확인·점검한다 (규정 6.1)",
+    "The issuer and the site supervisor verify these items before signing (§6.1)",
+    "签发人与作业现场监督者在签名前确认·检查 (规定 6.1)",
+    "Người cấp và giám sát hiện trường xác nhận trước khi ký (§6.1)",
+    "Beruvchi va obyekt rahbari imzolashdan oldin tekshiradi (6.1)"
+   ],
+   "s3": [
+    "Ⅲ. 보충적인 작업허가",
+    "Ⅲ. Supplementary work permits",
+    "Ⅲ. 补充作业许可",
+    "Ⅲ. Giấy phép công việc bổ sung",
+    "Ⅲ. Qo'shimcha ish ruxsatlari"
+   ],
+   "s3n": [
+    "병행 수행하는 작업에 체크하고 각 블록을 작성한다. 보충허가는 단독으로 성립하지 않는다 (규정 7.3)",
+    "Tick the concurrent works and complete each block. A supplementary permit is never valid on its own (§7.3)",
+    "勾选并行作业并填写各区块。补充许可不得单独成立 (规定 7.3)",
+    "Đánh dấu công việc song song và điền từng khối. Giấy phép bổ sung không có hiệu lực riêng (§7.3)",
+    "Bir vaqtda bajariladigan ishlarni belgilang va har bir blokni to'ldiring. Qo'shimcha ruxsat yakka o'zi kuchga ega emas (7.3)"
+   ],
+   "s4": [
+    "Ⅳ. 작업 완료 및 복원 확인",
+    "Ⅳ. Completion and reinstatement",
+    "Ⅳ. 作业完成及恢复确认",
+    "Ⅳ. Hoàn thành và khôi phục",
+    "Ⅳ. Yakunlash va tiklashni tasdiqlash"
+   ],
+   "s5": [
+    "Ⅴ. 발급 · 승인 · 연장",
+    "Ⅴ. Issue · approval · extension",
+    "Ⅴ. 签发 · 批准 · 延长",
+    "Ⅴ. Cấp · phê duyệt · gia hạn",
+    "Ⅴ. Berish · tasdiqlash · uzaytirish"
+   ],
+   "s5n": [
+    "본인이 수행하는 작업의 자가승인은 금지된다 — 발급자와 승인자는 동일인일 수 없다",
+    "Self-approval of one’s own work is prohibited — the issuer and the approver must be different persons",
+    "禁止对本人执行的作业自行批准 — 签发人与批准人不得为同一人",
+    "Cấm tự phê duyệt công việc của chính mình — người cấp và người duyệt phải khác nhau",
+    "O'z ishini o'zi tasdiqlash taqiqlanadi — beruvchi va tasdiqlovchi bir shaxs bo'lolmaydi"
+   ],
+   "done": [
+    "작업완료",
+    "Work completed",
+    "作业完成",
+    "Hoàn thành công việc",
+    "Ish yakunlandi"
+   ],
+   "donef": [
+    "완료시간 　 : 　　 작업자 　　　　　 입회자 　　　　　 복원(조치)상태 　　　　　",
+    "Time 　:　　 Worker 　　　　 Attendant 　　　　 Reinstatement status 　　　　",
+    "完成时间 　:　　 作业者 　　　　 在场人 　　　　 恢复(措施)状态 　　　　",
+    "Giờ 　:　　 Người làm 　　　　 Người giám sát 　　　　 Tình trạng khôi phục 　　　　",
+    "Vaqt 　:　　 Ishchi 　　　　 Kuzatuvchi 　　　　 Tiklash holati 　　　　"
+   ],
+   "confirm": [
+    "안전조치 확인",
+    "Verification of safety measures",
+    "安全措施确认",
+    "Xác nhận biện pháp an toàn",
+    "Xavfsizlik choralarini tasdiqlash"
+   ],
+   "confirmf": [
+    "작업부서 책임자 　　　　 (서명) 　　 입회자 　　　　 (서명)",
+    "Work dept. manager 　　　 (sign) 　　 Attendant 　　　 (sign)",
+    "作业部门负责人 　　　 (签名) 　　 在场人 　　　 (签名)",
+    "Trưởng bộ phận thi công 　　　 (ký) 　　 Người giám sát 　　　 (ký)",
+    "Ish bo'limi rahbari 　　　 (imzo) 　　 Kuzatuvchi 　　　 (imzo)"
+   ],
+   "coop": [
+    "관련부서 협조자",
+    "Co-operating department",
+    "相关部门协助人",
+    "Bộ phận phối hợp",
+    "Hamkor bo'lim"
+   ],
+   "issuer": [
+    "발급자",
+    "Issuer",
+    "签发人",
+    "Người cấp",
+    "Beruvchi"
+   ],
+   "approver": [
+    "승인자",
+    "Approver",
+    "批准人",
+    "Người duyệt",
+    "Tasdiqlovchi"
+   ],
+   "attend": [
+    "입회자",
+    "Attendant",
+    "在场人",
+    "Người giám sát",
+    "Kuzatuvchi"
+   ],
+   "ext": [
+    "작업허가 연장",
+    "Permit extension",
+    "作业许可延长",
+    "Gia hạn giấy phép",
+    "Ruxsatni uzaytirish"
+   ],
+   "extf": [
+    "　 년 　 월 　 일 　 시 부터 　 시 까지 　 발급자 　　　 (서명)",
+    "from 　:　 to 　:　 on 　/　/　 　 Issuer 　　　 (sign)",
+    "　 年 　 月 　 日 　 时 至 　 时 　 签发人 　　　 (签名)",
+    "từ 　:　 đến 　:　 ngày 　/　/　 　 Người cấp 　　　 (ký)",
+    "　/　/　 　:　 dan 　:　 gacha 　 Beruvchi 　　　 (imzo)"
+   ],
+   "permitted": [
+    "허가기간",
+    "Permit period",
+    "许可期间",
+    "Thời hạn",
+    "Muddat"
+   ],
+   "checker": [
+    "확인자",
+    "Verifier",
+    "确认人",
+    "Người xác nhận",
+    "Tasdiqlovchi"
+   ],
+   "yesno": [
+    "Yes / No / N/A",
+    "Yes / No / N/A",
+    "是 / 否 / 不适用",
+    "Có / Không / N/A",
+    "Ha / Yo‘q / N/A"
+   ],
+   "item": [
+    "점검항목",
+    "Inspection item",
+    "检查项目",
+    "Hạng mục kiểm tra",
+    "Tekshiruv bandi"
+   ],
+   "noh": [
+    "No",
+    "No",
+    "序号",
+    "STT",
+    "T/r"
+   ]
+  },
+  "safe": [
+   [
+    "작업구역 설정 — 접근한계거리 90cm / 이격거리 300cm 로프·표지",
+    "Demarcate the work zone — 90 cm approach boundary / 300 cm clearance, rope and signs",
+    "设定作业区域 — 接近界限距离90cm/隔离距离300cm 绳索·标志",
+    "Khoanh vùng làm việc — khoảng cách 90 cm / 300 cm, dây và biển báo",
+    "Ish zonasini belgilash — 90 sm / 300 sm masofa, arqon va belgilar"
+   ],
+   [
+    "검전기에 의한 무전압 확인 (해당 전압용 · 2인 상호확인)",
+    "Verify dead state with a voltage detector (rated for the circuit · cross-checked by two persons)",
+    "使用验电器确认无电压(相应电压等级·2人相互确认)",
+    "Thử không điện bằng bút thử (đúng cấp điện áp · 2 người cùng xác nhận)",
+    "Indikator bilan kuchlanish yo'qligini tekshirish (mos kuchlanish · 2 kishi tasdig'i)"
+   ],
+   [
+    "단로기·차단기 개방 및 차단표지 부착 (전기단선도 대조)",
+    "Open the isolator/breaker and attach an isolation sign (check against the single-line diagram)",
+    "拉开隔离开关·断路器并挂设切断标识(与电气单线图核对)",
+    "Mở dao cách ly/aptomat và treo biển cắt điện (đối chiếu sơ đồ một sợi)",
+    "Ajratgich/avtomatni ochish va uzish belgisini qo'yish (bir chiziqli sxema bilan solishtirish)"
+   ],
+   [
+    "잠금장치(LOTO) 시건 및 표찰 부착",
+    "Apply lockout/tagout (LOTO) and attach the tag",
+    "实施上锁挂牌(LOTO)并附标签",
+    "Khóa và treo thẻ (LOTO)",
+    "Qulflash va yorliq (LOTO)"
+   ],
+   [
+    "잔류전하 방전 및 단락접지 설치",
+    "Discharge residual charge and install short-circuit earthing",
+    "残留电荷放电并设置短路接地",
+    "Xả điện tích dư và lắp tiếp đất ngắn mạch",
+    "Qoldiq zaryadni chiqarish va qisqa tutashuv yerga ulash"
+   ],
+   [
+    "제2 전원(축전지·UPS·비상발전기) 분리 확인",
+    "Confirm isolation of secondary sources (battery, UPS, emergency generator)",
+    "确认第二电源(蓄电池·UPS·应急发电机)已分离",
+    "Xác nhận đã cô lập nguồn thứ hai (ắc quy, UPS, máy phát dự phòng)",
+    "Ikkinchi manba (akkumulyator, UPS, zaxira generator) ajratilganini tasdiqlash"
+   ],
+   [
+    "작업면 물기·습윤 제거 및 절연매트 설치",
+    "Remove water and damp from the work surface and lay an insulating mat",
+    "清除作业面积水·潮湿并铺设绝缘垫",
+    "Làm khô mặt bằng và trải thảm cách điện",
+    "Ish yuzasidan suv va namlikni ketkazish, izolyatsion gilam yotqizish"
+   ],
+   [
+    "강제환기 및 산소농도 18~23.5% 확인",
+    "Force-ventilate and confirm oxygen 18–23.5 %",
+    "强制通风并确认氧气浓度18~23.5%",
+    "Thông gió cưỡng bức và xác nhận oxy 18–23,5 %",
+    "Majburiy shamollatish va kislorod 18–23,5 % ekanini tasdiqlash"
+   ],
+   [
+    "절연용 방호구 설치 (절연방호관·애자커버·절연시트)",
+    "Fit insulating line covers, insulator caps and insulating sheets",
+    "安装绝缘防护具(绝缘防护管·绝缘子护罩·绝缘垫片)",
+    "Lắp chụp cách điện, mũ sứ và tấm cách điện",
+    "Izolyatsion himoya quvuri, izolyator qopqog'i va qoplama o'rnatish"
+   ],
+   [
+    "작업면 조명 확보 (밀폐공간은 저전압 방폭등)",
+    "Provide task lighting (low-voltage explosion-proof lamps in confined spaces)",
+    "确保作业面照明(密闭空间使用低电压防爆灯)",
+    "Bảo đảm chiếu sáng (không gian kín dùng đèn phòng nổ điện áp thấp)",
+    "Yoritishni ta'minlash (yopiq joyda past kuchlanishli portlashdan himoyalangan chiroq)"
+   ],
+   [
+    "C급(전기화재) 소화기 비치",
+    "Provide a Class C (electrical fire) extinguisher",
+    "配备C类(电气火灾)灭火器",
+    "Bố trí bình chữa cháy loại C (cháy điện)",
+    "C toifali (elektr yong'ini) o't o'chirgich qo'yish"
+   ],
+   [
+    "절연장갑·절연화·절연모·절연의 착용 및 점검",
+    "Wear and inspect insulating gloves, boots, helmet and sleeves",
+    "穿戴并检查绝缘手套·绝缘靴·绝缘帽·绝缘衣",
+    "Mang và kiểm tra găng, ủng, mũ, áo cách điện",
+    "Izolyatsion qo'lqop, etik, kaska va yengni kiyish va tekshirish"
+   ],
+   [
+    "작업 전 안전교육(TBM) 실시 — 정전/활선 구분 · 접근한계거리 · 작업중지 요건",
+    "Hold a pre-work toolbox meeting — dead/live sections, approach boundary, stop-work criteria",
+    "实施作业前安全教育(班前会)— 停电/带电区分·接近界限距离·停止作业条件",
+    "Họp an toàn đầu ca — phân biệt vùng cắt điện/mang điện, khoảng cách, điều kiện dừng việc",
+    "Ishdan oldin xavfsizlik yig'ilishi — uzilgan/kuchlanishli qism, masofa, to'xtatish sharti"
+   ],
+   [
+    "전담 감시인(입회자) 배치 — 겸직 금지",
+    "Assign a dedicated attendant — no other duties",
+    "配置专职监视人(在场人)— 禁止兼职",
+    "Bố trí người giám sát chuyên trách — không kiêm nhiệm",
+    "Maxsus kuzatuvchi tayinlash — boshqa vazifasiz"
+   ]
+  ],
+  "hot": [
+   [
+    "비산불티차단막 또는 불받이포 설치 · 개방부 밀폐",
+    "Install spark screens or fire blankets and seal open manholes and drains",
+    "安装防火花隔离幕或接火布·封闭开口部",
+    "Lắp màn chắn tia lửa hoặc bạt hứng và bịt kín các lỗ hở",
+    "Uchqun to'sig'i yoki olov matosi o'rnatish, ochiq joylarni yopish"
+   ],
+   [
+    "작업 전·점심 후·휴식 후 가연성물질 잔류 확인",
+    "Check for residual combustibles before work and after each break",
+    "作业前·午餐后·休息后确认可燃物残留",
+    "Kiểm tra chất cháy còn sót trước khi làm và sau mỗi lần nghỉ",
+    "Ishdan oldin va har tanaffusdan keyin yonuvchi qoldiqni tekshirish"
+   ],
+   [
+    "화기작업 입회자 상주 및 소화설비(소화전·소방차) 대기",
+    "Keep the hot-work attendant on site with firefighting equipment (hydrant, fire truck) standing by",
+    "动火作业在场人常驻并使消防设备(消火栓·消防车)待命",
+    "Người giám sát thường trực và thiết bị chữa cháy (trụ nước, xe cứu hỏa) chờ sẵn",
+    "Olovli ish kuzatuvchisi doimiy va o't o'chirish vositalari (gidrant, mashina) tayyor"
+   ]
+  ],
+  "chk": [
+   [
+    "수행 작업이 밀폐공간 내에서 이루어지는지의 여부",
+    "Is the work carried out inside a confined space?",
+    "实施的作业是否在密闭空间内进行",
+    "Công việc có thực hiện trong không gian kín không?",
+    "Ish yopiq joyda bajariladimi?"
+   ],
+   [
+    "수행 작업에 안전상 정전(전기차단)이 필요한지의 여부",
+    "Does the work require de-energisation (electrical isolation) for safety?",
+    "实施的作业在安全上是否需要停电(切断电源)",
+    "Công việc có cần cắt điện để an toàn không?",
+    "Ish xavfsizlik uchun elektrni uzishni talab qiladimi?"
+   ],
+   [
+    "수행작업이 굴착작업과 병행하여 수행되는지의 여부",
+    "Is the work carried out together with excavation?",
+    "实施的作业是否与挖掘作业并行",
+    "Công việc có tiến hành cùng việc đào không?",
+    "Ish qazish bilan birga bajariladimi?"
+   ],
+   [
+    "점검 또는 정비, 검사에 방사선사용 작업이 수행되는지의 여부",
+    "Does the inspection, maintenance or testing involve the use of radiation?",
+    "检查或维修、检验中是否实施放射线使用作业",
+    "Việc kiểm tra, bảo trì có dùng bức xạ không?",
+    "Tekshiruv yoki ta'mirda radiatsiya ishlatiladimi?"
+   ],
+   [
+    "위험지역에서 작업하는 대신 안전한 장소에서의 작업이 가능한지 여부",
+    "Could the work be done in a safe place instead of the hazardous area?",
+    "是否可以在安全场所作业以替代在危险区域作业",
+    "Có thể làm ở nơi an toàn thay vì khu vực nguy hiểm không?",
+    "Xavfli hudud o'rniga xavfsiz joyda bajarish mumkinmi?"
+   ],
+   [
+    "인화성물질 또는 독성물질 발생 가능성, 처리방법 및 세정방법의 적정성",
+    "Possibility of flammable or toxic substances and adequacy of the handling and cleaning methods",
+    "易燃物质或有毒物质产生的可能性、处理方法及清洗方法的适当性",
+    "Khả năng phát sinh chất cháy/độc và tính phù hợp của cách xử lý, làm sạch",
+    "Yonuvchi yoki zaharli modda ehtimoli hamda ularni qayta ishlash va tozalash usullarining mosligi"
+   ],
+   [
+    "잠겨진 밸브나 막힌 배관사이에서 액체의 열팽창 가능성",
+    "Possibility of thermal expansion of liquid between closed valves or blanked pipes",
+    "关闭阀门或封堵管道之间液体热膨胀的可能性",
+    "Khả năng giãn nở nhiệt của chất lỏng giữa van đóng hoặc ống bị bịt",
+    "Yopiq ventil yoki berkitilgan quvurlar orasida suyuqlikning issiqlikdan kengayish ehtimoli"
+   ],
+   [
+    "설비 또는 기기의 내부구조상 유해·위험물질이 잔류할 가능성 (잔류전하 포함)",
+    "Possibility of hazardous substances remaining in the internal structure of the equipment (including residual charge)",
+    "因设备或器具内部结构而残留有害·危险物质的可能性(含残留电荷)",
+    "Khả năng còn sót chất nguy hại trong kết cấu bên trong thiết bị (kể cả điện tích dư)",
+    "Uskunaning ichki tuzilishida zararli moddalar qolish ehtimoli (qoldiq zaryad ham)"
+   ],
+   [
+    "산소, 유해가스 농도 측정 및 강제환기 필요성",
+    "Need for oxygen and hazardous-gas measurement and forced ventilation",
+    "氧气、有害气体浓度测定及强制通风的必要性",
+    "Nhu cầu đo oxy, khí độc và thông gió cưỡng bức",
+    "Kislorod va zararli gaz o'lchash hamda majburiy shamollatish zarurati"
+   ],
+   [
+    "초기 소화설비의 배치계획",
+    "Plan for initial firefighting equipment",
+    "初期灭火设备的布置计划",
+    "Kế hoạch bố trí thiết bị chữa cháy ban đầu",
+    "Dastlabki o't o'chirish vositalarini joylashtirish rejasi"
+   ],
+   [
+    "출입 제한구역 계획",
+    "Plan for restricted-access zones",
+    "出入限制区域计划",
+    "Kế hoạch khu vực hạn chế ra vào",
+    "Kirish cheklangan zonalar rejasi"
+   ],
+   [
+    "작업중 현장 입회자를 두어야 할지의 여부",
+    "Whether an attendant must be stationed on site during the work",
+    "作业中是否需要设置现场在场人",
+    "Có cần người giám sát tại hiện trường khi làm việc không?",
+    "Ish davomida obyektda kuzatuvchi bo'lishi shartmi?"
+   ],
+   [
+    "고소작업으로 인한 사고예방대책",
+    "Accident-prevention measures for work at height",
+    "高处作业的事故预防对策",
+    "Biện pháp phòng ngừa tai nạn khi làm việc trên cao",
+    "Balandlikdagi ish uchun baxtsiz hodisaning oldini olish choralari"
+   ],
+   [
+    "중장비 작업과 관련한 사고예방대책",
+    "Accident-prevention measures related to heavy-equipment work",
+    "与重型设备作业相关的事故预防对策",
+    "Biện pháp phòng ngừa tai nạn liên quan thiết bị nặng",
+    "Og'ir texnika ishi bilan bog'liq baxtsiz hodisaning oldini olish choralari"
+   ]
+  ],
+  "suppOrder": [
+   "jeon",
+   "go",
+   "jung",
+   "mil",
+   "gul",
+   "bang"
+  ],
+  "suppName": {
+   "jeon": [
+    "정 전 작 업",
+    "DE-ENERGISED WORK",
+    "停 电 作 业",
+    "LÀM VIỆC ĐÃ CẮT ĐIỆN",
+    "ELEKTRSIZ ISH"
+   ],
+   "go": [
+    "고 소 작 업",
+    "WORK AT HEIGHT",
+    "高 处 作 业",
+    "LÀM VIỆC TRÊN CAO",
+    "BALANDLIKDAGI ISH"
+   ],
+   "jung": [
+    "중장비사용작업",
+    "HEAVY EQUIPMENT",
+    "重型设备作业",
+    "THIẾT BỊ NẶNG",
+    "OG'IR TEXNIKA"
+   ],
+   "mil": [
+    "밀폐공간 출입작업",
+    "CONFINED SPACE ENTRY",
+    "密闭空间进入作业",
+    "VÀO KHÔNG GIAN KÍN",
+    "YOPIQ JOYGA KIRISH"
+   ],
+   "gul": [
+    "굴 착 작 업",
+    "EXCAVATION",
+    "挖 掘 作 业",
+    "ĐÀO ĐẤT",
+    "QAZISH ISHLARI"
+   ],
+   "bang": [
+    "방사선사용작업",
+    "RADIATION WORK",
+    "放射线使用作业",
+    "CÔNG VIỆC BỨC XẠ",
+    "RADIATSIYA ISHI"
+   ]
+  },
+  "suppSub": {
+   "jeon": [
+    "안전보건규칙 제319조",
+    "OSH Rule Art.319",
+    "安全保健规则 第319条",
+    "Quy chuẩn Điều 319",
+    "Qoidalar 319-modda"
+   ],
+   "go": [
+    "2m 이상 · 제42·44조",
+    "≥2 m · Arts.42, 44",
+    "2m以上·第42·44条",
+    "≥2 m · Điều 42, 44",
+    "≥2 m · 42, 44-moddalar"
+   ],
+   "jung": [
+    "제322조 이격 300cm",
+    "Art.322 · 300 cm clearance",
+    "第322条 隔离300cm",
+    "Điều 322 · 300 cm",
+    "322-modda · 300 sm"
+   ],
+   "mil": [
+    "제618조 · 보존 3년",
+    "Art.618 · retain 3 years",
+    "第618条·保存3年",
+    "Điều 618 · lưu 3 năm",
+    "618-modda · 3 yil saqlash"
+   ],
+   "gul": [
+    "깊이 30cm 이상",
+    "depth ≥30 cm",
+    "深度30cm以上",
+    "sâu ≥30 cm",
+    "chuqurligi ≥30 sm"
+   ],
+   "bang": [
+    "비파괴검사 등",
+    "non-destructive testing etc.",
+    "无损检测等",
+    "kiểm tra không phá hủy",
+    "buzmaydigan sinov"
+   ]
+  },
+  "suppItems": {
+   "jeon": [],
+   "go": [
+    [
+     "작업높이 　　 m / 2m 이상 □ / 2m 미만이나 위험물 상부 □",
+     "Working height 　　 m / ≥2 m □ / <2 m but above hazardous material □",
+     "作业高度 　　 m / 2m以上 □ / 不足2m但位于危险物上方 □",
+     "Độ cao 　　 m / ≥2 m □ / <2 m nhưng trên vật nguy hiểm □",
+     "Balandlik 　　 m / ≥2 m □ / <2 m, lekin xavfli modda ustida □"
+    ],
+    [
+     "작업발판·안전난간 설치 (비계 기술지원규정 준용)",
+     "Install working platforms and guardrails (per the scaffolding guide)",
+     "设置作业平台·安全护栏(准用脚手架技术支援规定)",
+     "Lắp sàn thao tác và lan can (theo hướng dẫn giàn giáo)",
+     "Ish maydonchasi va to'siq o'rnatish (iskala qo'llanmasiga muvofiq)"
+    ],
+    [
+     "안전대 착용 및 안전대 부착설비에 부착 / 구명줄(수직·수평)",
+     "Wear a harness and clip it to the anchorage / lifelines (vertical and horizontal)",
+     "佩戴安全带并系挂于安全带附着设备/生命绳(垂直·水平)",
+     "Đeo dây an toàn và móc vào điểm neo / dây cứu sinh (dọc và ngang)",
+     "Kamar kiyish va biriktirish nuqtasiga ulash / qutqaruv arqoni (vertikal va gorizontal)"
+    ],
+    [
+     "추락방호망 설치 / 상·하 동시작업 금지 및 하부 출입금지",
+     "Install a fall-arrest net / prohibit simultaneous work above and below and bar entry underneath",
+     "设置坠落防护网/禁止上下同时作业及下方禁止出入",
+     "Lắp lưới chống ngã / cấm làm việc đồng thời trên dưới và cấm vào bên dưới",
+     "Yiqilishga qarshi to'r / yuqori-pastda bir vaqtda ishlash va pastga kirish taqiqlanadi"
+    ]
+   ],
+   "jung": [
+    [
+     "투입장비 ( 　　　　　 ) / 운전자 자격증 소지 / 감독자 배치",
+     "Equipment ( 　　　　 ) / operator licence held / supervisor assigned",
+     "投入设备( 　　　　 )/司机持证/配置监督者",
+     "Thiết bị ( 　　　　 ) / người vận hành có chứng chỉ / có giám sát",
+     "Texnika ( 　　　　 ) / operator guvohnomasi / nazoratchi tayinlangan"
+    ],
+    [
+     "가공전선 이격거리 300cm 확보 / 붐 상승·선회 제한장치 설정",
+     "Maintain 300 cm clearance from overhead lines / set boom height and slew limiters",
+     "确保与架空线路隔离距离300cm/设定臂杆升降·回转限位装置",
+     "Giữ khoảng cách 300 cm với đường dây / đặt giới hạn nâng và quay cần",
+     "Havo liniyasidan 300 sm masofa / strela balandligi va burilish chegarasi"
+    ],
+    [
+     "통신장비 휴대 신호수(유도자) 배치 / 연약지반·협소공간 작업 금지",
+     "Assign a signaller with a radio / prohibit work on soft ground or in confined space",
+     "配置携带通信设备的信号员(指挥人员)/禁止在软弱地基·狭窄空间作业",
+     "Bố trí người ra hiệu có bộ đàm / cấm làm trên nền yếu, nơi chật hẹp",
+     "Radioli signalchi tayinlash / yumshoq zamin va tor joyda ish taqiqlanadi"
+    ],
+    [
+     "기상·노면상태 확인 / 허용하중 및 붐 안전각도 유지 / 일상점검 실시",
+     "Check weather and ground conditions / keep within rated load and safe boom angle / carry out daily inspection",
+     "确认气象·路面状态/维持允许荷载及臂杆安全角度/实施日常点检",
+     "Kiểm tra thời tiết, mặt nền / giữ tải cho phép và góc cần an toàn / kiểm tra hằng ngày",
+     "Ob-havo va zamin holati / ruxsat etilgan yuk va xavfsiz burchak / kunlik tekshiruv"
+    ]
+   ],
+   "mil": [
+    [
+     "가스농도 측정 — 산소 ( 　 %) CO ( 　ppm) CO₂ ( 　%) H₂S ( 　ppm) 가연성 ( 　%LEL)",
+     "Gas measurement — O₂ ( 　 %) CO ( 　ppm) CO₂ ( 　%) H₂S ( 　ppm) flammable ( 　%LEL)",
+     "气体浓度测定 — 氧气( 　 %) CO( 　ppm) CO₂( 　%) H₂S( 　ppm) 可燃性( 　%LEL)",
+     "Đo khí — O₂ ( 　 %) CO ( 　ppm) CO₂ ( 　%) H₂S ( 　ppm) khí cháy ( 　%LEL)",
+     "Gaz o'lchash — O₂ ( 　 %) CO ( 　ppm) CO₂ ( 　%) H₂S ( 　ppm) yonuvchi ( 　%LEL)"
+    ],
+    [
+     "산소 18% 이상 23.5% 미만일 때에만 출입 허가 / 상·중·하 3점 측정",
+     "Entry permitted only at 18 % ≤ O₂ < 23.5 % / measure at three points (top, middle, bottom)",
+     "仅当氧气18%以上不足23.5%时允许进入/上·中·下3点测定",
+     "Chỉ cho vào khi 18 % ≤ O₂ < 23,5 % / đo 3 điểm trên, giữa, dưới",
+     "Faqat 18 % ≤ O₂ < 23,5 % bo'lganda kirishga ruxsat / uch nuqtada o'lchash"
+    ],
+    [
+     "작업 전·점심 후·휴식 후 들어갈 때마다 재측정 / 계속적 강제환기",
+     "Re-measure on every entry — before work and after each break / maintain continuous forced ventilation",
+     "作业前·午餐后·休息后每次进入时重新测定/持续强制通风",
+     "Đo lại mỗi lần vào — trước khi làm và sau mỗi lần nghỉ / thông gió cưỡng bức liên tục",
+     "Har kirishda qayta o'lchash — ishdan oldin va tanaffusdan keyin / doimiy majburiy shamollatish"
+    ],
+    [
+     "통신장비 비치 / 구명줄·송기마스크 / 감시인 입회 및 안전 대기조 2인 1조",
+     "Provide communication equipment / lifeline and air-line mask / attendant present and a two-person standby team",
+     "配备通信设备/生命绳·送气面罩/监视人在场及安全待命2人1组",
+     "Có thiết bị liên lạc / dây cứu sinh, mặt nạ cấp khí / người giám sát và tổ trực 2 người",
+     "Aloqa vositasi / qutqaruv arqoni va havo niqobi / kuzatuvchi va 2 kishilik navbatchi guruh"
+    ],
+    [
+     "저전압 방폭등 사용 / 방폭형·공기작동식 공구 사용",
+     "Use low-voltage explosion-proof lamps / explosion-proof or air-driven tools",
+     "使用低电压防爆灯/使用防爆型·气动工具",
+     "Dùng đèn phòng nổ điện áp thấp / dụng cụ phòng nổ hoặc khí nén",
+     "Past kuchlanishli portlashdan himoyalangan chiroq / portlashdan himoyalangan yoki havoli asbob"
+    ]
+   ],
+   "gul": [
+    [
+     "지하 매설물 도면 검토 — 배관·전력선·계장선·전화선·접지선",
+     "Review the underground services drawing — piping, power, instrument, telephone and earthing cables",
+     "审查地下埋设物图纸 — 管道·电力线·仪表线·电话线·接地线",
+     "Rà bản vẽ công trình ngầm — ống, cáp điện, cáp đo, cáp điện thoại, dây tiếp đất",
+     "Yer osti tarmoqlari chizmasini ko'rib chiqish — quvur, elektr, o'lchov, telefon, yer simi"
+    ],
+    [
+     "지하시설물 관장 부서 안전요구사항 확인 / 굴착도면 첨부",
+     "Obtain safety requirements from the department responsible for the buried services / attach the excavation drawing",
+     "确认地下设施主管部门的安全要求事项/附加挖掘图纸",
+     "Lấy yêu cầu an toàn từ đơn vị quản lý công trình ngầm / đính kèm bản vẽ đào",
+     "Yer osti tarmoqlari egasidan xavfsizlik talablarini olish / qazish chizmasini ilova qilish"
+    ],
+    [
+     "굴착지점 외 지하에 전력선 등이 있을 때 수동굴착",
+     "Hand-dig where power cables or other services lie underground outside the excavation point",
+     "挖掘地点以外地下存在电力线等时采用人工挖掘",
+     "Đào thủ công khi có cáp điện hoặc công trình ngầm ngoài điểm đào",
+     "Qazish nuqtasidan tashqarida elektr kabeli bo'lsa, qo'lda qazish"
+    ]
+   ],
+   "bang": [
+    [
+     "작업자 자격증 소지 / 비인가자 출입제한",
+     "Operator holds the required licence / unauthorised entry restricted",
+     "作业者持证/限制无关人员出入",
+     "Người làm có chứng chỉ / hạn chế người không phận sự",
+     "Ishchida guvohnoma bor / ruxsatsiz kirish cheklangan"
+    ],
+    [
+     "방사선 위험경고 표지 및 점멸등 설치 / 방사점 도면 첨부",
+     "Post radiation warning signs and flashing lights / attach the source-position drawing",
+     "设置放射线危险警告标识及闪光灯/附加放射点图纸",
+     "Đặt biển cảnh báo bức xạ và đèn nháy / đính kèm bản vẽ vị trí nguồn",
+     "Radiatsiya ogohlantirish belgisi va chiroq / manba joyi chizmasini ilova qilish"
+    ],
+    [
+     "작업 완료 후 방사선 물질 즉시 안전 수거",
+     "Recover the radioactive source safely immediately after the work",
+     "作业完成后立即安全回收放射性物质",
+     "Thu hồi an toàn nguồn phóng xạ ngay sau khi làm xong",
+     "Ish tugagach radioaktiv manbani darhol xavfsiz yig'ib olish"
+    ]
+   ]
+  },
+  "step6Head": [
+   "차단 대상 — 제어실 ( 　　　　 ) 현장 ( 　　　　 ) / 차단 기기번호·명칭 　　　　　　 / 제2 전원 □유 □무",
+   "Isolation target — control room ( 　　 ) field ( 　　 ) / equipment No. and name 　　　　 / secondary source □Yes □No",
+   "切断对象 — 控制室( 　　 ) 现场( 　　 ) / 切断设备编号·名称 　　　　 / 第二电源 □有 □无",
+   "Đối tượng cắt — phòng điều khiển ( 　　 ) hiện trường ( 　　 ) / số và tên thiết bị 　　　　 / nguồn thứ hai □Có □Không",
+   "Uzish obyekti — boshqaruv xonasi ( 　　 ) obyekt ( 　　 ) / uskuna raqami va nomi 　　　　 / ikkinchi manba □Bor □Yo'q"
+  ],
+  "step6": [
+   [
+    [
+     "①",
+     "①",
+     "①",
+     "①",
+     "①"
+    ],
+    [
+     "전기기기등에 작업지시 및 도면(전기단선도) 확인",
+     "Work instruction and verification against the single-line diagram",
+     "对电气设备等的作业指示及图纸(电气单线图)确认",
+     "Lệnh công việc và đối chiếu sơ đồ một sợi",
+     "Ish topshirig'i va bir chiziqli sxemani tekshirish"
+    ],
+    [
+     "전기담당자",
+     "Electrical officer",
+     "电气负责人",
+     "Cán bộ điện",
+     "Elektr mas'uli"
+    ]
+   ],
+   [
+    [
+     "②",
+     "②",
+     "②",
+     "②",
+     "②"
+    ],
+    [
+     "개폐기(단로기)의 개방 및 완전 차단 확인 — 제어실·현장 상호 연락",
+     "Open the isolator and confirm complete isolation — control room and field in mutual contact",
+     "开关(隔离开关)的拉开及完全切断确认 — 控制室·现场相互联络",
+     "Mở dao cách ly và xác nhận cắt hoàn toàn — liên lạc giữa phòng điều khiển và hiện trường",
+     "Ajratgichni ochish va to'liq uzilganini tasdiqlash — boshqaruv xonasi va obyekt o'zaro aloqada"
+    ],
+    [
+     "운전원 · 전기담당자",
+     "Operator · electrical officer",
+     "运行员·电气负责人",
+     "Vận hành viên · cán bộ điện",
+     "Operator · elektr mas'uli"
+    ]
+   ],
+   [
+    [
+     "③",
+     "③",
+     "③",
+     "③",
+     "③"
+    ],
+    [
+     "개폐기의 잠금(LOTO) 및 표찰 부착 — 작업명·작업시간·작업자·연락처 기재",
+     "Lock out and tag the isolator — state the task, time, worker and contact",
+     "开关的上锁(LOTO)及挂牌 — 记载作业名称·作业时间·作业者·联系方式",
+     "Khóa (LOTO) và treo thẻ — ghi tên việc, thời gian, người làm, liên lạc",
+     "Ajratgichni qulflash (LOTO) va yorliq — ish nomi, vaqti, ishchi, telefon"
+    ],
+    [
+     "작업자",
+     "Worker",
+     "作业者",
+     "Người làm",
+     "Ishchi"
+    ]
+   ],
+   [
+    [
+     "④",
+     "④",
+     "④",
+     "④",
+     "④"
+    ],
+    [
+     "잔류전하의 방전 — 콘덴서·케이블 정전용량, 방전봉 사용",
+     "Discharge residual charge — capacitors and cable capacitance, using a discharge rod",
+     "残留电荷的放电 — 电容器·电缆静电容量,使用放电棒",
+     "Xả điện tích dư — tụ điện và điện dung cáp, dùng sào phóng điện",
+     "Qoldiq zaryadni chiqarish — kondensator va kabel sig'imi, razryad tayog'i bilan"
+    ],
+    [
+     "전기담당자",
+     "Electrical officer",
+     "电气负责人",
+     "Cán bộ điện",
+     "Elektr mas'uli"
+    ]
+   ],
+   [
+    [
+     "⑤",
+     "⑤",
+     "⑤",
+     "⑤",
+     "⑤"
+    ],
+    [
+     "검전기에 의한 충전여부 확인 — 해당 전압용, 사용 전후 시험, 2인 상호확인",
+     "Verify dead state with a voltage detector — rated for the circuit, proved before and after, cross-checked by two persons",
+     "使用验电器确认是否带电 — 相应电压等级,使用前后试验,2人相互确认",
+     "Thử điện bằng bút đúng cấp điện áp, thử trước và sau, 2 người cùng xác nhận",
+     "Indikator bilan kuchlanishni tekshirish — mos kuchlanish, ishlatishdan oldin va keyin sinash, 2 kishi tasdig'i"
+    ],
+    [
+     "작업자 2인",
+     "Two workers",
+     "作业者2人",
+     "2 người làm",
+     "2 ishchi"
+    ]
+   ],
+   [
+    [
+     "⑥",
+     "⑥",
+     "⑥",
+     "⑥",
+     "⑥"
+    ],
+    [
+     "단락접지기구에 의한 단락접지 — 설치 위치·수량 기재",
+     "Apply short-circuit earthing — record the positions and quantity",
+     "使用短路接地器具进行短路接地 — 记载安装位置·数量",
+     "Lắp tiếp đất ngắn mạch — ghi vị trí và số lượng",
+     "Qisqa tutashuv yerga ulash — joyi va sonini yozish"
+    ],
+    [
+     "전기담당자",
+     "Electrical officer",
+     "电气负责人",
+     "Cán bộ điện",
+     "Elektr mas'uli"
+    ]
+   ]
+  ],
+  "lock": [
+   "잠금장치 자물쇠 　 개 / 열쇠 보관자 　　　　 / 해제 확인 — 전 작업팀 철수 확인 후 해제 □ 확인자 　　　 (서명)",
+   "Padlocks 　 pcs / key holder 　　　 / release check — removed only after all teams have withdrawn □ verifier 　　　 (sign)",
+   "锁具 　 个 / 钥匙保管人 　　　 / 解除确认 — 确认全部作业班撤离后解除 □ 确认人 　　　 (签名)",
+   "Ổ khóa 　 cái / người giữ chìa 　　　 / kiểm tra mở khóa — chỉ mở sau khi mọi tổ đã rút □ người xác nhận 　　　 (ký)",
+   "Qulf 　 dona / kalit saqlovchi 　　　 / ochish tekshiruvi — barcha guruh chiqqach ochiladi □ tasdiqlovchi 　　　 (imzo)"
+  ],
+  "restore": [
+   "전원 복구(통전) — 모든 작업이 완료된 후 <b>입회자의 요청에 의해서만</b> 복구한다. ①~④의 <b>역순</b>으로 통전. 요청자 　　　 복구시간 　 : 　 확인자 　　　 (서명)",
+   "Re-energisation — only at the attendant’s request after all work is complete. Re-energise in the <b>reverse order</b> of ①–④. Requested by 　　　 time 　:　 verifier 　　　 (sign)",
+   "恢复送电 — 全部作业完成后<b>仅依在场人的要求</b>恢复。按①~④的<b>逆序</b>送电。请求人 　　　 恢复时间 　:　 确认人 　　　 (签名)",
+   "Đóng điện lại — chỉ khi người giám sát yêu cầu sau khi hoàn tất. Đóng theo <b>thứ tự ngược</b> ①–④. Người yêu cầu 　　　 giờ 　:　 người xác nhận 　　　 (ký)",
+   "Qayta ulash — barcha ish tugagach, faqat kuzatuvchi so'roviga ko'ra. ①–④ ning <b>teskari tartibida</b>. So'rovchi 　　　 vaqt 　:　 tasdiqlovchi 　　　 (imzo)"
+  ]
+ }
+}

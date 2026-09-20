@@ -1,0 +1,78 @@
+{
+ "order": [
+  "전기",
+  "보호구",
+  "환경",
+  "가공전선",
+  "고소",
+  "관리",
+  "밀폐",
+  "굴착",
+  "화기"
+ ],
+ "names": {
+  "전기": [
+   "전기적 위험 표지",
+   "Electrical indicators",
+   "电气性危险标志",
+   "Dấu hiệu nguy hiểm điện",
+   "Elektr xavf belgilari"
+  ],
+  "보호구": [
+   "보호구 표지",
+   "PPE indicators",
+   "保护具标志",
+   "Dấu hiệu PTBVCN",
+   "Himoya vositasi belgilari"
+  ],
+  "환경": [
+   "작업환경 표지",
+   "Environment indicators",
+   "作业环境标志",
+   "Dấu hiệu môi trường",
+   "Ish muhiti belgilari"
+  ],
+  "가공전선": [
+   "가공전선 관련 표지",
+   "Overhead-line indicators",
+   "架空线路相关标志",
+   "Dấu hiệu đường dây trên không",
+   "Havo liniyasi belgilari"
+  ],
+  "고소": [
+   "고소작업 표지",
+   "Work-at-height indicators",
+   "高处作业标志",
+   "Dấu hiệu làm việc trên cao",
+   "Balandlikdagi ish belgilari"
+  ],
+  "밀폐": [
+   "밀폐공간 표지",
+   "Confined-space indicators",
+   "密闭空间标志",
+   "Dấu hiệu không gian kín",
+   "Yopiq joy belgilari"
+  ],
+  "굴착": [
+   "굴착 표지",
+   "Excavation indicators",
+   "挖掘标志",
+   "Dấu hiệu đào đất",
+   "Qazish belgilari"
+  ],
+  "화기": [
+   "화기작업 표지",
+   "Hot-work indicators",
+   "动火作业标志",
+   "Dấu hiệu công việc sinh nhiệt",
+   "Olovli ish belgilari"
+  ],
+  "관리": [
+   "관리적 표지",
+   "Management indicators",
+   "管理性标志",
+   "Dấu hiệu quản lý",
+   "Boshqaruv belgilari"
+  ]
+ }
+}

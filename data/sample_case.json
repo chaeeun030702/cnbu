@@ -1,0 +1,50 @@
+{
+ "hits": [
+  [
+   "U01",
+   46,
+   26
+  ],
+  [
+   "U16",
+   71,
+   62
+  ],
+  [
+   "U14",
+   28,
+   44
+  ],
+  [
+   "U05",
+   50,
+   57
+  ],
+  [
+   "U06",
+   26,
+   85
+  ]
+ ],
+ "name": [
+  "옥외 변압기 주변 물청소 중 감전",
+  "Electric shock while hosing down an outdoor transformer",
+  "室外变压器周边冲洗作业中触电",
+  "Điện giật khi xịt rửa quanh máy biến áp ngoài trời",
+  "Ochiq havodagi transformator atrofini yuvishda tok urishi"
+ ],
+ "desc": [
+  "전주에 설치된 개방형 변압기의 고압 부싱이 노출된 상태에서, 정전 확인 없이 물청소와 볼트 조임을 함께 수행하고 있다. 작업자는 절연장갑·절연모를 착용하지 않았고 바닥은 물로 젖어 있으며, 감시인 없이 혼자 작업하고 있다. 습윤으로 인체저항이 낮아진 상태에서 충전부에 접근하여 감전 위험이 중첩된다.",
+  "The high-voltage bushings of an open pole-mounted transformer are exposed, yet washing and bolt tightening are carried out without confirming de-energisation. The worker wears no insulating gloves or helmet, the floor is wet, and no watcher is present. Body resistance is lowered by the water, so the hazards compound.",
+  "杆上开放式变压器的高压套管处于裸露状态，未确认停电即进行冲洗与螺栓紧固。作业者未佩戴绝缘手套与绝缘帽，地面积水，且无监护人单独作业。潮湿使人体电阻降低，接近带电部位时触电风险叠加。",
+  "Sứ cao áp của máy biến áp kiểu hở trên cột đang để trần, nhưng việc xịt rửa và siết bu lông vẫn tiến hành mà chưa xác nhận cắt điện. Người lao động không đeo găng và mũ cách điện, nền ướt, làm việc một mình không có người giám sát. Nước làm giảm điện trở cơ thể nên các mối nguy chồng lên nhau.",
+  "Ustundagi ochiq transformatorning yuqori kuchlanishli izolyatorlari ochiq, ammo kuchlanish uzilishi tasdiqlanmasdan yuvish va bolt tortish bajarilmoqda. Ishchi izolyatsion qo'lqop va qalpoq kiymagan, pol ho'l, kuzatuvchi yo'q. Namlik tana qarshiligini pasaytirgani uchun xavflar qo'shilib ketadi."
+ ],
+ "work": [
+  "옥외 주상 변압기 주변 물청소 및 단자 볼트 조임 작업 (활선 상태·젖은 바닥)",
+  "Hosing down and bolt tightening around an outdoor pole-mounted transformer (live, wet floor)",
+  "室外杆上变压器周边冲洗及端子螺栓紧固作业（带电状态·地面潮湿）",
+  "Xịt rửa và siết bu lông đầu cực quanh máy biến áp trên cột ngoài trời (đang mang điện, nền ướt)",
+  "Ochiq havodagi ustun transformatori atrofini yuvish va terminal boltlarini tortish (kuchlanish ostida, ho'l pol)"
+ ]
+}
