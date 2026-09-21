@@ -665,7 +665,7 @@ function aiRead(dataUrl, fileName){
     .then(function(j){
       if(timer) clearTimeout(timer);
       setBusy(false);
-      if(!j || !j.ok){ fallback(fileName, j && j.reason); return; }
+      if(!j || !j.ok){ fallback(fileName, j && j.reason, j && j.detail); return; }
       var hits={}, ids=[];
       (j.hits||[]).forEach(function(h){ if(!hits[h.id]){ hits[h.id]=h; ids.push(h.id); } });
       var base=false;
@@ -685,9 +685,10 @@ function aiRead(dataUrl, fileName){
                         fallback(fileName, e && e.name==="AbortError" ? "timeout" : "network"); });
   });
 }
-function fallback(fileName, reason){
+function fallback(fileName, reason, detail){
   var info = autoRead(fileName);
   info.fallback = reason || "error";
+  info.fbDetail = detail || "";
   applyRead(info);
 }
 function keyStat(msg, cls){
@@ -790,9 +791,10 @@ function renderEngine(){
     if(readInfo.model) h+='<div class="fl mo">'+esc(u1("rdModel"))+' : '+esc(readInfo.model)+'</div>';
   } else {
     if(readInfo.fallback){
-      h+='<div class="fb">'+U("rdFallback")+
-         (readInfo.fallback==="no_key" ? ' — '+U("rdNoKey") :
-          readInfo.fallback==="bad_key" ? ' — '+U("rdBadKey") : '')+'</div>';
+      var why = readInfo.fallback==="no_key" ? ' — '+U("rdNoKey") :
+                readInfo.fallback==="bad_key" ? ' — '+U("rdBadKey") :
+                ' — ('+esc(readInfo.fallback)+(readInfo.fbDetail ? ': '+esc(readInfo.fbDetail) : '')+')';
+      h+='<div class="fb">'+U("rdFallback")+why+'</div>';
     }
     if(readInfo.kw.length){
       h+='<ul>'+readInfo.kw.map(function(k){
