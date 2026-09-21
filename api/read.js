@@ -15,7 +15,7 @@ const KB = require('../data/indicators.json');
 
 const LANG_NAME = { ko: '한국어', en: 'English', zh: '中文(简体)', vi: 'Tiếng Việt', uz: "O'zbek" };
 const MAX_BYTES = 5 * 1024 * 1024;
-const MODEL = process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-5';
+const MODEL = process.env.ANTHROPIC_MODEL || 'claude-opus-4-8';
 
 function kbText(dom) {
   return KB.filter(function (x) { return x.dom === dom; }).map(function (x) {
