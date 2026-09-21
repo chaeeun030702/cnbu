@@ -36,7 +36,7 @@ vercel deploy --prod
 | 변수 | 값 |
 |---|---|
 | `ANTHROPIC_API_KEY` | Anthropic API 키 (Settings → Environment Variables 에서 직접 입력) |
-| `ANTHROPIC_MODEL` | (선택) 기본값 `claude-opus-4-8` |
+| `ANTHROPIC_MODEL` | (선택) 기본값 `claude-sonnet-4-5` |
 
 `GET /api/read` 로 상태를 확인할 수 있다 — `{"ok":true,"key":true,...}` 이면 키가 잡힌 것이다.
 사진은 브라우저에서 최대 1,600 px로 줄여 전송되며 서버에 저장되지 않는다.
