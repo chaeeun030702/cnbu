@@ -23,7 +23,7 @@ AI 판독을 쓸 수 없으면(키 미설정·오류) 파일명·현장 정보 *
 | `index.html` | 정적 프런트엔드 — 분할 셸, 분석 엔진, 지면 3종, 다국어 5개 언어, 인쇄 |
 | `api/read.js` | Vercel 서버리스 함수 — 사진 + 지식베이스 → Claude 비전 → JSON |
 | `data/` | 자동판독·자동생성 지식베이스(표지 19종, 매핑규칙, 키워드, 보정규칙, PTW 양식) |
-| `vercel.json` | 정적 배포 + 함수 설정(`maxDuration` 30 s) |
+| `vercel.json` | 정적 배포 + 함수 설정(`maxDuration` 60 s) |
 
 ## 배포
 

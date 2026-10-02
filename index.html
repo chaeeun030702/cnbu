@@ -659,7 +659,7 @@ function aiRead(dataUrl, fileName){
   setBusy(true);
   shrink(dataUrl, 1600, function(small){
     var ctrl = window.AbortController ? new AbortController() : null;
-    var timer = ctrl ? setTimeout(function(){ ctrl.abort(); }, 40000) : null;
+    var timer = ctrl ? setTimeout(function(){ ctrl.abort(); }, 65000) : null;
     fetch("/api/read", {method:"POST", headers:{"content-type":"application/json"},
       signal: ctrl ? ctrl.signal : undefined,
       body: JSON.stringify({image:small, name:fileName||"", lang:lang, key:apiKey||undefined,
@@ -668,7 +668,7 @@ function aiRead(dataUrl, fileName){
     .then(function(j){
       if(timer) clearTimeout(timer);
       setBusy(false);
-      if(!j || !j.ok){ fallback(fileName, j && j.reason); return; }
+      if(!j || !j.ok){ fallback(fileName, j && j.reason, j && j.detail); return; }
       var hits={}, ids=[];
       (j.hits||[]).forEach(function(h){ if(!hits[h.id]){ hits[h.id]=h; ids.push(h.id); } });
       var base=false;
@@ -688,9 +688,10 @@ function aiRead(dataUrl, fileName){
                         fallback(fileName, e && e.name==="AbortError" ? "timeout" : "network"); });
   });
 }
-function fallback(fileName, reason){
+function fallback(fileName, reason, detail){
   var info = autoRead(fileName);
   info.fallback = reason || "error";
+  info.fbDetail = detail || "";
   applyRead(info);
 }
 function keyStat(msg, cls){
@@ -796,7 +797,8 @@ function renderEngine(){
     if(readInfo.fallback){
       h+='<div class="fb">'+U("rdFallback")+
          (readInfo.fallback==="no_key" ? ' — '+U("rdNoKey") :
-          readInfo.fallback==="bad_key" ? ' — '+U("rdBadKey") : '')+'</div>';
+          readInfo.fallback==="bad_key" ? ' — '+U("rdBadKey") : '')+
+         ' <span class="fl">['+esc(readInfo.fallback)+(readInfo.fbDetail?': '+esc(String(readInfo.fbDetail).slice(0,160)):'')+']</span></div>';
     }
     if(readInfo.kw.length){
       h+='<ul>'+readInfo.kw.map(function(k){
