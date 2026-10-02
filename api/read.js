@@ -16,6 +16,8 @@ const KB = require('../data/indicators.json');
 const LANG_NAME = { ko: '한국어', en: 'English', zh: '中文(简体)', vi: 'Tiếng Việt', uz: "O'zbek" };
 const MAX_BYTES = 5 * 1024 * 1024;
 const MODEL = process.env.ANTHROPIC_MODEL || 'claude-sonnet-5-5';
+// 워크스페이스에 묶이지 않은 키(sk-ant-usr-…)는 anthropic-workspace-id 헤더가 필요하다
+const WORKSPACE = process.env.ANTHROPIC_WORKSPACE_ID || '';
 
 function kbText(dom) {
   return KB.filter(function (x) { return x.dom === dom; }).map(function (x) {
@@ -80,7 +82,7 @@ module.exports = async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
   if (req.method === 'GET') {
     return res.status(200).json({ ok: true, service: 'e-safety read', model: MODEL,
-      key: !!process.env.ANTHROPIC_API_KEY, indicators: KB.length });
+      key: !!process.env.ANTHROPIC_API_KEY, workspace: !!WORKSPACE, indicators: KB.length });
   }
   if (req.method !== 'POST') return res.status(405).json({ ok: false, reason: 'method' });
 
@@ -123,8 +125,9 @@ module.exports = async function handler(req, res) {
   try {
     var r = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST', signal: ctrl.signal,
-      headers: { 'content-type': 'application/json', 'x-api-key': key,
+      headers: Object.assign({ 'content-type': 'application/json', 'x-api-key': key,
                  'anthropic-version': '2023-06-01' },
+               WORKSPACE ? { 'anthropic-workspace-id': WORKSPACE } : {}),
       body: JSON.stringify(payload),
     });
     clearTimeout(timer);
