@@ -111,8 +111,10 @@ module.exports = async function handler(req, res) {
 
   var payload = {
     model: MODEL,
-    max_tokens: 1800,
-    temperature: 0,
+    // Sonnet 5.5 는 temperature 등 샘플링 값을 기본값 외로 주면 400 을 돌려준다 → 보내지 않는다.
+    // thinking 은 끌 수 없으므로 effort 를 낮춰 지연을 줄이고, 생각 토큰까지 감안해 max_tokens 를 넉넉히 둔다.
+    max_tokens: 8000,
+    output_config: { effort: 'low' },
     system: systemPrompt(lang),
     messages: [{ role: 'user', content: [
       { type: 'image', source: { type: 'base64', media_type: img.mime, data: img.b64 } },
@@ -121,7 +123,7 @@ module.exports = async function handler(req, res) {
   };
 
   var ctrl = new AbortController();
-  var timer = setTimeout(function () { ctrl.abort(); }, 28000);
+  var timer = setTimeout(function () { ctrl.abort(); }, 55000);
   try {
     var r = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST', signal: ctrl.signal,
@@ -135,6 +137,9 @@ module.exports = async function handler(req, res) {
     if (!r.ok) {
       return res.status(200).json({ ok: false, reason: r.status === 401 ? 'bad_key' : 'api_' + r.status,
         keyFrom: keyFrom, detail: data && data.error && data.error.message });
+    }
+    if (data.stop_reason === 'refusal' || data.stop_reason === 'max_tokens') {
+      return res.status(200).json({ ok: false, reason: data.stop_reason, keyFrom: keyFrom });
     }
     var text = (data.content || []).filter(function (c) { return c.type === 'text'; })
       .map(function (c) { return c.text; }).join('\n');
