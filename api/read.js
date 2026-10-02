@@ -68,6 +68,12 @@ function parseDataUrl(s) {
   return { mime: m[1], b64: m[2] };
 }
 
+function apiHeaders(key) {
+  var h = { 'content-type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01' };
+  if (WORKSPACE) h['anthropic-workspace-id'] = WORKSPACE;
+  return h;
+}
+
 function clamp(v, lo, hi) { v = Number(v); return isFinite(v) ? Math.min(hi, Math.max(lo, v)) : (lo + hi) / 2; }
 
 function extractJson(text) {
@@ -81,8 +87,23 @@ function extractJson(text) {
 module.exports = async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
   if (req.method === 'GET') {
-    return res.status(200).json({ ok: true, service: 'e-safety read', model: MODEL,
-      key: !!process.env.ANTHROPIC_API_KEY, workspace: !!WORKSPACE, indicators: KB.length });
+    var info = { ok: true, service: 'e-safety read', model: MODEL,
+      key: !!process.env.ANTHROPIC_API_KEY, workspace: !!WORKSPACE, indicators: KB.length,
+      commit: (process.env.VERCEL_GIT_COMMIT_SHA || '').slice(0, 7) };
+    // GET /api/read?test=1 → 서버 키로 짧은 텍스트 요청을 보내 Anthropic 응답을 그대로 보여준다(진단용)
+    if (req.query && req.query.test && process.env.ANTHROPIC_API_KEY) {
+      try {
+        var tr = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST', headers: apiHeaders(process.env.ANTHROPIC_API_KEY),
+          body: JSON.stringify({ model: MODEL, max_tokens: 256, output_config: { effort: 'low' },
+            messages: [{ role: 'user', content: 'Reply with OK.' }] }),
+        });
+        var td = await tr.json();
+        info.test = tr.ok ? { status: tr.status, stop_reason: td.stop_reason }
+                          : { status: tr.status, error: td && td.error && td.error.message };
+      } catch (e) { info.test = { error: String(e && e.message || e) }; }
+    }
+    return res.status(200).json(info);
   }
   if (req.method !== 'POST') return res.status(405).json({ ok: false, reason: 'method' });
 
@@ -127,9 +148,7 @@ module.exports = async function handler(req, res) {
   try {
     var r = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST', signal: ctrl.signal,
-      headers: Object.assign({ 'content-type': 'application/json', 'x-api-key': key,
-                 'anthropic-version': '2023-06-01' },
-               WORKSPACE ? { 'anthropic-workspace-id': WORKSPACE } : {}),
+      headers: apiHeaders(key),
       body: JSON.stringify(payload),
     });
     clearTimeout(timer);
