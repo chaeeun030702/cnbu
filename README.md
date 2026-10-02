@@ -40,6 +40,7 @@ vercel deploy --prod
 | `ANTHROPIC_MODEL` | (선택) 기본값 `claude-sonnet-5-5` |
 
 `GET /api/read` 로 상태를 확인할 수 있다 — `{"ok":true,"key":true,...}` 이면 키가 잡힌 것이다.
+`GET /api/read?test=1` 은 서버 키로 짧은 요청을 실제로 보내 결과(`test.status`, 오류 메시지)를 보여준다. `commit` 은 배포된 커밋이다.
 사진은 브라우저에서 최대 1,600 px로 줄여 전송되며 서버에 저장되지 않는다.
 
 ## 근거
