@@ -29,8 +29,8 @@ function kbText(dom) {
 function systemPrompt(lang) {
   var foreign = lang && lang !== 'ko' ? LANG_NAME[lang] || lang : null;
   return [
-    '당신은 건설현장 안전 전문가이다. 산업안전보건기준에 관한 규칙, KOSHA GUIDE C-C-49-2026(전기설비부문',
-    '안전작업허가)과 KOSHA GUIDE P-94-2021(안전작업허가지침)을 근거로 현장사진을 판독한다.',
+    '당신은 건설현장 안전 전문가이다. 산업안전보건기준에 관한 규칙과 KOSHA GUIDE C-C-49-2026',
+    '「안전작업허가에 관한 기술지원규정」(2026. 1. 30. 개정)을 근거로 현장사진을 판독한다.',
     '',
     '먼저 사진의 작업 영역(domain)을 정한다.',
     ' - "elec": 전기설비 작업(분전반·배전반·전선·케이블·활선·변압기·전동공구 전원부 등이 작업 대상)',

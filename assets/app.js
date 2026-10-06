@@ -1,11 +1,11 @@
-/* 4단계 홈페이지 — 현장사진 → 위험분석·위험성평가표(ra.html) · 사전작업허가서(ptw-c49.html / ptw-p94.html) · 안전포스터(poster.html)
+/* 4단계 홈페이지 — 현장사진 → 위험분석·위험성평가표(ra.html) · 사전작업허가서(ptw-c49.html / ptw-gen.html) · 안전포스터(poster.html)
    상태의 기준은 위험분석 프레임(ra.html)의 S 다. 이 파일은 사진·판독·패널을 다루고, 프레임 렌더가 끝날 때마다(onRA)
    허가서와 포스터를 다시 맞춘다. 생성 결과는 초안이며 최종 판단은 관리감독자가 한다. */
 'use strict';
 var LANG = 'zh', ENG = 'ai', OUT = 'all', DOMSEL = 'auto', TAB = 'elec', APIKEY = '', SERVERKEY = null, BUSY = false, EDIT = false;
 var LIX = { ko: 0, en: 1, zh: 2, vi: 3, uz: 4 };
 var KBI = {}; KB.forEach(function (k) { KBI[k.id] = k; });
-var H = { sample: null, photo: null, pw: 1600, ph: 1164, fname: '', gpt: null, ready: { ra: 0, c49: 0, p94: 0, pst: 0 }, sig: {}, rows: [], pending: null, orig: null, meta: {} };
+var H = { sample: null, photo: null, pw: 1600, ph: 1164, fname: '', gpt: null, ready: { ra: 0, c49: 0, gen: 0, pst: 0 }, sig: {}, rows: [], pending: null, orig: null, meta: {} };
 
 function $(s, r) { return (r || document).querySelector(s); }
 function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
@@ -36,7 +36,7 @@ function applyUI() {
 function initFrames() {
   $('#raBox').src = 'ra.html?embed=1';
   $('#c49Box').src = 'ptw-c49.html?embed=1';
-  $('#p94Box').src = 'ptw-p94.html?embed=1';
+  $('#genBox').src = 'ptw-gen.html?embed=1';
   $('#pstBox').src = 'poster.html?embed=1';
 }
 window.raReady = function () {
@@ -64,7 +64,7 @@ function scheduleSync() { clearTimeout(SYNC_T); SYNC_T = setTimeout(function () 
 
 /* ---------- 분야 판정 ---------- */
 function domAuto() { var S = RAW() ? RAW().S : null; if (!S) return 'n'; var e = 0, g = 0; S.sel.forEach(function (id) { if (id[0] === 'U') e++; else if (id[0] === 'G') g++; }); return e ? 'e' : (g ? 'g' : 'n'); }
-function ptwKind() { if (DOMSEL !== 'auto') return DOMSEL; var d = domAuto(); return d === 'g' ? 'p94' : 'c49'; }
+function ptwKind() { if (DOMSEL !== 'auto') return DOMSEL; var d = domAuto(); return d === 'g' ? 'gen' : 'c49'; }
 
 /* ---------- 좌측 패널 ---------- */
 function renderPanel() {
@@ -125,9 +125,9 @@ function addCustom() {
 /* ---------- 언어·엔진·출력 ---------- */
 function setLang(l) {
   LANG = l; applyUI(); var w = RAW(); if (w) w.setLang(l);
-  ['c49Box', 'p94Box'].forEach(function (id) { var x = W(id); try { if (x && x.setLang) x.setLang(l); } catch (e) {} });
+  ['c49Box', 'genBox'].forEach(function (id) { var x = W(id); try { if (x && x.setLang) x.setLang(l); } catch (e) {} });
   var p = W('pstBox'); try { if (p && p.setLang) p.setLang(l); } catch (e) {}
-  setTimeout(function () { fitFrame('c49Box'); fitFrame('p94Box'); fitFrame('pstBox'); mkPrompt(); }, 300);
+  setTimeout(function () { fitFrame('c49Box'); fitFrame('genBox'); fitFrame('pstBox'); mkPrompt(); }, 300);
 }
 function setEng(e) { ENG = e; applyUI(); if (e === 'ai' && H.photo && !H.sample && !BUSY) runRead(); else if (e === 'kw' && H.photo && !H.sample) runKw(); }
 function setOut(o) { OUT = o; document.body.classList.remove('out-ra', 'out-ptw', 'out-pst'); if (o !== 'all') document.body.classList.add('out-' + o); applyUI(); setTimeout(fitMain, 50); }
@@ -141,7 +141,7 @@ var DEF = {
   procE: ['전기 작업 (현장사진 판독)', 'Electrical work (site-photo reading)', '电气作业（现场照片判读）', 'Công việc điện (đọc ảnh hiện trường)', 'Elektr ishi (joy surati tahlili)'],
   procG: ['일반 건설작업 (현장사진 판독)', 'General construction work (site-photo reading)', '一般建设作业（现场照片判读）', 'Công việc xây dựng chung (đọc ảnh hiện trường)', 'Umumiy qurilish ishi (joy surati tahlili)'],
   team: ['관리감독자·안전관리자·근로자 대표·통역', 'Supervisor, safety manager, worker representative, interpreter', '管理监督员·安全管理者·工人代表·翻译', 'Giám sát viên, cán bộ an toàn, đại diện công nhân, phiên dịch', 'Nazoratchi, xavfsizlik menejeri, ishchilar vakili, tarjimon'],
-  basisG: ['산업안전보건법 제36조, 같은 법 시행규칙 제37조, 안전보건규칙 제1편 총칙·제2편 안전기준, KOSHA GUIDE P-94-2021, 3×3 추정', 'OSH Act Art. 36, Enforcement Rule Art. 37, OSH Rule Parts 1–2, KOSHA GUIDE P-94-2021, 3×3 estimation', '产业安全保健法第36条、同法施行规则第37条、安全保健规则第1编总则·第2编安全标准、KOSHA GUIDE P-94-2021、3×3估算', 'Luật ATVSLĐ Điều 36, Quy tắc thi hành Điều 37, Quy tắc ATVSLĐ Phần 1–2, KOSHA GUIDE P-94-2021, ước tính 3×3', 'MMX qonuni 36-modda, Ijro qoidalari 37-modda, Qoidalar 1–2-qism, KOSHA GUIDE P-94-2021, 3×3 baholash'],
+  basisG: ['산업안전보건법 제36조, 같은 법 시행규칙 제37조, 안전보건규칙 제1편 총칙·제2편 안전기준, KOSHA GUIDE C-C-49-2026, 3×3 추정', 'OSH Act Art. 36, Enforcement Rule Art. 37, OSH Rule Parts 1–2, KOSHA GUIDE C-C-49-2026, 3×3 estimation', '产业安全保健法第36条、同法施行规则第37条、安全保健规则第1编总则·第2编安全标准、KOSHA GUIDE C-C-49-2026、3×3估算', 'Luật ATVSLĐ Điều 36, Quy tắc thi hành Điều 37, Quy tắc ATVSLĐ Phần 1–2, KOSHA GUIDE C-C-49-2026, ước tính 3×3', 'MMX qonuni 36-modda, Ijro qoidalari 37-modda, Qoidalar 1–2-qism, KOSHA GUIDE C-C-49-2026, 3×3 baholash'],
 };
 function userArr(v) { return [v, '', '', '', '']; }
 function applyMeta(noRender) {
@@ -239,12 +239,12 @@ function probe() { fetch('api/read').then(function (r) { return r.json(); }).the
 /* ---------- 사전작업허가서 ---------- */
 function sameSet(a, b) { return a.slice().sort().join() === b.slice().sort().join(); }
 function syncPTW() {
-  var w = RAW(); if (!w || !H.rows.length) return; var k = ptwKind(), other = k === 'c49' ? 'p94' : 'c49';
+  var w = RAW(); if (!w || !H.rows.length) return; var k = ptwKind(), other = k === 'c49' ? 'gen' : 'c49';
   $('#' + k + 'Box').style.display = ''; $('#' + other + 'Box').style.display = 'none';
-  var tag = $('#ptwTag'); tag.className = 'ptwtag ' + (k === 'c49' ? 'e' : 'g'); tag.textContent = (k === 'c49' ? '⚡ KOSHA GUIDE C-49-2026 전기 안전작업허가 양식' : '🏗️ KOSHA GUIDE P-94-2021 안전작업허가지침 양식 (일반 건설)') + (DOMSEL === 'auto' ? ' — 자동 판정' : ' — 관리감독자 지정');
+  var tag = $('#ptwTag'); tag.className = 'ptwtag ' + (k === 'c49' ? 'e' : 'g'); tag.textContent = (k === 'c49' ? '⚡ KOSHA GUIDE C-C-49-2026 전기 사전작업허가서' : '🏗️ KOSHA GUIDE C-C-49-2026 일반 건설 사전작업허가서') + (DOMSEL === 'auto' ? ' — 자동 판정' : ' — 관리감독자 지정');
   if (!H.ready[k]) return; var f = W(k + 'Box'); if (!f || !f.hostPTW) return;
   var ids = w.S.sel.filter(function (id) { return id[0] !== 'C'; });
-  var own = (k === 'c49' && H.sample === 'e2') || (k === 'p94' && H.sample === 'g1');
+  var own = (k === 'c49' && H.sample === 'e2') || (k === 'gen' && H.sample === 'g1');
   var base = k === 'c49' ? w.D.PHORD : SAMPLES.g1.hits.map(function (h) { return h[0]; });
   var sig = [ids.join(), H.sample, H.photo ? H.photo.length : 0, JSON.stringify(w.S.mk)].join('|');
   if (H.sig[k] === sig) { if (H.sig[k + 'L'] !== LANG) { f.setLang(LANG); H.sig[k + 'L'] = LANG; } setTimeout(function () { fitFrame(k + 'Box'); fitMain(); }, 150); return; }
@@ -278,8 +278,8 @@ function ptwTexts(k, w, ids) {
     ['vArea', 'vEqNo', 'vEqName', 'vEquip', 'vHead', 'vIso1', 'vIso2', 'vKey', 'vSpecial', 'vVolt'].forEach(function (x) { o[x] = BL; });
     o.vLoc = site ? [site, '', '', '', ''] : BL;
   } else {
-    o.dom = J5(['분야 판정: ', 'Field: ', '领域判定：', 'Phân loại: ', 'Soha: '], nE ? ['전기 표지 포함 — 관리감독자가 P-94 양식 지정', 'electrical indicators present — P-94 chosen by the supervisor', '含电气标志 — 由管理监督员指定P-94表格', 'có dấu hiệu điện — giám sát viên chọn mẫu P-94', 'elektr belgilari bor — P-94 shaklini nazoratchi tanlagan'] : ['일반 안전분야', 'general safety', '一般安全领域', 'an toàn chung', 'umumiy xavfsizlik'],
-      [' (전기 표지 ' + nE + '건 · 일반 표지 ' + nG + '건) → KOSHA GUIDE P-94-2021 양식 적용', ' (' + nE + ' electrical · ' + nG + ' general indicators) → KOSHA GUIDE P-94-2021 form applies', '（电气标志' + nE + '项 · 一般标志' + nG + '项）→ 适用KOSHA GUIDE P-94-2021表格', ' (' + nE + ' dấu hiệu điện · ' + nG + ' dấu hiệu chung) → áp dụng mẫu KOSHA GUIDE P-94-2021', ' (' + nE + ' ta elektr · ' + nG + ' ta umumiy belgi) → KOSHA GUIDE P-94-2021 shakli qoʻllanadi']);
+    o.dom = J5(['분야 판정: ', 'Field: ', '领域判定：', 'Phân loại: ', 'Soha: '], nE ? ['전기 표지 포함 — 관리감독자가 일반 건설 PTW 지정', 'electrical indicators present — general construction PTW chosen by the supervisor', '含电气标志 — 由管理监督员指定一般建设PTW', 'có dấu hiệu điện — giám sát viên chọn PTW xây dựng chung', 'elektr belgilari bor — umumiy qurilish PTW ni nazoratchi tanlagan'] : ['일반 안전분야', 'general safety', '一般安全领域', 'an toàn chung', 'umumiy xavfsizlik'],
+      [' (전기 표지 ' + nE + '건 · 일반 표지 ' + nG + '건) → KOSHA GUIDE C-C-49-2026 일반 건설 PTW 적용', ' (' + nE + ' electrical · ' + nG + ' general indicators) → KOSHA GUIDE C-C-49-2026 general construction PTW applies', '（电气标志' + nE + '项 · 一般标志' + nG + '项）→ 适用KOSHA GUIDE C-C-49-2026一般建设PTW', ' (' + nE + ' dấu hiệu điện · ' + nG + ' dấu hiệu chung) → áp dụng PTW xây dựng chung KOSHA GUIDE C-C-49-2026', ' (' + nE + ' ta elektr · ' + nG + ' ta umumiy belgi) → KOSHA GUIDE C-C-49-2026 umumiy qurilish PTW qoʻllanadi']);
     o.hitH = ['판독 위험 표지 ' + n + '건 (번호·KB ID)', n + ' hazard indicators read (No.·KB ID)', '判读危险标志' + n + '项（编号·KB ID）', n + ' dấu hiệu nguy hiểm (số·KB ID)', n + ' ta xavf belgisi (raqam·KB ID)'];
     var hot = ids.some(function (i) { return KBI[i] && KBI[i].hot; }), sp = [];
     ids.forEach(function (i) { (KBI[i] && KBI[i].supp || []).forEach(function (x) { if (sp.indexOf(x) < 0 && SUPP[x]) sp.push(x); }); });
@@ -309,7 +309,7 @@ function posterData(rows, kind) {
   if (top[0]) { var t0 = short(KBI[top[0].id].tag, 34); tx.bad_t = ['현장사진: ' + t0[0], 'Site photo: ' + t0[1], '现场照片：' + t0[2], 'Ảnh hiện trường: ' + t0[3], 'Obyekt surati: ' + t0[4]];
     var lst = kbRows.slice(0, 5); tx.bad_c = [0, 1, 2, 3, 4].map(function (j) { return lst.map(function (r) { return '①②③④⑤⑥⑦⑧⑨'[r.no - 1 > 8 ? 8 : r.no - 1] + ' ' + short(KBI[r.id].tag, 28)[j]; }).join('  '); });
     tx.data = KBI[top[0].id].csi; }
-  var nums = lawNums(kbRows), g = kind === 'c49' ? 'C-49-2026' : 'P-94-2021';
+  var nums = lawNums(kbRows), g = 'C-C-49-2026';
   tx.law = ['산업안전보건기준에 관한 규칙 제' + nums.join('·') + '조 · KOSHA GUIDE ' + g, 'OSH Standards Rule Art. ' + nums.join(', ') + ' · KOSHA GUIDE ' + g, '产业安全保健标准规则 第' + nums.join('·') + '条 · KOSHA GUIDE ' + g, 'Quy tắc tiêu chuẩn ATVSLĐ Điều ' + nums.join(', ') + ' · KOSHA GUIDE ' + g, 'MMX standartlari qoidasi ' + nums.join(', ') + '-moddalar · KOSHA GUIDE ' + g];
   return { texts: tx, icons: icons, nd: top.length, nm: acts.length, theme: th };
 }
@@ -398,7 +398,7 @@ function gptAuto() {
 
 /* ---------- 편집·인쇄·저장 ---------- */
 function edAll() { EDIT = !EDIT; var w = RAW(); if (w && !!w.ed !== EDIT) w.tgl();
-  ['c49Box', 'p94Box', 'pstBox'].forEach(function (id) { var x = W(id); try { if (x && x.hostEdit) x.hostEdit(EDIT); } catch (e) {} });
+  ['c49Box', 'genBox', 'pstBox'].forEach(function (id) { var x = W(id); try { if (x && x.hostEdit) x.hostEdit(EDIT); } catch (e) {} });
   var b = $('#eb'); b.classList.toggle('act', EDIT); b.textContent = EDIT ? '✓ 편집 중' : '✏️ 편집 모드'; }
 function frameOf(k) { return k === 'ra' ? 'raBox' : (k === 'pst' ? 'pstBox' : ptwKind() + 'Box'); }
 function printDoc(k) { $$('.ddm').forEach(function (m) { m.classList.remove('open'); }); var x = W(frameOf(k)); try { x.focus(); x.print(); } catch (e) {} }

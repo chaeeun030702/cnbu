@@ -117,7 +117,7 @@
     ]
    },
    "dom": "elec",
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "jeon"
     ],
@@ -231,7 +231,7 @@
     ]
    },
    "dom": "elec",
-   "p94": {
+   "ptw_gen": {
     "supp": [],
     "safe": [
      1,
@@ -346,7 +346,7 @@
     ]
    },
    "dom": "elec",
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "jeon"
     ],
@@ -458,7 +458,7 @@
     ]
    },
    "dom": "elec",
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "jeon"
     ],
@@ -565,7 +565,7 @@
     ]
    },
    "dom": "elec",
-   "p94": {
+   "ptw_gen": {
     "supp": [],
     "safe": [
      12,
@@ -672,7 +672,7 @@
     ]
    },
    "dom": "elec",
-   "p94": {
+   "ptw_gen": {
     "supp": [],
     "safe": [
      1,
@@ -783,7 +783,7 @@
     ]
    },
    "dom": "elec",
-   "p94": {
+   "ptw_gen": {
     "supp": [],
     "safe": [
      12,
@@ -890,7 +890,7 @@
     ]
    },
    "dom": "elec",
-   "p94": {
+   "ptw_gen": {
     "supp": [],
     "safe": [
      12,
@@ -1002,7 +1002,7 @@
     ]
    },
    "dom": "elec",
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "jung"
     ],
@@ -1119,7 +1119,7 @@
     ]
    },
    "dom": "elec",
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "jung"
     ],
@@ -1239,7 +1239,7 @@
     ]
    },
    "dom": "elec",
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "jung"
     ],
@@ -1354,7 +1354,7 @@
     ]
    },
    "dom": "elec",
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "go"
     ],
@@ -1469,7 +1469,7 @@
     ]
    },
    "dom": "elec",
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "go"
     ],
@@ -1582,7 +1582,7 @@
     "added": true
    },
    "dom": "elec",
-   "p94": {
+   "ptw_gen": {
     "supp": [],
     "safe": [
      13,
@@ -1687,7 +1687,7 @@
     "added": true
    },
    "dom": "elec",
-   "p94": {
+   "ptw_gen": {
     "supp": [],
     "safe": [
      13
@@ -1799,7 +1799,7 @@
     "added": true
    },
    "dom": "elec",
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "jeon"
     ],
@@ -1852,7 +1852,7 @@
     ]
    },
    "dom": "elec",
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "mil"
     ],
@@ -1905,7 +1905,7 @@
     ]
    },
    "dom": "elec",
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "gul"
     ],
@@ -1954,7 +1954,7 @@
     ]
    },
    "dom": "elec",
-   "p94": {
+   "ptw_gen": {
     "main": "hot",
     "supp": [],
     "safe": [
@@ -2049,7 +2049,7 @@
     "p2": 1,
     "s2": 3
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "go"
     ],
@@ -2147,7 +2147,7 @@
     "p2": 1,
     "s2": 3
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "go"
     ],
@@ -2244,7 +2244,7 @@
     "p2": 1,
     "s2": 3
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "go"
     ],
@@ -2341,7 +2341,7 @@
     "p2": 1,
     "s2": 2
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "go"
     ],
@@ -2436,7 +2436,7 @@
     "p2": 1,
     "s2": 3
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "go",
      "jung"
@@ -2539,7 +2539,7 @@
     "p2": 1,
     "s2": 3
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "jung"
     ],
@@ -2641,7 +2641,7 @@
     "p2": 1,
     "s2": 2
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [],
     "safe": [
      1,
@@ -2731,7 +2731,7 @@
     "p2": 1,
     "s2": 3
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "jung"
     ],
@@ -2830,7 +2830,7 @@
     "p2": 1,
     "s2": 3
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "jung"
     ],
@@ -2929,7 +2929,7 @@
     "p2": 1,
     "s2": 2
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "jeon"
     ],
@@ -3021,7 +3021,7 @@
     "p2": 1,
     "s2": 3
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "gul",
      "jung"
@@ -3121,7 +3121,7 @@
     "p2": 1,
     "s2": 3
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [],
     "safe": [
      1,
@@ -3212,7 +3212,7 @@
     "p2": 1,
     "s2": 3
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "jung"
     ],
@@ -3279,11 +3279,11 @@
      "Poliuretan izolyatsiya va bo'yoq idishlari yonida payvandlash va kesish. Uchqun to'sig'i, olovga chidamli mato, olov kuzatuvchisi va o't o'chirgich yo'q; pastga tushgan uchqun izolyatsiyani yoqib, zaharli tutun bilan bir necha soniyada tarqaladi."
     ],
     "law": [
-     "안전보건규칙 제241조 [화재위험작업 시의 준수사항]·제241조의2 [화재감시자]·제239조 [위험물 등이 있는 장소에서 화기 등의 사용 금지]·제236조 [화재 위험이 있는 작업의 장소 등] / KOSHA GUIDE P-94-2021 6.1 화기작업 허가",
-     "OSH Rule Art.241 [fire-risk work], Art.241-2 [fire watch], Art.239 [no ignition near hazardous materials], Art.236 / KOSHA GUIDE P-94-2021 §6.1 hot-work permit",
-     "安全保健规则 第241条[火灾危险作业时的遵守事项]·第241条之2[火灾监视人]·第239条·第236条 / KOSHA GUIDE P-94-2021 6.1 动火作业许可",
-     "Quy chuẩn Điều 241 [công việc nguy cơ cháy], Điều 241-2 [người canh lửa], Điều 239, Điều 236 / KOSHA GUIDE P-94-2021 §6.1",
-     "Qoidalar 241-modda [yong'in xavfli ish], 241-2-modda [olov kuzatuvchisi], 239-, 236-modda / KOSHA GUIDE P-94-2021 6.1"
+     "안전보건규칙 제241조 [화재위험작업 시의 준수사항]·제241조의2 [화재감시자]·제239조 [위험물 등이 있는 장소에서 화기 등의 사용 금지]·제236조 [화재 위험이 있는 작업의 장소 등] / KOSHA GUIDE C-C-49-2026 7.1 화기작업 허가",
+     "OSH Rule Art.241 [fire-risk work], Art.241-2 [fire watch], Art.239 [no ignition near hazardous materials], Art.236 / KOSHA GUIDE C-C-49-2026 §7.1 hot-work permit",
+     "安全保健规则 第241条[火灾危险作业时的遵守事项]·第241条之2[火灾监视人]·第239条·第236条 / KOSHA GUIDE C-C-49-2026 7.1 动火作业许可",
+     "Quy chuẩn Điều 241 [công việc nguy cơ cháy], Điều 241-2 [người canh lửa], Điều 239, Điều 236 / KOSHA GUIDE C-C-49-2026 §7.1",
+     "Qoidalar 241-modda [yong'in xavfli ish], 241-2-modda [olov kuzatuvchisi], 239-, 236-modda / KOSHA GUIDE C-C-49-2026 7.1"
     ],
     "csi": [
      "CSI 화재·폭발 394건 사망 15명 부상 410명 — 용접작업 중 사고 282건 사망 23명(치명률 8.0%)",
@@ -3311,7 +3311,7 @@
     "p2": 1,
     "s2": 3
    },
-   "p94": {
+   "ptw_gen": {
     "main": "hot",
     "supp": [],
     "safe": [
@@ -3374,11 +3374,11 @@
      "Quduq qopqog'i ochilishi bilan o'lchovsiz narvondan tushadi. Havo beruvchi niqob, kuzatuvchi, qutqaruv arqoni va shamollatish yo'q; tubda to'plangan vodorod sulfiddan bir nafas yiqitadi, qutqarishga kirgan hamkasb ham bo'g'iladi."
     ],
     "law": [
-     "안전보건규칙 제619조 [밀폐공간 작업 프로그램의 수립·시행]·제619조의2 [산소 및 유해가스 농도의 측정]·제620조 [환기 등]·제621조 [인원의 점검]·제623조 [감시인의 배치 등] / KOSHA GUIDE P-94-2021 6.3(1) 밀폐공간출입작업 허가",
-     "OSH Rule Art.619 [confined-space programme], Art.619-2 [gas measurement], Art.620 [ventilation], Art.621 [head count], Art.623 [attendant] / KOSHA GUIDE P-94-2021 §6.3(1)",
-     "安全保健规则 第619条[密闭空间作业程序的制定·实施]·第619条之2[氧气及有害气体浓度的测定]·第620条[通风等]·第621条·第623条[监视人的配置等] / KOSHA GUIDE P-94-2021 6.3(1)",
-     "Quy chuẩn Điều 619 [chương trình không gian kín], Điều 619-2 [đo khí], Điều 620 [thông gió], Điều 621, Điều 623 [người canh] / KOSHA GUIDE P-94-2021 §6.3(1)",
-     "Qoidalar 619-modda [yopiq joy dasturi], 619-2-modda [gaz o'lchash], 620-modda [shamollatish], 621-, 623-modda [kuzatuvchi] / KOSHA GUIDE P-94-2021 6.3(1)"
+     "안전보건규칙 제619조 [밀폐공간 작업 프로그램의 수립·시행]·제619조의2 [산소 및 유해가스 농도의 측정]·제620조 [환기 등]·제621조 [인원의 점검]·제623조 [감시인의 배치 등] / KOSHA GUIDE C-C-49-2026 7.3(1) 밀폐공간출입작업 허가",
+     "OSH Rule Art.619 [confined-space programme], Art.619-2 [gas measurement], Art.620 [ventilation], Art.621 [head count], Art.623 [attendant] / KOSHA GUIDE C-C-49-2026 §7.3(1)",
+     "安全保健规则 第619条[密闭空间作业程序的制定·实施]·第619条之2[氧气及有害气体浓度的测定]·第620条[通风等]·第621条·第623条[监视人的配置等] / KOSHA GUIDE C-C-49-2026 7.3(1)",
+     "Quy chuẩn Điều 619 [chương trình không gian kín], Điều 619-2 [đo khí], Điều 620 [thông gió], Điều 621, Điều 623 [người canh] / KOSHA GUIDE C-C-49-2026 §7.3(1)",
+     "Qoidalar 619-modda [yopiq joy dasturi], 619-2-modda [gaz o'lchash], 620-modda [shamollatish], 621-, 623-modda [kuzatuvchi] / KOSHA GUIDE C-C-49-2026 7.3(1)"
     ],
     "csi": [
      "CSI 질식 23건 사망 11명(치명률 23.4%) — 건수는 적으나 사망 비율은 떨어짐(11.3%)의 2배",
@@ -3406,7 +3406,7 @@
     "p2": 1,
     "s2": 3
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "mil"
     ],
@@ -3502,7 +3502,7 @@
     "p2": 1,
     "s2": 2
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [],
     "safe": [
      12,
@@ -3591,7 +3591,7 @@
     "p2": 1,
     "s2": 1
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [],
     "safe": [
      1,
@@ -3681,7 +3681,7 @@
     "p2": 1,
     "s2": 2
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [],
     "safe": [
      12,
@@ -3770,7 +3770,7 @@
     "p2": 1,
     "s2": 1
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [],
     "safe": [
      12,
@@ -3859,7 +3859,7 @@
     "p2": 1,
     "s2": 2
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [],
     "safe": [
      12,
@@ -5542,7 +5542,7 @@
    "Qayta ulash — barcha ish tugagach, faqat kuzatuvchi so'roviga ko'ra. ①–④ ning <b>teskari tartibida</b>. So'rovchi 　　　 vaqt 　:　 tasdiqlovchi 　　　 (imzo)"
   ]
  },
- "p94": {
+ "ptw_gen": {
   "title": [
    "일 반 위 험 작 업   허 가 서",
    "GENERAL HAZARDOUS WORK PERMIT",
@@ -5558,18 +5558,18 @@
    "OLOVLI ISH RUXSATNOMASI"
   ],
   "sub": [
-   "KOSHA GUIDE P-94-2021 「안전작업허가지침」 <별지 양식2> 준용 · 건설현장 일반작업(비전기) 적용",
-   "Based on KOSHA GUIDE P-94-2021 Safe Work Permit Guideline, Annex Form 2 · applied to general (non-electrical) construction work",
-   "依据 KOSHA GUIDE P-94-2021《安全作业许可指南》<附件格式2> · 适用于建设现场一般(非电气)作业",
-   "Theo KOSHA GUIDE P-94-2021 Hướng dẫn giấy phép làm việc an toàn, Mẫu phụ lục 2 · áp dụng cho công việc chung (không phải điện) tại công trường",
-   "KOSHA GUIDE P-94-2021 Xavfsiz ish ruxsatnomasi yo'riqnomasi, 2-ilova shakli asosida · umumiy (elektr bo'lmagan) qurilish ishiga qo'llanadi"
+   "KOSHA GUIDE C-C-49-2026 「안전작업허가에 관한 기술지원규정」 <별지 양식2> 준용 · 건설현장 일반작업(비전기) 적용",
+   "Based on KOSHA GUIDE C-C-49-2026 Technical Support Regulation on Safe Work Permits, Annex Form 2 · applied to general (non-electrical) construction work",
+   "依据 KOSHA GUIDE C-C-49-2026《安全作业许可技术支援规定》<附件格式2> · 适用于建设现场一般(非电气)作业",
+   "Theo KOSHA GUIDE C-C-49-2026 Quy định hỗ trợ kỹ thuật về cấp phép làm việc an toàn, Mẫu phụ lục 2 · áp dụng cho công việc chung (không phải điện) tại công trường",
+   "KOSHA GUIDE C-C-49-2026 Xavfsiz ishga ruxsat bo'yicha texnik ko'mak qoidasi, 2-ilova shakli asosida · umumiy (elektr bo'lmagan) qurilish ishiga qo'llanadi"
   ],
   "subHot": [
-   "KOSHA GUIDE P-94-2021 <별지 양식1> 준용 · 용접·용단·연마 등 화기작업이 확인되어 화기작업 허가서로 전환",
-   "Based on P-94-2021 Annex Form 1 · switched to a hot-work permit because welding, cutting or grinding was identified",
-   "依据 P-94-2021 <附件格式1> · 确认焊接·切割·打磨等动火作业，转换为动火作业许可证",
-   "Theo P-94-2021 Mẫu phụ lục 1 · chuyển sang giấy phép làm việc có lửa vì phát hiện hàn, cắt, mài",
-   "P-94-2021 1-ilova shakli asosida · payvandlash, kesish, silliqlash aniqlangani uchun olovli ish ruxsatnomasiga o'tildi"
+   "KOSHA GUIDE C-C-49-2026 <별지 양식1> 준용 · 용접·용단·연마 등 화기작업이 확인되어 화기작업 허가서로 전환",
+   "Based on C-C-49-2026 Annex Form 1 · switched to a hot-work permit because welding, cutting or grinding was identified",
+   "依据 C-C-49-2026 <附件格式1> · 确认焊接·切割·打磨等动火作业，转换为动火作业许可证",
+   "Theo C-C-49-2026 Mẫu phụ lục 1 · chuyển sang giấy phép làm việc có lửa vì phát hiện hàn, cắt, mài",
+   "C-C-49-2026 1-ilova shakli asosida · payvandlash, kesish, silliqlash aniqlangani uchun olovli ish ruxsatnomasiga o'tildi"
   ],
   "L": {
    "no": [
@@ -5916,11 +5916,11 @@
     "Band"
    ],
    "ptwNote": [
-    "P-94-2021 6.2(1)(나): 위험한 작업의 종류는 사업장 또는 공정의 특성을 고려하여 정한다 — 이 플랫폼은 CSI 재해유형(추락·낙하·장비·붕괴·화기·밀폐 등)에서 확인된 표지를 기준으로 필요한 항목만 자동 표시한다.",
-    "P-94-2021 §6.2(1)(b): the kinds of hazardous work are defined by the site or process — this platform auto-ticks only the items derived from indicators found in the photograph (fall, falling object, machinery, collapse, hot work, confined space, etc.).",
-    "P-94-2021 6.2(1)(乙)：危险作业的种类根据事业场或工艺特性确定 — 本平台仅根据照片中确认的标志(坠落·落物·设备·坍塌·动火·密闭等)自动标记所需项目。",
-    "P-94-2021 §6.2(1)(b): loại công việc nguy hiểm do cơ sở hoặc quy trình quy định — nền tảng chỉ tự động đánh dấu các mục suy ra từ dấu hiệu trong ảnh (ngã cao, vật rơi, máy móc, sập, lửa, không gian kín…).",
-    "P-94-2021 6.2(1)(b): xavfli ish turlari korxona yoki jarayon xususiyatiga ko'ra belgilanadi — platforma faqat suratdagi belgilardan kelib chiqqan bandlarni avtomatik belgilaydi."
+    "C-C-49-2026 7.2(1)(나): 위험한 작업의 종류는 사업장 또는 공정의 특성을 고려하여 정한다 — 이 플랫폼은 CSI 재해유형(추락·낙하·장비·붕괴·화기·밀폐 등)에서 확인된 표지를 기준으로 필요한 항목만 자동 표시한다.",
+    "C-C-49-2026 §7.2(1)(b): the kinds of hazardous work are defined by the site or process — this platform auto-ticks only the items derived from indicators found in the photograph (fall, falling object, machinery, collapse, hot work, confined space, etc.).",
+    "C-C-49-2026 7.2(1)(乙)：危险作业的种类根据事业场或工艺特性确定 — 本平台仅根据照片中确认的标志(坠落·落物·设备·坍塌·动火·密闭等)自动标记所需项目。",
+    "C-C-49-2026 §7.2(1)(b): loại công việc nguy hiểm do cơ sở hoặc quy trình quy định — nền tảng chỉ tự động đánh dấu các mục suy ra từ dấu hiệu trong ảnh (ngã cao, vật rơi, máy móc, sập, lửa, không gian kín…).",
+    "C-C-49-2026 7.2(1)(b): xavfli ish turlari korxona yoki jarayon xususiyatiga ko'ra belgilanadi — platforma faqat suratdagi belgilardan kelib chiqqan bandlarni avtomatik belgilaydi."
    ],
    "placef": [
     "② 현장 정보의 작업장소가 자동 입력됩니다",

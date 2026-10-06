@@ -1007,7 +1007,7 @@
    "Qayta ulash — barcha ish tugagach, faqat kuzatuvchi so'roviga ko'ra. ①–④ ning <b>teskari tartibida</b>. So'rovchi 　　　 vaqt 　:　 tasdiqlovchi 　　　 (imzo)"
   ]
  },
- "p94": {
+ "ptw_gen": {
   "title": [
    "일 반 위 험 작 업   허 가 서",
    "GENERAL HAZARDOUS WORK PERMIT",
@@ -1023,18 +1023,18 @@
    "OLOVLI ISH RUXSATNOMASI"
   ],
   "sub": [
-   "KOSHA GUIDE P-94-2021 「안전작업허가지침」 <별지 양식2> 준용 · 건설현장 일반작업(비전기) 적용",
-   "Based on KOSHA GUIDE P-94-2021 Safe Work Permit Guideline, Annex Form 2 · applied to general (non-electrical) construction work",
-   "依据 KOSHA GUIDE P-94-2021《安全作业许可指南》<附件格式2> · 适用于建设现场一般(非电气)作业",
-   "Theo KOSHA GUIDE P-94-2021 Hướng dẫn giấy phép làm việc an toàn, Mẫu phụ lục 2 · áp dụng cho công việc chung (không phải điện) tại công trường",
-   "KOSHA GUIDE P-94-2021 Xavfsiz ish ruxsatnomasi yo'riqnomasi, 2-ilova shakli asosida · umumiy (elektr bo'lmagan) qurilish ishiga qo'llanadi"
+   "KOSHA GUIDE C-C-49-2026 「안전작업허가에 관한 기술지원규정」 <별지 양식2> 준용 · 건설현장 일반작업(비전기) 적용",
+   "Based on KOSHA GUIDE C-C-49-2026 Technical Support Regulation on Safe Work Permits, Annex Form 2 · applied to general (non-electrical) construction work",
+   "依据 KOSHA GUIDE C-C-49-2026《安全作业许可技术支援规定》<附件格式2> · 适用于建设现场一般(非电气)作业",
+   "Theo KOSHA GUIDE C-C-49-2026 Quy định hỗ trợ kỹ thuật về cấp phép làm việc an toàn, Mẫu phụ lục 2 · áp dụng cho công việc chung (không phải điện) tại công trường",
+   "KOSHA GUIDE C-C-49-2026 Xavfsiz ishga ruxsat bo'yicha texnik ko'mak qoidasi, 2-ilova shakli asosida · umumiy (elektr bo'lmagan) qurilish ishiga qo'llanadi"
   ],
   "subHot": [
-   "KOSHA GUIDE P-94-2021 <별지 양식1> 준용 · 용접·용단·연마 등 화기작업이 확인되어 화기작업 허가서로 전환",
-   "Based on P-94-2021 Annex Form 1 · switched to a hot-work permit because welding, cutting or grinding was identified",
-   "依据 P-94-2021 <附件格式1> · 确认焊接·切割·打磨等动火作业，转换为动火作业许可证",
-   "Theo P-94-2021 Mẫu phụ lục 1 · chuyển sang giấy phép làm việc có lửa vì phát hiện hàn, cắt, mài",
-   "P-94-2021 1-ilova shakli asosida · payvandlash, kesish, silliqlash aniqlangani uchun olovli ish ruxsatnomasiga o'tildi"
+   "KOSHA GUIDE C-C-49-2026 <별지 양식1> 준용 · 용접·용단·연마 등 화기작업이 확인되어 화기작업 허가서로 전환",
+   "Based on C-C-49-2026 Annex Form 1 · switched to a hot-work permit because welding, cutting or grinding was identified",
+   "依据 C-C-49-2026 <附件格式1> · 确认焊接·切割·打磨等动火作业，转换为动火作业许可证",
+   "Theo C-C-49-2026 Mẫu phụ lục 1 · chuyển sang giấy phép làm việc có lửa vì phát hiện hàn, cắt, mài",
+   "C-C-49-2026 1-ilova shakli asosida · payvandlash, kesish, silliqlash aniqlangani uchun olovli ish ruxsatnomasiga o'tildi"
   ],
   "L": {
    "no": [
@@ -1381,11 +1381,11 @@
     "Band"
    ],
    "ptwNote": [
-    "P-94-2021 6.2(1)(나): 위험한 작업의 종류는 사업장 또는 공정의 특성을 고려하여 정한다 — 이 플랫폼은 CSI 재해유형(추락·낙하·장비·붕괴·화기·밀폐 등)에서 확인된 표지를 기준으로 필요한 항목만 자동 표시한다.",
-    "P-94-2021 §6.2(1)(b): the kinds of hazardous work are defined by the site or process — this platform auto-ticks only the items derived from indicators found in the photograph (fall, falling object, machinery, collapse, hot work, confined space, etc.).",
-    "P-94-2021 6.2(1)(乙)：危险作业的种类根据事业场或工艺特性确定 — 本平台仅根据照片中确认的标志(坠落·落物·设备·坍塌·动火·密闭等)自动标记所需项目。",
-    "P-94-2021 §6.2(1)(b): loại công việc nguy hiểm do cơ sở hoặc quy trình quy định — nền tảng chỉ tự động đánh dấu các mục suy ra từ dấu hiệu trong ảnh (ngã cao, vật rơi, máy móc, sập, lửa, không gian kín…).",
-    "P-94-2021 6.2(1)(b): xavfli ish turlari korxona yoki jarayon xususiyatiga ko'ra belgilanadi — platforma faqat suratdagi belgilardan kelib chiqqan bandlarni avtomatik belgilaydi."
+    "C-C-49-2026 7.2(1)(나): 위험한 작업의 종류는 사업장 또는 공정의 특성을 고려하여 정한다 — 이 플랫폼은 CSI 재해유형(추락·낙하·장비·붕괴·화기·밀폐 등)에서 확인된 표지를 기준으로 필요한 항목만 자동 표시한다.",
+    "C-C-49-2026 §7.2(1)(b): the kinds of hazardous work are defined by the site or process — this platform auto-ticks only the items derived from indicators found in the photograph (fall, falling object, machinery, collapse, hot work, confined space, etc.).",
+    "C-C-49-2026 7.2(1)(乙)：危险作业的种类根据事业场或工艺特性确定 — 本平台仅根据照片中确认的标志(坠落·落物·设备·坍塌·动火·密闭等)自动标记所需项目。",
+    "C-C-49-2026 §7.2(1)(b): loại công việc nguy hiểm do cơ sở hoặc quy trình quy định — nền tảng chỉ tự động đánh dấu các mục suy ra từ dấu hiệu trong ảnh (ngã cao, vật rơi, máy móc, sập, lửa, không gian kín…).",
+    "C-C-49-2026 7.2(1)(b): xavfli ish turlari korxona yoki jarayon xususiyatiga ko'ra belgilanadi — platforma faqat suratdagi belgilardan kelib chiqqan bandlarni avtomatik belgilaydi."
    ],
    "placef": [
     "② 현장 정보의 작업장소가 자동 입력됩니다",
@@ -1837,7 +1837,7 @@
      "Elektrsiz ish ruxsatnomasi ish sharti bo'ladi. Bir chiziqli sxema asosida uzish, qulflash, tekshirish, yerga ulash — olti bosqichni yozib borish."
     ]
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "jeon"
     ],
@@ -1871,7 +1871,7 @@
      "Izolyatsiya shikastidan oqim chiqishi taxmin qilinadi; uzish, belgi va izolyatsion himoya vositalari majburiy chora sifatida belgilanadi."
     ]
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [],
     "safe": [
      1,
@@ -1906,7 +1906,7 @@
      "Ulash va uzishdan oldin tok o'chirilishi shart, shuning uchun elektrsiz ish ruxsatnomasi va izolyatsion vositalar birga talab qilinadi."
     ]
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "jeon"
     ],
@@ -1938,7 +1938,7 @@
      "Oqim uzilmaydi, shuning uchun uzish, belgi va ikkinchi manbani ajratishni tasdiqlash oldindan shart qilinadi."
     ]
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "jeon"
     ],
@@ -1965,7 +1965,7 @@
      "Himoya vositalarini kiyish va ishdan oldingi yig'ilish ruxsatnoma berish sharti qilinadi."
     ]
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [],
     "safe": [
      12,
@@ -1992,7 +1992,7 @@
      "Tana qarshiligi pasayib, past kuchlanish ham halokatli bo'ladi; yuzani quritish, izolyatsion gilam va yoritish talab qilinadi."
     ]
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [],
     "safe": [
      1,
@@ -2023,7 +2023,7 @@
      "Metall korpus kuchlanish olishi mumkin, shuning uchun uzish, qoldiq zaryadni chiqarish va izolyatsion vositalar birga belgilanadi."
     ]
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [],
     "safe": [
      12,
@@ -2050,7 +2050,7 @@
      "Qizishdan elektr yong'ini xavfi qo'shiladi, shuning uchun C toifali o't o'chirgich va uzish belgisi talab qilinadi."
     ]
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [],
     "safe": [
      12,
@@ -2082,7 +2082,7 @@
      "90 sm va 300 sm chegarani belgilash, izolyatsion qoplama o'rnatish va maxsus kuzatuvchi talab qilinadi."
     ]
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "jung"
     ],
@@ -2119,7 +2119,7 @@
      "Og'ir texnika ruxsatnomasi kerak. 300 sm masofa, strela chegaralagichi va signalchi tayinlanishi yoziladi."
     ]
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "jung"
     ],
@@ -2159,7 +2159,7 @@
      "Material orqali bilvosita tegish yo'li mavjud, shuning uchun zonani belgilash va maxsus kuzatuvchi talab qilinadi."
     ]
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "jung"
     ],
@@ -2194,7 +2194,7 @@
      "Balandlikdagi ish ruxsatnomasi kerak. Ish maydonchasi, to'siq, kamar biriktirish nuqtasi va to'r yoziladi."
     ]
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "go"
     ],
@@ -2229,7 +2229,7 @@
      "Balandlikdagi ish ruxsatnomasiga kiradi; narvon o'rniga platforma yoki iskaladan foydalanish shart qilib qo'yiladi."
     ]
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "go"
     ],
@@ -2262,7 +2262,7 @@
     ],
     "added": true
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [],
     "safe": [
      13,
@@ -2287,7 +2287,7 @@
     ],
     "added": true
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [],
     "safe": [
      13
@@ -2319,7 +2319,7 @@
     ],
     "added": true
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "jeon"
     ],
@@ -2354,7 +2354,7 @@
      "Yopiq joyga kirish ruxsatnomasi kerak. Kislorod 18–23,5 %, uch nuqtada o'lchash va 2 kishilik navbatchi guruh yoziladi. Ruxsatnoma 3 yil saqlanadi."
     ]
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "mil"
     ],
@@ -2389,7 +2389,7 @@
      "Qazish ruxsatnomasi kerak. Yer osti tarmoqlari chizmasini ko'rib chiqish va qo'lda qaziladigan qismlar yoziladi."
     ]
    },
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "gul"
     ],
@@ -2420,7 +2420,7 @@
      "Asosiy ruxsat olovli ishga o'tadi. Uchqun to'sig'i, yonuvchi qoldiqni tekshirish va o't o'chirish vositalari qo'shiladi."
     ]
    },
-   "p94": {
+   "ptw_gen": {
     "main": "hot",
     "supp": [],
     "safe": [
@@ -2436,7 +2436,7 @@
   },
   "G01": {
    "ptw": null,
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "go"
     ],
@@ -2455,7 +2455,7 @@
   },
   "G02": {
    "ptw": null,
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "go"
     ],
@@ -2473,7 +2473,7 @@
   },
   "G03": {
    "ptw": null,
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "go"
     ],
@@ -2491,7 +2491,7 @@
   },
   "G04": {
    "ptw": null,
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "go"
     ],
@@ -2507,7 +2507,7 @@
   },
   "G05": {
    "ptw": null,
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "go",
      "jung"
@@ -2531,7 +2531,7 @@
   },
   "G06": {
    "ptw": null,
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "jung"
     ],
@@ -2554,7 +2554,7 @@
   },
   "G07": {
    "ptw": null,
-   "p94": {
+   "ptw_gen": {
     "supp": [],
     "safe": [
      1,
@@ -2565,7 +2565,7 @@
   },
   "G08": {
    "ptw": null,
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "jung"
     ],
@@ -2585,7 +2585,7 @@
   },
   "G09": {
    "ptw": null,
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "jung"
     ],
@@ -2605,7 +2605,7 @@
   },
   "G10": {
    "ptw": null,
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "jeon"
     ],
@@ -2618,7 +2618,7 @@
   },
   "G11": {
    "ptw": null,
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "gul",
      "jung"
@@ -2639,7 +2639,7 @@
   },
   "G12": {
    "ptw": null,
-   "p94": {
+   "ptw_gen": {
     "supp": [],
     "safe": [
      1,
@@ -2651,7 +2651,7 @@
   },
   "G13": {
    "ptw": null,
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "jung"
     ],
@@ -2671,7 +2671,7 @@
   },
   "G14": {
    "ptw": null,
-   "p94": {
+   "ptw_gen": {
     "main": "hot",
     "supp": [],
     "safe": [
@@ -2687,7 +2687,7 @@
   },
   "G15": {
    "ptw": null,
-   "p94": {
+   "ptw_gen": {
     "supp": [
      "mil"
     ],
@@ -2704,7 +2704,7 @@
   },
   "G16": {
    "ptw": null,
-   "p94": {
+   "ptw_gen": {
     "supp": [],
     "safe": [
      12,
@@ -2714,7 +2714,7 @@
   },
   "G17": {
    "ptw": null,
-   "p94": {
+   "ptw_gen": {
     "supp": [],
     "safe": [
      1,
@@ -2725,7 +2725,7 @@
   },
   "G18": {
    "ptw": null,
-   "p94": {
+   "ptw_gen": {
     "supp": [],
     "safe": [
      12,
@@ -2735,7 +2735,7 @@
   },
   "G19": {
    "ptw": null,
-   "p94": {
+   "ptw_gen": {
     "supp": [],
     "safe": [
      12,
@@ -2745,7 +2745,7 @@
   },
   "G20": {
    "ptw": null,
-   "p94": {
+   "ptw_gen": {
     "supp": [],
     "safe": [
      12,
