@@ -328,7 +328,7 @@ function syncPoster() {
     var d = new Date(), ymd = d.getFullYear() + ('0' + (d.getMonth() + 1)).slice(-2) + ('0' + d.getDate()).slice(-2);
     f.hostPST({ texts: pd.texts, icons: pd.icons, nd: pd.nd, nm: pd.nm, photo: H.photo || (H.orig && H.orig.photo), pw: H.pw, ph: H.ph, marks: marks, fname: H.fname, gpt: H.gpt, lang: LANG,
       code: '2026-CBNU-포스터-' + (k === 'c49' ? '전기' : '일반') + '-' + ymd,
-      src: '사진: 오른쪽 실제 현장사진(' + (H.fname || '업로드') + ') · 왼쪽 ChatGPT 이미지 생성(상황 재현) · 통계: CSI 건설사고 사례 재집계, 1단계 분석보고서 · 외국어 병기는 「안전보건용어 400선」 표준 대역어를 우선 적용했고, 400선 외 용어는 연구자가 번역했다. 현장 적용 전 관리감독자가 확인한다.' });
+      src: '사진: 왼쪽 실제 현장사진(' + (H.fname || '업로드') + ') · 오른쪽 ChatGPT 이미지 생성(상황 재현) · 통계: CSI 건설사고 사례 재집계, 1단계 분석보고서 · 외국어 병기는 「안전보건용어 400선」 표준 대역어를 우선 적용했고, 400선 외 용어는 연구자가 번역했다. 현장 적용 전 관리감독자가 확인한다.' });
   }
   setTimeout(function () { fitFrame('pstBox'); fitMain(); mkPrompt(); }, 350);
 }
@@ -350,7 +350,7 @@ function mkPrompt() {
     p = 'Create a realistic, print-quality Korean construction SAFETY POSTER image, portrait A3 ratio (1:1.414). Real photographs, clean layout, bold Korean typography. Render ALL Korean text exactly as written. Do NOT draw any logo; leave an EMPTY navy square at top-right for a university logo.\n'
       + '1) Navy header: yellow warning triangle + "안전제일", slogan "' + (g.c_slogan || '') + '".\n'
       + '2) Headline: "' + (g.t1 || '') + '" (black) + "' + (g.t2 || '') + '" (green).\n3) Subtitle: "' + (g.sub || '') + '".\n'
-      + '4) Two photo cards: LEFT green "' + (g.good_t || '') + '"; RIGHT red "' + (g.bad_t || '') + '" (use the attached site photo).\n'
+      + '4) Two photo cards: LEFT red "' + (g.bad_t || '') + '" (use the attached site photo); RIGHT green "' + (g.good_t || '') + '".\n'
       + '5) Red panel "이렇게 하면 위험합니다!": "' + [g.d0_t, g.d1_t, g.d2_t].filter(Boolean).join('", "') + '". Green panel "반드시 지켜야 합니다!": "' + [g.m0_t, g.m1_t, g.m2_t].filter(Boolean).join('", "') + '".\n'
       + '6) Yellow banner: "' + (g.banner || '') + '".\n7) Navy footer: emergency contact box and "119".';
   }
@@ -361,7 +361,7 @@ function gptGo() { var t = $('#gprompt'); if (!t.value) mkPrompt(); var v = t.va
   if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(v).then(done, function () { t.select(); document.execCommand('copy'); done(); }); else { t.select(); document.execCommand('copy'); done(); }
   window.open('https://chatgpt.com/', '_blank', 'noopener'); }
 function onGpt(inp) { var f = inp.files[0]; if (!f) return; var r = new FileReader();
-  r.onload = function () { if ($('#gmode').value === 'card') { H.gpt = r.result; H.sig.pst = ''; syncPoster(); $('#gmsg').textContent = '✓ 포스터 왼쪽 카드에 ChatGPT 이미지를 넣었습니다.'; }
+  r.onload = function () { if ($('#gmode').value === 'card') { H.gpt = r.result; H.sig.pst = ''; syncPoster(); $('#gmsg').textContent = '✓ 포스터 오른쪽 카드에 ChatGPT 이미지를 넣었습니다.'; }
     else { var gf = $('#gptFull'); gf.style.display = 'block'; gf.querySelector('img').src = r.result; gf.querySelector('b').textContent = 'ChatGPT 실사판 포스터 (사용자 업로드)'; } };
   r.readAsDataURL(f); inp.value = ''; }
 
@@ -389,7 +389,7 @@ function gptAuto() {
     fetch('api/poster', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt: $('#gprompt').value, photo: small, mode: mode, key: OKEY || undefined }) })
       .then(function (r) { return r.json(); }).then(function (j) {
         if (!j || !j.ok) { var e = j && j.error; return end(e === 'no_key' ? '서버와 브라우저에 OpenAI 키가 없습니다. 아래 칸에 키를 저장하거나 Vercel 환경변수 OPENAI_API_KEY를 설정하세요. (수동: ‘복사 + ChatGPT 열기’)' : e === 'bad_key' ? 'OpenAI 키가 거부되었습니다.' : '생성 실패: ' + (e || '알 수 없음') + (j && j.detail ? ' — ' + j.detail : '')); }
-        if (mode === 'card') { H.gpt = j.image; H.sig.pst = ''; syncPoster(); end('✓ 실사 카드 사진을 포스터 왼쪽에 넣었습니다 (' + Math.round((Date.now() - t0) / 1000) + '초, ' + j.model + ').'); }
+        if (mode === 'card') { H.gpt = j.image; H.sig.pst = ''; syncPoster(); end('✓ 실사 카드 사진을 포스터 오른쪽에 넣었습니다 (' + Math.round((Date.now() - t0) / 1000) + '초, ' + j.model + ').'); }
         else withLogo(j.image, function (img) { var gf = $('#gptFull'); gf.style.display = 'block'; gf.querySelector('img').src = img;
           gf.querySelector('b').textContent = '실사판 포스터 — 자동 생성 (' + j.model + ', 오른쪽 위 충북대학교 심볼 합성)'; end('✓ 실사판 포스터를 아래에 표시했습니다. 이미지를 길게 눌러 저장할 수 있습니다.'); });
       }).catch(function () { end('서버에 연결하지 못했습니다.'); });

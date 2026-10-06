@@ -88,12 +88,12 @@
  <section id="secPST" class="sec"><div class="sechd bi" data-ui="secPST"></div>
   <iframe id="pstBox" class="frm" scrolling="no" title="다국어 안전포스터" style="width:1160px;height:1650px"></iframe>
   <div class="gpt"><h3 class="bi" data-ui="gptH"></h3>
-   <div class="row"><b>요청 종류</b><select id="gmode" onchange="mkPrompt()"><option value="card">왼쪽 카드 사진 (올바른 작업 모습) → 포스터에 바로 넣기</option><option value="full">포스터 전체 실사판</option></select>
+   <div class="row"><b>요청 종류</b><select id="gmode" onchange="mkPrompt()"><option value="card">오른쪽 카드 사진 (올바른 작업 모습) → 포스터에 바로 넣기</option><option value="full">포스터 전체 실사판</option></select>
     <button class="sm" onclick="mkPrompt()">↻ 프롬프트 다시 만들기</button><button class="sm pri" onclick="gptGo()">📋 복사 + ChatGPT 열기</button>
     <button class="sm pri" id="gAuto" onclick="gptAuto()">🤖 실사 포스터 자동 생성</button><label class="sm btnl">🖼️ ChatGPT 결과 이미지 넣기<input type="file" accept="image/*" hidden onchange="onGpt(this)"></label></div>
    <div class="row okey"><b>OpenAI 키(선택)</b><input type="password" id="oKey" autocomplete="off" spellcheck="false" placeholder="sk-… (이 브라우저에만 저장, 서버 키가 있으면 비워 둠)"><button class="sm" onclick="okeySave()">저장</button><button class="sm" onclick="okeyClear()">삭제</button></div>
    <textarea id="gprompt" spellcheck="false"></textarea>
-   <div class="hint" id="gmsg">‘실사 포스터 자동 생성’은 Claude가 만든 프롬프트로 서버가 이미지를 바로 받아 옵니다. 수동으로 하려면 ‘복사 + ChatGPT 열기’ 후 받은 이미지를 ‘결과 이미지 넣기’로 올리면 왼쪽 카드 사진이 바뀌거나(카드) 아래에 실사판이 표시됩니다(전체). AI 생성 이미지는 상황 재현이므로 관리감독자가 보호구·설비 표현을 확인한 뒤 씁니다.</div>
+   <div class="hint" id="gmsg">‘실사 포스터 자동 생성’은 Claude가 만든 프롬프트로 서버가 이미지를 바로 받아 옵니다. 수동으로 하려면 ‘복사 + ChatGPT 열기’ 후 받은 이미지를 ‘결과 이미지 넣기’로 올리면 오른쪽 카드 사진이 바뀌거나(카드) 아래에 실사판이 표시됩니다(전체). AI 생성 이미지는 상황 재현이므로 관리감독자가 보호구·설비 표현을 확인한 뒤 씁니다.</div>
    <div id="gptFull"><b></b><img alt="ChatGPT 실사판 포스터"></div></div>
  </section>
  <footer id="sitefoot">충북대학교 안전공학과 이채은 · 지도교수 원정훈 | 근거: 산업안전보건법·안전보건규칙, KOSHA GUIDE C-49-2026 · P-94-2021, [2025] 기술지원규정(전기안전분야), 산업안전보건연구원 「위험성평가표 작성방법」, CSI 사고사례, 「안전보건용어 400선」 | 자동 생성 결과는 초안입니다. AI는 최초 검토, 최종 판단은 관리감독자가 진행.</footer>
