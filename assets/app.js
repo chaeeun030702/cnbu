@@ -90,6 +90,8 @@ function renderPanel() {
   });
   $('#kb').innerHTML = h;
   var nE = S.sel.filter(function (i) { return i[0] === 'U'; }).length, nG = S.sel.filter(function (i) { return i[0] === 'G'; }).length, nC = S.sel.filter(function (i) { return i[0] === 'C'; }).length;
+  var LEG = { ko: ['U: Utility — 전력·가스·수도 등 공급설비', 'G: General — 일반 건설 작업'], en: ['U: Utility — power, gas, water and other supply facilities', 'G: General — general construction work'], zh: ['U：Utility — 电力·燃气·供水等供应设施', 'G：General — 一般建设作业'], vi: ['U: Utility — cơ sở cung cấp điện, gas, nước…', 'G: General — công việc xây dựng chung'], uz: ['U: Utility — elektr, gaz, suv va boshqa taʼminot inshootlari', 'G: General — umumiy qurilish ishlari'] };
+  $('#kbLeg').innerHTML = '<b>표지 번호 범례</b>' + LEG.ko.map(function (k, i) { return '<div>' + esc(k) + (LANG !== 'ko' && LEG[LANG] ? '<small class="uitr">' + esc(LEG[LANG][i]) + '</small>' : '') + '</div>'; }).join('');
   $('#kbCount').innerHTML = '선택 <b>' + S.sel.length + '</b> / 39 · 전기 ' + nE + ' · 일반 ' + nG + (nC ? ' · 추가 ' + nC : '');
   $('#corr').innerHTML = CORR.map(function (c) { return '<label><input type="checkbox" data-c="' + c.id + '"' + (S.corr[c.id] ? ' checked' : '') + '><span><b>' + esc(c.lab[0]) + '</b> — ' + esc(c.why[0]) + ' <i>(' + (c.grp ? c.grp.join('·') : '전 군') + ')</i></span></label>'; }).join('');
   $('#custList').innerHTML = S.custom.map(function (c) { var on = S.sel.indexOf(c.id) >= 0; return '<div class="cl"><span><b>' + c.id + '</b> ' + esc(c.name) + ' (빈도 ' + c.p + '·강도 ' + c.s + ')' + (on ? ' <button class="pin" data-pin="' + c.id + '" title="사진에 위치 지정" style="color:inherit">📍</button>' : '') + '</span><button data-del="' + c.id + '" title="삭제">✕</button></div>'; }).join('');
