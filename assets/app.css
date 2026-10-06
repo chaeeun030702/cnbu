@@ -142,3 +142,6 @@ body.out-ra #secPTW,body.out-ra #secPST,body.out-ptw #secRA,body.out-ptw #secPST
 #main,html,body{scrollbar-width:none;-ms-overflow-style:none}
 #main::-webkit-scrollbar,html::-webkit-scrollbar,body::-webkit-scrollbar{display:none;width:0;height:0}
 .frm{overflow:hidden}
+
+.gpt .okey{margin-top:6px}.gpt .okey input{flex:1;min-width:200px;border:1px solid #c5d0de;border-radius:5px;padding:4px 6px}
+#gAuto:disabled{opacity:.6;cursor:wait}

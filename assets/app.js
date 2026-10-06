@@ -175,6 +175,8 @@ function loadSample(n) {
   $('#thumb').innerHTML = '<img src="' + s.photo + '" alt="">'; $('#drop').classList.add('has');
   status(n === 'e2' ? '⚡ 표본 1 — 사진_현장 사진 sample_전기 2 (3단계 판독 결과 10건). 새 사진을 올리면 바뀝니다.' : '🏗️ 표본 2 — 현장 사진 sample_일반 1 (3단계 판독 결과 7건). 새 사진을 올리면 바뀝니다.', 'info');
   w.hostPhoto(n === 'e2' ? H.orig.photo : s.photo, function () { applyMeta(true); w.setLang(LANG); });
+  if (s.poster) { var gf = $('#gptFull'); gf.style.display = 'block'; gf.querySelector('img').src = s.poster;
+    gf.querySelector('b').textContent = '실사판 포스터 — Claude가 ChatGPT에서 샘플 포스터 양식을 참조해 생성 (표본 ' + (n === 'e2' ? '1' : '2') + ', 오른쪽 위 충북대학교 심볼 합성)'; }
 }
 function resetAll() {
   var w = RAW(); if (!w) return; H.sample = null; H.photo = null; H.fname = ''; H.gpt = null; H.sig = {};
@@ -361,6 +363,37 @@ function onGpt(inp) { var f = inp.files[0]; if (!f) return; var r = new FileRead
     else { var gf = $('#gptFull'); gf.style.display = 'block'; gf.querySelector('img').src = r.result; gf.querySelector('b').textContent = 'ChatGPT 실사판 포스터 (사용자 업로드)'; } };
   r.readAsDataURL(f); inp.value = ''; }
 
+/* ---------- 실사 포스터 자동 생성 (서버 /api/poster → OpenAI 이미지 API) ---------- */
+var OKEY = '';
+function okeySave() { var v = ($('#oKey').value || '').trim(); if (!/^sk-[\w-]{20,}$/.test(v)) { $('#gmsg').textContent = 'sk- 로 시작하는 OpenAI API 키를 넣으세요.'; return; }
+  OKEY = v; try { localStorage.setItem('cbnu_okey', v); } catch (e) {} $('#oKey').value = ''; $('#gmsg').textContent = '✓ OpenAI 키를 이 브라우저에만 저장했습니다 (…' + v.slice(-4) + ').'; }
+function okeyClear() { OKEY = ''; try { localStorage.removeItem('cbnu_okey'); } catch (e) {} $('#gmsg').textContent = 'OpenAI 키를 지웠습니다.'; }
+function shrink(src, max, cb) { var im = new Image(); im.onload = function () { var k = Math.min(1, max / Math.max(im.naturalWidth, im.naturalHeight));
+    var c = document.createElement('canvas'); c.width = Math.round(im.naturalWidth * k); c.height = Math.round(im.naturalHeight * k);
+    c.getContext('2d').drawImage(im, 0, 0, c.width, c.height); cb(c.toDataURL('image/jpeg', 0.85)); }; im.onerror = function () { cb(null); }; im.src = src; }
+function withLogo(src, cb) { var im = new Image(), lg = new Image(), n = 0;
+  var go = function () { if (++n < 2) return; var c = document.createElement('canvas'); c.width = im.naturalWidth; c.height = im.naturalHeight; var x = c.getContext('2d'); x.drawImage(im, 0, 0);
+    if (lg.naturalWidth) { var s = Math.round(c.width * 0.13), m = Math.round(c.width * 0.025); x.fillStyle = '#fff'; x.fillRect(c.width - s - m - 6, m - 6, s + 12, s + 12); x.drawImage(lg, c.width - s - m, m, s, s * lg.naturalHeight / lg.naturalWidth); }
+    cb(c.toDataURL('image/jpeg', 0.92)); };
+  im.onload = go; lg.onload = go; lg.onerror = go; im.src = src; lg.src = 'assets/cbnu.png'; }
+function gptAuto() {
+  var photo = H.photo || (H.orig && H.orig.photo); if (!photo) { $('#gmsg').textContent = '먼저 현장사진을 올리거나 표본을 고르세요.'; return; }
+  mkPrompt(); var mode = $('#gmode').value, btn = $('#gAuto'), t0 = Date.now();
+  btn.disabled = true; $('#gmsg').textContent = '⏳ Claude가 만든 프롬프트로 실사 이미지를 생성하는 중입니다 (30~90초)…';
+  var tick = setInterval(function () { $('#gmsg').textContent = '⏳ 실사 이미지 생성 중… ' + Math.round((Date.now() - t0) / 1000) + '초'; }, 1000);
+  var end = function (msg) { clearInterval(tick); btn.disabled = false; $('#gmsg').textContent = msg; };
+  shrink(photo, 1024, function (small) {
+    if (!small) return end('현장사진을 읽지 못했습니다.');
+    fetch('api/poster', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt: $('#gprompt').value, photo: small, mode: mode, key: OKEY || undefined }) })
+      .then(function (r) { return r.json(); }).then(function (j) {
+        if (!j || !j.ok) { var e = j && j.error; return end(e === 'no_key' ? '서버와 브라우저에 OpenAI 키가 없습니다. 아래 칸에 키를 저장하거나 Vercel 환경변수 OPENAI_API_KEY를 설정하세요. (수동: ‘복사 + ChatGPT 열기’)' : e === 'bad_key' ? 'OpenAI 키가 거부되었습니다.' : '생성 실패: ' + (e || '알 수 없음') + (j && j.detail ? ' — ' + j.detail : '')); }
+        if (mode === 'card') { H.gpt = j.image; H.sig.pst = ''; syncPoster(); end('✓ 실사 카드 사진을 포스터 왼쪽에 넣었습니다 (' + Math.round((Date.now() - t0) / 1000) + '초, ' + j.model + ').'); }
+        else withLogo(j.image, function (img) { var gf = $('#gptFull'); gf.style.display = 'block'; gf.querySelector('img').src = img;
+          gf.querySelector('b').textContent = '실사판 포스터 — 자동 생성 (' + j.model + ', 오른쪽 위 충북대학교 심볼 합성)'; end('✓ 실사판 포스터를 아래에 표시했습니다. 이미지를 길게 눌러 저장할 수 있습니다.'); });
+      }).catch(function () { end('서버에 연결하지 못했습니다.'); });
+  });
+}
+
 /* ---------- 편집·인쇄·저장 ---------- */
 function edAll() { EDIT = !EDIT; var w = RAW(); if (w && !!w.ed !== EDIT) w.tgl();
   ['c49Box', 'p94Box', 'pstBox'].forEach(function (id) { var x = W(id); try { if (x && x.hostEdit) x.hostEdit(EDIT); } catch (e) {} });
@@ -376,7 +409,7 @@ function renderGloss() { var b = $('#glossBody'); if (!b) return; var q = ($('#g
 
 /* ---------- 시작 ---------- */
 (function init() {
-  try { APIKEY = localStorage.getItem('cbnu_key') || ''; } catch (e) {}
+  try { APIKEY = localStorage.getItem('cbnu_key') || ''; OKEY = localStorage.getItem('cbnu_okey') || ''; } catch (e) {}
   var drop = $('#drop'), fi = $('#file');
   fi.addEventListener('change', function () { if (fi.files[0]) onFile(fi.files[0]); fi.value = ''; });
   ['dragenter', 'dragover'].forEach(function (t) { drop.addEventListener(t, function (e) { e.preventDefault(); drop.classList.add('over'); }); });
