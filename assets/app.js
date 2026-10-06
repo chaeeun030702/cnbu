@@ -211,7 +211,7 @@ function applyAI(j, lang) {
   var w = RAW(); if (!w) return; var S = w.S; S.sel = []; S.mk = {}; S.src = {}; S.ps = {};
   j.hits.forEach(function (h) { if (!KBI[h.id] || S.sel.indexOf(h.id) >= 0) return; S.sel.push(h.id); S.mk[h.id] = [Math.round(h.x), Math.round(h.y)]; S.src[h.id] = { ai: arr5(h.evidence, lang) }; });
   S.scene = j.scene ? arr5(j.scene, lang) : null;
-  (j.extra || []).slice(0, 3).forEach(function (x) { var t = Array.isArray(x) ? x[0] : x; if (!t) return; var c = { id: 'C' + (++S.cn), name: String(t), cause: String(t), acts: ['관리감독자가 대책을 적는다'], p: 2, s: 2 }; S.custom.push(c); S.sel.push(c.id); });
+  (j.extra || []).slice(0, 3).forEach(function (x) { var t = Array.isArray(x) ? x[0] : x; if (!t) return; var c = { id: 'C' + (++S.cn), name: String(t), cause: String(t), acts: ['관리감독자가 대책을 적는다'], p: 2, s: 2 }; c.ai = 1; if (Array.isArray(x) && x[1]) c.nm5 = arr5(x, lang); S.custom.push(c); S.sel.push(c.id); });
   if (j.domain === 'gen') TAB = 'gen'; else if (j.domain === 'elec') TAB = 'elec';
   applyMeta(true); w.renderAll();
   status('🤖 AI 판독 완료 — 위험 표지 <b>' + j.hits.length + '</b>건' + ((j.extra || []).length ? ', 지식베이스 밖 추가 위험 ' + j.extra.length + '건(⑥ 목록)' : '') + ' · ' + esc(j.model || '') + '<br><small>체크리스트에서 더하거나 빼고, 빈도·강도는 평가표에서 고칩니다.</small>', 'ok');
