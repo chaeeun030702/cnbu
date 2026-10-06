@@ -138,3 +138,7 @@ body.out-ra #secPTW,body.out-ra #secPST,body.out-ptw #secRA,body.out-ptw #secPST
  #main{padding:8px}
 }
 @media print{#top,#side{display:none}#main{background:#fff}}
+/* 오른쪽 문서 영역 세로 스크롤바 숨김 — 휠·터치 스크롤은 그대로 */
+#main,html,body{scrollbar-width:none;-ms-overflow-style:none}
+#main::-webkit-scrollbar,html::-webkit-scrollbar,body::-webkit-scrollbar{display:none;width:0;height:0}
+.frm{overflow:hidden}

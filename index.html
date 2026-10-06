@@ -80,12 +80,12 @@
 <main id="main"><div id="docs">
  <div id="emptyMsg" class="bi" data-ui="empty"></div>
  <div class="aiban"><b data-ui="ai"></b><span id="aiTr"></span></div>
- <section id="secRA" class="sec"><div class="sechd bi" data-ui="secRA"></div><iframe id="raBox" class="frm" title="위험분석·위험성평가표" style="width:1160px;height:3000px"></iframe></section>
+ <section id="secRA" class="sec"><div class="sechd bi" data-ui="secRA"></div><iframe id="raBox" class="frm" scrolling="no" title="위험분석·위험성평가표" style="width:1160px;height:3000px"></iframe></section>
  <section id="secPTW" class="sec"><div class="sechd bi" data-ui="secPTW"></div><div id="ptwTag" class="ptwtag"></div>
-  <iframe id="c49Box" class="frm" title="사전작업허가서 C-49" style="width:860px;height:4000px"></iframe>
-  <iframe id="p94Box" class="frm" title="사전작업허가서 P-94" style="width:860px;height:4000px;display:none"></iframe></section>
+  <iframe id="c49Box" class="frm" scrolling="no" title="사전작업허가서 C-49" style="width:860px;height:4000px"></iframe>
+  <iframe id="p94Box" class="frm" scrolling="no" title="사전작업허가서 P-94" style="width:860px;height:4000px;display:none"></iframe></section>
  <section id="secPST" class="sec"><div class="sechd bi" data-ui="secPST"></div>
-  <iframe id="pstBox" class="frm" title="다국어 안전포스터" style="width:1160px;height:1650px"></iframe>
+  <iframe id="pstBox" class="frm" scrolling="no" title="다국어 안전포스터" style="width:1160px;height:1650px"></iframe>
   <div class="gpt"><h3 class="bi" data-ui="gptH"></h3>
    <div class="row"><b>요청 종류</b><select id="gmode" onchange="mkPrompt()"><option value="card">왼쪽 카드 사진 (올바른 작업 모습) → 포스터에 바로 넣기</option><option value="full">포스터 전체 실사판</option></select>
     <button class="sm" onclick="mkPrompt()">↻ 프롬프트 다시 만들기</button><button class="sm pri" onclick="gptGo()">📋 복사 + ChatGPT 열기</button>
