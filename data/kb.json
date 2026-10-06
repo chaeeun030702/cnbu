@@ -425,11 +425,11 @@
      "Himoya o'chirgich tasdiqlanmadi"
     ],
     "act": [
-     "① 모든 임시 전원 인출부에 정격감도전류 30mA·동작시간 0.03초 이내 누전차단기 설치 ② 매 작업 개시 전 테스트버튼으로 동작 확인 후 점검표 기록 ③ 이동형 전원은 누전차단기 내장형 사용 ④ 습윤장소는 정격감도 15mA 적용 검토",
-     "(1) Fit a 30 mA / ≤0.03 s RCD at every temporary power take-off. (2) Press the test button before each shift and record the result. (3) Use portable supplies with a built-in RCD. (4) Consider 15 mA sensitivity in damp locations.",
-     "① 所有临时电源引出部设置额定感度电流30mA·动作时间0.03秒以内的漏电断路器 ② 每次开工前按测试按钮确认动作并记入点检表 ③ 移动式电源使用内置漏电断路器型 ④ 潮湿场所研讨采用15mA额定感度",
-     "(1) Lắp RCD 30 mA / ≤0,03 s tại mọi điểm lấy điện tạm. (2) Nhấn nút test trước mỗi ca và ghi kết quả. (3) Dùng nguồn di động có RCD tích hợp. (4) Xem xét dùng loại 15 mA ở nơi ẩm.",
-     "(1) Har bir vaqtinchalik elektr nuqtasiga 30 mA / ≤0,03 s himoya o'chirgich o'rnatish. (2) Har smenadan oldin test tugmasi bilan sinab, natijani yozish. (3) Ichki himoya o'chirgichli ko'chma manbadan foydalanish. (4) Nam joylarda 15 mA ni ko'rib chiqish."
+     "① 모든 임시 전원 인출부에 정격감도전류 30mA·동작시간 0.03초 이내 누전차단기 설치 ② 매 작업 개시 전 테스트버튼으로 동작 확인 후 점검표 기록 ③ 이동형 전원은 누전차단기 내장형 사용 ④ 습윤장소는 작업 전마다 누전차단기 동작시험",
+     "(1) Fit a 30 mA / ≤0.03 s RCD at every temporary power take-off. (2) Press the test button before each shift and record the result. (3) Use portable supplies with a built-in RCD. (4) In damp locations, test the RCD before every shift.",
+     "① 所有临时电源引出部设置额定感度电流30mA·动作时间0.03秒以内的漏电断路器 ② 每次开工前按测试按钮确认动作并记入点检表 ③ 移动式电源使用内置漏电断路器型 ④ 潮湿场所每次作业前进行漏电断路器动作试验",
+     "(1) Lắp RCD 30 mA / ≤0,03 s tại mọi điểm lấy điện tạm. (2) Nhấn nút test trước mỗi ca và ghi kết quả. (3) Dùng nguồn di động có RCD tích hợp. (4) Nơi ẩm ướt: thử cầu dao chống rò điện trước mỗi ca.",
+     "(1) Har bir vaqtinchalik elektr nuqtasiga 30 mA / ≤0,03 s himoya o'chirgich o'rnatish. (2) Har smenadan oldin test tugmasi bilan sinab, natijani yozish. (3) Ichki himoya o'chirgichli ko'chma manbadan foydalanish. (4) Nam joylarda har smenadan oldin qoldiq tok qurilmasini sinab ko'rish."
     ],
     "p": 2,
     "s": 3,
@@ -642,11 +642,11 @@
      "Pol quritilmagan va tozalanmagan"
     ],
     "act": [
-     "① 작업 전 바닥 배수·건조 및 절연매트 설치 ② 강우 중·직후 옥외 전기작업 중지 기준을 수치로 명문화 ③ 습윤장소는 이중절연 공구와 15mA급 누전차단기 사용 ④ 젖은 보호구·작업복 즉시 교체",
-     "(1) Drain and dry the floor and lay insulating mats before work. (2) Put stop-work criteria for outdoor electrical work during and just after rain in writing, with figures. (3) In damp locations use double-insulated tools and a 15 mA RCD. (4) Change wet PPE and clothing immediately.",
-     "① 作业前对地面排水·干燥并铺设绝缘垫 ② 将降雨中及降雨后停止室外电气作业的标准以数值明文化 ③ 潮湿场所使用双重绝缘工具与15mA级漏电断路器 ④ 潮湿的保护具·作业服立即更换",
-     "(1) Thoát nước, làm khô sàn và trải thảm cách điện trước khi làm. (2) Ghi thành văn tiêu chí số dừng việc điện ngoài trời khi mưa và ngay sau mưa. (3) Nơi ẩm dùng dụng cụ cách điện kép và RCD 15 mA. (4) Thay ngay PTBVCN và quần áo ướt.",
-     "(1) Ishdan oldin polni quritish va izolyatsion gilam yotqizish. (2) Yomg'irda va undan keyin tashqi elektr ishini to'xtatish mezonini raqamlarda yozish. (3) Nam joyda ikki qavatli izolyatsiyali asbob va 15 mA himoya o'chirgich. (4) Nam himoya vositasi va kiyimni darhol almashtirish."
+     "① 작업 전 바닥 배수·건조 및 절연매트 설치 ② 강우 중·직후 옥외 전기작업 중지 기준을 수치로 명문화 ③ 습윤장소는 이중절연 공구와 감전방지용 누전차단기(30mA·0.03초) 사용 ④ 젖은 보호구·작업복 즉시 교체",
+     "(1) Drain and dry the floor and lay insulating mats before work. (2) Put stop-work criteria for outdoor electrical work during and just after rain in writing, with figures. (3) In damp locations use double-insulated tools and a 30 mA / 0.03 s RCD. (4) Change wet PPE and clothing immediately.",
+     "① 作业前对地面排水·干燥并铺设绝缘垫 ② 将降雨中及降雨后停止室外电气作业的标准以数值明文化 ③ 潮湿场所使用双重绝缘工具与30mA·0.03秒漏电断路器 ④ 潮湿的保护具·作业服立即更换",
+     "(1) Thoát nước, làm khô sàn và trải thảm cách điện trước khi làm. (2) Ghi thành văn tiêu chí số dừng việc điện ngoài trời khi mưa và ngay sau mưa. (3) Nơi ẩm dùng dụng cụ cách điện kép và RCD 30 mA/0,03 s. (4) Thay ngay PTBVCN và quần áo ướt.",
+     "(1) Ishdan oldin polni quritish va izolyatsion gilam yotqizish. (2) Yomg'irda va undan keyin tashqi elektr ishini to'xtatish mezonini raqamlarda yozish. (3) Nam joyda ikki qavatli izolyatsiyali asbob va 30 mA/0,03 s himoya o'chirgich. (4) Nam himoya vositasi va kiyimni darhol almashtirish."
     ],
     "p": 2,
     "s": 3,
