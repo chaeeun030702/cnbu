@@ -22,10 +22,25 @@
   <a class="gh" href="camera" style="text-decoration:none" title="iPad 등에서 일정 간격으로 현장사진 자동 촬영">📷 주기 촬영</a>
   <button class="gh" onclick="resetAll()">↺ 초기화</button>
   <button class="gh" id="eb" onclick="edAll()">✏️ 편집 모드</button>
+  <button class="gh alert" onclick="notifySend('email')" title="[경고] 현장사진 위험성평가표 — 현장명 (위험 N건 · 높음 M) · 위험 분석 sheet 첨부 메일">✉️ 메일 발송</button>
+  <button class="gh alert" onclick="notifySend('sms')" title="[경고] 현장사진 위험성평가표 — 현장명 (위험 N건 · 높음 M) · 문자">💬 문자 발송</button>
   <span class="dd"><button class="gh" onclick="ddOpen('svm')">💾 저장 ▾</button><div class="ddm" id="svm"><button onclick="saveDoc('ra')">위험분석·위험성평가표 HTML</button><button onclick="saveDoc('ptw')">사전작업허가서 HTML</button><button onclick="saveDoc('pst')">안전포스터 HTML</button></div></span>
   <span class="dd"><button class="gh pri" onclick="ddOpen('prm')">🖨️ 인쇄/PDF ▾</button><div class="ddm" id="prm"><button onclick="printDoc('ra')">위험분석·위험성평가표 (A4 가로)</button><button onclick="printDoc('ptw')">사전작업허가서 (A4 세로)</button><button onclick="printDoc('pst')">안전포스터 (A3 세로)</button></div></span>
  </nav>
 </header>
+<div id="ntoast" role="status"></div>
+<dialog id="ndlg">
+ <form method="dialog" novalidate onsubmit="event.preventDefault();notifyGo()">
+  <h3 id="ndHd"></h3>
+  <label id="ndLab" for="ndTo"></label><input id="ndTo" autocomplete="off" spellcheck="false">
+  <div class="ndt"><b>제목</b><span id="ndTitle"></span></div>
+  <div class="hint" id="ndNote"></div>
+  <div id="ndTokRow"><label for="ndTok">발송 토큰</label><input type="password" id="ndTok" autocomplete="off" spellcheck="false" placeholder="이 브라우저에만 저장됩니다"></div>
+  <div class="nderr" id="ndErr" role="alert"></div>
+  <div class="ndb"><button type="button" class="sm" onclick="ndClose()">취소</button><button type="submit" class="sm pri" id="ndGo">발송</button></div>
+ </form>
+</dialog>
+
 <div id="wrap">
 <aside id="side">
  <section class="step"><h3 class="bi" data-ui="s1"></h3>
@@ -76,6 +91,11 @@
  <section class="step"><h3 class="bi" data-ui="s8"></h3>
   <div class="keyrow"><input type="password" id="apiKey" autocomplete="off" spellcheck="false" placeholder="sk-ant-api03-…"><button class="sm" onclick="keySave()">저장</button><button class="sm" onclick="keyClear()">삭제</button></div>
   <div class="keystat" id="keyStat"></div>
+ </section>
+ <section class="step"><h3>⑨ 발송 설정 (메일·문자)</h3>
+  <div class="hint">상단 바의 <b>✉️ 메일 발송</b> · <b>💬 문자 발송</b> 버튼을 누르면 받는 이메일 주소·휴대폰 번호를 입력하는 창이 뜨고, 버튼이 <b>‘[경고] 현장사진 위험성평가표 — 현장명 (위험 N건 · 높음 M)’</b>을 메일(분석 sheet 첨부)·문자로 보냅니다.</div>
+  <div class="keyrow"><input type="password" id="nTok" autocomplete="off" spellcheck="false" placeholder="발송 토큰 (이 브라우저에만 저장)"><button class="sm" onclick="ntokSave()">저장</button><button class="sm" onclick="ntokClear()">삭제</button></div>
+  <div class="keystat" id="nStat"></div><div class="hint" id="nCfg"></div>
  </section>
  <div class="sidefoot">충북대학교 안전공학과 이채은 · 지도교수 원정훈<br>「Database 기반 생성형 AI 활용 전기안전 다국어 위험성평가표, 사전작업허가서 자동 웹생성 연구」</div>
 </aside>

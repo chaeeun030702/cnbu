@@ -409,9 +409,88 @@ function renderGloss() { var b = $('#glossBody'); if (!b) return; var q = ($('#g
   var ix = { zh: 1, vi: 2, uz: 3 }, rows = GLOSS.filter(function (g) { return !q || g.join(' ').toLowerCase().indexOf(q.toLowerCase()) >= 0; }).slice(0, 400);
   b.innerHTML = '<table>' + rows.map(function (g) { return '<tr><td>' + esc(g[0]) + '</td>' + cols.map(function (c) { return '<td>' + esc(g[ix[c]]) + '</td>'; }).join('') + '</tr>'; }).join('') + '</table>' + (rows.length ? '' : '<div class="hint">찾는 용어가 없습니다.</div>'); }
 
+/* ---------- 위험 분석 자료 발송 (상단 바: 메일 발송 · 문자 발송) ---------- */
+/* 버튼을 누르면 받는 이메일 주소·휴대폰 번호를 입력하는 창이 뜬다(마지막 입력은 이 브라우저에 기억).
+   제목(메일·문자 공통): ‘[경고] 현장사진 위험성평가표 — 현장명 (위험 N건 · 높음 M)’. 메일에는 현장사진 위험 분석 sheet(위험분석·위험성평가표 HTML)를 첨부한다.
+   실제 제목은 서버가 같은 규칙으로 만든다. 발송 토큰이 맞아야 보낼 수 있다(/api/notify). */
+var NTOKEN = '', NBUSY = false, NTIMER = 0;
+function ntitle(c) { var n = ($('#m_site').value || '').replace(/\s+/g, ' ').trim().slice(0, 60); return '[경고] 현장사진 위험성평가표' + (n ? ' — ' + n : '') + ' (위험 ' + c.total + '건 · 높음 ' + c.high + ')'; }
+function nstat(t, c) {
+  var e = $('#ntoast'); if (!e) return; e.textContent = t; e.className = 'on ' + (c === 'on' ? 'ok' : (c || '')); clearTimeout(NTIMER);
+  NTIMER = setTimeout(function () { e.className = ''; }, c === 'warn' ? 9000 : 6000);
+  var st = $('#nStat'); if (st) { st.textContent = t; st.className = 'keystat ' + (c || ''); }
+}
+function sheetCounts() {
+  var w = RAW(); var v = w ? Array.prototype.slice.call(w.document.querySelectorAll('table.ra tbody tr[data-id] td.rk')).map(function (td) { return +td.getAttribute('data-r') || 0; }).filter(Boolean) : [];
+  return { total: v.length, high: v.filter(function (x) { return x >= 6; }).length, mid: v.filter(function (x) { return x >= 3 && x < 6; }).length, low: v.filter(function (x) { return x < 3; }).length };
+}
+function ntokSave() { var v = ($('#nTok').value || '').trim(); if (!v) return; NTOKEN = v; try { localStorage.setItem('cbnu_ntok', v); } catch (e) {} $('#nTok').value = ''; nstat('✓ 발송 토큰을 이 브라우저에만 저장했습니다.', 'on'); }
+function ntokClear() { NTOKEN = ''; try { localStorage.removeItem('cbnu_ntok'); } catch (e) {} nstat('발송 토큰을 지웠습니다.'); }
+function notifyProbe() {
+  fetch('/api/notify').then(function (r) { return r.json(); }).then(function (j) {
+    var el = $('#nCfg'); if (!el) return;
+    el.textContent = !j.token ? '서버에 NOTIFY_TOKEN 이 없어 발송할 수 없습니다 (Vercel 환경변수 설정 필요).'
+      : '서버 설정 — 메일 ' + (j.email ? '✓' : '✗ 미설정') + ' · 문자 ' + (j.sms ? '✓' : '✗ 미설정');
+  }).catch(function () { var el = $('#nCfg'); if (el) el.textContent = '이 주소에서는 서버 함수를 쓸 수 없습니다 (Vercel 배포에서만 동작).'; });
+}
+var NCH = '';
+function nLoad(k) { try { return localStorage.getItem(k) || ''; } catch (e) { return ''; } }
+function nSplit(v, mail) {
+  var raw = String(v || '').split(/[\s,;]+/).filter(Boolean), out = [];
+  for (var i = 0; i < raw.length; i++) {
+    var t = mail ? raw[i].toLowerCase() : raw[i].replace(/\D/g, '');
+    if (!(mail ? /^[^\s@,;<>"]{1,64}@[^\s@,;<>"]{1,200}\.[^\s@,;<>"]{2,}$/ : /^01[016789]\d{7,8}$/).test(t)) return null;
+    if (out.indexOf(t) < 0) out.push(t);
+  }
+  return out.length > 3 ? null : out;
+}
+/* 버튼 → 입력창: 받는 이메일 주소 / 휴대폰 번호(최대 3개, 쉼표로 구분)와 제목을 확인하고 발송한다 */
+function notifySend(channel) {
+  if (NBUSY) return;
+  var w = RAW(), cnt = sheetCounts();
+  if (!w || !cnt.total) { nstat('먼저 사진을 올리고 문서를 생성하세요.', 'warn'); return; }
+  var mail = channel === 'email'; NCH = channel;
+  $('#ndHd').textContent = mail ? '✉️ 메일 발송' : '💬 문자 발송';
+  $('#ndLab').textContent = mail ? '받는 이메일 주소' : '받는 휴대폰 번호';
+  var to = $('#ndTo'); to.type = mail ? 'email' : 'tel'; to.multiple = mail; to.placeholder = mail ? 'name@example.com (여러 개는 쉼표로, 최대 3개)' : '010-1234-5678 (여러 개는 쉼표로, 최대 3개)';
+  to.value = nLoad(mail ? 'cbnu_nto_email' : 'cbnu_nto_sms');
+  $('#ndTitle').textContent = ntitle(cnt);
+  $('#ndNote').textContent = mail ? '현장사진 위험 분석 sheet(HTML 파일)가 첨부됩니다.' : '문자 요금이 발생합니다. 제목이 길면 장문(LMS)으로 나갑니다.';
+  $('#ndTokRow').style.display = NTOKEN ? 'none' : '';
+  $('#ndTok').value = ''; $('#ndErr').textContent = '';
+  var d = $('#ndlg'); if (d.showModal) d.showModal(); else d.setAttribute('open', '');
+  setTimeout(function () { (to.value ? ($('#ndTokRow').style.display === 'none' ? $('#ndGo') : $('#ndTok')) : to).focus(); }, 30);
+}
+function ndClose() { var d = $('#ndlg'); if (d.close) d.close(); else d.removeAttribute('open'); }
+function notifyGo() {
+  if (NBUSY) return;
+  var mail = NCH === 'email', err = $('#ndErr'), w = RAW(), cnt = sheetCounts();
+  var list = nSplit($('#ndTo').value, mail);
+  if (list === null || !list.length) { err.textContent = mail ? '이메일 주소를 확인하세요 (최대 3개, 쉼표로 구분).' : '휴대폰 번호를 확인하세요 (010 등 국내 번호, 최대 3개, 쉼표로 구분).'; return; }
+  var tok = NTOKEN || ($('#ndTok').value || '').trim();
+  if (!tok) { err.textContent = '발송 토큰을 입력하세요.'; return; }
+  if (!w || !cnt.total) { err.textContent = '먼저 사진을 올리고 문서를 생성하세요.'; return; }
+  var body = { token: tok, channel: NCH, to: list, counts: cnt, link: location.origin + '/', site: { name: $('#m_site').value, proc: $('#m_proc').value, date: $('#m_date').value, by: $('#m_by').value } };
+  if (mail) { try { body.sheet = w.sheetHtml(); } catch (e) { err.textContent = '분석 sheet를 만들지 못했습니다.'; return; } }
+  var title = ntitle(cnt), name = mail ? '메일' : '문자';
+  try { localStorage.setItem(mail ? 'cbnu_nto_email' : 'cbnu_nto_sms', list.join(', ')); } catch (e) {}
+  ndClose(); NBUSY = true; nstat(name + ' 발송 중…');
+  fetch('/api/notify', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+    .then(function (r) { return r.json().catch(function () { return { ok: false, error: r.status === 413 ? 'too_large' : 'http_' + r.status }; }); })
+    .then(function (j) {
+      var why = { bad_token: '발송 토큰이 맞지 않습니다.', no_token_configured: '서버에 NOTIFY_TOKEN 이 설정되지 않았습니다.', too_fast: '잠시 후 다시 시도하세요 (연속 발송 제한).',
+        not_configured: '서버에 ' + name + ' 발송 설정이 없습니다 (환경변수).', too_large: '분석 sheet가 너무 큽니다 (사진을 줄여 다시 올려 주세요).', sheet: '분석 sheet가 올바르지 않거나 너무 큽니다.',
+        bad_recipient: '받는 ' + (mail ? '주소' : '번호') + ' 형식이 맞지 않습니다.', no_recipient: '받는 ' + (mail ? '주소' : '번호') + '가 없습니다.' };
+      if (j.ok) { NTOKEN = tok; try { localStorage.setItem('cbnu_ntok', tok); } catch (e) {} nstat('✓ ' + name + ' 발송 완료 (' + list.join(', ') + ') — ' + title, 'on'); }
+      else { if (j.error === 'bad_token') { NTOKEN = ''; try { localStorage.removeItem('cbnu_ntok'); } catch (e) {} } nstat('✗ ' + name + ' 발송 실패: ' + (why[j.error] || j.error || '알 수 없음'), 'warn'); }
+    })
+    .catch(function () { nstat('서버에 연결하지 못했습니다.', 'warn'); })
+    .then(function () { NBUSY = false; });
+}
+
 /* ---------- 시작 ---------- */
 (function init() {
-  try { APIKEY = localStorage.getItem('cbnu_key') || ''; OKEY = localStorage.getItem('cbnu_okey') || ''; } catch (e) {}
+  try { APIKEY = localStorage.getItem('cbnu_key') || ''; OKEY = localStorage.getItem('cbnu_okey') || ''; NTOKEN = localStorage.getItem('cbnu_ntok') || ''; } catch (e) {}
   var drop = $('#drop'), fi = $('#file');
   fi.addEventListener('change', function () { if (fi.files[0]) onFile(fi.files[0]); fi.value = ''; });
   ['dragenter', 'dragover'].forEach(function (t) { drop.addEventListener(t, function (e) { e.preventDefault(); drop.classList.add('over'); }); });
@@ -421,6 +500,6 @@ function renderGloss() { var b = $('#glossBody'); if (!b) return; var q = ($('#g
   ['m_site', 'm_proc', 'm_by'].forEach(function (k) { $('#' + k).addEventListener('change', function () { applyMeta(); }); });
   $('#m_date').value = (function () { var d = new Date(); return d.getFullYear() + '. ' + (d.getMonth() + 1) + '. ' + d.getDate() + '.'; })();
   document.body.classList.add('nodoc');
-  applyUI(); initFrames(); probe();
+  applyUI(); initFrames(); probe(); notifyProbe();
   window.addEventListener('resize', fitMain); fitMain();
 })();

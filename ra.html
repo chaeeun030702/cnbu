@@ -488,12 +488,14 @@ document.addEventListener('input',function(ev){var t=ev.target;if(!t||!t.classLi
  if(t.classList.contains('tr')){if(CUR==='ko')return;var k=t.getAttribute('data-i');if(STR[k])STR[k][CUR]=t.textContent;}
  else if(t.classList.contains('ed')&&t.getAttribute('data-k')){KO[t.getAttribute('data-k')]=t.innerHTML;}});
 document.addEventListener('keydown',function(ev){if((ev.ctrlKey||ev.metaKey)&&(ev.key==='e'||ev.key==='E')){ev.preventDefault();tgl();}});
-function saveHtml(){var was=ed;if(ed)tgl();
+function sheetHtml(){var was=ed;if(ed)tgl();
  $$('select').forEach(function(s){for(var i=0;i<s.options.length;i++){if(s.options[i].selected)s.options[i].setAttribute('selected','');else s.options[i].removeAttribute('selected');}});
  $('#strdata').textContent='var STR='+JSON.stringify(STR)+';var KO='+JSON.stringify(KO)+';var S='+JSON.stringify(S)+';';
  var h='<!doctype html>\n'+document.documentElement.outerHTML;
+ if(was)tgl();return h;}
+function saveHtml(){var h=sheetHtml();
  var b=new Blob([h],{type:'text/html;charset=utf-8'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=document.title+'_수정본.html';
- document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},500);if(was)tgl();return h.length;}
+ document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},500);return h.length;}
 function prt(){window.print();}
 function setLang(l){CUR=l;document.documentElement.setAttribute('data-lang',l);$$('.bar .lg').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-l')===l);});renderAll();}
 window.addEventListener('beforeprint',function(){if(document.body.classList.contains('withpanel')){document.body.classList.remove('withpanel');window.__pp=1;}});
