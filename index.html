@@ -19,7 +19,7 @@
  <nav class="tb">
   <button class="gh" onclick="loadSample('e2')" title="사진_현장 사진 sample_전기 2">⚡ 표본 1 · 전기</button>
   <button class="gh" onclick="loadSample('g1')" title="현장 사진 sample_일반 1">🏗️ 표본 2 · 일반</button>
-  <a class="gh" href="camera" style="text-decoration:none" title="iPad 등에서 일정 간격으로 현장사진 자동 촬영">📷 주기 촬영</a>
+  <span class="dd"><button class="gh" id="ivBtn" onclick="ddOpen('ivm')" title="iPad 등에서 일정 간격(5초·10초·1분)으로 현장사진 자동 촬영">📷 인터벌 촬영 ▾</button><div class="ddm" id="ivm"></div></span>
   <button class="gh" onclick="resetAll()">↺ 초기화</button>
   <button class="gh" id="eb" onclick="edAll()">✏️ 편집 모드</button>
   <button class="gh alert" onclick="notifySend('email')" title="[경고] 현장사진 위험성평가표 — 현장명 (위험 N건 · 높음 M) · 위험 분석 sheet 첨부 메일">✉️ 메일 발송</button>
@@ -122,4 +122,5 @@
 </div>
 <script src="assets/data.js"></script>
 <script src="assets/app.js"></script>
+<script src="assets/interval.js"></script>
 </body></html>
