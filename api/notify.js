@@ -15,8 +15,8 @@
 //  받는 사람은 화면에서 입력한다. 아무에게나 보내는 것을 막으려고 발송 토큰이 맞아야 하고, 형식(이메일·국내 휴대폰)과
 //  개수(3개)를 검사하며 채널별 연속 발송을 20초 간격으로 제한한다.
 //    NOTIFY_TOKEN          발송 토큰 (필수. 없으면 발송 거부)
-//    RESEND_API_KEY        이메일: Resend API 키          NOTIFY_EMAIL_TO   (선택) 입력이 없을 때 쓸 기본 받는 주소
-//    NOTIFY_EMAIL_FROM     (선택) 기본 onboarding@resend.dev — 도메인 인증 전에는 Resend 가입 주소로만 갈 수 있다
+//    GMAIL_USER            이메일: 보내는 Gmail 주소        GMAIL_APP_PASSWORD  Gmail 앱 비밀번호(16자리, 2단계 인증 필요)
+//    NOTIFY_EMAIL_TO       (선택) 입력이 없을 때 쓸 기본 받는 주소
 //    SOLAPI_API_KEY / SOLAPI_API_SECRET   문자: Solapi 키·시크릿
 //    SOLAPI_SENDER         Solapi 에 사전 등록한 발신번호   NOTIFY_SMS_TO    (선택) 입력이 없을 때 쓸 기본 받는 번호
 // ─────────────────────────────────────────────────────────────────────
@@ -71,18 +71,23 @@ function emailHtml(title, site, counts, link) {
 
 async function sendEmail(to, sheet, site, counts, link) {
   const title = titleOf(site, counts);
-  const key = env('RESEND_API_KEY');
-  if (!key) return { ok: false, error: 'not_configured' };
-  const payload = {
-    from: env('NOTIFY_EMAIL_FROM') || 'onboarding@resend.dev', to, subject: title, html: emailHtml(title, site, counts, link),
-    attachments: [{ filename: 'site-photo-risk-analysis-sheet.html', content: Buffer.from(sheet, 'utf8').toString('base64') }],
-  };
-  const r = await fetch('https://api.resend.com/emails', {
-    method: 'POST', headers: { Authorization: 'Bearer ' + key, 'Content-Type': 'application/json' }, body: JSON.stringify(payload),
+  const user = env('GMAIL_USER'), pass = env('GMAIL_APP_PASSWORD').replace(/\s+/g, ''); // 앱 비밀번호는 4자리씩 공백이 섞여 표시된다
+  if (!user || !pass) return { ok: false, error: 'not_configured' };
+  const nodemailer = require('nodemailer');
+  const transport = nodemailer.createTransport({
+    host: env('SMTP_HOST') || 'smtp.gmail.com', port: parseInt(env('SMTP_PORT'), 10) || 465, secure: env('SMTP_SECURE') !== 'false', // SMTP_* 는 시험용(기본 Gmail SMTPS)
+    auth: { user, pass }, connectionTimeout: 15000, socketTimeout: 30000,
   });
-  if (r.ok) return { ok: true };
-  const t = await r.text().catch(() => '');
-  return { ok: false, error: 'http_' + r.status, detail: t.slice(0, 200) };
+  try {
+    await transport.sendMail({
+      from: { name: 'e-safety', address: user }, to, subject: title, html: emailHtml(title, site, counts, link),
+      attachments: [{ filename: 'site-photo-risk-analysis-sheet.html', content: sheet, contentType: 'text/html; charset=utf-8' }],
+    });
+    return { ok: true };
+  } catch (e) {
+    const bad = e && (e.responseCode === 535 || e.code === 'EAUTH');
+    return { ok: false, error: bad ? 'mail_auth' : 'mail_failed', detail: String((e && e.message) || e).slice(0, 200) };
+  }
 }
 
 async function sendSms(to, site, counts) {
@@ -109,7 +114,7 @@ module.exports = async function handler(req, res) {
   if (req.method === 'GET') {
     return res.status(200).json({
       ok: true, token: !!env('NOTIFY_TOKEN'),
-      email: !!env('RESEND_API_KEY'),
+      email: !!(env('GMAIL_USER') && env('GMAIL_APP_PASSWORD')),
       sms: !!(env('SOLAPI_API_KEY') && env('SOLAPI_API_SECRET') && env('SOLAPI_SENDER')),
     });
   }

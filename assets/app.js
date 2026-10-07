@@ -479,7 +479,7 @@ function notifyGo() {
     .then(function (r) { return r.json().catch(function () { return { ok: false, error: r.status === 413 ? 'too_large' : 'http_' + r.status }; }); })
     .then(function (j) {
       var why = { bad_token: '발송 토큰이 맞지 않습니다.', no_token_configured: '서버에 NOTIFY_TOKEN 이 설정되지 않았습니다.', too_fast: '잠시 후 다시 시도하세요 (연속 발송 제한).',
-        not_configured: '서버에 ' + name + ' 발송 설정이 없습니다 (환경변수).', too_large: '분석 sheet가 너무 큽니다 (사진을 줄여 다시 올려 주세요).', sheet: '분석 sheet가 올바르지 않거나 너무 큽니다.',
+        not_configured: '서버에 ' + name + ' 발송 설정이 없습니다 (환경변수).', mail_auth: 'Gmail 로그인에 실패했습니다 (GMAIL_USER·앱 비밀번호 확인).', mail_failed: '메일 서버 전송에 실패했습니다.', too_large: '분석 sheet가 너무 큽니다 (사진을 줄여 다시 올려 주세요).', sheet: '분석 sheet가 올바르지 않거나 너무 큽니다.',
         bad_recipient: '받는 ' + (mail ? '주소' : '번호') + ' 형식이 맞지 않습니다.', no_recipient: '받는 ' + (mail ? '주소' : '번호') + '가 없습니다.' };
       if (j.ok) { NTOKEN = tok; try { localStorage.setItem('cbnu_ntok', tok); } catch (e) {} nstat('✓ ' + name + ' 발송 완료 (' + list.join(', ') + ') — ' + title, 'on'); }
       else { if (j.error === 'bad_token') { NTOKEN = ''; try { localStorage.removeItem('cbnu_ntok'); } catch (e) {} } nstat('✗ ' + name + ' 발송 실패: ' + (why[j.error] || j.error || '알 수 없음'), 'warn'); }

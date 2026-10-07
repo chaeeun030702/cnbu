@@ -1,0 +1,11 @@
+{
+  "name": "cnbu-e-safety",
+  "private": true,
+  "description": "e-safety 전기안전 다국어 안전문서 자동생성 플랫폼 — 서버리스 함수(api/)용 의존성",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "nodemailer": "^10.0.16"
+  }
+}
