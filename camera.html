@@ -31,6 +31,16 @@ button{cursor:pointer;font-weight:600}
 button.primary{background:var(--primary);border-color:var(--primary);color:#fff}
 button.stop{background:var(--err);border-color:var(--err);color:#fff}
 button:disabled{opacity:.5;cursor:default}
+.tgl{display:inline-flex;align-items:center;gap:10px;padding:6px 14px 6px 8px;border-radius:9999px}
+.tgl .knob{position:relative;width:44px;height:26px;border-radius:9999px;background:var(--caption);transition:background .15s;flex:none}
+.tgl .knob::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .15s}
+.tgl[aria-checked=true]{border-color:var(--ok)}
+.tgl[aria-checked=true] .knob{background:var(--ok)}
+.tgl[aria-checked=true] .knob::after{transform:translateX(18px)}
+.tgl b{font-weight:700}
+.tgl[aria-checked=true] b{color:var(--ok)}
+input[type=url]{width:100%}
+.shots figcaption.sent::after{content:" ✓";color:var(--ok)}
 .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .check{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--text)}
 .preview{position:relative;background:#000;border-radius:12px;overflow:hidden;aspect-ratio:4/3}
@@ -70,6 +80,11 @@ video{width:100%;height:100%;object-fit:contain;display:block}
         <select id="res"><option value="1280">1280 (HD)</option><option value="1920" selected>1920 (FHD)</option><option value="3840">3840 (4K)</option></select>
       </label>
     </div>
+    <div class="grid" style="margin-top:12px">
+      <label style="grid-column:1/-1">전송 주소 (사진을 POST로 보낼 서버, multipart: photo·takenAt)
+        <input id="url" type="url" inputmode="url" placeholder="https://example.com/upload">
+      </label>
+    </div>
     <div class="row" style="margin-top:12px;gap:16px">
       <label class="check"><input id="stamp" type="checkbox" checked>사진에 촬영 시각 넣기</label>
       <label class="check"><input id="shutter" type="checkbox" checked>촬영 때 화면 깜빡임</label>
@@ -82,10 +97,11 @@ video{width:100%;height:100%;object-fit:contain;display:block}
       <span>촬영 <b id="count">0</b>장</span>
       <span>다음 촬영까지 <b id="next">-</b></span>
       <span>경과 <b id="elapsed">-</b></span>
+      <span>전송 완료 <b id="sentc">0</b> · 대기 <b id="pendc">0</b></span>
     </div>
     <div class="row">
-      <button id="start" class="primary">시작</button>
-      <button id="stop" class="stop" disabled>중지</button>
+      <button id="tglRun" class="tgl" role="switch" aria-checked="false"><span class="knob"></span>인터벌 촬영 <b>꺼짐</b></button>
+      <button id="tglSend" class="tgl" role="switch" aria-checked="false"><span class="knob"></span>전송 <b>꺼짐</b></button>
       <button id="snap">지금 한 장</button>
     </div>
     <div id="msg" class="msg">시작을 누르면 카메라 사용 허용 창이 뜹니다. 촬영 중에는 이 화면을 켜 둔 채 앞에 두세요.</div>
@@ -105,11 +121,11 @@ video{width:100%;height:100%;object-fit:contain;display:block}
 <script>
 /* 주기 촬영 — 페이지가 앞에 떠 있는 동안 N초/분/시간마다 한 장씩 찍어 기기(IndexedDB)에 저장한다.
    iPad Safari는 화면이 꺼지거나 다른 앱·탭으로 가면 카메라가 멈춘다 → Wake Lock + 자동 복구.
-   외부 서버로도 보내려면 UPLOAD_URL에 POST 주소를 넣는다(multipart: photo, takenAt). */
-const UPLOAD_URL = "";
+   '인터벌 촬영' 단추로 주기 촬영을, '전송' 단추로 서버 전송(POST multipart: photo, takenAt)을 각각 켜고 끈다.
+   전송을 꺼 두면 기기에만 저장하고, 다시 켜면 아직 못 보낸 사진부터 차례로 보낸다. */
 
 const $ = id => document.getElementById(id);
-const els = Object.fromEntries(["every","unit","total","facing","res","stamp","shutter","video","flash","count","next","elapsed","start","stop","snap","msg","state","shots","saved","share","dl","clear"].map(k => [k, $(k)]));
+const els = Object.fromEntries(["every","unit","total","facing","res","stamp","shutter","video","flash","count","next","elapsed","tglRun","tglSend","url","sentc","pendc","snap","msg","state","shots","saved","share","dl","clear"].map(k => [k, $(k)]));
 let stream = null, wake = null, running = false, timer = null, tick = null;
 let startedAt = 0, nextAt = 0, endAt = 0, taken = 0, busy = false;
 
@@ -124,10 +140,15 @@ const tx = async (mode, fn) => {
   return new Promise((ok, no) => { const t = db.transaction("shots", mode); const res = fn(t.objectStore("shots")); t.oncomplete = () => ok(res.result); t.onerror = () => no(t.error); });
 };
 const putShot = s => tx("readwrite", st => st.add(s));
+const updShot = s => tx("readwrite", st => st.put(s));
 const allShots = () => tx("readonly", st => st.getAll());
 const clearShots = () => tx("readwrite", st => st.clear());
 
 /* ---------- 화면 표시 ---------- */
+const setToggle = (btn, on) => { btn.setAttribute("aria-checked", on); btn.querySelector("b").textContent = on ? "켜짐" : "꺼짐"; };
+let sendOn = false, flushing = false;
+try { els.url.value = localStorage.getItem("cam.url") || ""; } catch {}
+els.url.addEventListener("change", () => { try { localStorage.setItem("cam.url", els.url.value.trim()); } catch {} });
 const fmt = s => { s = Math.max(0, Math.round(s)); const h = Math.floor(s/3600), m = Math.floor(s%3600/60), x = s%60; return (h?h+":":"") + String(m).padStart(h?2:1,"0") + ":" + String(x).padStart(2,"0"); };
 const say = (t, cls) => { els.msg.textContent = t; if (cls !== undefined) setState(cls[0], cls[1]); };
 const setState = (text, cls="") => { els.state.textContent = text; els.state.className = "badge " + cls; };
@@ -136,9 +157,10 @@ const stamp = d => d.toLocaleString("ko-KR", { hour12:false }).replace(/\s+/g," 
 async function renderShots() {
   const list = await allShots();
   els.saved.textContent = list.length ? `(${list.length}장)` : "";
+  const done = list.filter(s => s.sent).length; els.sentc.textContent = done; els.pendc.textContent = list.length - done;
   els.shots.replaceChildren(...list.slice(-60).reverse().map(s => {
     const f = document.createElement("figure"), i = document.createElement("img"), c = document.createElement("figcaption");
-    i.src = URL.createObjectURL(s.blob); i.onload = () => URL.revokeObjectURL(i.src); i.alt = ""; c.textContent = stamp(new Date(s.takenAt));
+    i.src = URL.createObjectURL(s.blob); i.onload = () => URL.revokeObjectURL(i.src); i.alt = ""; c.textContent = stamp(new Date(s.takenAt)); if (s.sent) c.className = "sent";
     f.append(i, c); return f;
   }));
 }
@@ -180,19 +202,28 @@ async function capture(manual) {
     }
     const blob = await new Promise(r => c.toBlob(r, "image/jpeg", 0.9));
     if (!blob) throw new Error("이미지 생성 실패");
-    await putShot({ blob, takenAt: now.getTime() });
+    await putShot({ blob, takenAt: now.getTime(), sent: false });
     taken++; els.count.textContent = taken;
     if (els.shutter.checked) { els.flash.classList.remove("on"); void els.flash.offsetWidth; els.flash.classList.add("on"); }
-    if (UPLOAD_URL) upload(blob, now).catch(e => say("업로드 실패(기기에는 저장됨): " + e.message));
     renderShots();
+    if (sendOn) flush();
     if (running) say(`${stamp(now)} 촬영 완료`, ["촬영 중","run"]);
   } catch (e) {
     say("촬영 실패: " + (e.name === "NotAllowedError" ? "카메라 권한이 거부되었습니다. 설정 > Safari > 카메라에서 허용해 주세요." : e.message), ["오류","err"]);
   } finally { busy = false; }
 }
-async function upload(blob, d) {
-  const f = new FormData(); f.append("photo", blob, `shot-${d.getTime()}.jpg`); f.append("takenAt", d.toISOString());
-  const r = await fetch(UPLOAD_URL, { method: "POST", body: f }); if (!r.ok) throw new Error("HTTP " + r.status);
+async function flush() {                                   // 못 보낸 사진을 오래된 순으로 전송
+  if (flushing || !sendOn) return; flushing = true;
+  try {
+    for (const s of (await allShots()).filter(x => !x.sent)) {
+      if (!sendOn) break;
+      const f = new FormData(); f.append("photo", s.blob, `shot-${s.takenAt}.jpg`); f.append("takenAt", new Date(s.takenAt).toISOString());
+      const r = await fetch(els.url.value.trim(), { method: "POST", body: f });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      await updShot({ ...s, sent: true }); renderShots();
+    }
+  } catch (e) { say("전송 실패(기기에는 저장됨, 다음 촬영·재시도 때 다시 보냅니다): " + e.message, ["전송 오류","err"]); }
+  finally { flushing = false; }
 }
 
 /* ---------- 타이머 (시계 기준으로 보정해 간격이 밀리지 않게) ---------- */
@@ -213,7 +244,7 @@ async function start() {
   await lockScreen();
   running = true; taken = 0; els.count.textContent = 0; startedAt = Date.now();
   const hours = +els.total.value || 0; endAt = hours ? startedAt + hours*3600*1000 : 0;
-  els.start.disabled = true; els.stop.disabled = false;
+  setToggle(els.tglRun, true);
   [els.every, els.unit, els.total, els.facing, els.res].forEach(x => x.disabled = true);
   await capture();                         // 시작하자마자 첫 장
   nextAt = Date.now() + Math.max(1, +els.every.value || 1) * +els.unit.value * 1000;
@@ -227,7 +258,7 @@ async function start() {
 function stop(reason) {
   running = false; clearTimeout(timer); clearInterval(tick); closeCamera();
   if (wake) { wake.release().catch(() => {}); wake = null; }
-  els.start.disabled = false; els.stop.disabled = true;
+  setToggle(els.tglRun, false);
   [els.every, els.unit, els.total, els.facing, els.res].forEach(x => x.disabled = false);
   els.next.textContent = "-";
   say((typeof reason === "string" ? reason : "중지했습니다.") + ` 총 ${taken}장 촬영.`, ["대기",""]);
@@ -256,7 +287,13 @@ els.dl.onclick = async () => {
 };
 els.clear.onclick = async () => { if (confirm("저장된 사진을 모두 삭제할까요?")) { await clearShots(); renderShots(); } };
 
-els.start.onclick = start; els.stop.onclick = () => stop(); els.snap.onclick = async () => { if (!stream) { try { await openCamera(); } catch (e) { return say("카메라를 켤 수 없습니다: " + e.message); } } await capture(true); if (!running) closeCamera(); };
+els.tglRun.onclick = () => running ? stop() : start();
+els.tglSend.onclick = () => {
+  if (sendOn) { sendOn = false; setToggle(els.tglSend, false); return say("전송을 껐습니다. 이후 사진은 기기에만 저장됩니다."); }
+  let u; try { u = new URL(els.url.value.trim()); if (!/^https?:$/.test(u.protocol)) throw 0; } catch { return say("전송 주소를 먼저 올바르게 입력해 주세요(https://…).", ["오류","err"]); }
+  try { localStorage.setItem("cam.url", u.href); } catch {}
+  sendOn = true; setToggle(els.tglSend, true); say("전송을 켰습니다. 못 보낸 사진부터 보냅니다."); flush();
+}; els.snap.onclick = async () => { if (!stream) { try { await openCamera(); } catch (e) { return say("카메라를 켤 수 없습니다: " + e.message); } } await capture(true); if (!running) closeCamera(); };
 renderShots();
 </script>
 </body>
