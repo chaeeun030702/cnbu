@@ -409,9 +409,69 @@ function renderGloss() { var b = $('#glossBody'); if (!b) return; var q = ($('#g
   var ix = { zh: 1, vi: 2, uz: 3 }, rows = GLOSS.filter(function (g) { return !q || g.join(' ').toLowerCase().indexOf(q.toLowerCase()) >= 0; }).slice(0, 400);
   b.innerHTML = '<table>' + rows.map(function (g) { return '<tr><td>' + esc(g[0]) + '</td>' + cols.map(function (c) { return '<td>' + esc(g[ix[c]]) + '</td>'; }).join('') + '</tr>'; }).join('') + '</table>' + (rows.length ? '' : '<div class="hint">찾는 용어가 없습니다.</div>'); }
 
+/* ---------- 위험성평가표 발송 (이메일·문자) ---------- */
+/* 현장사진 위험성평가표만 서버(/api/notify)로 보낸다. 받는 사람은 서버 환경변수로만 정해지고, 발송 토큰이 맞아야 한다. */
+var NTOKEN = '', NCFG = null, NBUSY = false;
+function nstat(t, c) { var e = $('#nStat'); if (!e) return; e.textContent = t; e.className = 'keystat ' + (c || ''); }
+function ntext(el) { var e = el && el.querySelector('.ed'); return ((e || el || {}).textContent || '').replace(/\s+/g, ' ').trim(); }
+function sheetRows() {
+  var w = RAW(); if (!w) return [];
+  return Array.prototype.slice.call(w.document.querySelectorAll('table.ra tbody tr[data-id]')).map(function (tr) {
+    var c = function (q) { return tr.querySelector(q); };
+    var rk = c('td.rk'), pf = c('select.f'), sf = c('select.s');
+    var acts = Array.prototype.slice.call(tr.querySelectorAll('td.meas .mi:not(.tgt)')).map(ntext).filter(Boolean);
+    return {
+      no: parseInt((c('td') || {}).textContent, 10) || 0, work: ntext(c('td.wk')), haz: ntext(c('td.desc')), cause: ntext(c('td.cause')), law: ntext(c('td.law')),
+      p: pf ? +pf.value : 0, s: sf ? +sf.value : 0, v: rk ? +rk.getAttribute('data-r') : 0, level: rk ? ((rk.querySelector('.rl') || {}).textContent || '') : '', acts: acts
+    };
+  });
+}
+function sheetPhoto() {
+  var w = RAW(), im = w && w.document.getElementById('photo'); if (!im || !im.naturalWidth) return '';
+  try {
+    var k = Math.min(1, 900 / Math.max(im.naturalWidth, im.naturalHeight)), cv = document.createElement('canvas');
+    cv.width = Math.round(im.naturalWidth * k); cv.height = Math.round(im.naturalHeight * k);
+    cv.getContext('2d').drawImage(im, 0, 0, cv.width, cv.height); return cv.toDataURL('image/jpeg', 0.7);
+  } catch (e) { return ''; }
+}
+function ntokSave() { var v = ($('#nTok').value || '').trim(); if (!v) return; NTOKEN = v; try { localStorage.setItem('cbnu_ntok', v); } catch (e) {} $('#nTok').value = ''; nstat('✓ 발송 토큰을 이 브라우저에만 저장했습니다.', 'on'); }
+function ntokClear() { NTOKEN = ''; try { localStorage.removeItem('cbnu_ntok'); } catch (e) {} nstat('발송 토큰을 지웠습니다.'); }
+function notifyProbe() {
+  fetch('/api/notify').then(function (r) { return r.json(); }).then(function (j) {
+    NCFG = j; var el = $('#nCfg'); if (!el) return;
+    el.textContent = !j.token ? '서버에 NOTIFY_TOKEN 이 없어 발송할 수 없습니다 (Vercel 환경변수 설정 필요).'
+      : '서버 설정 — 이메일 ' + (j.email ? '✓' : '✗ 미설정') + ' · 문자 ' + (j.sms ? '✓' : '✗ 미설정');
+  }).catch(function () { var el = $('#nCfg'); if (el) el.textContent = '이 주소에서는 서버 함수를 쓸 수 없습니다 (Vercel 배포에서만 동작).'; });
+}
+function notifySheet() {
+  if (NBUSY) return;
+  var rows = sheetRows().filter(function (r) { return r.v > 0; });
+  if (!rows.length) { nstat('먼저 사진을 올리고 문서를 생성하세요.', 'warn'); return; }
+  if (!NTOKEN) { nstat('발송 토큰을 먼저 저장하세요.', 'warn'); return; }
+  var wantE = $('#nEmail').checked, wantS = $('#nSms').checked;
+  if (!wantE && !wantS) { nstat('이메일·문자 중 하나는 선택하세요.', 'warn'); return; }
+  if (!confirm('[경고] 위험성평가표(위험 ' + rows.length + '건)를 ' + [wantE ? '이메일' : '', wantS ? '문자(요금 발생)' : ''].filter(Boolean).join('·') + '로 발송할까요?')) return;
+  NBUSY = true; nstat('발송 중…');
+  var body = {
+    token: NTOKEN, send: { email: wantE, sms: wantS }, rows: rows, photo: sheetPhoto(), link: location.origin + '/',
+    site: { name: $('#m_site').value, proc: $('#m_proc').value, date: $('#m_date').value, by: $('#m_by').value }
+  };
+  fetch('/api/notify', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+    .then(function (r) { return r.json().catch(function () { return { ok: false, error: 'http_' + r.status }; }); })
+    .then(function (j) {
+      var one = function (n, x) { return x ? (n + (x.ok ? ' ✓' : ' ✗(' + (x.error === 'not_configured' ? '서버 미설정' : x.error) + ')')) : ''; };
+      if (j.error === 'bad_token') nstat('발송 토큰이 맞지 않습니다.', 'warn');
+      else if (j.error === 'no_token_configured') nstat('서버에 NOTIFY_TOKEN 이 설정되지 않았습니다.', 'warn');
+      else if (j.error === 'too_fast') nstat('잠시 후 다시 시도하세요 (연속 발송 제한).', 'warn');
+      else nstat([one('이메일', j.email), one('문자', j.sms)].filter(Boolean).join(' · ') || ('실패: ' + (j.error || '알 수 없음')), j.ok ? 'on' : 'warn');
+    })
+    .catch(function () { nstat('서버에 연결하지 못했습니다.', 'warn'); })
+    .then(function () { NBUSY = false; });
+}
+
 /* ---------- 시작 ---------- */
 (function init() {
-  try { APIKEY = localStorage.getItem('cbnu_key') || ''; OKEY = localStorage.getItem('cbnu_okey') || ''; } catch (e) {}
+  try { APIKEY = localStorage.getItem('cbnu_key') || ''; OKEY = localStorage.getItem('cbnu_okey') || ''; NTOKEN = localStorage.getItem('cbnu_ntok') || ''; } catch (e) {}
   var drop = $('#drop'), fi = $('#file');
   fi.addEventListener('change', function () { if (fi.files[0]) onFile(fi.files[0]); fi.value = ''; });
   ['dragenter', 'dragover'].forEach(function (t) { drop.addEventListener(t, function (e) { e.preventDefault(); drop.classList.add('over'); }); });
@@ -421,6 +481,6 @@ function renderGloss() { var b = $('#glossBody'); if (!b) return; var q = ($('#g
   ['m_site', 'm_proc', 'm_by'].forEach(function (k) { $('#' + k).addEventListener('change', function () { applyMeta(); }); });
   $('#m_date').value = (function () { var d = new Date(); return d.getFullYear() + '. ' + (d.getMonth() + 1) + '. ' + d.getDate() + '.'; })();
   document.body.classList.add('nodoc');
-  applyUI(); initFrames(); probe();
+  applyUI(); initFrames(); probe(); notifyProbe();
   window.addEventListener('resize', fitMain); fitMain();
 })();
