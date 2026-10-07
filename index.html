@@ -28,6 +28,18 @@
  </nav>
 </header>
 <div id="ntoast" role="status"></div>
+<dialog id="ndlg">
+ <form method="dialog" novalidate onsubmit="event.preventDefault();notifyGo()">
+  <h3 id="ndHd"></h3>
+  <label id="ndLab" for="ndTo"></label><input id="ndTo" autocomplete="off" spellcheck="false">
+  <div class="ndt"><b>제목</b><span id="ndTitle"></span></div>
+  <div class="hint" id="ndNote"></div>
+  <div id="ndTokRow"><label for="ndTok">발송 토큰</label><input type="password" id="ndTok" autocomplete="off" spellcheck="false" placeholder="이 브라우저에만 저장됩니다"></div>
+  <div class="nderr" id="ndErr" role="alert"></div>
+  <div class="ndb"><button type="button" class="sm" onclick="ndClose()">취소</button><button type="submit" class="sm pri" id="ndGo">발송</button></div>
+ </form>
+</dialog>
+
 <div id="wrap">
 <aside id="side">
  <section class="step"><h3 class="bi" data-ui="s1"></h3>
@@ -80,7 +92,7 @@
   <div class="keystat" id="keyStat"></div>
  </section>
  <section class="step"><h3>⑨ 발송 설정 (메일·문자)</h3>
-  <div class="hint">상단 바의 <b>✉️ 메일 발송</b> · <b>💬 문자 발송</b> 버튼이 <b>‘[경고] 현장사진 위험성평가표 — 현장명 (위험 N건 · 높음 M)’</b>을 내 메일(분석 sheet 첨부)·휴대폰(문자)으로 보냅니다. 받는 곳은 서버에 정해져 있습니다.</div>
+  <div class="hint">상단 바의 <b>✉️ 메일 발송</b> · <b>💬 문자 발송</b> 버튼을 누르면 받는 이메일 주소·휴대폰 번호를 입력하는 창이 뜨고, 버튼이 <b>‘[경고] 현장사진 위험성평가표 — 현장명 (위험 N건 · 높음 M)’</b>을 메일(분석 sheet 첨부)·문자로 보냅니다.</div>
   <div class="keyrow"><input type="password" id="nTok" autocomplete="off" spellcheck="false" placeholder="발송 토큰 (이 브라우저에만 저장)"><button class="sm" onclick="ntokSave()">저장</button><button class="sm" onclick="ntokClear()">삭제</button></div>
   <div class="keystat" id="nStat"></div><div class="hint" id="nCfg"></div>
  </section>
