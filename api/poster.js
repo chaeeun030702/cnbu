@@ -4,7 +4,7 @@
 //  입력  POST { prompt, photo: "data:image/jpeg;base64,…", mode: 'full'|'card', key? }
 //        prompt = 홈페이지(Claude 판독 결과 → 포스터 문구)가 만든 이미지 지시문
 //        photo  = 현장사진(1024px 이하로 줄인 것)
-//        key    = 화면 ⑦에서 사용자가 브라우저에 저장한 OpenAI API 키(선택). 없으면 서버 환경변수 OPENAI_API_KEY.
+//        key    = 화면 왼쪽 입력칸 ⑨에서 사용자가 브라우저에 저장한 OpenAI API 키(선택). 없으면 서버 환경변수 OPENAI_API_KEY.
 //  출력  { ok, model, image: "data:image/png;base64,…" }  |  { ok:false, error }
 //
 //  mode 'full' : 샘플 포스터 레이아웃(api/_ref/layout.jpg — 기관 로고를 지운 사본)과 현장사진을 함께 보내

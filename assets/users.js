@@ -165,7 +165,7 @@ function watchSend(c, d, hhmm) {
   var canMail = mails.length && (gm || (NTOKEN && MAIL_SRV)), canSms = tels.length && solValid();
   if (!canMail && !canSms) {
     var miss = !mails.length && !tels.length ? '알림을 받을 사용자가 없습니다. 👤 사용자 등록에서 ‘알림’을 켜세요.'
-      : '보낼 설정이 없습니다 — 왼쪽 ⑨ 발송 설정에 ' + (mails.length ? 'Gmail 계정' : '') + (mails.length && tels.length ? ' 또는 ' : '') + (tels.length ? 'Solapi 키' : '') + '를 저장하세요.';
+      : '보낼 설정이 없습니다 — 왼쪽 ⑩ 발송 설정에 ' + (mails.length ? 'Gmail 계정' : '') + (mails.length && tels.length ? ' 또는 ' : '') + (tels.length ? 'Solapi 키' : '') + '를 저장하세요.';
     watchNote('⚠️ 위험성 ' + WATCH_MIN + ' 이상 ' + c.hit + '건 — ' + miss, 'warn'); return;
   }
   var sheet = ''; if (canMail) { try { sheet = w.sheetHtml(); } catch (e) { watchNote('✗ 분석 sheet를 만들지 못했습니다.', 'warn'); return; } }
