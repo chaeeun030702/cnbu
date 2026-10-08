@@ -46,9 +46,19 @@ function systemPrompt(lang) {
     '[일반작업 표지 G01~G20]',
     kbText('gen'),
     '',
+    '[보호구 점검 — 표지를 고르기 전에 반드시 먼저 한다]',
+    '사진 속 작업자마다 머리·손·발·몸을 따로 확인한다. 먼저 본 인상이나 지식베이스 단서 문장의 예시에 끌려 "착용했다"고 가정하지 않는다.',
+    ' - head: "insulating_helmet"(전기용 절연모·안전모) | "hard_hat"(일반 안전모) | "none"(맨머리·일반 모자·두건) | "unclear"',
+    ' - hands: "insulating_gloves" | "work_gloves"(면·코팅장갑) | "bare"(맨손) | "unclear"',
+    ' - feet: "insulating_boots" | "safety_shoes" | "other"(일반 신발·장화) | "unclear"',
+    ' - body: "hi_vis" | "harness" | "none" | "unclear" (여러 개면 쉼표로)',
+    '그림·일러스트·만화도 실제 사진처럼 같은 기준으로 본다. 머리카락이 그대로 보이면 head 는 "none" 이다.',
+    '전기 작업에서 head 가 insulating_helmet 이 아니거나, hands 가 insulating_gloves 가 아니거나, feet 이 insulating_boots 가 아니면 U05 를 고르고,',
+    'evidence 에 빠진 보호구를 모두 적는다(예: "절연모 없이 맨머리, 맨손, 일반 장화"). head 가 none 이면 G16(안전모 미착용)도 고른다.',
+    '',
     '출력 규칙',
     '1. JSON 하나만 출력한다. 코드펜스·설명문을 붙이지 않는다.',
-    '2. 형식: {"domain":"elec"|"gen","scene":[ko' + (foreign ? ',' + 'foreign' : '') + '],',
+    '2. 형식: {"domain":"elec"|"gen","scene":[ko' + (foreign ? ',' + 'foreign' : '') + '],"ppe":[{"head":"none","hands":"bare","feet":"other","body":"none","x":50,"y":40}],',
     '   "hits":[{"id":"G01","x":46,"y":26,"conf":0.9,"evidence":[ko' + (foreign ? ',foreign' : '') + ']}],',
     '   "extra":[[ko' + (foreign ? ',foreign' : '') + ']]}',
     '3. x,y 는 해당 위험이 보이는 위치의 사진 좌표(%): 왼쪽 위 0,0 — 오른쪽 아래 100,100.',
@@ -136,7 +146,7 @@ module.exports = async function handler(req, res) {
     // Sonnet 5.5 는 temperature 등 샘플링 값을 기본값 외로 주면 400 을 돌려준다 → 보내지 않는다.
     // thinking 은 끌 수 없으므로 effort 를 낮춰 지연을 줄이고, 생각 토큰까지 감안해 max_tokens 를 넉넉히 둔다.
     max_tokens: 8000,
-    output_config: { effort: 'low' },
+    output_config: { effort: 'medium' },
     system: systemPrompt(lang),
     messages: [{ role: 'user', content: [
       { type: 'image', source: { type: 'base64', media_type: img.mime, data: img.b64 } },
@@ -178,11 +188,28 @@ module.exports = async function handler(req, res) {
     var extra = (Array.isArray(out.extra) ? out.extra : []).slice(0, 3).map(function (e) {
       return (Array.isArray(e) ? e : [String(e)]).slice(0, 2).map(String); });
     var domain = out.domain === 'gen' || out.domain === 'elec' ? out.domain : null;
+    // 보호구 점검 결과로 빠진 표지를 보완한다 (모델이 표지 선택에서 놓친 경우)
+    var ppe = (Array.isArray(out.ppe) ? out.ppe : []).slice(0, 8);
+    var KO = { head: { none: '맨머리(절연모·안전모 없음)', hard_hat: '일반 안전모(절연모 아님)' }, hands: { bare: '맨손', work_gloves: '일반 장갑(절연장갑 아님)' }, feet: { other: '일반 신발(절연화 아님)', safety_shoes: '안전화(절연화 아님)' } };
+    var has = function (id) { return hits.some(function (h) { return h.id === id; }); };
+    var isElec = (domain || 'elec') === 'elec' || hits.some(function (h) { return h.id.charAt(0) === 'U'; });
+    ppe.forEach(function (p) {
+      if (!p) return; var miss = [];
+      ['head', 'hands', 'feet'].forEach(function (k) { var v = String(p[k] || ''); if (KO[k][v]) miss.push(KO[k][v]); });
+      var px = Math.round(clamp(p.x, 3, 97)), py = Math.round(clamp(p.y, 3, 97));
+      if (isElec && miss.length) {
+        var ev = '보호구 점검: ' + miss.join(', ');
+        var h5 = hits.filter(function (h) { return h.id === 'U05'; })[0];
+        if (h5) { if (!/절연모|맨머리|안전모/.test(h5.evidence[0]) && /맨머리|안전모/.test(ev)) h5.evidence[0] = h5.evidence[0] + ' / ' + ev; }
+        else hits.push({ id: 'U05', x: px, y: py, conf: 0.8, evidence: [ev] });
+      }
+      if (String(p.head) === 'none' && !has('G16')) hits.push({ id: 'G16', x: px, y: Math.max(3, py - 8), conf: 0.75, evidence: ['보호구 점검: 안전모 미착용(맨머리)'] });
+    });
     if (!domain && hits.length) {
       var ng = hits.filter(function (h) { return h.id.charAt(0) === 'G'; }).length;
       domain = ng > hits.length - ng ? 'gen' : 'elec';
     }
-    return res.status(200).json({ ok: true, model: MODEL, lang: lang, domain: domain, hits: hits, scene: scene, extra: extra,
+    return res.status(200).json({ ok: true, model: MODEL, lang: lang, domain: domain, hits: hits, scene: scene, extra: extra, ppe: ppe,
       keyFrom: keyFrom, usage: data.usage });
   } catch (e) {
     clearTimeout(timer);
