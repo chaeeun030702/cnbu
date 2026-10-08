@@ -223,10 +223,18 @@ function loadSample(n) {
   w.S = S; H.photo = s.photo;
   var im = new Image(); im.onload = function () { H.pw = im.naturalWidth; H.ph = im.naturalHeight; }; im.src = s.photo;
   $('#thumb').innerHTML = '<img src="' + s.photo + '" alt="">'; $('#drop').classList.add('has');
-  status(n === 'e2' ? '⚡ 표본 1 — 사진_현장 사진 sample_전기 2 (3단계 판독 결과 10건). 새 사진을 올리면 바뀝니다.' : '🏗️ 표본 2 — 현장 사진 sample_일반 1 (3단계 판독 결과 7건). 새 사진을 올리면 바뀝니다.', 'info');
+  status(n === 'e2' ? '⚡ 표본 2 — 사진_현장 사진 sample_전기 2 (3단계 판독 결과 10건). 새 사진을 올리면 바뀝니다.' : '🏗️ 표본 2 — 현장 사진 sample_일반 1 (3단계 판독 결과 7건). 새 사진을 올리면 바뀝니다.', 'info');
   w.hostPhoto(n === 'e2' ? H.orig.photo : s.photo, function () { applyMeta(true); w.setLang(LANG); });
   if (s.poster) { var gf = $('#gptFull'); gf.style.display = 'block'; gf.querySelector('img').src = s.poster;
     gf.querySelector('b').textContent = '실사판 포스터 — Claude가 ChatGPT에서 샘플 포스터 양식을 참조해 생성 (표본 ' + (n === 'e2' ? '1' : '2') + ', 오른쪽 위 충북대학교 심볼 합성)'; }
+}
+/* 표본 사진(폴더의 '사진_' 파일) — 사진을 올린 것과 같은 흐름으로 AI 판독부터 다시 한다 */
+function photoSample(url, name) {
+  $$('.ddm').forEach(function (m) { m.classList.remove('open'); });
+  status('🖼️ 표본 사진 불러오는 중 — ' + name, 'info');
+  fetch(url).then(function (r) { if (!r.ok) throw 0; return r.blob(); })
+    .then(function (b) { onFile(new File([b], name, { type: b.type || 'image/jpeg' })); })
+    .catch(function () { status('표본 사진을 불러오지 못했습니다: ' + name, 'warn'); });
 }
 function resetAll() {
   H.nohaz = false;
