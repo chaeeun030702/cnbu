@@ -452,12 +452,15 @@ function mkPrompt() {
   var items = H.rows.filter(function (r) { return KBI[r.id]; }).sort(function (a, b) { return b.v - a.v; }).slice(0, 4).map(function (r) { return KBI[r.id].tag[1]; });
   var p;
   if ($('#gmode').value === 'card') {
-    p = 'Create ONE photorealistic image, landscape 4:3, that looks like a real documentary photo taken at a Korean construction site.\n'
-      + 'It is the GOOD-PRACTICE card of a multilingual safety poster.\n'
+    p = 'Create ONE photorealistic image, landscape 3:2, that looks like a real documentary photo taken at a Korean construction site, for a realistic safety poster.\n'
+      + 'It is the GOOD-PRACTICE photo of a multilingual safety poster.\n'
       + 'Scene: ' + enOf('good_t') + ' — ' + enOf('good_c') + '\n'
       + 'Setting: similar to the attached site photo, but every hazard below is CONTROLLED and the work is done safely:\n- ' + items.join('\n- ') + '\n'
+      + 'CAMERA: WIDE-ANGLE establishing shot (about 24 mm), camera set back 15-20 m and slightly elevated. The workers and the task occupy only about the central third of the frame; '
+      + 'the rest shows a WIDE, deep background of the surrounding construction site — excavation and earthworks, rebar and formwork, temporary fences with safety signage panels (no readable text), '
+      + 'scaffolding, tower crane or excavator, stacked materials, site roads, distant buildings and sky — so the whole working environment is clearly visible. Do NOT crop tightly on people or hands.\n'
       + 'Workers wear white hard hats with chin straps fastened, hi-vis vests and the right PPE for the task. Faces must not be identifiable (side or back view).\n'
-      + 'Natural daylight, sharp, print quality. No readable text, no letters, no logos, no watermark, no blood.';
+      + 'Natural daylight, sharp focus throughout (deep depth of field), true colors, print quality. No readable text, no letters, no logos, no watermark, no blood.';
   } else {
     p = 'Create a realistic, print-quality Korean construction SAFETY POSTER image, portrait A3 ratio (1:1.414). Real photographs, clean layout, bold Korean typography. Render ALL Korean text exactly as written. Do NOT draw any logo; leave an EMPTY navy square at top-right for a university logo.\n'
       + '1) Navy header: yellow warning triangle + "안전제일", slogan "' + (g.c_slogan || '') + '".\n'
