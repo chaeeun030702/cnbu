@@ -164,3 +164,6 @@ body.out-ra #secPTW,body.out-ra #secPST,body.out-ptw #secRA,body.out-ptw #secPST
 .nderr{min-height:18px;margin-top:8px;font-size:12.5px;color:#B03A2E}
 .ndb{display:flex;justify-content:flex-end;gap:8px}.ndb button.sm{margin-top:0;padding:6px 16px}
 .art .no-art{display:none!important}
+#ndlg form{max-height:calc(100vh - 28px);overflow-y:auto}
+#ndSolRow{display:none}
+#ndSolRow button.sm{margin-top:8px}
