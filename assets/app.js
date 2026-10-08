@@ -386,7 +386,7 @@ function syncPoster() {
     var d = new Date(), ymd = d.getFullYear() + ('0' + (d.getMonth() + 1)).slice(-2) + ('0' + d.getDate()).slice(-2);
     f.hostPST({ texts: pd.texts, icons: pd.icons, nd: pd.nd, nm: pd.nm, theme: pd.theme, photo: H.photo || (H.orig && H.orig.photo), pw: H.pw, ph: H.ph, marks: marks, fname: H.fname, gpt: H.gpt, lang: LANG,
       code: '2026-CBNU-포스터-' + (k === 'c49' ? '전기' : '일반') + '-' + ymd,
-      src: '사진: 왼쪽 실제 현장사진(' + (H.fname || '업로드') + ') · 오른쪽 ChatGPT 이미지 생성(상황 재현) · 항목 사진: 위험은 현장사진의 표시 위치, 지킬 사항은 ChatGPT 실사 이미지에서 해당 부분 · 통계: CSI 건설사고 사례 재집계, 1단계 분석보고서 · 외국어 병기는 「안전보건용어 400선」 표준 대역어를 우선 적용했고, 400선 외 용어는 연구자가 번역했다. 현장 적용 전 관리감독자가 확인한다.' });
+      src: '사진: 왼쪽 실제 현장사진(' + (H.fname || '업로드') + ') · 오른쪽 ChatGPT 이미지 생성(상황 재현) · 항목 그림: Claude 자동 생성(평면 일러스트) · 통계: CSI 건설사고 사례 재집계, 1단계 분석보고서 · 외국어 병기는 「안전보건용어 400선」 표준 대역어를 우선 적용했고, 400선 외 용어는 연구자가 번역했다. 현장 적용 전 관리감독자가 확인한다.' });
     rowImgs(f, pd, w.S.mk, sig);
   }
   setTimeout(function () { fitFrame('pstBox'); fitMain(); mkPrompt(); }, 350);
