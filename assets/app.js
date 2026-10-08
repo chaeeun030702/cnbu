@@ -424,10 +424,17 @@ function onGpt(inp) { var f = inp.files[0]; if (!f) return; var r = new FileRead
   r.readAsDataURL(f); inp.value = ''; }
 
 /* ---------- 실사 포스터 자동 생성 (서버 /api/poster → OpenAI 이미지 API) ---------- */
-var OKEY = '';
-function okeySave() { var v = ($('#oKey').value || '').trim(); if (!/^sk-[\w-]{20,}$/.test(v)) { $('#gmsg').textContent = 'sk- 로 시작하는 OpenAI API 키를 넣으세요.'; return; }
-  OKEY = v; try { localStorage.setItem('cbnu_okey', v); } catch (e) {} $('#oKey').value = ''; $('#gmsg').textContent = '✓ OpenAI 키를 이 브라우저에만 저장했습니다 (…' + v.slice(-4) + ').'; }
-function okeyClear() { OKEY = ''; try { localStorage.removeItem('cbnu_okey'); } catch (e) {} $('#gmsg').textContent = 'OpenAI 키를 지웠습니다.'; }
+var OKEY = '', SERVEROKEY = null;
+function renderOKey() { var t, c;
+  if (OKEY) { t = '이 브라우저에 저장된 키 사용 중 (…' + OKEY.slice(-4) + ')'; c = 'keystat on'; }
+  else if (SERVEROKEY) { t = '입력한 키 없음 — 서버 키로 실사 포스터 생성'; c = 'keystat on'; }
+  else if (SERVEROKEY === false) { t = '서버에도 키가 없습니다 — 수동(복사 + ChatGPT 열기)으로 만들 수 있습니다'; c = 'keystat warn'; }
+  else { t = '키 상태 확인 중…'; c = 'keystat'; }
+  [$('#oKeyStat'), $('#oKeyStat2')].forEach(function (e) { if (e) { e.textContent = (e.id === 'oKeyStat2' ? '왼쪽 ⑨ — ' : '') + t; e.className = c; } }); }
+function oprobe() { fetch('api/poster').then(function (r) { return r.json(); }).then(function (j) { SERVEROKEY = !!(j && j.hasKey); renderOKey(); }).catch(function () { SERVEROKEY = false; renderOKey(); }); }
+function okeySave() { var v = ($('#oKey').value || '').trim(); if (!v) return; if (!/^sk-[\w-]{20,}$/.test(v)) { var e = $('#oKeyStat'); e.textContent = 'sk- 로 시작하는 OpenAI API 키를 넣으세요'; e.className = 'keystat warn'; return; }
+  OKEY = v; try { localStorage.setItem('cbnu_okey', v); } catch (e) {} $('#oKey').value = ''; renderOKey(); }
+function okeyClear() { OKEY = ''; try { localStorage.removeItem('cbnu_okey'); } catch (e) {} renderOKey(); }
 function shrink(src, max, cb) { var im = new Image(); im.onload = function () { var k = Math.min(1, max / Math.max(im.naturalWidth, im.naturalHeight));
     var c = document.createElement('canvas'); c.width = Math.round(im.naturalWidth * k); c.height = Math.round(im.naturalHeight * k);
     c.getContext('2d').drawImage(im, 0, 0, c.width, c.height); cb(c.toDataURL('image/jpeg', 0.85)); }; im.onerror = function () { cb(null); }; im.src = src; }
@@ -446,7 +453,7 @@ function gptAuto() {
     if (!small) return end('현장사진을 읽지 못했습니다.');
     fetch('api/poster', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt: $('#gprompt').value, photo: small, mode: mode, key: OKEY || undefined }) })
       .then(function (r) { return r.json(); }).then(function (j) {
-        if (!j || !j.ok) { var e = j && j.error; return end(e === 'no_key' ? '서버와 브라우저에 OpenAI 키가 없습니다. 아래 칸에 키를 저장하거나 Vercel 환경변수 OPENAI_API_KEY를 설정하세요. (수동: ‘복사 + ChatGPT 열기’)' : e === 'bad_key' ? 'OpenAI 키가 거부되었습니다.' : '생성 실패: ' + (e || '알 수 없음') + (j && j.detail ? ' — ' + j.detail : '')); }
+        if (!j || !j.ok) { var e = j && j.error; return end(e === 'no_key' ? '서버와 브라우저에 OpenAI 키가 없습니다. 왼쪽 입력칸 ⑨에 키를 저장하거나 Vercel 환경변수 OPENAI_API_KEY를 설정하세요. (수동: ‘복사 + ChatGPT 열기’)' : e === 'bad_key' ? 'OpenAI 키가 거부되었습니다.' : '생성 실패: ' + (e || '알 수 없음') + (j && j.detail ? ' — ' + j.detail : '')); }
         if (mode === 'card') { H.gpt = j.image; H.sig.pst = ''; syncPoster(); end('✓ 실사 카드 사진을 포스터 오른쪽에 넣었습니다 (' + Math.round((Date.now() - t0) / 1000) + '초, ' + j.model + ').'); }
         else withLogo(j.image, function (img) { var gf = $('#gptFull'); gf.style.display = 'block'; gf.querySelector('img').src = img;
           gf.querySelector('b').textContent = '실사판 포스터 — 자동 생성 (' + j.model + ', 오른쪽 위 충북대학교 심볼 합성)'; end('✓ 실사판 포스터를 아래에 표시했습니다. 이미지를 길게 눌러 저장할 수 있습니다.'); });
@@ -696,8 +703,8 @@ function solClear() {
   try { ['cbnu_sol_key', 'cbnu_sol_secret', 'cbnu_sol_from'].forEach(function (k) { localStorage.removeItem(k); }); } catch (e) {}
   solRender(); nstat('저장된 Solapi 키를 지웠습니다.');
 }
-function solNeed() { // 키가 없으면 ⑨ 로 안내한다
-  nstat('먼저 왼쪽 ⑨ 발송 설정에 Solapi API Key·Secret·발신번호를 저장하세요.', 'warn');
+function solNeed() { // 키가 없으면 ⑩ 으로 안내한다
+  nstat('먼저 왼쪽 ⑩ 발송 설정에 Solapi API Key·Secret·발신번호를 저장하세요.', 'warn');
   var k = $('#solKey'); if (k) { k.scrollIntoView({ behavior: 'smooth', block: 'center' }); k.focus(); }
 }
 function nLoad(k) { try { return localStorage.getItem(k) || ''; } catch (e) { return ''; } }
@@ -738,7 +745,7 @@ function notifySend(channel) {
     });
     return;
   }
-  if (!CMCP && channel === 'email' && !MAIL_SRV && !gmValid()) { nstat('이 사이트에서는 메일을 보낼 수 없습니다. 왼쪽 ⑨ 발송 설정에 Gmail 계정을 저장하거나, Claude 아티팩트 버전(Gmail 커넥터)에서 발송하세요.', 'warn'); var cf = $('#nCfg'); if (cf) cf.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+  if (!CMCP && channel === 'email' && !MAIL_SRV && !gmValid()) { nstat('이 사이트에서는 메일을 보낼 수 없습니다. 왼쪽 ⑩ 발송 설정에 Gmail 계정을 저장하거나, Claude 아티팩트 버전(Gmail 커넥터)에서 발송하세요.', 'warn'); var cf = $('#nCfg'); if (cf) cf.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
   if (!CMCP && channel === 'sms') { solLoad(); if (!solValid()) { solNeed(); return; } }
   if (CMCP && channel !== 'email') { nstat('문자 발송은 Vercel 사이트(e-safety.vercel.app)에서만 됩니다.', 'warn'); return; }
   var mail = channel === 'email'; NCH = channel;
@@ -812,7 +819,7 @@ function notifyGo() {
   ['m_site', 'm_proc', 'm_by'].forEach(function (k) { $('#' + k).addEventListener('change', function () { applyMeta(); }); });
   $('#m_date').value = (function () { var d = new Date(); return d.getFullYear() + '. ' + (d.getMonth() + 1) + '. ' + d.getDate() + '.'; })();
   document.body.classList.add('nodoc');
-  applyUI(); initFrames(); probe(); notifyProbe(); connInit(); solRender();
+  applyUI(); initFrames(); probe(); renderOKey(); oprobe(); notifyProbe(); connInit(); solRender();
   try { if (localStorage.getItem('cbnu_sidehide') === '1') sideToggle(true); } catch (e) {}
   window.addEventListener('resize', fitMain); fitMain(); bindZoom(document); $('#main').addEventListener('dblclick', function (e) { if (e.target === this || e.target.id === 'docsBox') zoomFit(); });
   if (window.ResizeObserver) new ResizeObserver(fitMain).observe($('#docs')); // 문서 높이가 바뀌면 스크롤 범위를 맞춘다
