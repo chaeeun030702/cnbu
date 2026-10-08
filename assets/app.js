@@ -455,7 +455,94 @@ function edAll() { EDIT = !EDIT; var w = RAW(); if (w && !!w.ed !== EDIT) w.tgl(
   var b = $('#eb'); b.classList.toggle('act', EDIT); b.textContent = EDIT ? '✓ 편집 중' : '✏️ 편집 모드'; }
 function frameOf(k) { return k === 'ra' ? 'raBox' : (k === 'pst' ? 'pstBox' : ptwKind() + 'Box'); }
 function printDoc(k) { $$('.ddm').forEach(function (m) { m.classList.remove('open'); }); var x = W(frameOf(k)); try { x.focus(); x.print(); } catch (e) {} }
-function saveDoc(k) { $$('.ddm').forEach(function (m) { m.classList.remove('open'); }); var x = W(frameOf(k)); try { if (k === 'ra') x.saveHtml(); else x.hostSave(); } catch (e) {} }
+/* ---------- 위험성평가표 → Excel(.xlsx) ----------
+   화면의 위험성평가표(위험분석·평가표 문서 안 table.ra)를 읽어 한 시트로 만든다 — 문서에서 고친 값(편집 모드, 빈도·강도 선택)이 그대로 들어간다.
+   인쇄 설정: A4 가로, 여백 위 2.0cm · 왼쪽 1.5cm · 오른쪽 1.0cm · 아래 1.0cm, 폭 1쪽에 맞춤, 머리글 두 줄 반복, 아래 가운데 쪽 번호.
+   ExcelJS(약 0.9MB)는 처음 쓸 때만 내려받는다. */
+var XLSX_P = null;
+function loadExcelJS() {
+  if (window.ExcelJS) return Promise.resolve(window.ExcelJS);
+  if (!XLSX_P) XLSX_P = new Promise(function (ok, no) {
+    var s = document.createElement('script'); s.src = 'assets/vendor/exceljs.min.js';
+    s.onload = function () { window.ExcelJS ? ok(window.ExcelJS) : (XLSX_P = null, no(new Error('exceljs'))); };
+    s.onerror = function () { XLSX_P = null; no(new Error('load')); };
+    document.head.appendChild(s);
+  });
+  return XLSX_P;
+}
+function xcell(td) { // 칸 안의 한국어와 병기 번역을 줄바꿈으로 이어 붙인다
+  if (!td) return ''; var out = [];
+  Array.prototype.forEach.call(td.querySelectorAll('.ed'), function (ed) {
+    var ko = (ed.textContent || '').trim(); if (ko) out.push(ko);
+    var n = ed.nextElementSibling, tr = n ? (n.textContent || '').trim() : ''; if (tr) out.push(tr);
+  });
+  return out.length ? out.join('\n') : (td.textContent || '').trim();
+}
+function xlen(str) { var n = 0; for (var i = 0; i < str.length; i++) n += str.charCodeAt(i) > 255 ? 2 : 1; return n; }
+function xlines(text, widthChars) { // 글꼴 9~10pt 기준: 열 너비(글자 수) 1칸에 한글 0.6자 안팎이 들어간다고 보고 줄 수를 넉넉히 센다
+  var cap = Math.max(4, widthChars * 1.15), n = 0; String(text).split('\n').forEach(function (ln) { n += Math.max(1, Math.ceil(xlen(ln) / cap)); }); return n;
+}
+function saveXlsx() {
+  var w = RAW(), doc = w && w.document, trs = doc ? Array.prototype.slice.call(doc.querySelectorAll('table.ra tbody tr[data-id]')) : [];
+  if (!trs.length) { nstat('먼저 사진을 올리고 문서를 생성하세요 (위험성평가표에 항목이 없습니다).', 'warn'); return; }
+  nstat('Excel 파일 만드는 중…');
+  var meta = doc.querySelector('table.meta'), mv = meta ? Array.prototype.map.call(meta.querySelectorAll('td'), xcell) : [];
+  loadExcelJS().then(function (ExcelJS) {
+    var cm = function (x) { return x / 2.54; };
+    var wb = new ExcelJS.Workbook(); wb.creator = 'e-safety'; wb.created = new Date();
+    var ws = wb.addWorksheet('위험성평가표');
+    var W = [5, 15, 11, 19, 36, 22, 26, 7, 7, 11, 40, 11, 11, 10]; // 열 너비(글자 수)
+    W.forEach(function (x, i) { ws.getColumn(i + 1).width = x; });
+    var thin = { style: 'thin', color: { argb: 'FF8C98A8' } }, bd = { top: thin, left: thin, bottom: thin, right: thin };
+    var FONT = '맑은 고딕';
+    // 제목
+    ws.mergeCells('A1:N1'); var t = ws.getCell('A1'); t.value = '현장사진 위험성평가표'; t.font = { name: FONT, size: 18, bold: true, color: { argb: 'FF002A5C' } }; t.alignment = { horizontal: 'center', vertical: 'middle' }; ws.getRow(1).height = 32;
+    // 현장 정보 (현장명·평가일 / 사진·공종 / 평가팀·보정 / 평가 근거)
+    var M = [['현장명', mv[0] || '', '평가일', mv[1] || ''], ['판독 사진', mv[2] || '', '공종·작업', mv[3] || ''], ['평가팀', mv[4] || '', '가능성 보정', mv[5] || ''], ['평가 근거', mv[6] || '', null, null]];
+    M.forEach(function (r, i) {
+      var n = 2 + i, sw = function (a, b) { var t = 0; for (var q = a; q <= b; q++) t += W[q]; return t; };
+      ws.getRow(n).height = Math.min(120, Math.max(20, 13 * Math.max(xlines(r[1], r[2] == null ? sw(2, 13) : sw(2, 6)), r[2] == null ? 1 : xlines(r[3], sw(10, 13))) + 6));
+      ws.mergeCells('A' + n + ':B' + n); ws.getCell('A' + n).value = r[0];
+      if (r[2] == null) { ws.mergeCells('C' + n + ':N' + n); ws.getCell('C' + n).value = r[1]; }
+      else { ws.mergeCells('C' + n + ':G' + n); ws.getCell('C' + n).value = r[1]; ws.mergeCells('H' + n + ':J' + n); ws.getCell('H' + n).value = r[2]; ws.mergeCells('K' + n + ':N' + n); ws.getCell('K' + n).value = r[3]; }
+      ['A', 'C', 'H', 'K'].forEach(function (c) { var cell = ws.getCell(c + n); if (cell.value == null || (c === 'H' && r[2] == null) || (c === 'K' && r[2] == null)) return;
+        var lab = c === 'A' || c === 'H'; cell.font = { name: FONT, size: 10, bold: lab }; cell.alignment = { vertical: 'middle', horizontal: lab ? 'center' : 'left', wrapText: true };
+        if (lab) cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFEEF3FA' } }; });
+      for (var c = 1; c <= 14; c++) ws.getCell(n, c).border = bd;
+    });
+    ws.getRow(6).height = 8;
+    // 머리글 (2단)
+    var HD = [[7, 'A', 'A', '순번'], [7, 'B', 'B', '작업내용'], [7, 'C', 'E', '유해·위험요인 파악'], [7, 'F', 'F', '관련근거(법적기준)'], [7, 'G', 'G', '현재상태'], [7, 'H', 'J', '현재 위험성'], [7, 'K', 'K', '위험성 감소대책'], [7, 'L', 'L', '개선일'], [7, 'M', 'M', '완료일'], [7, 'N', 'N', '담당자']];
+    HD.forEach(function (h) { if (h[1] !== h[2]) ws.mergeCells(h[1] + '7:' + h[2] + '7'); else ws.mergeCells(h[1] + '7:' + h[1] + '8'); ws.getCell(h[1] + '7').value = h[3]; });
+    [['C', '분류'], ['D', '원인/유해요인'], ['E', '위험요인 상세'], ['H', '빈도'], ['I', '강도'], ['J', '위험']].forEach(function (h) { ws.getCell(h[0] + '8').value = h[1]; });
+    for (var r = 7; r <= 8; r++) { ws.getRow(r).height = 22; for (var c = 1; c <= 14; c++) { var hc = ws.getCell(r, c); hc.font = { name: FONT, size: 10, bold: true, color: { argb: 'FFFFFFFF' } }; hc.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF002A5C' } }; hc.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true }; hc.border = bd; } }
+    // 항목
+    var RK = function (v) { return v >= 9 ? 'FFB03A2E' : (v >= 6 ? 'FFE67E22' : (v >= 3 ? 'FFE1A100' : 'FF2E8B57')); };
+    trs.forEach(function (tr, i) {
+      var td = tr.children, v = +(td[9] && td[9].getAttribute('data-r')) || 0, lv = td[9] && td[9].querySelector('.rl') ? td[9].querySelector('.rl').textContent.trim() : '';
+      var sv = function (c) { var s = c && c.querySelector('select'); return s && s.selectedOptions && s.selectedOptions[0] ? s.selectedOptions[0].textContent.trim() : (c ? c.textContent.trim() : ''); };
+      var cb = td[7] && td[7].querySelector('.cb') ? ' ' + td[7].querySelector('.cb').textContent.trim() : '';
+      var vals = [+(td[0].textContent.trim()) || i + 1, xcell(td[1]), xcell(td[2]), xcell(td[3]), xcell(td[4]), xcell(td[5]), xcell(td[6]), sv(td[7]) + cb, sv(td[8]), v, xcell(td[10]), xcell(td[11]), (td[12] ? td[12].textContent.trim() : ''), xcell(td[13])];
+      var row = ws.addRow(vals), lines = 1;
+      vals.forEach(function (x, c) { var cell = row.getCell(c + 1); cell.border = bd; cell.font = { name: FONT, size: 9 }; cell.alignment = { vertical: 'top', horizontal: (c === 0 || c >= 7 && c <= 9 || c >= 11) ? 'center' : 'left', wrapText: true };
+        lines = Math.max(lines, xlines(x, W[c])); });
+      var rk = row.getCell(10); rk.numFmt = '0" (' + lv + ')"'; rk.font = { name: FONT, size: 10, bold: true, color: { argb: 'FFFFFFFF' } }; rk.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: RK(v) } }; rk.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+      row.height = Math.min(409, Math.max(26, lines * 13 + 8));
+    });
+    // 인쇄 설정: A4 가로, 여백(위 2.0 · 왼쪽 1.5 · 오른쪽 1.0 · 아래 1.0 cm)
+    ws.pageSetup = { paperSize: 9, orientation: 'landscape', fitToPage: true, fitToWidth: 1, fitToHeight: 0, horizontalCentered: true, printTitlesRow: '7:8',
+      margins: { top: cm(2.0), left: cm(1.5), right: cm(1.0), bottom: cm(1.0), header: 0.2, footer: 0.2 } };
+    ws.headerFooter = { oddFooter: '&C&9&P / &N' };
+    return wb.xlsx.writeBuffer().then(function (buf) {
+      var site = (mv[0] || '').split('\n')[0].replace(/[\\/:*?"<>|\s]+/g, '_').replace(/^_+|_+$/g, '').slice(0, 30), d = new Date(), p2 = function (x) { return (x < 10 ? '0' : '') + x; };
+      var name = '위험성평가표' + (site ? '_' + site : '') + '_' + d.getFullYear() + p2(d.getMonth() + 1) + p2(d.getDate()) + '.xlsx';
+      var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([buf], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' })); a.download = name;
+      document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 800);
+      nstat('✓ Excel 저장: ' + name + ' (A4 가로 · ' + trs.length + '개 항목)', 'on');
+    });
+  }).catch(function (e) { nstat('✗ Excel을 만들지 못했습니다' + (e && e.message === 'load' ? ' (파일 로드 실패)' : '') + '.', 'warn'); });
+}
+function saveDoc(k) { $$('.ddm').forEach(function (m) { m.classList.remove('open'); }); if (k === 'xlsx') { saveXlsx(); return; } var x = W(frameOf(k)); try { if (k === 'ra') x.saveHtml(); else x.hostSave(); } catch (e) {} }
 
 /* ---------- 400선 ---------- */
 function renderGloss() { var b = $('#glossBody'); if (!b) return; var q = ($('#gq').value || '').trim(); var cols = ['zh', 'vi', 'uz'].indexOf(LANG) >= 0 ? [LANG] : ['zh', 'vi', 'uz'];
