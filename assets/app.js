@@ -99,6 +99,7 @@ function bindZoomFrames() { ['raBox', 'c49Box', 'genBox', 'pstBox'].forEach(func
 /* ---------- 위험분석 프레임 렌더 후 ---------- */
 window.onRA = function (rows) {
   H.rows = (rows || []).map(function (m) { return { id: m.id, no: m.no, v: m.v, cust: !!m.cust, grp: m.grp }; });
+  var none = !H.rows.length && !!H.nohaz; document.body.classList.toggle('nohaz', none); if (none) H.sig = {}; // 위험 요인이 없으면 2.사전작업허가서·3.안전포스터 시트는 만들지도 보이지도 않는다(다시 판독하면 새로 만든다)
   document.body.classList.toggle('nodoc', !H.rows.length && !H.nohaz); // 표지가 0건이어도 AI 판독을 마친 사진이면 '위험 요인 확인되지 않음' 문서를 보인다
   renderPanel(); setTimeout(function () { fitFrame('raBox'); fitMain(); }, 60); scheduleSync();
 };
