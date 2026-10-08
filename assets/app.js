@@ -819,7 +819,7 @@ function notifyGo() {
       .then(function () { NBUSY = false; });
     return;
   }
-  var body = { token: gm ? undefined : tok, gmail: gm || undefined, solapi: cred, channel: NCH, to: list, counts: cnt, link: location.origin + '/', site: { name: $('#m_site').value, proc: $('#m_proc').value, date: $('#m_date').value, by: $('#m_by').value } };
+  var body = { token: gm ? undefined : tok, gmail: gm || undefined, solapi: cred, channel: NCH, to: list, counts: cnt, link: SITE_URL, site: { name: $('#m_site').value, proc: $('#m_proc').value, date: $('#m_date').value, by: $('#m_by').value } };
   if (mail) { try { body.sheet = w.sheetHtml(); } catch (e) { err.textContent = '분석 sheet를 만들지 못했습니다.'; return; } }
   var title = ntitle(cnt), name = mail ? '메일' : '문자';
   try { localStorage.setItem(mail ? 'cbnu_nsel_email' : 'cbnu_nsel_sms', JSON.stringify(picked)); } catch (e) {}
