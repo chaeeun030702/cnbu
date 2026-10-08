@@ -460,15 +460,15 @@ function mkPrompt() {
   var items = H.rows.filter(function (r) { return KBI[r.id]; }).sort(function (a, b) { return b.v - a.v; }).slice(0, 4).map(function (r) { return KBI[r.id].tag[1]; });
   var p;
   if ($('#gmode').value === 'card') {
-    p = 'Create ONE photorealistic image, landscape 3:2, that looks like a real documentary photo taken at a Korean construction site, for a realistic safety poster.\n'
-      + 'It is the GOOD-PRACTICE photo of a multilingual safety poster.\n'
+    p = 'COMPOSITION FIRST: a WIDE-ANGLE establishing shot (about 20-24 mm lens) taken from 20-30 m away and slightly above, like a site-overview photo. '
+      + 'The workers are SMALL in the frame — each person no taller than about one quarter of the image height — standing in the middle ground. '
+      + 'At least two thirds of the image shows the surrounding construction site: excavation and earthworks, rebar and formwork, temporary fences, scaffolding on buildings, '
+      + 'a tower crane and an excavator, stacked materials, site roads, distant buildings and open sky. Do NOT frame tightly on people, hands or equipment; do NOT copy the close framing of the attached photo.\n'
+      + 'Create ONE photorealistic image, landscape 3:2, that looks like a real documentary photo of a Korean construction site, for a realistic safety poster (GOOD-PRACTICE photo).\n'
       + 'Scene: ' + enOf('good_t') + ' — ' + enOf('good_c') + '\n'
-      + 'Setting: similar to the attached site photo, but every hazard below is CONTROLLED and the work is done safely:\n- ' + items.join('\n- ') + '\n'
-      + 'CAMERA: WIDE-ANGLE establishing shot (about 24 mm), camera set back 15-20 m and slightly elevated. The workers and the task occupy only about the central third of the frame; '
-      + 'the rest shows a WIDE, deep background of the surrounding construction site — excavation and earthworks, rebar and formwork, temporary fences with safety signage panels (no readable text), '
-      + 'scaffolding, tower crane or excavator, stacked materials, site roads, distant buildings and sky — so the whole working environment is clearly visible. Do NOT crop tightly on people or hands.\n'
+      + 'Use the attached site photo only for the type of place and equipment. Every hazard below is CONTROLLED and the work is done safely:\n- ' + items.join('\n- ') + '\n'
       + 'Workers wear white hard hats with chin straps fastened, hi-vis vests and the right PPE for the task. Faces must not be identifiable (side or back view).\n'
-      + 'Natural daylight, sharp focus throughout (deep depth of field), true colors, print quality. No readable text, no letters, no logos, no watermark, no blood.';
+      + 'Natural daylight, deep depth of field (everything sharp), true colors, print quality. No readable text, no letters, no logos, no watermark, no blood.';
   } else {
     p = 'Create a realistic, print-quality Korean construction SAFETY POSTER image, portrait A3 ratio (1:1.414). Real photographs, clean layout, bold Korean typography. Render ALL Korean text exactly as written. Do NOT draw any logo; leave an EMPTY navy square at top-right for a university logo.\n'
       + '1) Navy header: yellow warning triangle + "안전제일", slogan "' + (g.c_slogan || '') + '".\n'
