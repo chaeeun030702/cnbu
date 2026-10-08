@@ -429,6 +429,7 @@ function ntokClear() { NTOKEN = ''; try { localStorage.removeItem('cbnu_ntok'); 
 /* ---------- Claude 아티팩트 버전: Gmail 커넥터로 메일 발송 ----------
    claude.ai 아티팩트로 열렸을 때만(window.claude.use('mcp')가 열릴 때) 켜진다. 서버(/api/notify)·발송 토큰 없이
    로그인한 본인의 Gmail 커넥터로 직접 보낸다. 문자·AI 사진 판독·저장·인쇄·카메라는 아티팩트에서 쓸 수 없어 숨긴다. */
+var SITE_URL = 'https://e-safety.vercel.app/';
 var CMCP = null;
 function connInit() {
   if (!(window.claude && typeof window.claude.use === 'function')) return;
@@ -443,6 +444,7 @@ function mailHtmlC(title, site, c) {
   var meta = [['현장명', site.name], ['공종·작업', site.proc], ['평가일', site.date], ['관리감독자', site.by]].filter(function (x) { return x[1]; })
     .map(function (x) { return '<b>' + x[0] + '</b> ' + esc(x[1]); }).join(' &nbsp;·&nbsp; ');
   return '<div style="font-family:\'Malgun Gothic\',Apple SD Gothic Neo,sans-serif;font-size:14px;color:#1c1c1c;max-width:640px">'
+    + '<p style="margin:0 0 12px"><a href="' + SITE_URL + '">' + SITE_URL + '</a></p>'
     + '<div style="background:#B03A2E;color:#fff;padding:12px 14px;border-radius:6px;font-size:17px;font-weight:800">' + esc(title) + '</div>'
     + '<p style="margin:12px 0 4px">위험 <b>' + c.total + '건</b> — <span style="color:#B03A2E"><b>높음 ' + c.high + '</b></span> · 보통 ' + c.mid + ' · 낮음 ' + c.low + '</p>'
     + (meta ? '<p style="margin:4px 0 10px;color:#334">' + meta + '</p>' : '')
@@ -451,7 +453,7 @@ function mailHtmlC(title, site, c) {
 }
 /* 분석 sheet(약 1MB)는 커넥터 입력 한도(1MiB)를 넘으므로 파일 인자($file)로 보낸다. 그 경로가 안 되면 gzip(.html.gz)으로 줄여 보낸다. */
 function connSend(list, title, cnt, site, sheet) {
-  var base = { to: list, subject: title, body: title + '\n\n첨부한 현장사진 위험 분석 sheet(HTML 파일)를 열어 확인하세요.', htmlBody: mailHtmlC(title, site, cnt) };
+  var base = { to: list, subject: title, body: SITE_URL + '\n\n' + title + '\n\n첨부한 현장사진 위험 분석 sheet(HTML 파일)를 열어 확인하세요.', htmlBody: mailHtmlC(title, site, cnt) };
   var NAME = 'site-photo-risk-analysis-sheet.html';
   var call = function (att) { return CMCP.callTool('Gmail', 'send_message', Object.assign({}, base, { attachments: [att] })); };
   var viaGzip = function () {
