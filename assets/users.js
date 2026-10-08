@@ -22,6 +22,7 @@ function usersFor(mail) { // 메일/문자 발송 창에 쓰는 (값, 이름) �
   usersAll().forEach(function (u) { var v = mail ? u.email : u.sms; if (v && !seen[v]) { seen[v] = 1; out.push({ v: v, name: u.name }); } });
   return out;
 }
+function usersAlertTels() { var seen = {}, out = []; usersAll().forEach(function (u) { if (u.alert && u.sms && !seen[u.sms]) { seen[u.sms] = 1; out.push(u.sms); } }); return out; }
 function usersAlertMails() { var seen = {}, out = []; usersAll().forEach(function (u) { if (u.alert && u.email && !seen[u.email]) { seen[u.email] = 1; out.push(u.email); } }); return out; }
 
 /* Gmail 계정(앱 비밀번호): 이 사이트의 서버에서 메일을 보낼 때(특히 자동 알림) 쓴다. 이 브라우저에만 저장하고 발송 요청에만 실어 보낸다 */
@@ -53,7 +54,7 @@ function usersRender() {
   l.innerHTML = usersAll().map(function (u) {
     return '<div class="urow"><div class="uinfo"><div><b>' + esc(u.name || '(이름 없음)') + '</b>' + (u.def ? '<i>기본</i>' : '') + '</div>'
       + '<small>' + (u.email ? esc(u.email) : '<em>이메일 없음</em>') + ' · ' + (u.sms ? esc(uFmt(u.sms)) : '<em>번호 없음</em>') + '</small></div>'
-      + '<label class="ualert" title="인터벌 촬영 위험 알림 메일을 받습니다"><input type="checkbox"' + (u.alert ? ' checked' : '') + (u.email ? '' : ' disabled') + ' onchange="userAlert(\'' + u.id + '\',this.checked)">알림</label>'
+      + '<label class="ualert" title="인터벌 촬영 위험 알림(메일·문자)을 받습니다"><input type="checkbox"' + (u.alert ? ' checked' : '') + ((u.email || u.sms) ? '' : ' disabled') + ' onchange="userAlert(\'' + u.id + '\',this.checked)">알림</label>'
       + (u.def ? '<span class="udel"></span>' : '<button type="button" class="udel" title="삭제" onclick="userDel(\'' + u.id + '\')">✕</button>') + '</div>';
   }).join('');
   $('#uWatch').checked = WATCH.on; watchRender();
@@ -112,7 +113,7 @@ function makePdf() { // → Promise<{ b64, blob, pages } | null>  (만들지 못
 /* ---------- 인터벌 촬영 위험 알림 루틴 ---------- */
 function watchRender() {
   var s = $('#uStat'); if (!s) return;
-  var why = !WATCH.on ? '꺼짐 — 켜면 인터벌 촬영 사진마다 위험 분석을 하고, 위험성 ' + WATCH_MIN + ' 이상이면 알림 사용자에게 메일을 보냅니다.'
+  var why = !WATCH.on ? '꺼짐 — 켜면 인터벌 촬영 사진마다 위험 분석을 하고, 위험성 ' + WATCH_MIN + ' 이상이면 알림 사용자에게 메일·문자를 보냅니다.'
     : (typeof ENG !== 'undefined' && ENG !== 'ai') ? '⚠️ AI 판독 모드(②)로 바꿔야 사진을 분석합니다.'
     : WATCH.msg || '켜짐 — 인터벌 촬영을 시작하면 사진마다 분석합니다.';
   s.textContent = why; s.className = 'keystat ' + (WATCH.on ? (/⚠️|✗/.test(why) ? 'warn' : 'on') : '');
@@ -143,25 +144,43 @@ function watchCheck(d) {
   if (now < WATCH.retry) { watchNote('🔔 ' + hhmm + ' 위험성 ' + WATCH_MIN + ' 이상 ' + c.high + '건 — 직전 발송이 실패해 잠시 후 다시 시도합니다.', 'warn'); return; }
   watchSend(c, d, hhmm);
 }
+function smsWhy(j) {
+  var m = { bad_credentials: 'Solapi 키·시크릿·발신번호 형식이 맞지 않습니다.', sms_rejected: 'Solapi가 문자를 거절했습니다', too_fast: '연속 발송 제한 (잠시 후 다시)', not_configured: '서버에 문자 발송 설정이 없습니다.',
+    bad_recipient: '받는 번호 형식이 맞지 않습니다.', no_recipient: '받는 번호가 없습니다.', no_token_configured: '서버에 문자 발송 설정이 없습니다.' };
+  return (m[j.error] || j.error || '알 수 없음') + (j.detail ? ' — ' + String(j.detail).slice(0, 100) : '');
+}
+function postNotify(body) {
+  return fetch('/api/notify', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+    .then(function (r) { return r.json().catch(function () { return { ok: false, error: r.status === 413 ? 'too_large' : 'http_' + r.status }; }); });
+}
+/* 위험 알림: ‘알림’ 사용자에게 메일(Gmail 계정)과 문자(Solapi 키)를 함께 보낸다. 저장된 설정이 있는 쪽만 보내고, 하나라도 나가면 쿨다운을 시작한다 */
 function watchSend(c, d, hhmm) {
-  var to = usersAlertMails(), gm = gmGet(), w = RAW();
-  if (!to.length) { watchNote('⚠️ 위험성 ' + WATCH_MIN + ' 이상 ' + c.high + '건 — 알림을 받을 사용자(이메일)가 없습니다. 👤 사용자 등록에서 ‘알림’을 켜세요.', 'warn'); return; }
-  if (!gm && !(NTOKEN && MAIL_SRV)) { watchNote('⚠️ 위험성 ' + WATCH_MIN + ' 이상 ' + c.high + '건 — 메일 보내는 계정이 없습니다. 왼쪽 ⑨ 발송 설정에 Gmail 계정을 저장하세요.', 'warn'); return; }
-  var sheet = ''; try { sheet = w.sheetHtml(); } catch (e) { watchNote('✗ 분석 sheet를 만들지 못했습니다.', 'warn'); return; }
-  NBUSY = true; watchNote('🔔 위험성 ' + WATCH_MIN + ' 이상 ' + c.high + '건 (최고 ' + c.max + ') — 메일 만드는 중…', 'warn');
-  makePdf().then(function (pdf) {
-    var body = { channel: 'email', to: to, counts: c, sheet: sheet, pdf: pdf ? pdf.b64 : undefined,
-      note: '인터벌 촬영 자동 알림 · ' + hhmm + ' 촬영 사진에서 위험성 ' + WATCH_MIN + ' 이상 ' + c.high + '건 (최고 ' + c.max + ')',
-      site: { name: $('#m_site').value, proc: $('#m_proc').value, date: $('#m_date').value, by: $('#m_by').value } };
+  var mails = usersAlertMails(), tels = usersAlertTels(), gm = gmGet(), w = RAW(); solLoad();
+  var canMail = mails.length && (gm || (NTOKEN && MAIL_SRV)), canSms = tels.length && solValid();
+  if (!canMail && !canSms) {
+    var miss = !mails.length && !tels.length ? '알림을 받을 사용자가 없습니다. 👤 사용자 등록에서 ‘알림’을 켜세요.'
+      : '보낼 설정이 없습니다 — 왼쪽 ⑨ 발송 설정에 ' + (mails.length ? 'Gmail 계정' : '') + (mails.length && tels.length ? ' 또는 ' : '') + (tels.length ? 'Solapi 키' : '') + '를 저장하세요.';
+    watchNote('⚠️ 위험성 ' + WATCH_MIN + ' 이상 ' + c.high + '건 — ' + miss, 'warn'); return;
+  }
+  var sheet = ''; if (canMail) { try { sheet = w.sheetHtml(); } catch (e) { watchNote('✗ 분석 sheet를 만들지 못했습니다.', 'warn'); return; } }
+  var site = { name: $('#m_site').value, proc: $('#m_proc').value, date: $('#m_date').value, by: $('#m_by').value };
+  NBUSY = true; watchNote('🔔 위험성 ' + WATCH_MIN + ' 이상 ' + c.high + '건 (최고 ' + c.max + ') — 알림 보내는 중…', 'warn');
+  var jobs = [];
+  if (canSms) jobs.push(postNotify({ channel: 'sms', to: tels, counts: c, site: site, solapi: { key: SOL.key, secret: SOL.secret, sender: SOL.from } })
+    .then(function (j) { return { ch: '문자', n: tels.length, ok: !!j.ok, why: j.ok ? '' : smsWhy(j) }; }, function () { return { ch: '문자', ok: false, why: '서버에 연결하지 못했습니다.' }; }));
+  if (canMail) jobs.push(makePdf().then(function (pdf) {
+    var body = { channel: 'email', to: mails, counts: c, sheet: sheet, pdf: pdf ? pdf.b64 : undefined, site: site,
+      note: '인터벌 촬영 자동 알림 · ' + hhmm + ' 촬영 사진에서 위험성 ' + WATCH_MIN + ' 이상 ' + c.high + '건 (최고 ' + c.max + ')' };
     if (gm) body.gmail = gm; else body.token = NTOKEN;
-    return fetch('/api/notify', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
-      .then(function (r) { return r.json().catch(function () { return { ok: false, error: r.status === 413 ? 'too_large' : 'http_' + r.status }; }); })
-      .then(function (j) {
-        if (j.ok) { WATCH.last = Date.now(); WATCH.sent++; watchNote('✓ ' + hhmm + ' 위험 알림 메일 발송 (' + to.join(', ') + ')' + (pdf ? '' : ' — PDF 없이 HTML만'), 'on'); }
-        else { WATCH.retry = Date.now() + WATCH_RETRY; watchNote('✗ 위험 알림 메일 실패: ' + (mailWhy(j)), 'warn'); }
-      });
-  }).catch(function () { WATCH.retry = Date.now() + WATCH_RETRY; watchNote('✗ 서버에 연결하지 못했습니다.', 'warn'); })
-    .then(function () { NBUSY = false; });
+    return postNotify(body).then(function (j) { return { ch: '메일', n: mails.length, ok: !!j.ok, why: j.ok ? (pdf ? '' : 'PDF 없이 HTML만') : mailWhy(j) }; });
+  }).catch(function () { return { ch: '메일', ok: false, why: '서버에 연결하지 못했습니다.' }; }));
+  Promise.all(jobs).then(function (rs) {
+    var ok = rs.filter(function (r) { return r.ok; }), bad = rs.filter(function (r) { return !r.ok; });
+    if (ok.length) { WATCH.last = Date.now(); WATCH.sent++; } else WATCH.retry = Date.now() + WATCH_RETRY;
+    var txt = (ok.length ? '✓ ' + hhmm + ' 위험 알림 발송 — ' + ok.map(function (r) { return r.ch + ' ' + r.n + '명' + (r.why ? ' (' + r.why + ')' : ''); }).join(' · ') : '✗ 위험 알림 실패')
+      + bad.map(function (r) { return ' · ' + r.ch + ' 실패: ' + r.why; }).join('');
+    watchNote(txt, bad.length ? 'warn' : 'on');
+  }).then(function () { NBUSY = false; });
 }
 function mailWhy(j) {
   var m = { bad_token: '발송 토큰이 맞지 않습니다.', no_token_configured: '서버에 NOTIFY_TOKEN 이 설정되지 않았습니다.', too_fast: '연속 발송 제한 (잠시 후 다시)', not_configured: '서버에 메일 설정이 없습니다.',
