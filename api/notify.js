@@ -1,7 +1,7 @@
 // ─────────────────────────────────────────────────────────────────────
 //  /api/notify — 현장사진 위험 분석 자료를 나에게 이메일 또는 문자로 발송 (Vercel Serverless Function, Node 20)
 //
-//  입력  POST { token, channel:'email'|'sms', to?, sheet?, site?, counts?, link? }
+//  입력  POST { token, channel:'email'|'sms', to?, sheet?, site?, counts? }
 //        token   = 상단 바 버튼의 입력창에서 사용자가 넣어 이 브라우저에만 저장한 발송 토큰
 //        channel = 'email' → 메일 1통 / 'sms' → 문자 1건 (버튼마다 한 채널만 보낸다)
 //        to      = 받는 이메일 주소(들) 또는 휴대폰 번호(들) — 최대 3개. 비우면 서버 환경변수 NOTIFY_*_TO 를 쓴다
@@ -22,6 +22,7 @@
 // ─────────────────────────────────────────────────────────────────────
 const crypto = require('crypto');
 
+const SITE_URL = 'https://e-safety.vercel.app/'; // 메일 맨 위에 넣는 사이트 링크
 const MAX_SHEET = 3.2 * 1000 * 1000; // 문자 수. Vercel 요청 본문 한도(4.5MB) 안에서 쓴다
 const MIN_GAP_MS = 20 * 1000;        // 같은 서버 인스턴스에서 채널별 연속 발송 간격
 const last = { email: 0, sms: 0 };
@@ -56,25 +57,26 @@ function titleOf(site, counts) {
   return '[경고] 현장사진 위험성평가표' + (site.name ? ' — ' + site.name : '') + ' (위험 ' + counts.total + '건 · 높음 ' + counts.high + ')';
 }
 
-function emailHtml(title, site, counts, link) {
+function emailHtml(title, site, counts) {
   const meta = [['현장명', site.name], ['공종·작업', site.proc], ['평가일', site.date], ['관리감독자', site.by]]
     .filter((x) => x[1]).map((x) => '<b>' + x[0] + '</b> ' + esc(x[1])).join(' &nbsp;·&nbsp; ');
   const sum = counts.total
     ? '<p style="margin:12px 0 4px">위험 <b>' + counts.total + '건</b> — <span style="color:#B03A2E"><b>높음 ' + counts.high + '</b></span> · 보통 ' + counts.mid + ' · 낮음 ' + counts.low + '</p>' : '';
   return '<div style="font-family:\'Malgun Gothic\',Apple SD Gothic Neo,sans-serif;font-size:14px;color:#1c1c1c;max-width:640px">'
+    + '<p style="margin:0 0 12px"><a href="' + SITE_URL + '">' + SITE_URL + '</a></p>'
     + '<div style="background:#B03A2E;color:#fff;padding:12px 14px;border-radius:6px;font-size:17px;font-weight:800">' + esc(title) + '</div>'
     + sum + (meta ? '<p style="margin:4px 0 10px;color:#334">' + meta + '</p>' : '')
     + '<p>첨부한 <b>현장사진 위험 분석 sheet</b>(HTML 파일)를 열어 위험 분석과 위험성평가표를 확인하세요.</p>'
-    + (link ? '<p><a href="' + esc(link) + '">웹에서 보기</a></p>' : '')
     + '<p style="color:#778;font-size:12px">자동 생성 결과는 초안입니다. AI는 최초 검토, 최종 판단은 관리감독자가 진행합니다.</p></div>';
 }
 
-async function sendEmail(to, sheet, site, counts, link) {
+async function sendEmail(to, sheet, site, counts) {
   const title = titleOf(site, counts);
   const key = env('RESEND_API_KEY');
   if (!key) return { ok: false, error: 'not_configured' };
   const payload = {
-    from: env('NOTIFY_EMAIL_FROM') || 'onboarding@resend.dev', to, subject: title, html: emailHtml(title, site, counts, link),
+    from: env('NOTIFY_EMAIL_FROM') || 'onboarding@resend.dev', to, subject: title, html: emailHtml(title, site, counts),
+    text: SITE_URL + '\n\n' + title + '\n\n첨부한 현장사진 위험 분석 sheet(HTML 파일)를 열어 확인하세요.',
     attachments: [{ filename: 'site-photo-risk-analysis-sheet.html', content: Buffer.from(sheet, 'utf8').toString('base64') }],
   };
   const r = await fetch('https://api.resend.com/emails', {
@@ -143,10 +145,9 @@ module.exports = async function handler(req, res) {
   const s = body.site || {}, c = body.counts || {};
   const site = { name: clip(s.name, 60), proc: clip(s.proc, 80), date: clip(s.date, 30), by: clip(s.by, 30) };
   const counts = { total: num(c.total), high: num(c.high), mid: num(c.mid), low: num(c.low) };
-  const link = /^https:\/\/[\w.-]+(\/\S*)?$/.test(String(body.link || '')) ? String(body.link).slice(0, 200) : '';
 
   let out;
-  try { out = channel === 'email' ? await sendEmail(to, sheet, site, counts, link) : await sendSms(to, site, counts); }
+  try { out = channel === 'email' ? await sendEmail(to, sheet, site, counts) : await sendSms(to, site, counts); }
   catch (e) { out = { ok: false, error: 'exception', detail: String(e && e.message).slice(0, 120) }; }
   if (!out.ok) last[channel] = 0; // 실패하면 바로 다시 시도할 수 있게 한다
   return res.status(200).json(out);

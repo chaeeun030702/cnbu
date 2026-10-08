@@ -426,12 +426,72 @@ function sheetCounts() {
 }
 function ntokSave() { var v = ($('#nTok').value || '').trim(); if (!v) return; NTOKEN = v; try { localStorage.setItem('cbnu_ntok', v); } catch (e) {} $('#nTok').value = ''; nstat('✓ 발송 토큰을 이 브라우저에만 저장했습니다.', 'on'); }
 function ntokClear() { NTOKEN = ''; try { localStorage.removeItem('cbnu_ntok'); } catch (e) {} nstat('발송 토큰을 지웠습니다.'); }
+/* ---------- Claude 아티팩트 버전: Gmail 커넥터로 메일 발송 ----------
+   claude.ai 아티팩트로 열렸을 때만(window.claude.use('mcp')가 열릴 때) 켜진다. 서버(/api/notify)·발송 토큰 없이
+   로그인한 본인의 Gmail 커넥터로 직접 보낸다. 문자·AI 사진 판독·저장·인쇄·카메라는 아티팩트에서 쓸 수 없어 숨긴다. */
+var SITE_URL = 'https://e-safety.vercel.app/';
+var CMCP = null;
+function connInit() {
+  if (!(window.claude && typeof window.claude.use === 'function')) return;
+  window.claude.use('mcp').then(function (m) {
+    if (!m) return; CMCP = m; document.body.classList.add('art');
+    var tk = $('#nTok'); if (tk && tk.parentNode) tk.parentNode.style.display = 'none';
+    var cf = $('#nCfg'); if (cf) cf.textContent = 'Claude 아티팩트 버전 — 내 Gmail 커넥터로 직접 발송합니다 (발송 토큰·서버 설정 불필요). 문자 발송은 Vercel 사이트(e-safety.vercel.app)에서만 됩니다.';
+  }).catch(function () {});
+}
+function b64OfBuf(buf) { var u = new Uint8Array(buf), s = ''; for (var i = 0; i < u.length; i += 0x8000) s += String.fromCharCode.apply(null, u.subarray(i, i + 0x8000)); return btoa(s); }
+function mailHtmlC(title, site, c) {
+  var meta = [['현장명', site.name], ['공종·작업', site.proc], ['평가일', site.date], ['관리감독자', site.by]].filter(function (x) { return x[1]; })
+    .map(function (x) { return '<b>' + x[0] + '</b> ' + esc(x[1]); }).join(' &nbsp;·&nbsp; ');
+  return '<div style="font-family:\'Malgun Gothic\',Apple SD Gothic Neo,sans-serif;font-size:14px;color:#1c1c1c;max-width:640px">'
+    + '<p style="margin:0 0 12px"><a href="' + SITE_URL + '">' + SITE_URL + '</a></p>'
+    + '<div style="background:#B03A2E;color:#fff;padding:12px 14px;border-radius:6px;font-size:17px;font-weight:800">' + esc(title) + '</div>'
+    + '<p style="margin:12px 0 4px">위험 <b>' + c.total + '건</b> — <span style="color:#B03A2E"><b>높음 ' + c.high + '</b></span> · 보통 ' + c.mid + ' · 낮음 ' + c.low + '</p>'
+    + (meta ? '<p style="margin:4px 0 10px;color:#334">' + meta + '</p>' : '')
+    + '<p>첨부한 <b>현장사진 위험 분석 sheet</b>(HTML 파일)를 열어 위험 분석과 위험성평가표를 확인하세요.</p>'
+    + '<p style="color:#778;font-size:12px">자동 생성 결과는 초안입니다. AI는 최초 검토, 최종 판단은 관리감독자가 진행합니다.</p></div>';
+}
+/* 분석 sheet(약 1MB)는 커넥터 입력 한도(1MiB)를 넘으므로 파일 인자($file)로 보낸다. 그 경로가 안 되면 gzip(.html.gz)으로 줄여 보낸다. */
+function connSend(list, title, cnt, site, sheet) {
+  var base = { to: list, subject: title, body: SITE_URL + '\n\n' + title + '\n\n첨부한 현장사진 위험 분석 sheet(HTML 파일)를 열어 확인하세요.', htmlBody: mailHtmlC(title, site, cnt) };
+  var NAME = 'site-photo-risk-analysis-sheet.html';
+  var call = function (att) { return CMCP.callTool('Gmail', 'send_message', Object.assign({}, base, { attachments: [att] })); };
+  var viaGzip = function () {
+    if (typeof CompressionStream !== 'function') return Promise.reject({ code: 'too_large' });
+    return new Response(new Blob([sheet]).stream().pipeThrough(new CompressionStream('gzip'))).arrayBuffer().then(function (buf) {
+      var b64 = b64OfBuf(buf); if (b64.length > 900000) return Promise.reject({ code: 'too_large' });
+      return call({ content: b64, filename: NAME + '.gz', mimeType: 'application/gzip' });
+    });
+  };
+  return CMCP.listTools().then(function (r) { return !!(r && r.fileArgs); }, function () { return false; }).then(function (fa) {
+    if (!fa) return viaGzip();
+    return call({ content: { $file: { data: new Blob([sheet], { type: 'text/html' }), name: NAME, type: 'text/html' } }, filename: NAME, mimeType: 'text/html' })
+      .catch(function (e) { return (e && (e.code === 'bad_request' || e.code === 'capability_disabled' || e.code === 'tool_error')) ? viaGzip() : Promise.reject(e); });
+  });
+}
+function connWhy(e) {
+  var c = e && e.code, m = {
+    needs_reauth: 'Gmail 연결이 만료되었습니다. claude.ai 설정 → 커넥터에서 Gmail을 다시 연결하세요.',
+    server_not_connected: 'Gmail 커넥터가 없습니다. claude.ai 설정 → 커넥터에서 Gmail을 추가하세요.',
+    selection_required: 'Gmail 커넥터가 둘 이상입니다. 사용할 계정을 선택하세요.',
+    not_in_manifest: '이 페이지의 Gmail 사용이 허용되지 않았습니다. 페이지의 권한 메뉴에서 허용하세요.',
+    consent_required: '이 페이지의 Gmail 사용이 허용되지 않았습니다. 다시 눌러 허용하세요.',
+    approval_required: 'Gmail 발송 승인이 필요합니다. 다시 눌러 허용하세요.',
+    blocked_by_policy: '조직 정책이 Gmail 발송을 막고 있습니다.',
+    too_large: '분석 sheet가 너무 커서 첨부하지 못했습니다 (사진을 줄여 다시 올려 주세요).',
+    cancelled: '발송이 취소되었습니다.',
+    server_unavailable: 'Gmail 서버 응답이 없습니다. 보낸편지함을 확인한 뒤 필요하면 다시 누르세요.',
+    upstream_error: 'Gmail 서버 응답이 없습니다. 보낸편지함을 확인한 뒤 필요하면 다시 누르세요.',
+    tool_error: 'Gmail이 발송을 거부했습니다' + (e && e.message ? ': ' + String(e.message).slice(0, 120) : '.')
+  };
+  return m[c] || ('Gmail 발송 실패' + (c ? ' (' + c + ')' : ''));
+}
 function notifyProbe() {
   fetch('/api/notify').then(function (r) { return r.json(); }).then(function (j) {
-    var el = $('#nCfg'); if (!el) return;
+    var el = $('#nCfg'); if (!el || CMCP) return;
     el.textContent = !j.token ? '서버에 NOTIFY_TOKEN 이 없어 발송할 수 없습니다 (Vercel 환경변수 설정 필요).'
       : '서버 설정 — 메일 ' + (j.email ? '✓' : '✗ 미설정') + ' · 문자 ' + (j.sms ? '✓' : '✗ 미설정');
-  }).catch(function () { var el = $('#nCfg'); if (el) el.textContent = '이 주소에서는 서버 함수를 쓸 수 없습니다 (Vercel 배포에서만 동작).'; });
+  }).catch(function () { var el = $('#nCfg'); if (el && !CMCP) el.textContent = '이 주소에서는 서버 함수를 쓸 수 없습니다 (Vercel 배포에서만 동작).'; });
 }
 var NCH = '';
 function nLoad(k) { try { return localStorage.getItem(k) || ''; } catch (e) { return ''; } }
@@ -449,14 +509,15 @@ function notifySend(channel) {
   if (NBUSY) return;
   var w = RAW(), cnt = sheetCounts();
   if (!w || !cnt.total) { nstat('먼저 사진을 올리고 문서를 생성하세요.', 'warn'); return; }
+  if (CMCP && channel !== 'email') { nstat('문자 발송은 Vercel 사이트(e-safety.vercel.app)에서만 됩니다.', 'warn'); return; }
   var mail = channel === 'email'; NCH = channel;
   $('#ndHd').textContent = mail ? '✉️ 메일 발송' : '💬 문자 발송';
   $('#ndLab').textContent = mail ? '받는 이메일 주소' : '받는 휴대폰 번호';
   var to = $('#ndTo'); to.type = mail ? 'email' : 'tel'; to.multiple = mail; to.placeholder = mail ? 'name@example.com (여러 개는 쉼표로, 최대 3개)' : '010-1234-5678 (여러 개는 쉼표로, 최대 3개)';
   to.value = nLoad(mail ? 'cbnu_nto_email' : 'cbnu_nto_sms');
   $('#ndTitle').textContent = ntitle(cnt);
-  $('#ndNote').textContent = mail ? '현장사진 위험 분석 sheet(HTML 파일)가 첨부됩니다.' : '문자 요금이 발생합니다. 제목이 길면 장문(LMS)으로 나갑니다.';
-  $('#ndTokRow').style.display = NTOKEN ? 'none' : '';
+  $('#ndNote').textContent = CMCP ? '내 Gmail 계정(Gmail 커넥터)으로 발송합니다. 현장사진 위험 분석 sheet(HTML 파일)가 첨부됩니다.' : mail ? '현장사진 위험 분석 sheet(HTML 파일)가 첨부됩니다.' : '문자 요금이 발생합니다. 제목이 길면 장문(LMS)으로 나갑니다.';
+  $('#ndTokRow').style.display = (NTOKEN || CMCP) ? 'none' : '';
   $('#ndTok').value = ''; $('#ndErr').textContent = '';
   var d = $('#ndlg'); if (d.showModal) d.showModal(); else d.setAttribute('open', '');
   setTimeout(function () { (to.value ? ($('#ndTokRow').style.display === 'none' ? $('#ndGo') : $('#ndTok')) : to).focus(); }, 30);
@@ -468,8 +529,18 @@ function notifyGo() {
   var list = nSplit($('#ndTo').value, mail);
   if (list === null || !list.length) { err.textContent = mail ? '이메일 주소를 확인하세요 (최대 3개, 쉼표로 구분).' : '휴대폰 번호를 확인하세요 (010 등 국내 번호, 최대 3개, 쉼표로 구분).'; return; }
   var tok = NTOKEN || ($('#ndTok').value || '').trim();
-  if (!tok) { err.textContent = '발송 토큰을 입력하세요.'; return; }
+  if (!tok && !CMCP) { err.textContent = '발송 토큰을 입력하세요.'; return; }
   if (!w || !cnt.total) { err.textContent = '먼저 사진을 올리고 문서를 생성하세요.'; return; }
+  if (CMCP) { // Claude 아티팩트: Gmail 커넥터로 직접 발송
+    var site0 = { name: $('#m_site').value, proc: $('#m_proc').value, date: $('#m_date').value, by: $('#m_by').value }, title0 = ntitle(cnt), sheet0 = '';
+    try { sheet0 = w.sheetHtml(); } catch (e) { err.textContent = '분석 sheet를 만들지 못했습니다.'; return; }
+    try { localStorage.setItem('cbnu_nto_email', list.join(', ')); } catch (e) {}
+    ndClose(); NBUSY = true; nstat('메일 발송 중…');
+    connSend(list, title0, cnt, site0, sheet0)
+      .then(function () { nstat('✓ 메일 발송 완료 (' + list.join(', ') + ') — ' + title0, 'on'); }, function (e) { nstat('✗ ' + connWhy(e), 'warn'); })
+      .then(function () { NBUSY = false; });
+    return;
+  }
   var body = { token: tok, channel: NCH, to: list, counts: cnt, link: location.origin + '/', site: { name: $('#m_site').value, proc: $('#m_proc').value, date: $('#m_date').value, by: $('#m_by').value } };
   if (mail) { try { body.sheet = w.sheetHtml(); } catch (e) { err.textContent = '분석 sheet를 만들지 못했습니다.'; return; } }
   var title = ntitle(cnt), name = mail ? '메일' : '문자';
@@ -500,6 +571,6 @@ function notifyGo() {
   ['m_site', 'm_proc', 'm_by'].forEach(function (k) { $('#' + k).addEventListener('change', function () { applyMeta(); }); });
   $('#m_date').value = (function () { var d = new Date(); return d.getFullYear() + '. ' + (d.getMonth() + 1) + '. ' + d.getDate() + '.'; })();
   document.body.classList.add('nodoc');
-  applyUI(); initFrames(); probe(); notifyProbe();
+  applyUI(); initFrames(); probe(); notifyProbe(); connInit();
   window.addEventListener('resize', fitMain); fitMain();
 })();
