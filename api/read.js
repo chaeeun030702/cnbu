@@ -46,30 +46,36 @@ function systemPrompt(lang) {
     '[일반작업 표지 G01~G20]',
     kbText('gen'),
     '',
-    '[보호구 점검 — 표지를 고르기 전에 반드시 먼저 한다]',
-    '사진 속 작업자마다 머리·손·발·몸을 따로 확인한다. 먼저 본 인상이나 지식베이스 단서 문장의 예시에 끌려 "착용했다"고 가정하지 않는다.',
-    ' - head: "insulating_helmet"(전기용 절연모·안전모) | "hard_hat"(일반 안전모) | "none"(맨머리·일반 모자·두건) | "unclear"',
-    ' - hands: "insulating_gloves" | "work_gloves"(면·코팅장갑) | "bare"(맨손) | "unclear"',
-    ' - feet: "insulating_boots" | "safety_shoes" | "other"(일반 신발·장화) | "unclear"',
-    ' - body: "hi_vis" | "harness" | "none" | "unclear" (여러 개면 쉼표로)',
-    '그림·일러스트·만화도 실제 사진처럼 같은 기준으로 본다. 머리카락이 그대로 보이면 head 는 "none" 이다.',
+    '[1단계 — 사람마다 안전모부터 확인한다 (표지를 고르기 전에 반드시 먼저)]',
+    '사진 속 사람을 모두 찾아 왼쪽부터 번호를 매기고, 사람마다 아래 순서로 하나씩 본다. 첫인상이나 지식베이스 단서 문장의 예시에 끌려 "착용했다"고 가정하지 않는다.',
+    ' ① head(머리·안전모): "insulating_helmet"(전기용 절연모) | "hard_hat"(일반 안전모) | "none"(맨머리·일반 모자·두건·머리카락이 보임) | "unclear"',
+    '    안전모가 있으면 턱끈 체결 여부도 본다: chin "fastened" | "unfastened" | "unclear"',
+    ' ② hands: "insulating_gloves" | "work_gloves"(면·코팅장갑) | "bare"(맨손) | "unclear"',
+    ' ③ feet: "insulating_boots" | "safety_shoes" | "other"(일반 신발·장화) | "unclear"',
+    ' ④ body: "hi_vis" | "harness" | "none" | "unclear" (여러 개면 쉼표로)',
+    '그림·일러스트·만화도 실제 사진과 같은 기준으로 본다.',
     '전기 작업에서 head 가 insulating_helmet 이 아니거나, hands 가 insulating_gloves 가 아니거나, feet 이 insulating_boots 가 아니면 U05 를 고르고,',
-    'evidence 에 빠진 보호구를 모두 적는다(예: "절연모 없이 맨머리, 맨손, 일반 장화"). head 가 none 이면 G16(안전모 미착용)도 고른다.',
+    'evidence 에 빠진 보호구를 모두 적는다(예: "절연모 없이 맨머리, 맨손, 일반 장화"). head 가 none 이거나 턱끈 미체결이면 G16 도 고른다.',
+    '',
+    '[2단계 — 위치는 정밀하게]',
+    ' - 각 위험마다 box:[x1,y1,x2,y2] 로 그 위험 물체를 꼭 맞게 감싸는 상자를 준다(사진 좌표 %, 왼쪽 위 0,0 — 오른쪽 아래 100,100, 소수점 1자리).',
+    ' - 상자는 사람 전체나 넓은 배경이 아니라 위험 그 자체에 맞춘다: 안전모 미착용→그 사람의 머리, 맨손→손, 노출 충전부→단자·버스바, 물속 케이블→물에 잠긴 케이블 구간, 개구부→구멍 가장자리.',
+    ' - 같은 위험이 여러 곳이면 가장 뚜렷한 한 곳을 고른다. 사람별 ppe 에는 그 사람의 머리 상자 head_box 를 준다.',
     '',
     '출력 규칙',
     '1. JSON 하나만 출력한다. 코드펜스·설명문을 붙이지 않는다.',
-    '2. 형식: {"domain":"elec"|"gen","scene":[ko' + (foreign ? ',' + 'foreign' : '') + '],"ppe":[{"head":"none","hands":"bare","feet":"other","body":"none","x":50,"y":40}],',
-    '   "hits":[{"id":"G01","x":46,"y":26,"conf":0.9,"evidence":[ko' + (foreign ? ',foreign' : '') + ']}],',
-    '   "extra":[[ko' + (foreign ? ',foreign' : '') + ']]}',
-    '3. x,y 는 해당 위험이 보이는 위치의 사진 좌표(%): 왼쪽 위 0,0 — 오른쪽 아래 100,100.',
-    '4. conf 는 0~1. 0.5 미만이면 hits 에 넣지 않는다.',
-    '5. evidence 는 사진에서 본 것을 한 문장으로(한국어 40자 이내).',
-    '6. scene 은 작업 장면 요약 한 문장(한국어 60자 이내).',
-    '7. extra 는 지식베이스에 없는 추가 위험을 한 문장씩 최대 3개. 없으면 [].',
-    '8. domain 은 사진의 주된 작업으로 정한다. 전기설비가 작업 대상이 아니면 "gen".',
+    '2. 형식: {"domain":"elec"|"gen","scene":[ko' + (foreign ? ',foreign' : '') + '],',
+    '   "ppe":[{"person":1,"head":"none","chin":"unclear","hands":"bare","feet":"other","body":"none","head_box":[40.5,20.0,52.0,34.5]}],',
+    '   "hits":[{"id":"G01","box":[40.0,18.5,55.5,35.0],"conf":0.9,"evidence":[ko' + (foreign ? ',foreign' : '') + ']}],',
+    '   "extra":[{"text":[ko' + (foreign ? ',foreign' : '') + '],"box":[10.0,60.0,30.0,80.0]}]}',
+    '3. conf 는 0~1. 0.5 미만이면 hits 에 넣지 않는다.',
+    '4. evidence 는 사진에서 본 것을 한 문장으로(한국어 40자 이내).',
+    '5. scene 은 작업 장면 요약 한 문장(한국어 60자 이내).',
+    '6. extra 는 지식베이스에 없는 추가 위험 최대 3개. 각각 text(한 문장)와 위치 box 를 반드시 준다. 없으면 [].',
+    '7. domain 은 사진의 주된 작업으로 정한다. 전기설비가 작업 대상이 아니면 "gen".',
     foreign
-      ? '9. ko 다음 요소는 같은 내용의 ' + foreign + ' 번역이다. 두 요소를 반드시 함께 넣는다.'
-      : '9. 배열의 원소는 한국어 하나만 넣는다.',
+      ? '8. ko 다음 요소는 같은 내용의 ' + foreign + ' 번역이다. 두 요소를 반드시 함께 넣는다.'
+      : '8. 배열의 원소는 한국어 하나만 넣는다.',
   ].join('\n');
 }
 
@@ -176,34 +182,47 @@ module.exports = async function handler(req, res) {
     var out = extractJson(text);
     var ids = {}; KB.forEach(function (x) { ids[x.id] = true; });
     var seen = {};
+    // 위치: box 의 중심(없으면 x,y)을 쓴다 — 소수점 1자리 %
+    var ctr = function (o, dx, dy) {
+      var b = o && Array.isArray(o.box) ? o.box : (o && Array.isArray(o.head_box) ? o.head_box : null);
+      if (b && b.length === 4 && b.every(function (v) { return isFinite(Number(v)); })) {
+        var x1 = Math.min(b[0], b[2]), x2 = Math.max(b[0], b[2]), y1 = Math.min(b[1], b[3]), y2 = Math.max(b[1], b[3]);
+        return [Math.round(clamp((x1 + x2) / 2, 2, 98) * 10) / 10, Math.round(clamp((y1 + y2) / 2, 2, 98) * 10) / 10];
+      }
+      return [Math.round(clamp(o && o.x != null ? o.x : dx, 2, 98) * 10) / 10, Math.round(clamp(o && o.y != null ? o.y : dy, 2, 98) * 10) / 10];
+    };
     var hits = (out.hits || []).filter(function (h) {
       return h && ids[h.id] && !seen[h.id] && Number(h.conf) >= 0.5 && (seen[h.id] = true);
     }).map(function (h) {
-      var ev = Array.isArray(h.evidence) ? h.evidence : [String(h.evidence || '')];
-      return { id: h.id, x: Math.round(clamp(h.x, 3, 97)), y: Math.round(clamp(h.y, 3, 97)),
-               conf: Math.round(clamp(h.conf, 0, 1) * 100) / 100,
-               evidence: ev.slice(0, 2).map(String) };
+      var ev = Array.isArray(h.evidence) ? h.evidence : [String(h.evidence || '')], c = ctr(h, 50, 50);
+      return { id: h.id, x: c[0], y: c[1], conf: Math.round(clamp(h.conf, 0, 1) * 100) / 100, evidence: ev.slice(0, 2).map(String) };
     });
     var scene = Array.isArray(out.scene) ? out.scene.slice(0, 2).map(String) : [String(out.scene || '')];
-    var extra = (Array.isArray(out.extra) ? out.extra : []).slice(0, 3).map(function (e) {
-      return (Array.isArray(e) ? e : [String(e)]).slice(0, 2).map(String); });
+    var extra = (Array.isArray(out.extra) ? out.extra : []).slice(0, 3).map(function (e, k) {
+      var t = e && !Array.isArray(e) && typeof e === 'object' ? e.text : e;
+      var c = e && typeof e === 'object' && !Array.isArray(e) ? ctr(e, 20 + k * 30, 85) : null;
+      return { text: (Array.isArray(t) ? t : [String(t || '')]).slice(0, 2).map(String), x: c ? c[0] : null, y: c ? c[1] : null };
+    }).filter(function (e) { return e.text[0]; });
     var domain = out.domain === 'gen' || out.domain === 'elec' ? out.domain : null;
-    // 보호구 점검 결과로 빠진 표지를 보완한다 (모델이 표지 선택에서 놓친 경우)
+    // 사람별 보호구 점검(안전모 먼저) 결과로 빠진 표지를 보완한다
     var ppe = (Array.isArray(out.ppe) ? out.ppe : []).slice(0, 8);
-    var KO = { head: { none: '맨머리(절연모·안전모 없음)', hard_hat: '일반 안전모(절연모 아님)' }, hands: { bare: '맨손', work_gloves: '일반 장갑(절연장갑 아님)' }, feet: { other: '일반 신발(절연화 아님)', safety_shoes: '안전화(절연화 아님)' } };
-    var has = function (id) { return hits.some(function (h) { return h.id === id; }); };
+    var KO = { head: { none: '맨머리(안전모·절연모 없음)', hard_hat: '일반 안전모(절연모 아님)' }, hands: { bare: '맨손', work_gloves: '일반 장갑(절연장갑 아님)' }, feet: { other: '일반 신발(절연화 아님)', safety_shoes: '안전화(절연화 아님)' } };
+    var find = function (id) { return hits.filter(function (h) { return h.id === id; })[0]; };
     var isElec = (domain || 'elec') === 'elec' || hits.some(function (h) { return h.id.charAt(0) === 'U'; });
-    ppe.forEach(function (p) {
-      if (!p) return; var miss = [];
+    ppe.forEach(function (p, n) {
+      if (!p) return; var miss = [], hc = ctr({ head_box: p.head_box, x: p.x, y: p.y }, 50, 30), who = ppe.length > 1 ? '작업자 ' + (p.person || n + 1) + ': ' : '';
       ['head', 'hands', 'feet'].forEach(function (k) { var v = String(p[k] || ''); if (KO[k][v]) miss.push(KO[k][v]); });
-      var px = Math.round(clamp(p.x, 3, 97)), py = Math.round(clamp(p.y, 3, 97));
       if (isElec && miss.length) {
-        var ev = '보호구 점검: ' + miss.join(', ');
-        var h5 = hits.filter(function (h) { return h.id === 'U05'; })[0];
+        var ev = who + miss.join(', '), h5 = find('U05');
         if (h5) { if (!/절연모|맨머리|안전모/.test(h5.evidence[0]) && /맨머리|안전모/.test(ev)) h5.evidence[0] = h5.evidence[0] + ' / ' + ev; }
-        else hits.push({ id: 'U05', x: px, y: py, conf: 0.8, evidence: [ev] });
+        else hits.push({ id: 'U05', x: hc[0], y: hc[1], conf: 0.8, evidence: ['보호구 점검 — ' + ev] });
       }
-      if (String(p.head) === 'none' && !has('G16')) hits.push({ id: 'G16', x: px, y: Math.max(3, py - 8), conf: 0.75, evidence: ['보호구 점검: 안전모 미착용(맨머리)'] });
+      var noHelmet = String(p.head) === 'none', noChin = String(p.chin) === 'unfastened' && String(p.head) !== 'none';
+      if (noHelmet || noChin) {
+        var g = find('G16'), ev2 = who + (noHelmet ? '안전모 미착용(맨머리)' : '안전모 턱끈 미체결');
+        if (g) { if (!/안전모|맨머리|턱끈/.test(g.evidence[0])) g.evidence[0] = g.evidence[0] + ' / ' + ev2; g.x = hc[0]; g.y = hc[1]; }
+        else hits.push({ id: 'G16', x: hc[0], y: hc[1], conf: 0.8, evidence: ['보호구 점검 — ' + ev2] });
+      }
     });
     if (!domain && hits.length) {
       var ng = hits.filter(function (h) { return h.id.charAt(0) === 'G'; }).length;
