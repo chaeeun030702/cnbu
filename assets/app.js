@@ -526,7 +526,7 @@ function notifyProbe() {
     var box = $('#mailTok'); if (box) box.classList.toggle('on', MAIL_SRV); // 메일 서버 설정이 있을 때만 발송 토큰 칸을 보여 준다
     var el = $('#nCfg'); if (!el) return;
     el.innerHTML = MAIL_SRV ? '서버 설정 — 메일 ✓ · 문자는 위 Solapi 키로 발송됩니다.'
-      : '이 사이트에서는 메일을 보낼 수 없습니다(서버에 메일 설정 없음). 메일은 ' + mailLink() + '에서 발송하세요. 문자는 위 Solapi 키로 발송됩니다.';
+      : '메일은 위 <b>Gmail 계정</b>을 저장하면 이 사이트에서 발송됩니다(서버 메일 설정 없음). 저장하지 않으면 ' + mailLink() + '에서 발송하세요. 문자는 위 Solapi 키로 발송됩니다.';
   }).catch(function () { var el = $('#nCfg'); if (el) el.textContent = '이 주소에서는 서버 함수를 쓸 수 없습니다 (Vercel 배포에서만 동작).'; });
 }
 var NCH = '', N_MAX = 10;
@@ -596,7 +596,7 @@ function notifySend(channel) {
     });
     return;
   }
-  if (!CMCP && channel === 'email' && !MAIL_SRV && !gmValid()) { nstat('이 사이트에서는 메일을 보낼 수 없습니다. 👤 사용자 등록에서 Gmail 계정을 저장하거나, Claude 아티팩트 버전(Gmail 커넥터)에서 발송하세요.', 'warn'); var cf = $('#nCfg'); if (cf) cf.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+  if (!CMCP && channel === 'email' && !MAIL_SRV && !gmValid()) { nstat('이 사이트에서는 메일을 보낼 수 없습니다. 왼쪽 ⑨ 발송 설정에 Gmail 계정을 저장하거나, Claude 아티팩트 버전(Gmail 커넥터)에서 발송하세요.', 'warn'); var cf = $('#nCfg'); if (cf) cf.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
   if (!CMCP && channel === 'sms') { solLoad(); if (!solValid()) { solNeed(); return; } }
   if (CMCP && channel !== 'email') { nstat('문자 발송은 Vercel 사이트(e-safety.vercel.app)에서만 됩니다.', 'warn'); return; }
   var mail = channel === 'email'; NCH = channel;

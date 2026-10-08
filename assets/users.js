@@ -52,8 +52,8 @@ function usersRender() {
       + '<label class="ualert" title="인터벌 촬영 위험 알림 메일을 받습니다"><input type="checkbox"' + (u.alert ? ' checked' : '') + (u.email ? '' : ' disabled') + ' onchange="userAlert(\'' + u.id + '\',this.checked)">알림</label>'
       + (u.def ? '<span class="udel"></span>' : '<button type="button" class="udel" title="삭제" onclick="userDel(\'' + u.id + '\')">✕</button>') + '</div>';
   }).join('');
-  $('#uWatch').checked = WATCH.on; gmRender(); watchRender();
-  var b = $('#uBtn'); if (b) b.textContent = '👤 사용자 등록' + (WATCH.on ? ' · 🔔' : '');
+  $('#uWatch').checked = WATCH.on; watchRender();
+  uBtnRender();
 }
 function usersOpen() { usersRender(); $('#uErr').textContent = ''; var d = $('#udlg'); if (d.showModal) d.showModal(); else d.setAttribute('open', ''); }
 function usersClose() { var d = $('#udlg'); if (d.close) d.close(); else d.removeAttribute('open'); }
@@ -142,7 +142,7 @@ function watchCheck(d) {
 function watchSend(c, d, hhmm) {
   var to = usersAlertMails(), gm = gmGet(), w = RAW();
   if (!to.length) { watchNote('⚠️ 위험성 ' + WATCH_MIN + ' 이상 ' + c.high + '건 — 알림을 받을 사용자(이메일)가 없습니다. 👤 사용자 등록에서 ‘알림’을 켜세요.', 'warn'); return; }
-  if (!gm && !(NTOKEN && MAIL_SRV)) { watchNote('⚠️ 위험성 ' + WATCH_MIN + ' 이상 ' + c.high + '건 — 메일 보내는 계정이 없습니다. 👤 사용자 등록 → Gmail 계정을 저장하세요.', 'warn'); return; }
+  if (!gm && !(NTOKEN && MAIL_SRV)) { watchNote('⚠️ 위험성 ' + WATCH_MIN + ' 이상 ' + c.high + '건 — 메일 보내는 계정이 없습니다. 왼쪽 ⑨ 발송 설정에 Gmail 계정을 저장하세요.', 'warn'); return; }
   var sheet = ''; try { sheet = w.sheetHtml(); } catch (e) { watchNote('✗ 분석 sheet를 만들지 못했습니다.', 'warn'); return; }
   NBUSY = true; watchNote('🔔 위험성 ' + WATCH_MIN + ' 이상 ' + c.high + '건 (최고 ' + c.max + ') — 메일 만드는 중…', 'warn');
   makePdf().then(function (pdf) {
@@ -165,4 +165,5 @@ function mailWhy(j) {
     bad_credentials: 'Gmail 계정이 허용 목록에 없거나 앱 비밀번호 형식이 맞지 않습니다.', mail_auth: 'Gmail이 로그인을 거부했습니다 (앱 비밀번호 확인).', mail_failed: 'Gmail 발송 실패' };
   return (m[j.error] || j.error || '알 수 없음') + (j.detail && /mail_failed|http_/.test(j.error || '') ? ' — ' + String(j.detail).slice(0, 120) : '');
 }
-(function () { WATCH.on = uGet('cbnu_watch') === '1'; var b = document.getElementById('uBtn'); if (b && WATCH.on) b.textContent = '👤 사용자 등록 · 🔔'; })();
+function uBtnRender() { var b = document.getElementById('uBtn'); if (b) b.innerHTML = '<span class="ic">👤</span><span class="bl">사용자 등록</span>' + (WATCH.on ? '<span class="ic" title="위험 알림 켜짐">🔔</span>' : ''); }
+(function () { WATCH.on = uGet('cbnu_watch') === '1'; uBtnRender(); gmRender(); })();
