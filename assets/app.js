@@ -51,7 +51,59 @@ window.raReady = function () {
 window.ptwReady = function (k) { H.ready[k] = 1; scheduleSync(); };
 window.pstReady = function () { H.ready.pst = 1; scheduleSync(); };
 function fitFrame(id) { var f = $('#' + id); try { var d = f.contentDocument, y = f.contentWindow.scrollY || 0, b = 0; Array.prototype.forEach.call(d.body.children, function (el) { if (el.tagName === 'SCRIPT') return; var r = el.getBoundingClientRect(); if (r.height) b = Math.max(b, r.bottom + y); }); if (b > 50) f.style.height = Math.ceil(b + 16) + 'px'; } catch (e) {} }
-function fitMain() { var m = $('#main'), d = $('#docs'); if (!m || !d) return; var w = m.clientWidth - 24; var z = Math.min(1, w / 1180); d.style.zoom = z > 0.25 ? z : 0.25; }
+/* 문서(1180px)는 스크롤 영역이 아니라 '끌어서 움직이는 판'이다: 손가락·마우스로 끌면 이동(놓으면 관성), 휠도 이동, ＋/－/맞춤으로 배율을 바꾼다.
+   CSS zoom 은 iPad Safari 에서 iframe 안쪽까지 줄지 않아 오른쪽이 잘리므로 transform(translate+scale)을 쓴다. 투명한 #panShield 가 끌기를 받고,
+   끌지 않고 톡 누른 것은 그 아래 문서(iframe 안)로 클릭을 전달한다. 편집 모드에서는 끄고(직접 편집), ✋ 이동 버튼으로 끌 수 있다 */
+var DOCZ = 0, PX = 0, PY = 12, PAN = null, PANT = 0; // DOCZ 0 = 화면 너비에 맞춤
+function docFit() { return Math.max(0.25, Math.min(1, ($('#main').clientWidth - 24) / 1180)); }
+function curZ() { return DOCZ || docFit(); }
+function panApply() {
+  var m = $('#main'), d = $('#docs'); if (!m || !d) return;
+  var z = curZ(), cw = 1180 * z, ch = d.offsetHeight * z, vw = m.clientWidth, vh = m.clientHeight;
+  PX = cw <= vw - 24 ? (vw - cw) / 2 : Math.max(vw - cw - 12, Math.min(12, PX));
+  PY = ch <= vh - 24 ? 12 : Math.max(vh - ch - 12, Math.min(12, PY));
+  d.style.transform = 'translate(' + PX + 'px,' + PY + 'px) scale(' + z + ')';
+  var f = $('#dzFit'); if (f) f.textContent = DOCZ ? Math.round(z * 100) + '%' : '맞춤';
+}
+function fitMain() { panApply(); }
+function docZoom(step) { // step 0 = 맞춤(맨 위, 가운데)으로 되돌림
+  var m = $('#main'), old = curZ(), vw = m.clientWidth, vh = m.clientHeight;
+  if (!step) { DOCZ = 0; PX = 0; PY = 12; panApply(); return; }
+  DOCZ = Math.max(0.3, Math.min(1.2, Math.round((old + step) * 10) / 10)); var nz = curZ();
+  PX = vw / 2 - ((vw / 2 - PX) / old) * nz; PY = vh / 2 - ((vh / 2 - PY) / old) * nz; panApply(); // 보이는 가운데를 유지
+}
+function panReveal(el) { PY = 12 - el.offsetTop * curZ(); panApply(); }
+function panToggle() { var off = document.body.classList.toggle('panoff'); var b = $('#dzMove'); if (b) b.classList.toggle('off', off); }
+function panTap(x, y) { // 끌지 않고 누른 곳 → 아래 문서로 클릭 전달
+  var sh = $('#panShield'); sh.style.pointerEvents = 'none'; var el = document.elementFromPoint(x, y); sh.style.pointerEvents = ''; if (!el) return;
+  if (el.tagName !== 'IFRAME') { try { el.click(); } catch (e) {} return; }
+  try { var r = el.getBoundingClientRect(), z = curZ(), ix = (x - r.left) / z, iy = (y - r.top) / z, t = el.contentDocument.elementFromPoint(ix, iy), W = el.contentWindow;
+    if (t) t.dispatchEvent(new W.MouseEvent('click', { bubbles: true, cancelable: true, clientX: ix, clientY: iy, view: W })); } catch (e) {}
+}
+function panInit() {
+  var sh = $('#panShield'), m = $('#main'); if (!sh) return;
+  function stopInertia() { if (PANT) { cancelAnimationFrame(PANT); PANT = 0; } }
+  function inertia(vx, vy) {
+    stopInertia();
+    (function step() { vx *= 0.94; vy *= 0.94; if (Math.abs(vx) < 0.02 && Math.abs(vy) < 0.02) { PANT = 0; return; } PX += vx * 16; PY += vy * 16; panApply(); PANT = requestAnimationFrame(step); })();
+  }
+  sh.addEventListener('pointerdown', function (e) {
+    if (e.button) return; stopInertia(); try { sh.setPointerCapture(e.pointerId); } catch (x) {}
+    PAN = { x: e.clientX, y: e.clientY, sx: e.clientX, sy: e.clientY, t: performance.now(), t0: performance.now(), vx: 0, vy: 0, moved: false }; sh.classList.add('drag');
+  });
+  sh.addEventListener('pointermove', function (e) {
+    if (!PAN) return; var now = performance.now(), dx = e.clientX - PAN.x, dy = e.clientY - PAN.y, dt = Math.max(1, now - PAN.t);
+    if (!PAN.moved && Math.abs(e.clientX - PAN.sx) + Math.abs(e.clientY - PAN.sy) < 8) return; PAN.moved = true;
+    PX += dx; PY += dy; panApply(); PAN.vx = 0.7 * PAN.vx + 0.3 * dx / dt; PAN.vy = 0.7 * PAN.vy + 0.3 * dy / dt; PAN.x = e.clientX; PAN.y = e.clientY; PAN.t = now;
+  });
+  function end(e) {
+    if (!PAN) return; var p = PAN; PAN = null; sh.classList.remove('drag');
+    if (e.type === 'pointerup') { if (!p.moved && performance.now() - p.t0 < 600) panTap(e.clientX, e.clientY); else if (performance.now() - p.t < 80) inertia(p.vx, p.vy); }
+  }
+  sh.addEventListener('pointerup', end); sh.addEventListener('pointercancel', end);
+  m.addEventListener('wheel', function (e) { e.preventDefault(); stopInertia(); PX -= e.shiftKey ? e.deltaY : e.deltaX; PY -= e.shiftKey ? 0 : e.deltaY; panApply(); }, { passive: false });
+}
+function sideToggle() { var h = document.body.classList.toggle('sidehide'); var b = $('#dzSide'); if (b) b.textContent = h ? '▶ 입력창' : '◀ 입력창'; DOCZ = 0; PX = 0; setTimeout(fitMain, 30); }
 
 /* ---------- 위험분석 프레임 렌더 후 ---------- */
 window.onRA = function (rows) {
@@ -110,7 +162,7 @@ document.addEventListener('click', function (ev) {
   var t = ev.target, w = RAW();
   if (!t.closest('.dd')) $$('.ddm').forEach(function (m) { m.classList.remove('open'); });
   var pin = t.closest && t.closest('[data-pin]'); if (pin && w) { ev.preventDefault(); var id = pin.getAttribute('data-pin'); w.ARM = (w.ARM === id) ? null : id; w.renderPanel(); renderPanel();
-    if (w.ARM) { status('📍 <b>' + id + '</b> — 오른쪽 위험분석 1면의 사진에서 위치를 클릭하세요.', 'info'); $('#secRA').scrollIntoView({ behavior: 'smooth' }); } return; }
+    if (w.ARM) { status('📍 <b>' + id + '</b> — 오른쪽 위험분석 1면의 사진에서 위치를 클릭하세요.', 'info'); panReveal($('#secRA')); } return; }
   var del = t.closest && t.closest('[data-del]'); if (del && w) { var id2 = del.getAttribute('data-del'); w.S.custom = w.S.custom.filter(function (c) { return c.id !== id2; }); w.S.sel = w.S.sel.filter(function (x) { return x !== id2; }); delete w.S.mk[id2]; rerender(); return; }
   var b = t.closest && t.closest('#langSeg button,#engSeg button,#domSeg button,#outSeg button');
   if (b) { if (b.dataset.l) setLang(b.dataset.l); else if (b.dataset.e) setEng(b.dataset.e); else if (b.dataset.d) { DOMSEL = b.dataset.d; applyUI(); renderPanel(); H.sig = {}; scheduleSync(); } else if (b.dataset.o) setOut(b.dataset.o); }
@@ -131,7 +183,7 @@ function setLang(l) {
 }
 function setEng(e) { ENG = e; applyUI(); if (e === 'ai' && H.photo && !H.sample && !BUSY) runRead(); else if (e === 'kw' && H.photo && !H.sample) runKw(); }
 function setOut(o) { OUT = o; document.body.classList.remove('out-ra', 'out-ptw', 'out-pst'); if (o !== 'all') document.body.classList.add('out-' + o); applyUI(); setTimeout(fitMain, 50); }
-function goGen() { var w = RAW(); if (!w) return; if (H.photo && !H.sample && ENG === 'ai' && !w.S.sel.length) { runRead(); return; } applyMeta(); $('#docs').scrollIntoView({ behavior: 'smooth' }); }
+function goGen() { var w = RAW(); if (!w) return; if (H.photo && !H.sample && ENG === 'ai' && !w.S.sel.length) { runRead(); return; } applyMeta(); panReveal($('#docs')); }
 function ddOpen(id) { var m = $('#' + id), o = m.classList.contains('open'); $$('.ddm').forEach(function (x) { x.classList.remove('open'); }); if (!o) m.classList.add('open'); }
 
 /* ---------- 현장 정보 → 문서 ---------- */
@@ -400,7 +452,7 @@ function gptAuto() {
 }
 
 /* ---------- 편집·인쇄·저장 ---------- */
-function edAll() { EDIT = !EDIT; var w = RAW(); if (w && !!w.ed !== EDIT) w.tgl();
+function edAll() { EDIT = !EDIT; document.body.classList.toggle('editing', EDIT); var w = RAW(); if (w && !!w.ed !== EDIT) w.tgl();
   ['c49Box', 'genBox', 'pstBox'].forEach(function (id) { var x = W(id); try { if (x && x.hostEdit) x.hostEdit(EDIT); } catch (e) {} });
   var b = $('#eb'); b.classList.toggle('act', EDIT); b.textContent = EDIT ? '✓ 편집 중' : '✏️ 편집 모드'; }
 function frameOf(k) { return k === 'ra' ? 'raBox' : (k === 'pst' ? 'pstBox' : ptwKind() + 'Box'); }
@@ -425,7 +477,7 @@ function nstat(t, c) {
 }
 function sheetCounts() {
   var w = RAW(); var v = w ? Array.prototype.slice.call(w.document.querySelectorAll('table.ra tbody tr[data-id] td.rk')).map(function (td) { return +td.getAttribute('data-r') || 0; }).filter(Boolean) : [];
-  return { max: Math.max.apply(null, v.concat(0)), total: v.length, nine: v.filter(function (x) { return x >= 9; }).length, high: v.filter(function (x) { return x >= 6; }).length, mid: v.filter(function (x) { return x >= 3 && x < 6; }).length, low: v.filter(function (x) { return x < 3; }).length };
+  return { max: Math.max.apply(null, v.concat(0)), ge3: v.filter(function (x) { return x >= 3; }).length, total: v.length, nine: v.filter(function (x) { return x >= 9; }).length, high: v.filter(function (x) { return x >= 6; }).length, mid: v.filter(function (x) { return x >= 3 && x < 6; }).length, low: v.filter(function (x) { return x < 3; }).length };
 }
 function ntokSave() { var v = ($('#nTok').value || '').trim(); if (!v) return; NTOKEN = v; try { localStorage.setItem('cbnu_ntok', v); } catch (e) {} $('#nTok').value = ''; nstat('✓ 발송 토큰을 이 브라우저에만 저장했습니다.', 'on'); }
 function ntokClear() { NTOKEN = ''; try { localStorage.removeItem('cbnu_ntok'); } catch (e) {} nstat('발송 토큰을 지웠습니다.'); }
@@ -526,7 +578,7 @@ function notifyProbe() {
     var box = $('#mailTok'); if (box) box.classList.toggle('on', MAIL_SRV); // 메일 서버 설정이 있을 때만 발송 토큰 칸을 보여 준다
     var el = $('#nCfg'); if (!el) return;
     el.innerHTML = MAIL_SRV ? '서버 설정 — 메일 ✓ · 문자는 위 Solapi 키로 발송됩니다.'
-      : '메일은 위 <b>Gmail 계정</b>을 저장하면 이 사이트에서 발송됩니다(서버 메일 설정 없음). 저장하지 않으면 ' + mailLink() + '에서 발송하세요. 문자는 위 Solapi 키로 발송됩니다.';
+      : '';
   }).catch(function () { var el = $('#nCfg'); if (el) el.textContent = '이 주소에서는 서버 함수를 쓸 수 없습니다 (Vercel 배포에서만 동작).'; });
 }
 var NCH = '', N_MAX = 10;
@@ -671,5 +723,7 @@ function notifyGo() {
   $('#m_date').value = (function () { var d = new Date(); return d.getFullYear() + '. ' + (d.getMonth() + 1) + '. ' + d.getDate() + '.'; })();
   document.body.classList.add('nodoc');
   applyUI(); initFrames(); probe(); notifyProbe(); connInit(); solRender();
-  window.addEventListener('resize', fitMain); fitMain();
+  window.addEventListener('resize', fitMain); window.addEventListener('orientationchange', function () { setTimeout(fitMain, 250); }); fitMain();
+  if (window.ResizeObserver) new ResizeObserver(fitMain).observe($('#docs')); // 문서 높이가 바뀌면 이동 범위를 다시 맞춘다
+  panInit();
 })();

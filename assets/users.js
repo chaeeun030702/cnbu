@@ -3,7 +3,10 @@
    등록한 사용자는 메일·문자 발송 창의 받는 사람 목록이 되고, ‘알림’이 켜진 사용자는 인터벌 촬영 위험 알림의 수신자가 된다. 이 브라우저(localStorage)에만 저장한다.
    위험 알림 루틴: 인터벌 촬영 중 찍은 사진을 AI로 분석(app.js onFile → runRead)하고, 위험성(빈도×강도) 6 이상이 나오면 알림 사용자에게 메일을 보낸다
    (제목·본문은 메일 발송과 같고, 분석 결과 화면 PDF + 분석 sheet 첨부). 분석이 끝나기 전에 찍은 사진은 건너뛰고, 한 번 보낸 뒤 10분은 다시 보내지 않는다. */
-var U_MAX = 20, WATCH_MIN = 6, WATCH_COOL = 10 * 60 * 1000, WATCH_RETRY = 60 * 1000;
+var U_MAX = 20, WATCH_COOL = 10 * 60 * 1000, WATCH_RETRY = 60 * 1000;
+/* 알림 단계(위험성 = 빈도×강도, 1~9): 3 이상(중간 이상) · 6 이상(높음 이상, 기본) · 9 이상(최고) — 3단계 중 하나를 고른다 */
+var WATCH_MIN = (function () { var v = +(function () { try { return localStorage.getItem('cbnu_wlevel'); } catch (e) { return ''; } })(); return v === 3 || v === 9 ? v : 6; })();
+function watchHits(c) { return WATCH_MIN === 3 ? c.ge3 : (WATCH_MIN === 9 ? c.nine : c.high); }
 var WATCH = { on: false, busy: false, last: 0, retry: 0, seen: 0, sent: 0, msg: '' };
 
 function uGet(k) { try { return localStorage.getItem(k) || ''; } catch (e) { return ''; } }
@@ -113,11 +116,13 @@ function makePdf() { // → Promise<{ b64, blob, pages } | null>  (만들지 못
 /* ---------- 인터벌 촬영 위험 알림 루틴 ---------- */
 function watchRender() {
   var s = $('#uStat'); if (!s) return;
+  $$('#uLevel button').forEach(function (b) { b.classList.toggle('on', +b.getAttribute('data-n') === WATCH_MIN); });
   var why = !WATCH.on ? '꺼짐 — 켜면 인터벌 촬영 사진마다 위험 분석을 하고, 위험성 ' + WATCH_MIN + ' 이상이면 알림 사용자에게 메일·문자를 보냅니다.'
     : (typeof ENG !== 'undefined' && ENG !== 'ai') ? '⚠️ AI 판독 모드(②)로 바꿔야 사진을 분석합니다.'
     : WATCH.msg || '켜짐 — 인터벌 촬영을 시작하면 사진마다 분석합니다.';
   s.textContent = why; s.className = 'keystat ' + (WATCH.on ? (/⚠️|✗/.test(why) ? 'warn' : 'on') : '');
 }
+function watchLevel(n) { WATCH_MIN = n === 3 || n === 9 ? n : 6; uSet('cbnu_wlevel', String(WATCH_MIN)); WATCH.msg = ''; usersRender(); }
 function watchToggle() {
   WATCH.on = !!$('#uWatch').checked; uSet('cbnu_watch', WATCH.on ? '1' : '0');
   WATCH.msg = ''; usersRender();
@@ -138,10 +143,11 @@ function watchFeed(blob, d) {
 }
 function watchCheck(d) {
   var c = sheetCounts(), hhmm = d.toLocaleTimeString('ko-KR', { hour12: false, hour: '2-digit', minute: '2-digit' });
-  if (!c.high) { watchNote('✓ ' + hhmm + ' 분석 — 위험성 ' + WATCH_MIN + ' 이상 없음 (위험 ' + c.total + '건, 최고 ' + c.max + ')'); return; }
+  c.hit = watchHits(c);
+  if (!c.hit) { watchNote('✓ ' + hhmm + ' 분석 — 위험성 ' + WATCH_MIN + ' 이상 없음 (위험 ' + c.total + '건, 최고 ' + c.max + ')'); return; }
   var now = Date.now();
-  if (now - WATCH.last < WATCH_COOL) { watchNote('🔔 ' + hhmm + ' 위험성 ' + WATCH_MIN + ' 이상 ' + c.high + '건 — 방금 알림을 보내 ' + Math.ceil((WATCH.last + WATCH_COOL - now) / 60000) + '분 뒤에 다시 보냅니다.'); return; }
-  if (now < WATCH.retry) { watchNote('🔔 ' + hhmm + ' 위험성 ' + WATCH_MIN + ' 이상 ' + c.high + '건 — 직전 발송이 실패해 잠시 후 다시 시도합니다.', 'warn'); return; }
+  if (now - WATCH.last < WATCH_COOL) { watchNote('🔔 ' + hhmm + ' 위험성 ' + WATCH_MIN + ' 이상 ' + c.hit + '건 — 방금 알림을 보내 ' + Math.ceil((WATCH.last + WATCH_COOL - now) / 60000) + '분 뒤에 다시 보냅니다.'); return; }
+  if (now < WATCH.retry) { watchNote('🔔 ' + hhmm + ' 위험성 ' + WATCH_MIN + ' 이상 ' + c.hit + '건 — 직전 발송이 실패해 잠시 후 다시 시도합니다.', 'warn'); return; }
   watchSend(c, d, hhmm);
 }
 function smsWhy(j) {
@@ -160,17 +166,17 @@ function watchSend(c, d, hhmm) {
   if (!canMail && !canSms) {
     var miss = !mails.length && !tels.length ? '알림을 받을 사용자가 없습니다. 👤 사용자 등록에서 ‘알림’을 켜세요.'
       : '보낼 설정이 없습니다 — 왼쪽 ⑨ 발송 설정에 ' + (mails.length ? 'Gmail 계정' : '') + (mails.length && tels.length ? ' 또는 ' : '') + (tels.length ? 'Solapi 키' : '') + '를 저장하세요.';
-    watchNote('⚠️ 위험성 ' + WATCH_MIN + ' 이상 ' + c.high + '건 — ' + miss, 'warn'); return;
+    watchNote('⚠️ 위험성 ' + WATCH_MIN + ' 이상 ' + c.hit + '건 — ' + miss, 'warn'); return;
   }
   var sheet = ''; if (canMail) { try { sheet = w.sheetHtml(); } catch (e) { watchNote('✗ 분석 sheet를 만들지 못했습니다.', 'warn'); return; } }
   var site = { name: $('#m_site').value, proc: $('#m_proc').value, date: $('#m_date').value, by: $('#m_by').value };
-  NBUSY = true; watchNote('🔔 위험성 ' + WATCH_MIN + ' 이상 ' + c.high + '건 (최고 ' + c.max + ') — 알림 보내는 중…', 'warn');
+  NBUSY = true; watchNote('🔔 위험성 ' + WATCH_MIN + ' 이상 ' + c.hit + '건 (최고 ' + c.max + ') — 알림 보내는 중…', 'warn');
   var jobs = [];
   if (canSms) jobs.push(postNotify({ channel: 'sms', to: tels, counts: c, site: site, solapi: { key: SOL.key, secret: SOL.secret, sender: SOL.from } })
     .then(function (j) { return { ch: '문자', n: tels.length, ok: !!j.ok, why: j.ok ? '' : smsWhy(j) }; }, function () { return { ch: '문자', ok: false, why: '서버에 연결하지 못했습니다.' }; }));
   if (canMail) jobs.push(makePdf().then(function (pdf) {
     var body = { channel: 'email', to: mails, counts: c, sheet: sheet, pdf: pdf ? pdf.b64 : undefined, site: site,
-      note: '인터벌 촬영 자동 알림 · ' + hhmm + ' 촬영 사진에서 위험성 ' + WATCH_MIN + ' 이상 ' + c.high + '건 (최고 ' + c.max + ')' };
+      note: '인터벌 촬영 자동 알림 · ' + hhmm + ' 촬영 사진에서 위험성 ' + WATCH_MIN + ' 이상 ' + c.hit + '건 (최고 ' + c.max + ')' };
     if (gm) body.gmail = gm; else body.token = NTOKEN;
     return postNotify(body).then(function (j) { return { ch: '메일', n: mails.length, ok: !!j.ok, why: j.ok ? (pdf ? '' : 'PDF 없이 HTML만') : mailWhy(j) }; });
   }).catch(function () { return { ch: '메일', ok: false, why: '서버에 연결하지 못했습니다.' }; }));
