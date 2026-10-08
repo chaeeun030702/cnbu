@@ -31,17 +31,9 @@ button,input,select,textarea{font:inherit}
 .ddm button{display:block;width:100%;text-align:left;border:0;background:#fff;padding:9px 12px;cursor:pointer;color:#111}
 .ddm button:hover{background:#eef3fa}
 #wrap{display:flex;height:100vh;padding-top:60px}
-#side{width:clamp(300px,33vw,392px);flex:none;background:#fff;border-right:1px solid #CBD5E1;overflow-y:auto;padding:10px 10px 30px}
-#main{flex:1;min-width:0;background:var(--bg);overflow:hidden;position:relative;padding:0;touch-action:none}
-#docs{position:absolute;left:0;top:0;width:1180px;transform-origin:0 0;will-change:transform}
-#panShield{position:absolute;inset:0;z-index:5;cursor:grab;touch-action:none}#panShield.drag{cursor:grabbing}
-body.editing #panShield,body.panoff #panShield{display:none}
-#dz button.off{opacity:.55}
-body.sidehide #side{display:none}
-#dz{position:fixed;right:14px;bottom:14px;z-index:40;display:flex;gap:1px;background:rgba(0,42,92,.92);border-radius:22px;padding:3px;box-shadow:0 4px 14px rgba(0,0,0,.35)}
-#dz button{border:0;background:none;color:#fff;font-size:13px;font-weight:700;min-width:44px;height:38px;padding:0 10px;border-radius:19px;cursor:pointer;white-space:nowrap}
-#dz button:active{background:rgba(255,255,255,.22)}
-@media print{#dz{display:none}}
+#side{width:392px;flex:none;background:#fff;border-right:1px solid #CBD5E1;overflow-y:auto;padding:10px 10px 30px}
+#main{flex:1;background:var(--bg);overflow:auto;padding:12px}
+#docs{width:1180px;margin:0 auto;transform-origin:top left}
 .step{border:1px solid var(--ln);border-radius:7px;margin-bottom:9px;overflow:hidden}
 .step h3{margin:0;background:#F1F5FA;border-bottom:1px solid var(--ln);padding:7px 10px;font-size:13.5px;color:var(--nv);font-weight:800}
 .step>*:not(h3){margin-left:10px;margin-right:10px}
@@ -150,7 +142,7 @@ body.out-ra #secPTW,body.out-ra #secPST,body.out-ptw #secRA,body.out-ptw #secPST
  #wrap{flex-direction:column;height:auto;padding-top:0}
  #top{position:static}
  #side{width:100%;border-right:0;max-height:none}
- #main{height:calc(100vh - 12px);min-height:420px}
+ #main{padding:8px}
 }
 @media print{#top,#side{display:none}#main{background:#fff}}
 /* 오른쪽 문서 영역 세로 스크롤바 숨김 — 휠·터치 스크롤은 그대로 */
@@ -197,7 +189,6 @@ body.out-ra #secPTW,body.out-ra #secPST,body.out-ptw #secRA,body.out-ptw #secPST
 .urow .ualert{display:flex;align-items:center;gap:5px;font-size:12.5px;font-weight:700;color:var(--nv2);cursor:pointer}
 .urow .udel{width:24px;flex:none;border:0;background:none;color:#B03A2E;font-size:15px;cursor:pointer}
 #udlg .ugm{margin:4px 0}
-#uLevel{margin:8px 0 2px}#uLevel button{display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 2px}#uLevel small{font-size:10.5px;font-weight:600;opacity:.85}
 .art .no-art{display:none!important}
 #ndlg form{max-height:calc(100vh - 28px);overflow-y:auto}
 #ndlg .ndlab{margin:10px 0 4px;font-size:12.5px;font-weight:700;color:var(--nv2)}
