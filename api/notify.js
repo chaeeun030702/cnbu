@@ -1,14 +1,15 @@
 // ─────────────────────────────────────────────────────────────────────
 //  /api/notify — 현장사진 위험 분석 자료를 나에게 이메일 또는 문자로 발송 (Vercel Serverless Function, Node 20)
 //
-//  입력  POST { token, channel:'email'|'sms', to?, sheet?, site?, counts? }
+//  입력  POST { token?, channel:'email'|'sms', to?, sheet?, site?, counts?, solapi?:{key,secret,sender} }
 //        token   = 상단 바 버튼의 입력창에서 사용자가 넣어 이 브라우저에만 저장한 발송 토큰
 //        channel = 'email' → 메일 1통 / 'sms' → 문자 1건 (버튼마다 한 채널만 보낸다)
+//        solapi  = (sms) 홈페이지 입력창에서 사용자가 직접 넣은 Solapi API Key·Secret·발신번호. 있으면 이것으로 보내며 서버 환경변수·토큰이 필요 없다
 //        to      = 받는 이메일 주소(들) 또는 휴대폰 번호(들) — 최대 3개. 비우면 서버 환경변수 NOTIFY_*_TO 를 쓴다
 //        sheet   = 현장사진 위험 분석 sheet(위험분석·위험성평가표) HTML 문서 — 메일에 첨부 (email 필수)
 //  출력  { ok, error?, detail? }          GET → 서버 설정 상태 { token, email, sms }
 //
-//  제목  '[경고] 현장사진 위험성평가표 — 현장명 (위험 N건 · 높음 M)'  (현장명이 비면 ' — 현장명' 생략)
+//  제목  '[경고] 현장사진 위험성 분석(위험 N건 · 9이상 M건)'  (9이상 = 위험성(빈도×강도)이 9 이상인 건수)
 //  메일  제목 = 위 제목, 첨부 = 현장사진 위험 분석 sheet
 //  문자  내용 = 위 제목 (한글 90바이트를 넘으면 LMS)
 //
@@ -19,6 +20,7 @@
 //    NOTIFY_EMAIL_FROM     (선택) 기본 onboarding@resend.dev — 도메인 인증 전에는 Resend 가입 주소로만 갈 수 있다
 //    SOLAPI_API_KEY / SOLAPI_API_SECRET   문자: Solapi 키·시크릿
 //    SOLAPI_SENDER         Solapi 에 사전 등록한 발신번호   NOTIFY_SMS_TO    (선택) 입력이 없을 때 쓸 기본 받는 번호
+//    (문자는 위 SOLAPI_* 대신 홈페이지에서 키를 직접 입력해도 된다 — 이때는 토큰도 필요 없다. 입력한 키는 저장하지 않고 이 요청에만 쓴다)
 // ─────────────────────────────────────────────────────────────────────
 const crypto = require('crypto');
 
@@ -47,6 +49,22 @@ function parseTo(v, channel) {
 }
 const num = (v) => Math.min(99, Math.max(0, parseInt(v, 10) || 0));
 
+// 홈페이지에서 직접 넣은 Solapi 키: 영숫자 키·시크릿, 숫자 발신번호(하이픈 허용). 형식이 틀리면 null
+function parseCred(c) {
+  if (!c || typeof c !== 'object') return null;
+  const key = String(c.key || '').trim(), secret = String(c.secret || '').trim(), from = String(c.sender || '').replace(/[\s-]/g, '');
+  if (!/^[A-Za-z0-9]{8,64}$/.test(key) || !/^[A-Za-z0-9]{8,128}$/.test(secret) || !/^\d{8,12}$/.test(from)) return null;
+  return { key, secret, from };
+}
+
+// Solapi 응답에서 사람이 읽을 사유만 뽑는다 (요청 헤더·키는 응답에 없다)
+function solapiWhy(j, t) {
+  if (j && j.errorMessage) return (j.errorCode ? j.errorCode + ': ' : '') + String(j.errorMessage).slice(0, 160);
+  const f = j && Array.isArray(j.failedMessageList) && j.failedMessageList[0];
+  if (f) return String(f.statusMessage || f.statusCode || '발송 실패').slice(0, 160);
+  return String(t || '').slice(0, 160);
+}
+
 function safeEq(a, b) {
   const x = crypto.createHash('sha256').update(String(a)).digest();
   const y = crypto.createHash('sha256').update(String(b)).digest();
@@ -54,14 +72,14 @@ function safeEq(a, b) {
 }
 
 function titleOf(site, counts) {
-  return '[경고] 현장사진 위험성평가표' + (site.name ? ' — ' + site.name : '') + ' (위험 ' + counts.total + '건 · 높음 ' + counts.high + ')';
+  return '[경고] 현장사진 위험성 분석(위험 ' + counts.total + '건 · 9이상 ' + counts.nine + '건)';
 }
 
 function emailHtml(title, site, counts) {
   const meta = [['현장명', site.name], ['공종·작업', site.proc], ['평가일', site.date], ['관리감독자', site.by]]
     .filter((x) => x[1]).map((x) => '<b>' + x[0] + '</b> ' + esc(x[1])).join(' &nbsp;·&nbsp; ');
   const sum = counts.total
-    ? '<p style="margin:12px 0 4px">위험 <b>' + counts.total + '건</b> — <span style="color:#B03A2E"><b>높음 ' + counts.high + '</b></span> · 보통 ' + counts.mid + ' · 낮음 ' + counts.low + '</p>' : '';
+    ? '<p style="margin:12px 0 4px">위험 <b>' + counts.total + '건</b> · <span style="color:#B03A2E"><b>9이상 ' + counts.nine + '건</b></span> <span style="color:#778;font-size:12px">(위험성 = 빈도 × 강도, 최대 9)</span></p>' : '';
   return '<div style="font-family:\'Malgun Gothic\',Apple SD Gothic Neo,sans-serif;font-size:14px;color:#1c1c1c;max-width:640px">'
     + '<p style="margin:0 0 12px"><a href="' + SITE_URL + '">' + SITE_URL + '</a></p>'
     + '<div style="background:#B03A2E;color:#fff;padding:12px 14px;border-radius:6px;font-size:17px;font-weight:800">' + esc(title) + '</div>'
@@ -87,8 +105,8 @@ async function sendEmail(to, sheet, site, counts) {
   return { ok: false, error: 'http_' + r.status, detail: t.slice(0, 200) };
 }
 
-async function sendSms(to, site, counts) {
-  const key = env('SOLAPI_API_KEY'), secret = env('SOLAPI_API_SECRET'), from = env('SOLAPI_SENDER').replace(/\D/g, '');
+async function sendSms(to, site, counts, cred) {
+  const key = cred ? cred.key : env('SOLAPI_API_KEY'), secret = cred ? cred.secret : env('SOLAPI_API_SECRET'), from = cred ? cred.from : env('SOLAPI_SENDER').replace(/\D/g, '');
   if (!key || !secret || !from) return { ok: false, error: 'not_configured' };
   const date = new Date().toISOString(), salt = crypto.randomBytes(16).toString('hex');
   const sig = crypto.createHmac('sha256', secret).update(date + salt).digest('hex');
@@ -101,9 +119,13 @@ async function sendSms(to, site, counts) {
     headers: { Authorization: 'HMAC-SHA256 apiKey=' + key + ', date=' + date + ', salt=' + salt + ', signature=' + sig, 'Content-Type': 'application/json' },
     body: JSON.stringify({ messages }),
   });
-  if (r.ok) return { ok: true };
   const t = await r.text().catch(() => '');
-  return { ok: false, error: 'http_' + r.status, detail: t.slice(0, 200) };
+  let j = null; try { j = JSON.parse(t); } catch (e) { /* 본문이 JSON 이 아니면 원문 일부만 쓴다 */ }
+  if (!r.ok) return { ok: false, error: 'http_' + r.status, detail: solapiWhy(j, t) };
+  // Solapi 는 일부 발송이 실패해도 200 으로 답하고 failedMessageList 에 사유를 담는다 → 성공으로 보지 않는다
+  const cnt = j && j.groupInfo && j.groupInfo.count;
+  if ((j && Array.isArray(j.failedMessageList) && j.failedMessageList.length) || (cnt && cnt.registeredFailed > 0)) return { ok: false, error: 'sms_rejected', detail: solapiWhy(j, t) };
+  return { ok: true };
 }
 
 module.exports = async function handler(req, res) {
@@ -120,12 +142,19 @@ module.exports = async function handler(req, res) {
   let body;
   try { body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {}); } catch (e) { return res.status(400).json({ ok: false, error: 'json' }); }
 
-  const want = env('NOTIFY_TOKEN');
-  if (!want) return res.status(200).json({ ok: false, error: 'no_token_configured' });
-  if (!safeEq(body.token || '', want)) return res.status(401).json({ ok: false, error: 'bad_token' });
-
   const channel = body.channel;
   if (channel !== 'email' && channel !== 'sms') return res.status(400).json({ ok: false, error: 'channel' });
+
+  // 문자를 사용자가 입력한 Solapi 키로 보내면 서버의 비밀값을 쓰지 않으므로 토큰이 필요 없다. 그 밖에는 토큰이 맞아야 한다.
+  let cred = null;
+  if (channel === 'sms' && body.solapi) {
+    cred = parseCred(body.solapi);
+    if (!cred) return res.status(400).json({ ok: false, error: 'bad_credentials' });
+  } else {
+    const want = env('NOTIFY_TOKEN');
+    if (!want) return res.status(200).json({ ok: false, error: 'no_token_configured' });
+    if (!safeEq(body.token || '', want)) return res.status(401).json({ ok: false, error: 'bad_token' });
+  }
 
   const hasTo = Array.isArray(body.to) ? body.to.length : String(body.to || '').trim() !== '';
   const to = hasTo ? parseTo(body.to, channel) : parseTo(env(channel === 'email' ? 'NOTIFY_EMAIL_TO' : 'NOTIFY_SMS_TO'), channel);
@@ -144,10 +173,10 @@ module.exports = async function handler(req, res) {
 
   const s = body.site || {}, c = body.counts || {};
   const site = { name: clip(s.name, 60), proc: clip(s.proc, 80), date: clip(s.date, 30), by: clip(s.by, 30) };
-  const counts = { total: num(c.total), high: num(c.high), mid: num(c.mid), low: num(c.low) };
+  const counts = { total: num(c.total), nine: num(c.nine), high: num(c.high), mid: num(c.mid), low: num(c.low) };
 
   let out;
-  try { out = channel === 'email' ? await sendEmail(to, sheet, site, counts) : await sendSms(to, site, counts); }
+  try { out = channel === 'email' ? await sendEmail(to, sheet, site, counts) : await sendSms(to, site, counts, cred); }
   catch (e) { out = { ok: false, error: 'exception', detail: String(e && e.message).slice(0, 120) }; }
   if (!out.ok) last[channel] = 0; // 실패하면 바로 다시 시도할 수 있게 한다
   return res.status(200).json(out);

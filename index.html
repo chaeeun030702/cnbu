@@ -19,11 +19,11 @@
  <nav class="tb">
   <button class="gh" onclick="loadSample('e2')" title="사진_현장 사진 sample_전기 2">⚡ 표본 1 · 전기</button>
   <button class="gh" onclick="loadSample('g1')" title="현장 사진 sample_일반 1">🏗️ 표본 2 · 일반</button>
-  <span class="dd no-art"><button class="gh" id="ivBtn" onclick="ddOpen('ivm')" title="iPad 등에서 일정 간격(5초·10초·1분)으로 현장사진 자동 촬영">📷 인터벌 촬영 ▾</button><div class="ddm" id="ivm"></div></span>
   <button class="gh" onclick="resetAll()">↺ 초기화</button>
   <button class="gh" id="eb" onclick="edAll()">✏️ 편집 모드</button>
-  <button class="gh alert" onclick="notifySend('email')" title="[경고] 현장사진 위험성평가표 — 현장명 (위험 N건 · 높음 M) · 위험 분석 sheet 첨부 메일">✉️ 메일 발송</button>
-  <button class="gh alert no-art" onclick="notifySend('sms')" title="[경고] 현장사진 위험성평가표 — 현장명 (위험 N건 · 높음 M) · 문자">💬 문자 발송</button>
+  <span class="dd no-art"><button class="gh blue" id="ivBtn" onclick="ddOpen('ivm')" title="iPad 등에서 일정 간격(5초·10초·1분)으로 현장사진 자동 촬영">📷 인터벌 촬영 ▾</button><div class="ddm" id="ivm"></div></span>
+  <button class="gh alert" onclick="notifySend('email')" title="[경고] 현장사진 위험성 분석(위험 N건 · 9이상 M건) · 위험 분석 sheet 첨부 메일">✉️ 메일 발송</button>
+  <button class="gh alert no-art" onclick="notifySend('sms')" title="[경고] 현장사진 위험성 분석(위험 N건 · 9이상 M건) · 문자">💬 문자 발송</button>
   <span class="dd no-art"><button class="gh" onclick="ddOpen('svm')">💾 저장 ▾</button><div class="ddm" id="svm"><button onclick="saveDoc('ra')">위험분석·위험성평가표 HTML</button><button onclick="saveDoc('ptw')">사전작업허가서 HTML</button><button onclick="saveDoc('pst')">안전포스터 HTML</button></div></span>
   <span class="dd no-art"><button class="gh pri" onclick="ddOpen('prm')">🖨️ 인쇄/PDF ▾</button><div class="ddm" id="prm"><button onclick="printDoc('ra')">위험분석·위험성평가표 (A4 가로)</button><button onclick="printDoc('ptw')">사전작업허가서 (A4 세로)</button><button onclick="printDoc('pst')">안전포스터 (A3 세로)</button></div></span>
  </nav>
@@ -32,7 +32,9 @@
 <dialog id="ndlg">
  <form method="dialog" novalidate onsubmit="event.preventDefault();notifyGo()">
   <h3 id="ndHd"></h3>
-  <label id="ndLab" for="ndTo"></label><input id="ndTo" autocomplete="off" spellcheck="false">
+  <div id="ndLab" class="ndlab"></div>
+  <div id="ndPre"></div>
+  <label id="ndExLab" for="ndTo">추가 입력 (선택)</label><input id="ndTo" autocomplete="off" spellcheck="false">
   <div class="ndt"><b>제목</b><span id="ndTitle"></span></div>
   <div class="hint" id="ndNote"></div>
   <div id="ndTokRow"><label for="ndTok">발송 토큰</label><input type="password" id="ndTok" autocomplete="off" spellcheck="false" placeholder="이 브라우저에만 저장됩니다"></div>
@@ -93,7 +95,16 @@
   <div class="keystat" id="keyStat"></div>
  </section>
  <section class="step"><h3>⑨ 발송 설정 (메일·문자)</h3>
-  <div class="hint">상단 바의 <b>✉️ 메일 발송</b> · <b>💬 문자 발송</b> 버튼을 누르면 받는 이메일 주소·휴대폰 번호를 입력하는 창이 뜨고, 버튼이 <b>‘[경고] 현장사진 위험성평가표 — 현장명 (위험 N건 · 높음 M)’</b>을 메일(분석 sheet 첨부)·문자로 보냅니다.</div>
+  <div class="hint">상단 바의 <b>✉️ 메일 발송</b> · <b>💬 문자 발송</b> 버튼을 누르면 받는 사람을 고르는 창이 뜨고, <b>‘[경고] 현장사진 위험성 분석(위험 N건 · 9이상 M건)’</b>을 메일(분석 sheet 첨부)·문자로 보냅니다.</div>
+  <div class="subh no-art">💬 문자 — Solapi 키 (이 브라우저에만 저장)</div>
+  <div class="solbox no-art">
+   <label for="solKey">API Key</label><input id="solKey" autocomplete="off" spellcheck="false" placeholder="예: NCSA…">
+   <label for="solSecret">API Secret</label><input type="password" id="solSecret" autocomplete="off" spellcheck="false" placeholder="API Secret">
+   <label for="solFrom">Solapi에 등록한 발신번호</label><input type="tel" id="solFrom" autocomplete="off" placeholder="01012345678">
+   <div class="solbtns"><button type="button" class="sm pri" onclick="solSaveBtn()">저장</button><button type="button" class="sm" onclick="solClear()">삭제</button></div>
+   <div class="keystat" id="solStat"></div>
+  </div>
+  <div class="subh no-art">✉️ 메일 — 발송 토큰 (이 사이트의 서버로 보낼 때만)</div>
   <div class="keyrow"><input type="password" id="nTok" autocomplete="off" spellcheck="false" placeholder="발송 토큰 (이 브라우저에만 저장)"><button class="sm" onclick="ntokSave()">저장</button><button class="sm" onclick="ntokClear()">삭제</button></div>
   <div class="keystat" id="nStat"></div><div class="hint" id="nCfg"></div>
  </section>
@@ -120,6 +131,7 @@
  <footer id="sitefoot">충북대학교 안전공학과 이채은 · 지도교수 원정훈 | 근거: 산업안전보건법·안전보건규칙, KOSHA GUIDE C-C-49-2026 「안전작업허가에 관한 기술지원규정」(2026. 1. 30.), [2025] 기술지원규정(전기안전분야), 산업안전보건연구원 「위험성평가표 작성방법」, CSI 사고사례, 「안전보건용어 400선」 | 자동 생성 결과는 초안입니다. AI는 최초 검토, 최종 판단은 관리감독자가 진행.</footer>
 </div></main>
 </div>
+<script src="assets/recipients.js"></script>
 <script src="assets/data.js"></script>
 <script src="assets/app.js"></script>
 <script src="assets/interval.js"></script>

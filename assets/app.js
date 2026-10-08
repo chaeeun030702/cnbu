@@ -411,10 +411,10 @@ function renderGloss() { var b = $('#glossBody'); if (!b) return; var q = ($('#g
 
 /* ---------- 위험 분석 자료 발송 (상단 바: 메일 발송 · 문자 발송) ---------- */
 /* 버튼을 누르면 받는 이메일 주소·휴대폰 번호를 입력하는 창이 뜬다(마지막 입력은 이 브라우저에 기억).
-   제목(메일·문자 공통): ‘[경고] 현장사진 위험성평가표 — 현장명 (위험 N건 · 높음 M)’. 메일에는 현장사진 위험 분석 sheet(위험분석·위험성평가표 HTML)를 첨부한다.
+   제목(메일·문자 공통): ‘[경고] 현장사진 위험성 분석(위험 N건 · 9이상 M건)’ — 9이상 = 위험성(빈도×강도)이 9 이상인 건수. 메일에는 현장사진 위험 분석 sheet(위험분석·위험성평가표 HTML)를 첨부한다.
    실제 제목은 서버가 같은 규칙으로 만든다. 발송 토큰이 맞아야 보낼 수 있다(/api/notify). */
 var NTOKEN = '', NBUSY = false, NTIMER = 0;
-function ntitle(c) { var n = ($('#m_site').value || '').replace(/\s+/g, ' ').trim().slice(0, 60); return '[경고] 현장사진 위험성평가표' + (n ? ' — ' + n : '') + ' (위험 ' + c.total + '건 · 높음 ' + c.high + ')'; }
+function ntitle(c) { return '[경고] 현장사진 위험성 분석(위험 ' + c.total + '건 · 9이상 ' + c.nine + '건)'; }
 function nstat(t, c) {
   var e = $('#ntoast'); if (!e) return; e.textContent = t; e.className = 'on ' + (c === 'on' ? 'ok' : (c || '')); clearTimeout(NTIMER);
   NTIMER = setTimeout(function () { e.className = ''; }, c === 'warn' ? 9000 : 6000);
@@ -422,7 +422,7 @@ function nstat(t, c) {
 }
 function sheetCounts() {
   var w = RAW(); var v = w ? Array.prototype.slice.call(w.document.querySelectorAll('table.ra tbody tr[data-id] td.rk')).map(function (td) { return +td.getAttribute('data-r') || 0; }).filter(Boolean) : [];
-  return { total: v.length, high: v.filter(function (x) { return x >= 6; }).length, mid: v.filter(function (x) { return x >= 3 && x < 6; }).length, low: v.filter(function (x) { return x < 3; }).length };
+  return { total: v.length, nine: v.filter(function (x) { return x >= 9; }).length, high: v.filter(function (x) { return x >= 6; }).length, mid: v.filter(function (x) { return x >= 3 && x < 6; }).length, low: v.filter(function (x) { return x < 3; }).length };
 }
 function ntokSave() { var v = ($('#nTok').value || '').trim(); if (!v) return; NTOKEN = v; try { localStorage.setItem('cbnu_ntok', v); } catch (e) {} $('#nTok').value = ''; nstat('✓ 발송 토큰을 이 브라우저에만 저장했습니다.', 'on'); }
 function ntokClear() { NTOKEN = ''; try { localStorage.removeItem('cbnu_ntok'); } catch (e) {} nstat('발송 토큰을 지웠습니다.'); }
@@ -446,7 +446,7 @@ function mailHtmlC(title, site, c) {
   return '<div style="font-family:\'Malgun Gothic\',Apple SD Gothic Neo,sans-serif;font-size:14px;color:#1c1c1c;max-width:640px">'
     + '<p style="margin:0 0 12px"><a href="' + SITE_URL + '">' + SITE_URL + '</a></p>'
     + '<div style="background:#B03A2E;color:#fff;padding:12px 14px;border-radius:6px;font-size:17px;font-weight:800">' + esc(title) + '</div>'
-    + '<p style="margin:12px 0 4px">위험 <b>' + c.total + '건</b> — <span style="color:#B03A2E"><b>높음 ' + c.high + '</b></span> · 보통 ' + c.mid + ' · 낮음 ' + c.low + '</p>'
+    + '<p style="margin:12px 0 4px">위험 <b>' + c.total + '건</b> · <span style="color:#B03A2E"><b>9이상 ' + c.nine + '건</b></span> <span style="color:#778;font-size:12px">(위험성 = 빈도 × 강도, 최대 9)</span></p>'
     + (meta ? '<p style="margin:4px 0 10px;color:#334">' + meta + '</p>' : '')
     + '<p>첨부한 <b>현장사진 위험 분석 sheet</b>(HTML 파일)를 열어 위험 분석과 위험성평가표를 확인하세요.</p>'
     + '<p style="color:#778;font-size:12px">자동 생성 결과는 초안입니다. AI는 최초 검토, 최종 판단은 관리감독자가 진행합니다.</p></div>';
@@ -489,12 +489,55 @@ function connWhy(e) {
 function notifyProbe() {
   fetch('/api/notify').then(function (r) { return r.json(); }).then(function (j) {
     var el = $('#nCfg'); if (!el || CMCP) return;
-    el.textContent = !j.token ? '서버에 NOTIFY_TOKEN 이 없어 발송할 수 없습니다 (Vercel 환경변수 설정 필요).'
-      : '서버 설정 — 메일 ' + (j.email ? '✓' : '✗ 미설정') + ' · 문자 ' + (j.sms ? '✓' : '✗ 미설정');
+    el.textContent = !j.token ? '이 사이트의 서버에는 메일 발송 설정(NOTIFY_TOKEN·Resend)이 없습니다. 문자는 위 Solapi 키만 저장하면 됩니다.'
+      : '서버 설정 — 메일 ' + (j.email ? '✓' : '✗ 미설정') + ' · 문자(서버 키) ' + (j.sms ? '✓' : '없음 — 위 Solapi 키로 발송');
   }).catch(function () { var el = $('#nCfg'); if (el && !CMCP) el.textContent = '이 주소에서는 서버 함수를 쓸 수 없습니다 (Vercel 배포에서만 동작).'; });
 }
 var NCH = '';
+/* 문자: 사용자가 입력한 Solapi 키는 이 브라우저에만 저장(발송 성공 시)하고, 발송 요청에만 실어 서버로 보낸다. 서버는 저장하지 않는다 */
+var SOL = { key: '', secret: '', from: '' };
+function solLoad() { try { SOL = { key: localStorage.getItem('cbnu_sol_key') || '', secret: localStorage.getItem('cbnu_sol_secret') || '', from: localStorage.getItem('cbnu_sol_from') || '' }; } catch (e) {} }
+function solSave() { try { localStorage.setItem('cbnu_sol_key', SOL.key); localStorage.setItem('cbnu_sol_secret', SOL.secret); localStorage.setItem('cbnu_sol_from', SOL.from); } catch (e) {} }
+function solValid() { return !!(SOL.key && SOL.secret && SOL.from); }
+function solRender() {
+  solLoad();
+  var k = $('#solKey'); if (!k) return;
+  k.value = SOL.key; $('#solFrom').value = SOL.from; $('#solSecret').value = '';
+  $('#solSecret').placeholder = SOL.secret ? '저장됨 (…' + SOL.secret.slice(-4) + ') — 바꿀 때만 입력' : 'API Secret';
+  var st = $('#solStat'); st.className = 'keystat ' + (solValid() ? 'on' : '');
+  st.textContent = solValid() ? '✓ 저장됨 — 문자 발송 준비 완료 (발신번호 ' + nFmt(SOL.from, false) + ')' : '키·시크릿·발신번호를 저장하면 문자를 보낼 수 있습니다.';
+}
+function solSaveBtn() {
+  var st = $('#solStat'), k = ($('#solKey').value || '').trim(), sc = ($('#solSecret').value || '').trim() || SOL.secret, fr = ($('#solFrom').value || '').replace(/[\s-]/g, '');
+  var bad = !/^[A-Za-z0-9]{8,64}$/.test(k) ? 'API Key를 확인하세요 (영문·숫자).' : !/^[A-Za-z0-9]{8,128}$/.test(sc) ? 'API Secret을 입력하세요 (영문·숫자).' : !/^\d{8,12}$/.test(fr) ? '발신번호를 숫자로 입력하세요 (예: 01012345678).' : '';
+  if (bad) { st.textContent = bad; st.className = 'keystat warn'; return; }
+  SOL = { key: k, secret: sc, from: fr }; solSave(); solRender(); nstat('✓ Solapi 키를 이 브라우저에만 저장했습니다.', 'on');
+}
+function solClear() {
+  SOL = { key: '', secret: '', from: '' };
+  try { ['cbnu_sol_key', 'cbnu_sol_secret', 'cbnu_sol_from'].forEach(function (k) { localStorage.removeItem(k); }); } catch (e) {}
+  solRender(); nstat('저장된 Solapi 키를 지웠습니다.');
+}
+function solNeed() { // 키가 없으면 ⑨ 로 안내한다
+  nstat('먼저 왼쪽 ⑨ 발송 설정에 Solapi API Key·Secret·발신번호를 저장하세요.', 'warn');
+  var k = $('#solKey'); if (k) { k.scrollIntoView({ behavior: 'smooth', block: 'center' }); k.focus(); }
+}
 function nLoad(k) { try { return localStorage.getItem(k) || ''; } catch (e) { return ''; } }
+/* 수신자: 체크리스트(PRESETS, assets/recipients.js) + 직접 입력 1칸. 마지막 체크 상태는 이 브라우저에 기억한다(처음엔 첫 항목만 체크) */
+function nFmt(v, mail) { return mail ? v : v.replace(/^(01\d)(\d{3,4})(\d{4})$/, '$1-$2-$3'); }
+function nPresets(mail) { return (typeof PRESETS !== 'undefined' && PRESETS[mail ? 'email' : 'sms']) || []; }
+function nChecked(mail) {
+  var list = nPresets(mail), saved = null;
+  try { saved = JSON.parse(localStorage.getItem('cbnu_nsel_' + (mail ? 'email' : 'sms')) || 'null'); } catch (e) {}
+  return Array.isArray(saved) ? saved.filter(function (v) { return list.indexOf(v) >= 0; }) : list.slice(0, 1);
+}
+function nRender(mail) {
+  var on = nChecked(mail);
+  $('#ndPre').innerHTML = nPresets(mail).map(function (v, i) {
+    return '<label class="ndck" for="ndPre' + i + '"><input type="checkbox" id="ndPre' + i + '" value="' + esc(v) + '"' + (on.indexOf(v) >= 0 ? ' checked' : '') + '><span>' + esc(nFmt(v, mail)) + '</span></label>';
+  }).join('');
+}
+function nPicked() { return $$('#ndPre input:checked').map(function (i) { return i.value; }); }
 function nSplit(v, mail) {
   var raw = String(v || '').split(/[\s,;]+/).filter(Boolean), out = [];
   for (var i = 0; i < raw.length; i++) {
@@ -509,51 +552,59 @@ function notifySend(channel) {
   if (NBUSY) return;
   var w = RAW(), cnt = sheetCounts();
   if (!w || !cnt.total) { nstat('먼저 사진을 올리고 문서를 생성하세요.', 'warn'); return; }
+  if (!CMCP && channel === 'sms') { solLoad(); if (!solValid()) { solNeed(); return; } }
   if (CMCP && channel !== 'email') { nstat('문자 발송은 Vercel 사이트(e-safety.vercel.app)에서만 됩니다.', 'warn'); return; }
   var mail = channel === 'email'; NCH = channel;
   $('#ndHd').textContent = mail ? '✉️ 메일 발송' : '💬 문자 발송';
-  $('#ndLab').textContent = mail ? '받는 이메일 주소' : '받는 휴대폰 번호';
-  var to = $('#ndTo'); to.type = mail ? 'email' : 'tel'; to.multiple = mail; to.placeholder = mail ? 'name@example.com (여러 개는 쉼표로, 최대 3개)' : '010-1234-5678 (여러 개는 쉼표로, 최대 3개)';
-  to.value = nLoad(mail ? 'cbnu_nto_email' : 'cbnu_nto_sms');
+  $('#ndLab').textContent = mail ? '받는 이메일 (선택)' : '받는 휴대폰 번호 (선택)'; nRender(mail);
+  var to = $('#ndTo'); to.type = mail ? 'email' : 'tel'; to.multiple = mail; to.placeholder = mail ? 'name@example.com' : '010-1234-5678'; to.value = '';
   $('#ndTitle').textContent = ntitle(cnt);
-  $('#ndNote').textContent = CMCP ? '내 Gmail 계정(Gmail 커넥터)으로 발송합니다. 현장사진 위험 분석 sheet(HTML 파일)가 첨부됩니다.' : mail ? '현장사진 위험 분석 sheet(HTML 파일)가 첨부됩니다.' : '문자 요금이 발생합니다. 제목이 길면 장문(LMS)으로 나갑니다.';
-  $('#ndTokRow').style.display = (NTOKEN || CMCP) ? 'none' : '';
+  $('#ndNote').textContent = CMCP ? '내 Gmail 계정(Gmail 커넥터)으로 발송합니다. 현장사진 위험 분석 sheet(HTML 파일)가 첨부됩니다.' : mail ? '현장사진 위험 분석 sheet(HTML 파일)가 첨부됩니다.' : '문자 요금이 발생합니다(Solapi 잔액에서 차감). 저장해 둔 Solapi 키는 발송 요청에만 실어 서버를 거쳐 Solapi로 전달됩니다(서버는 저장하지 않음). 제목이 길면 장문(LMS)으로 나갑니다.';
+  $('#ndTokRow').style.display = (NTOKEN || CMCP || !mail) ? 'none' : ''; // 문자는 Solapi 키를 직접 넣으므로 토큰이 필요 없다
   $('#ndTok').value = ''; $('#ndErr').textContent = '';
   var d = $('#ndlg'); if (d.showModal) d.showModal(); else d.setAttribute('open', '');
-  setTimeout(function () { (to.value ? ($('#ndTokRow').style.display === 'none' ? $('#ndGo') : $('#ndTok')) : to).focus(); }, 30);
+  setTimeout(function () { ($('#ndTokRow').style.display === 'none' ? $('#ndGo') : $('#ndTok')).focus(); }, 30);
 }
 function ndClose() { var d = $('#ndlg'); if (d.close) d.close(); else d.removeAttribute('open'); }
 function notifyGo() {
   if (NBUSY) return;
   var mail = NCH === 'email', err = $('#ndErr'), w = RAW(), cnt = sheetCounts();
-  var list = nSplit($('#ndTo').value, mail);
-  if (list === null || !list.length) { err.textContent = mail ? '이메일 주소를 확인하세요 (최대 3개, 쉼표로 구분).' : '휴대폰 번호를 확인하세요 (010 등 국내 번호, 최대 3개, 쉼표로 구분).'; return; }
+  var picked = nPicked(), extra = nSplit($('#ndTo').value, mail);
+  if (extra === null) { err.textContent = mail ? '추가 입력의 이메일 주소를 확인하세요.' : '추가 입력의 휴대폰 번호를 확인하세요 (010 등 국내 번호).'; return; }
+  var list = picked.slice(); extra.forEach(function (v) { if (list.indexOf(v) < 0) list.push(v); });
+  if (!list.length) { err.textContent = mail ? '받는 이메일을 체크하거나 추가 입력에 주소를 넣으세요.' : '받는 번호를 체크하거나 추가 입력에 번호를 넣으세요.'; return; }
+  if (list.length > 3) { err.textContent = '받는 사람은 최대 3명입니다.'; return; }
   var tok = NTOKEN || ($('#ndTok').value || '').trim();
-  if (!tok && !CMCP) { err.textContent = '발송 토큰을 입력하세요.'; return; }
+  var cred = null;
+  if (!mail && !CMCP) {
+    solLoad(); if (!solValid()) { ndClose(); solNeed(); return; }
+    cred = { key: SOL.key, secret: SOL.secret, sender: SOL.from };
+  }
+  if (!tok && !CMCP && mail) { err.textContent = '발송 토큰을 입력하세요.'; return; }
   if (!w || !cnt.total) { err.textContent = '먼저 사진을 올리고 문서를 생성하세요.'; return; }
   if (CMCP) { // Claude 아티팩트: Gmail 커넥터로 직접 발송
     var site0 = { name: $('#m_site').value, proc: $('#m_proc').value, date: $('#m_date').value, by: $('#m_by').value }, title0 = ntitle(cnt), sheet0 = '';
     try { sheet0 = w.sheetHtml(); } catch (e) { err.textContent = '분석 sheet를 만들지 못했습니다.'; return; }
-    try { localStorage.setItem('cbnu_nto_email', list.join(', ')); } catch (e) {}
+    try { localStorage.setItem('cbnu_nsel_email', JSON.stringify(picked)); } catch (e) {}
     ndClose(); NBUSY = true; nstat('메일 발송 중…');
     connSend(list, title0, cnt, site0, sheet0)
       .then(function () { nstat('✓ 메일 발송 완료 (' + list.join(', ') + ') — ' + title0, 'on'); }, function (e) { nstat('✗ ' + connWhy(e), 'warn'); })
       .then(function () { NBUSY = false; });
     return;
   }
-  var body = { token: tok, channel: NCH, to: list, counts: cnt, link: location.origin + '/', site: { name: $('#m_site').value, proc: $('#m_proc').value, date: $('#m_date').value, by: $('#m_by').value } };
+  var body = { token: tok, solapi: cred, channel: NCH, to: list, counts: cnt, link: location.origin + '/', site: { name: $('#m_site').value, proc: $('#m_proc').value, date: $('#m_date').value, by: $('#m_by').value } };
   if (mail) { try { body.sheet = w.sheetHtml(); } catch (e) { err.textContent = '분석 sheet를 만들지 못했습니다.'; return; } }
   var title = ntitle(cnt), name = mail ? '메일' : '문자';
-  try { localStorage.setItem(mail ? 'cbnu_nto_email' : 'cbnu_nto_sms', list.join(', ')); } catch (e) {}
+  try { localStorage.setItem(mail ? 'cbnu_nsel_email' : 'cbnu_nsel_sms', JSON.stringify(picked)); } catch (e) {}
   ndClose(); NBUSY = true; nstat(name + ' 발송 중…');
   fetch('/api/notify', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
     .then(function (r) { return r.json().catch(function () { return { ok: false, error: r.status === 413 ? 'too_large' : 'http_' + r.status }; }); })
     .then(function (j) {
       var why = { bad_token: '발송 토큰이 맞지 않습니다.', no_token_configured: '서버에 NOTIFY_TOKEN 이 설정되지 않았습니다.', too_fast: '잠시 후 다시 시도하세요 (연속 발송 제한).',
         not_configured: '서버에 ' + name + ' 발송 설정이 없습니다 (환경변수).', too_large: '분석 sheet가 너무 큽니다 (사진을 줄여 다시 올려 주세요).', sheet: '분석 sheet가 올바르지 않거나 너무 큽니다.',
-        bad_recipient: '받는 ' + (mail ? '주소' : '번호') + ' 형식이 맞지 않습니다.', no_recipient: '받는 ' + (mail ? '주소' : '번호') + '가 없습니다.' };
-      if (j.ok) { NTOKEN = tok; try { localStorage.setItem('cbnu_ntok', tok); } catch (e) {} nstat('✓ ' + name + ' 발송 완료 (' + list.join(', ') + ') — ' + title, 'on'); }
-      else { if (j.error === 'bad_token') { NTOKEN = ''; try { localStorage.removeItem('cbnu_ntok'); } catch (e) {} } nstat('✗ ' + name + ' 발송 실패: ' + (why[j.error] || j.error || '알 수 없음'), 'warn'); }
+        bad_recipient: '받는 ' + (mail ? '주소' : '번호') + ' 형식이 맞지 않습니다.', no_recipient: '받는 ' + (mail ? '주소' : '번호') + '가 없습니다.', bad_credentials: 'Solapi 키·시크릿·발신번호 형식이 맞지 않습니다.', sms_rejected: 'Solapi가 문자를 거절했습니다' };
+      if (j.ok) { if (mail) { NTOKEN = tok; try { localStorage.setItem('cbnu_ntok', tok); } catch (e) {} } nstat('✓ ' + name + ' 발송 완료 (' + list.join(', ') + ') — ' + title, 'on'); }
+      else { if (j.error === 'bad_token') { NTOKEN = ''; try { localStorage.removeItem('cbnu_ntok'); } catch (e) {} } nstat('✗ ' + name + ' 발송 실패: ' + (why[j.error] || j.error || '알 수 없음') + (j.detail && !mail ? ' — ' + String(j.detail).slice(0, 140) : ''), 'warn'); }
     })
     .catch(function () { nstat('서버에 연결하지 못했습니다.', 'warn'); })
     .then(function () { NBUSY = false; });
@@ -571,6 +622,6 @@ function notifyGo() {
   ['m_site', 'm_proc', 'm_by'].forEach(function (k) { $('#' + k).addEventListener('change', function () { applyMeta(); }); });
   $('#m_date').value = (function () { var d = new Date(); return d.getFullYear() + '. ' + (d.getMonth() + 1) + '. ' + d.getDate() + '.'; })();
   document.body.classList.add('nodoc');
-  applyUI(); initFrames(); probe(); notifyProbe(); connInit();
+  applyUI(); initFrames(); probe(); notifyProbe(); connInit(); solRender();
   window.addEventListener('resize', fitMain); fitMain();
 })();
