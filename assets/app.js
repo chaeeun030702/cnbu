@@ -269,7 +269,7 @@ function aiScan(on) {
 }
 function runRead() {
   var w = RAW(); if (BUSY || !w || !H.photo) { afterRead(false); return; } BUSY = true; var lang = LANG;
-  status('<span class="spin"></span> AI(Claude Opus 5.5)가 사진을 판독하는 중입니다… (30~90초)', 'busy');
+  status('<span class="spin"></span> AI(Claude Sonnet 5.5)가 사진을 판독하는 중입니다… (20~60초)', 'busy');
   aiScan(true);
   var ctrl = window.AbortController ? new AbortController() : null, tm = setTimeout(function () { if (ctrl) ctrl.abort(); }, 125000);
   fetch('api/read', { method: 'POST', headers: { 'content-type': 'application/json' }, signal: ctrl ? ctrl.signal : undefined,
