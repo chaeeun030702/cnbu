@@ -41,8 +41,7 @@
   <button type="submit" class="sm pri">＋ 사용자 추가</button>
   <div class="no-art">
    <div class="ndlab ubar">🔔 감시 모드 위험 알림</div>
-   <label class="ndck" for="uWatch"><input type="checkbox" id="uWatch" onchange="watchToggle()"><span>촬영한 사진마다 위험 분석 → 위험성이 아래 단계 이상이면 ‘알림’ 사용자에게 메일·문자</span></label>
-   <div class="seg" id="uLevel"><button type="button" data-n="3" onclick="watchLevel(3)"><b>3 이상</b><small>중간 이상</small></button><button type="button" data-n="6" onclick="watchLevel(6)"><b>6 이상</b><small>높음 이상 (기본)</small></button><button type="button" data-n="9" onclick="watchLevel(9)"><b>9 이상</b><small>최고 단계만</small></button></div>
+   <label class="ndck" for="uWatch"><input type="checkbox" id="uWatch" onchange="watchToggle()"><span>촬영한 사진마다 위험 분석 → 위험성 6 이상이면 ‘알림’ 사용자에게 메일·문자</span></label>
    <div class="keystat" id="uStat"></div>
    <div class="hint">AI 판독 모드에서 분석이 끝나기 전에 찍은 사진은 건너뛰고, 한 번 보낸 뒤 10분 동안은 다시 보내지 않습니다. 메일에는 분석 결과 화면 PDF와 분석 sheet가 첨부되고(Gmail 계정 필요), 문자는 ⑨에 Solapi 키가 저장돼 있어야 갑니다.</div>
    <div class="hint">메일을 보낼 <b>Gmail 계정(앱 비밀번호)</b>은 왼쪽 <b>⑨ 발송 설정</b>에 저장합니다. 자동 알림은 사람이 누르지 않아 Gmail 커넥터를 쓸 수 없고, 저장한 계정으로 보냅니다.</div>
@@ -160,8 +159,7 @@
    <div id="gptFull"><b></b><img alt="ChatGPT 실사판 포스터"></div></div>
  </section>
  <footer id="sitefoot">충북대학교 안전공학과 이채은 · 지도교수 원정훈 | 근거: 산업안전보건법·안전보건규칙, KOSHA GUIDE C-C-49-2026 「안전작업허가에 관한 기술지원규정」(2026. 1. 30.), [2025] 기술지원규정(전기안전분야), 산업안전보건연구원 「위험성평가표 작성방법」, CSI 사고사례, 「안전보건용어 400선」 | 자동 생성 결과는 초안입니다. AI는 최초 검토, 최종 판단은 관리감독자가 진행.</footer>
-</div><div id="panShield"></div></main>
-<div id="dz"><button id="dzSide" onclick="sideToggle()" title="입력창 접기 / 펴기">◀ 입력창</button><button id="dzMove" onclick="panToggle()" title="끌어서 문서 이동 켜기 / 끄기">✋ 이동</button><button onclick="docZoom(-0.1)" title="문서 축소" aria-label="문서 축소">－</button><button id="dzFit" onclick="docZoom(0)" title="화면 너비에 맞춤">맞춤</button><button onclick="docZoom(0.1)" title="문서 확대" aria-label="문서 확대">＋</button></div>
+</div></main>
 </div>
 <script src="assets/recipients.js"></script>
 <script src="assets/data.js"></script>
