@@ -504,6 +504,21 @@ function solClear() {
   ['ndSolKey', 'ndSolSecret', 'ndSolFrom'].forEach(function (i) { $('#' + i).value = ''; }); $('#ndSolSecret').placeholder = ''; $('#ndErr').textContent = '저장된 Solapi 키를 지웠습니다.';
 }
 function nLoad(k) { try { return localStorage.getItem(k) || ''; } catch (e) { return ''; } }
+/* 수신자: 체크리스트(PRESETS, assets/recipients.js) + 직접 입력 1칸. 마지막 체크 상태는 이 브라우저에 기억한다(처음엔 첫 항목만 체크) */
+function nFmt(v, mail) { return mail ? v : v.replace(/^(01\d)(\d{3,4})(\d{4})$/, '$1-$2-$3'); }
+function nPresets(mail) { return (typeof PRESETS !== 'undefined' && PRESETS[mail ? 'email' : 'sms']) || []; }
+function nChecked(mail) {
+  var list = nPresets(mail), saved = null;
+  try { saved = JSON.parse(localStorage.getItem('cbnu_nsel_' + (mail ? 'email' : 'sms')) || 'null'); } catch (e) {}
+  return Array.isArray(saved) ? saved.filter(function (v) { return list.indexOf(v) >= 0; }) : list.slice(0, 1);
+}
+function nRender(mail) {
+  var on = nChecked(mail);
+  $('#ndPre').innerHTML = nPresets(mail).map(function (v, i) {
+    return '<label class="ndck" for="ndPre' + i + '"><input type="checkbox" id="ndPre' + i + '" value="' + esc(v) + '"' + (on.indexOf(v) >= 0 ? ' checked' : '') + '><span>' + esc(nFmt(v, mail)) + '</span></label>';
+  }).join('');
+}
+function nPicked() { return $$('#ndPre input:checked').map(function (i) { return i.value; }); }
 function nSplit(v, mail) {
   var raw = String(v || '').split(/[\s,;]+/).filter(Boolean), out = [];
   for (var i = 0; i < raw.length; i++) {
@@ -521,9 +536,8 @@ function notifySend(channel) {
   if (CMCP && channel !== 'email') { nstat('문자 발송은 Vercel 사이트(e-safety.vercel.app)에서만 됩니다.', 'warn'); return; }
   var mail = channel === 'email'; NCH = channel;
   $('#ndHd').textContent = mail ? '✉️ 메일 발송' : '💬 문자 발송';
-  $('#ndLab').textContent = mail ? '받는 이메일 주소' : '받는 휴대폰 번호';
-  var to = $('#ndTo'); to.type = mail ? 'email' : 'tel'; to.multiple = mail; to.placeholder = mail ? 'name@example.com (여러 개는 쉼표로, 최대 3개)' : '010-1234-5678 (여러 개는 쉼표로, 최대 3개)';
-  to.value = nLoad(mail ? 'cbnu_nto_email' : 'cbnu_nto_sms');
+  $('#ndLab').textContent = mail ? '받는 이메일 (선택)' : '받는 휴대폰 번호 (선택)'; nRender(mail);
+  var to = $('#ndTo'); to.type = mail ? 'email' : 'tel'; to.multiple = mail; to.placeholder = mail ? 'name@example.com' : '010-1234-5678'; to.value = '';
   $('#ndTitle').textContent = ntitle(cnt);
   $('#ndNote').textContent = CMCP ? '내 Gmail 계정(Gmail 커넥터)으로 발송합니다. 현장사진 위험 분석 sheet(HTML 파일)가 첨부됩니다.' : mail ? '현장사진 위험 분석 sheet(HTML 파일)가 첨부됩니다.' : '문자 요금이 발생합니다(Solapi 잔액에서 차감). 키·시크릿은 이 브라우저에만 저장하고, 발송 요청에만 실어 서버를 거쳐 Solapi로 전달됩니다(서버는 저장하지 않음). 제목이 길면 장문(LMS)으로 나갑니다.';
   $('#ndTokRow').style.display = (NTOKEN || CMCP || !mail) ? 'none' : ''; // 문자는 Solapi 키를 직접 넣으므로 토큰이 필요 없다
@@ -531,14 +545,17 @@ function notifySend(channel) {
   if (sol) { solLoad(); $('#ndSolKey').value = SOL.key; $('#ndSolFrom').value = SOL.from; $('#ndSolSecret').value = ''; $('#ndSolSecret').placeholder = SOL.secret ? '저장됨 (…' + SOL.secret.slice(-4) + ') — 바꿀 때만 입력' : 'API Secret'; }
   $('#ndTok').value = ''; $('#ndErr').textContent = '';
   var d = $('#ndlg'); if (d.showModal) d.showModal(); else d.setAttribute('open', '');
-  setTimeout(function () { (to.value ? (sol && !(SOL.key && SOL.secret && SOL.from) ? $('#ndSolKey') : ($('#ndTokRow').style.display === 'none' ? $('#ndGo') : $('#ndTok'))) : to).focus(); }, 30);
+  setTimeout(function () { (sol && !(SOL.key && SOL.secret && SOL.from) ? $('#ndSolKey') : ($('#ndTokRow').style.display === 'none' ? $('#ndGo') : $('#ndTok'))).focus(); }, 30);
 }
 function ndClose() { var d = $('#ndlg'); if (d.close) d.close(); else d.removeAttribute('open'); }
 function notifyGo() {
   if (NBUSY) return;
   var mail = NCH === 'email', err = $('#ndErr'), w = RAW(), cnt = sheetCounts();
-  var list = nSplit($('#ndTo').value, mail);
-  if (list === null || !list.length) { err.textContent = mail ? '이메일 주소를 확인하세요 (최대 3개, 쉼표로 구분).' : '휴대폰 번호를 확인하세요 (010 등 국내 번호, 최대 3개, 쉼표로 구분).'; return; }
+  var picked = nPicked(), extra = nSplit($('#ndTo').value, mail);
+  if (extra === null) { err.textContent = mail ? '추가 입력의 이메일 주소를 확인하세요.' : '추가 입력의 휴대폰 번호를 확인하세요 (010 등 국내 번호).'; return; }
+  var list = picked.slice(); extra.forEach(function (v) { if (list.indexOf(v) < 0) list.push(v); });
+  if (!list.length) { err.textContent = mail ? '받는 이메일을 체크하거나 추가 입력에 주소를 넣으세요.' : '받는 번호를 체크하거나 추가 입력에 번호를 넣으세요.'; return; }
+  if (list.length > 3) { err.textContent = '받는 사람은 최대 3명입니다.'; return; }
   var tok = NTOKEN || ($('#ndTok').value || '').trim();
   var cred = null;
   if (!mail && !CMCP) {
@@ -553,7 +570,7 @@ function notifyGo() {
   if (CMCP) { // Claude 아티팩트: Gmail 커넥터로 직접 발송
     var site0 = { name: $('#m_site').value, proc: $('#m_proc').value, date: $('#m_date').value, by: $('#m_by').value }, title0 = ntitle(cnt), sheet0 = '';
     try { sheet0 = w.sheetHtml(); } catch (e) { err.textContent = '분석 sheet를 만들지 못했습니다.'; return; }
-    try { localStorage.setItem('cbnu_nto_email', list.join(', ')); } catch (e) {}
+    try { localStorage.setItem('cbnu_nsel_email', JSON.stringify(picked)); } catch (e) {}
     ndClose(); NBUSY = true; nstat('메일 발송 중…');
     connSend(list, title0, cnt, site0, sheet0)
       .then(function () { nstat('✓ 메일 발송 완료 (' + list.join(', ') + ') — ' + title0, 'on'); }, function (e) { nstat('✗ ' + connWhy(e), 'warn'); })
@@ -563,7 +580,7 @@ function notifyGo() {
   var body = { token: tok, solapi: cred, channel: NCH, to: list, counts: cnt, link: location.origin + '/', site: { name: $('#m_site').value, proc: $('#m_proc').value, date: $('#m_date').value, by: $('#m_by').value } };
   if (mail) { try { body.sheet = w.sheetHtml(); } catch (e) { err.textContent = '분석 sheet를 만들지 못했습니다.'; return; } }
   var title = ntitle(cnt), name = mail ? '메일' : '문자';
-  try { localStorage.setItem(mail ? 'cbnu_nto_email' : 'cbnu_nto_sms', list.join(', ')); } catch (e) {}
+  try { localStorage.setItem(mail ? 'cbnu_nsel_email' : 'cbnu_nsel_sms', JSON.stringify(picked)); } catch (e) {}
   ndClose(); NBUSY = true; nstat(name + ' 발송 중…');
   fetch('/api/notify', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
     .then(function (r) { return r.json().catch(function () { return { ok: false, error: r.status === 413 ? 'too_large' : 'http_' + r.status }; }); })

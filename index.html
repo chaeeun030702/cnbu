@@ -32,7 +32,9 @@
 <dialog id="ndlg">
  <form method="dialog" novalidate onsubmit="event.preventDefault();notifyGo()">
   <h3 id="ndHd"></h3>
-  <label id="ndLab" for="ndTo"></label><input id="ndTo" autocomplete="off" spellcheck="false">
+  <div id="ndLab" class="ndlab"></div>
+  <div id="ndPre"></div>
+  <label id="ndExLab" for="ndTo">추가 입력 (선택)</label><input id="ndTo" autocomplete="off" spellcheck="false">
   <div id="ndSolRow">
    <label for="ndSolKey">Solapi API Key</label><input id="ndSolKey" autocomplete="off" spellcheck="false" placeholder="예: NCSA…">
    <label for="ndSolSecret">Solapi API Secret</label><input type="password" id="ndSolSecret" autocomplete="off" spellcheck="false">
@@ -126,6 +128,7 @@
  <footer id="sitefoot">충북대학교 안전공학과 이채은 · 지도교수 원정훈 | 근거: 산업안전보건법·안전보건규칙, KOSHA GUIDE C-C-49-2026 「안전작업허가에 관한 기술지원규정」(2026. 1. 30.), [2025] 기술지원규정(전기안전분야), 산업안전보건연구원 「위험성평가표 작성방법」, CSI 사고사례, 「안전보건용어 400선」 | 자동 생성 결과는 초안입니다. AI는 최초 검토, 최종 판단은 관리감독자가 진행.</footer>
 </div></main>
 </div>
+<script src="assets/recipients.js"></script>
 <script src="assets/data.js"></script>
 <script src="assets/app.js"></script>
 <script src="assets/interval.js"></script>
