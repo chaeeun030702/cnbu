@@ -252,7 +252,6 @@ function sameSet(a, b) { return a.slice().sort().join() === b.slice().sort().joi
 function syncPTW() {
   var w = RAW(); if (!w || !H.rows.length) return; var k = ptwKind(), other = k === 'c49' ? 'gen' : 'c49';
   $('#' + k + 'Box').style.display = ''; $('#' + other + 'Box').style.display = 'none';
-  var tag = $('#ptwTag'); tag.className = 'ptwtag ' + (k === 'c49' ? 'e' : 'g'); tag.textContent = (k === 'c49' ? '⚡ KOSHA GUIDE C-C-49-2026 전기 사전작업허가서' : '🏗️ KOSHA GUIDE C-C-49-2026 일반 건설 사전작업허가서') + (DOMSEL === 'auto' ? ' — 자동 판정' : ' — 관리감독자 지정');
   if (!H.ready[k]) return; var f = W(k + 'Box'); if (!f || !f.hostPTW) return;
   var ids = w.S.sel.filter(function (id) { return id[0] !== 'C'; });
   var own = (k === 'c49' && H.sample === 'e2') || (k === 'gen' && H.sample === 'g1');
