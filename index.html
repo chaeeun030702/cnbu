@@ -21,6 +21,7 @@
   <button class="gh" onclick="loadSample('g1')" title="현장 사진 sample_일반 1">🏗️ 표본 2 · 일반</button>
   <button class="gh" onclick="resetAll()">↺ 초기화</button>
   <button class="gh" id="eb" onclick="edAll()">✏️ 편집 모드</button>
+  <button class="gh green" id="uBtn" onclick="usersOpen()" title="메일·문자를 받을 사용자(기본 2명 + 추가) 등록 · 인터벌 촬영 위험 알림">👤 사용자 등록</button>
   <span class="dd no-art"><button class="gh blue" id="ivBtn" onclick="ddOpen('ivm')" title="iPad 등에서 일정 간격(5초·10초·1분)으로 현장사진 자동 촬영">📷 인터벌 촬영 ▾</button><div class="ddm" id="ivm"></div></span>
   <button class="gh alert" onclick="notifySend('email')" title="[경고] 현장사진 위험성 분석(위험 N건 · 9이상 M건) · 위험 분석 sheet 첨부 메일">✉️ 메일 발송</button>
   <button class="gh alert no-art" onclick="notifySend('sms')" title="[경고] 현장사진 위험성 분석(위험 N건 · 9이상 M건) · 문자">💬 문자 발송</button>
@@ -29,6 +30,30 @@
  </nav>
 </header>
 <div id="ntoast" role="status"></div>
+<dialog id="udlg">
+ <form method="dialog" novalidate onsubmit="event.preventDefault();userAdd()">
+  <h3>👤 사용자 등록</h3>
+  <div class="hint">기본 사용자 2명과 추가 사용자를 등록합니다. 등록한 사용자는 메일·문자 발송 창의 받는 사람 목록이 되고, <b>알림</b>이 켜진 사용자에게 인터벌 촬영 위험 알림 메일이 갑니다. 이 브라우저에만 저장됩니다.</div>
+  <div id="uList"></div>
+  <div class="ndlab">추가 사용자 등록</div>
+  <div class="uadd"><input id="uName" placeholder="이름" autocomplete="off"><input id="uMail" placeholder="이메일" inputmode="email" autocomplete="off" spellcheck="false"><input id="uTel" placeholder="휴대폰 010-1234-5678" inputmode="tel" autocomplete="off"></div>
+  <div class="nderr" id="uErr" role="alert"></div>
+  <button type="submit" class="sm pri">＋ 사용자 추가</button>
+  <div class="no-art">
+   <div class="ndlab ubar">🔔 인터벌 촬영 위험 알림</div>
+   <label class="ndck" for="uWatch"><input type="checkbox" id="uWatch" onchange="watchToggle()"><span>촬영한 사진마다 위험 분석 → 위험성 6 이상이면 ‘알림’ 사용자에게 메일</span></label>
+   <div class="keystat" id="uStat"></div>
+   <div class="hint">AI 판독 모드에서 분석이 끝나기 전에 찍은 사진은 건너뛰고, 한 번 보낸 뒤 10분 동안은 다시 보내지 않습니다. 분석 결과 화면 PDF와 분석 sheet가 첨부됩니다.</div>
+   <div class="ndlab">메일 보내는 계정 (Gmail 앱 비밀번호)</div>
+   <input id="gmUser" placeholder="Gmail 주소" autocomplete="off" spellcheck="false">
+   <input type="password" id="gmPass" placeholder="앱 비밀번호 16자리" autocomplete="off" spellcheck="false">
+   <div class="ndb ugm"><button type="button" class="sm pri" onclick="gmSave()">저장</button><button type="button" class="sm" onclick="gmClear()">삭제</button></div>
+   <div class="keystat" id="gmStat"></div>
+   <div class="hint">자동 알림은 사람이 누르지 않고 나가므로 Gmail 커넥터를 쓸 수 없습니다. Google 계정 → 보안 → 2단계 인증 → <b>앱 비밀번호</b>를 만들어 넣으세요(로그인 비밀번호 아님). 허용된 계정만 쓸 수 있고, 서버는 저장하지 않습니다.</div>
+  </div>
+  <div class="ndb"><button type="button" class="sm" onclick="usersClose()">닫기</button></div>
+ </form>
+</dialog>
 <dialog id="ndlg">
  <form method="dialog" novalidate onsubmit="event.preventDefault();notifyGo()">
   <h3 id="ndHd"></h3>
@@ -136,5 +161,8 @@
 <script src="assets/recipients.js"></script>
 <script src="assets/data.js"></script>
 <script src="assets/app.js"></script>
+<script src="assets/vendor/html2canvas.min.js"></script>
+<script src="assets/vendor/jspdf.umd.min.js"></script>
+<script src="assets/users.js"></script>
 <script src="assets/interval.js"></script>
 </body></html>
