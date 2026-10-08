@@ -431,18 +431,13 @@ function ntokClear() { NTOKEN = ''; try { localStorage.removeItem('cbnu_ntok'); 
    로그인한 본인의 Gmail 커넥터로 직접 보낸다. 문자·AI 사진 판독·저장·인쇄·카메라는 아티팩트에서 쓸 수 없어 숨긴다. */
 var SITE_URL = 'https://e-safety.vercel.app/';
 var CMCP = null;
-var IN_ART = !!(window.claude && typeof window.claude.use === 'function'); // 아티팩트 뷰어 안이면 스크립트보다 먼저 window.claude 가 있다
-var CONN = IN_ART ? 0 : -1;                                                    // 0 연결 중 · 1 Gmail 커넥터 사용 가능 · -1 아티팩트 아님/사용 불가
-var ARTIFACT_URL = 'https://claude.ai/artifact/44cnudKouvMjRAiy7tmTim';
 function connInit() {
-  if (!IN_ART) return;
-  document.body.classList.add('art'); // 커넥터 연결을 기다리지 않고 아티팩트에서 쓸 수 없는 칸(토큰·문자 키)을 처음부터 숨긴다
+  if (!(window.claude && typeof window.claude.use === 'function')) return;
   window.claude.use('mcp').then(function (m) {
-    var cf = $('#nCfg');
-    if (!m) { CONN = -1; document.body.classList.remove('art'); if (cf) cf.textContent = 'Gmail 커넥터를 쓸 수 없습니다. claude.ai에 로그인한 본인 계정에서 이 아티팩트를 여세요.'; return; }
-    CMCP = m; CONN = 1;
-    if (cf) cf.textContent = 'Claude 아티팩트 버전 — 내 Gmail 커넥터로 직접 발송합니다 (키·토큰 입력 불필요). 문자 발송은 Vercel 사이트(e-safety.vercel.app)에서만 됩니다.';
-  }).catch(function () { CONN = -1; });
+    if (!m) return; CMCP = m; document.body.classList.add('art');
+    var tk = $('#nTok'); if (tk && tk.parentNode) tk.parentNode.style.display = 'none';
+    var cf = $('#nCfg'); if (cf) cf.textContent = 'Claude 아티팩트 버전 — 내 Gmail 커넥터로 직접 발송합니다 (발송 토큰·서버 설정 불필요). 문자 발송은 Vercel 사이트(e-safety.vercel.app)에서만 됩니다.';
+  }).catch(function () {});
 }
 function b64OfBuf(buf) { var u = new Uint8Array(buf), s = ''; for (var i = 0; i < u.length; i += 0x8000) s += String.fromCharCode.apply(null, u.subarray(i, i + 0x8000)); return btoa(s); }
 function mailHtmlC(title, site, c) {
@@ -491,17 +486,12 @@ function connWhy(e) {
   };
   return m[c] || ('Gmail 발송 실패' + (c ? ' (' + c + ')' : ''));
 }
-var MAIL_SRV = false; // 이 사이트의 서버가 메일(토큰+메일 설정)을 보낼 수 있는지
-function mailLink() { return '<a href="' + ARTIFACT_URL + '" target="_blank" rel="noopener">Claude 아티팩트 버전(Gmail 커넥터)</a>'; }
 function notifyProbe() {
-  if (IN_ART) return; // 아티팩트에는 서버 함수가 없다
   fetch('/api/notify').then(function (r) { return r.json(); }).then(function (j) {
-    MAIL_SRV = !!(j && j.token && j.email);
-    var box = $('#mailTok'); if (box) box.classList.toggle('on', MAIL_SRV); // 메일 서버 설정이 있을 때만 발송 토큰 칸을 보여 준다
-    var el = $('#nCfg'); if (!el) return;
-    el.innerHTML = MAIL_SRV ? '서버 설정 — 메일 ✓ · 문자는 위 Solapi 키로 발송됩니다.'
-      : '이 사이트에서는 메일을 보낼 수 없습니다(서버에 메일 설정 없음). 메일은 ' + mailLink() + '에서 발송하세요. 문자는 위 Solapi 키로 발송됩니다.';
-  }).catch(function () { var el = $('#nCfg'); if (el) el.textContent = '이 주소에서는 서버 함수를 쓸 수 없습니다 (Vercel 배포에서만 동작).'; });
+    var el = $('#nCfg'); if (!el || CMCP) return;
+    el.textContent = !j.token ? '이 사이트의 서버에는 메일 발송 설정(NOTIFY_TOKEN·Resend)이 없습니다. 문자는 위 Solapi 키만 저장하면 됩니다.'
+      : '서버 설정 — 메일 ' + (j.email ? '✓' : '✗ 미설정') + ' · 문자(서버 키) ' + (j.sms ? '✓' : '없음 — 위 Solapi 키로 발송');
+  }).catch(function () { var el = $('#nCfg'); if (el && !CMCP) el.textContent = '이 주소에서는 서버 함수를 쓸 수 없습니다 (Vercel 배포에서만 동작).'; });
 }
 var NCH = '';
 /* 문자: 사용자가 입력한 Solapi 키는 이 브라우저에만 저장(발송 성공 시)하고, 발송 요청에만 실어 서버로 보낸다. 서버는 저장하지 않는다 */
@@ -562,8 +552,6 @@ function notifySend(channel) {
   if (NBUSY) return;
   var w = RAW(), cnt = sheetCounts();
   if (!w || !cnt.total) { nstat('먼저 사진을 올리고 문서를 생성하세요.', 'warn'); return; }
-  if (IN_ART && !CMCP) { nstat(CONN === 0 ? 'Gmail 커넥터에 연결하는 중입니다. 잠시 후 다시 누르세요.' : 'Gmail 커넥터를 쓸 수 없습니다. claude.ai에 로그인한 본인 계정에서 이 아티팩트를 여세요.', 'warn'); return; }
-  if (!CMCP && channel === 'email' && !MAIL_SRV) { nstat('이 사이트에서는 메일을 보낼 수 없습니다. 메일은 Claude 아티팩트 버전(Gmail 커넥터)에서 발송하세요.', 'warn'); var cf = $('#nCfg'); if (cf) cf.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
   if (!CMCP && channel === 'sms') { solLoad(); if (!solValid()) { solNeed(); return; } }
   if (CMCP && channel !== 'email') { nstat('문자 발송은 Vercel 사이트(e-safety.vercel.app)에서만 됩니다.', 'warn'); return; }
   var mail = channel === 'email'; NCH = channel;

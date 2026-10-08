@@ -175,4 +175,3 @@ body.out-ra #secPTW,body.out-ra #secPST,body.out-ptw #secRA,body.out-ptw #secPST
 .solbox label{font-size:12px;font-weight:700;color:var(--mut);margin-top:5px}
 .solbox input{border:1px solid #c5d0de;border-radius:5px;padding:6px 8px;width:100%}
 .solbtns{display:flex;gap:6px;margin-top:6px}.solbtns button.sm{margin-top:0}
-#mailTok{display:none}#mailTok.on{display:block}
