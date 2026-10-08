@@ -42,7 +42,8 @@
   <button type="submit" class="sm pri">＋ 사용자 추가</button>
   <div class="no-art">
    <div class="ndlab ubar">🔔 감시 모드 위험 알림</div>
-   <label class="ndck" for="uWatch"><input type="checkbox" id="uWatch" onchange="watchToggle()"><span>촬영한 사진마다 위험 분석 → 위험성 6 이상이면 ‘알림’ 사용자에게 메일·문자</span></label>
+   <label class="ndck" for="uWatch"><input type="checkbox" id="uWatch" onchange="watchToggle()"><span>촬영한 사진마다 위험 분석 → 위험성이 아래 단계 이상이면 ‘알림’ 사용자에게 메일·문자</span></label>
+   <div class="seg" id="uLevel"><button type="button" data-n="3" onclick="watchLevel(3)"><b>3 이상</b><small>중간 이상</small></button><button type="button" data-n="6" onclick="watchLevel(6)"><b>6 이상</b><small>높음 이상 (기본)</small></button><button type="button" data-n="9" onclick="watchLevel(9)"><b>9 이상</b><small>최고 단계만</small></button></div>
    <div class="keystat" id="uStat"></div>
    <div class="hint">AI 판독 모드에서 분석이 끝나기 전에 찍은 사진은 건너뛰고, 한 번 보낸 뒤 10분 동안은 다시 보내지 않습니다. 메일에는 분석 결과 화면 PDF와 분석 sheet가 첨부되고(Gmail 계정 필요), 문자는 ⑨에 Solapi 키가 저장돼 있어야 갑니다.</div>
    <div class="hint">메일을 보낼 <b>Gmail 계정(앱 비밀번호)</b>은 왼쪽 <b>⑨ 발송 설정</b>에 저장합니다. 자동 알림은 사람이 누르지 않아 Gmail 커넥터를 쓸 수 없고, 저장한 계정으로 보냅니다.</div>

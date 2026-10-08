@@ -192,6 +192,7 @@ body.out-ra #secPTW,body.out-ra #secPST,body.out-ptw #secRA,body.out-ptw #secPST
 .urow .ualert{display:flex;align-items:center;gap:5px;font-size:12.5px;font-weight:700;color:var(--nv2);cursor:pointer}
 .urow .udel{width:24px;flex:none;border:0;background:none;color:#B03A2E;font-size:15px;cursor:pointer}
 #udlg .ugm{margin:4px 0}
+#uLevel{margin:8px 0 2px}#uLevel button{display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 2px}#uLevel small{font-size:10.5px;font-weight:600;opacity:.85}
 .art .no-art{display:none!important}
 #ndlg form{max-height:calc(100vh - 28px);overflow-y:auto}
 #ndlg .ndlab{margin:10px 0 4px;font-size:12.5px;font-weight:700;color:var(--nv2)}
