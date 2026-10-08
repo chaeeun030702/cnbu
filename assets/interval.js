@@ -42,7 +42,7 @@
     return b;
   }
   function render() {
-    btn.className = 'gh' + (running ? ' act' : '');
+    btn.className = 'gh blue' + (running ? ' act' : '');   // 평소 파란색, 촬영 중에는 초록색
     btn.textContent = running ? '⏺ 촬영 중 · ' + lbl(every) + ' · ' + taken + '장 ▾' : '📷 인터벌 촬영 ▾';
     var items = [];
     if (running) items.push(item('■ 촬영 중지', stop));
