@@ -1,10 +1,10 @@
-/* 홈 상단 바 '인터벌 촬영' — 1분 간격으로 현장사진을 자동 촬영한다. 시작하고 5초 뒤 첫 사진을 찍어 '현장사진 올리기'에 반영하고 공유 시트(사진에 저장)로 보낸다.
+/* 홈 상단 바 '인터벌 촬영' — 1분 간격으로 현장사진을 자동 촬영한다. 시작하고 3초 뒤 첫 사진을 찍어 '현장사진 올리기'에 반영하고 공유 시트(사진에 저장)로 보낸다.
    사진은 /camera 페이지와 같은 IndexedDB(interval-camera/shots)에 쌓이므로 그곳에서 보기·내보내기·전송할 수 있다.
    iPad Safari는 화면이 꺼지거나 이 탭이 가려지면 카메라가 멈춘다 → 화면 유지(Wake Lock)와 복귀 시 자동 복구를 쓴다. */
 (function () {
   'use strict';
   var INTERVALS = [60];                          // 초
-  var FIRST_DELAY = 5;                           // 시작 후 첫 사진까지 (초)
+  var FIRST_DELAY = 3;                           // 시작 후 첫 사진까지 (초)
   function lbl(s) { return s % 60 === 0 ? s / 60 + '분' : s + '초'; }
   var WIDTH = 1920, QUALITY = 0.9;
   var btn = document.getElementById('ivBtn'), menu = document.getElementById('ivm');
@@ -153,7 +153,7 @@
       return lockScreen();
     }).then(function () {
       running = true; every = sec; taken = 0; feedFirst = true; saveFirst = true; render();
-      nextAt = Date.now() + FIRST_DELAY * 1000; schedule();   // 5초 뒤 첫 장, 그 뒤로 간격마다
+      nextAt = Date.now() + FIRST_DELAY * 1000; schedule();   // 3초 뒤 첫 장, 그 뒤로 간격마다
       toast(FIRST_DELAY + '초 뒤 첫 사진을 찍고, 이후 ' + lbl(every) + '마다 촬영합니다. 이 화면을 켜 둔 채 앞에 두세요.');
     }).catch(function (e) {
       closeCamera(); running = false; render();
