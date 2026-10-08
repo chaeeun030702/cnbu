@@ -261,15 +261,22 @@ function onFile(f, cb) {
 function runKw() { var w = RAW(); if (!w) return; w.S.memo = $('#m_memo').value + ' ' + $('#m_proc').value; w.S.fname = H.fname || w.S.fname; w.S.scene = null; w.doKw(); H.nohaz = !w.S.sel.length; applyMeta(true); w.renderAll(); status('🔎 ' + esc(w.S.kwmsg || '키워드 판독 완료'), 'ok'); }
 
 /* ---------- AI 판독 (/api/read) ---------- */
+/* AI 판독 중 표시 — 사진 위로 스캔선·격자·탐지 점이 움직인다 */
+function aiScan(on) {
+  var t = $('#thumb'); if (!t) return; var o = t.querySelector('.aiscan'); if (o) o.remove(); if (!on) return;
+  var pts = [[22, 30], [68, 42], [40, 70], [80, 75]].map(function (p, i) { return '<span class="ping" style="left:' + p[0] + '%;top:' + p[1] + '%;animation-delay:' + (i * 0.35) + 's"></span>'; }).join('');
+  t.insertAdjacentHTML('beforeend', '<div class="aiscan"><i></i>' + pts + '<b><em>🤖</em>AI 판독 중<s></s></b></div>');
+}
 function runRead() {
   var w = RAW(); if (BUSY || !w || !H.photo) { afterRead(false); return; } BUSY = true; var lang = LANG;
   status('<span class="spin"></span> AI가 사진을 판독하는 중입니다… (20~40초)', 'busy');
+  aiScan(true);
   var ctrl = window.AbortController ? new AbortController() : null, tm = setTimeout(function () { if (ctrl) ctrl.abort(); }, 65000);
   fetch('api/read', { method: 'POST', headers: { 'content-type': 'application/json' }, signal: ctrl ? ctrl.signal : undefined,
     body: JSON.stringify({ image: H.photo, name: H.fname, lang: lang, key: APIKEY || undefined, site: { kind: $('#m_proc').value, place: $('#m_site').value } }) })
     .then(function (r) { return r.json().catch(function () { return { ok: false, reason: 'http_' + r.status }; }); })
-    .then(function (j) { clearTimeout(tm); BUSY = false; if (j && j.ok && ((j.hits && j.hits.length) || (j.extra && j.extra.length))) { applyAI(j, lang); afterRead(true); } else if (j && j.ok) { applyNone(j, lang); afterRead(true); } else { fallback(j && (j.reason || j.error)); afterRead(false); } })
-    .catch(function (e) { clearTimeout(tm); BUSY = false; fallback(e && e.name === 'AbortError' ? 'timeout' : 'network'); afterRead(false); });
+    .then(function (j) { clearTimeout(tm); BUSY = false; aiScan(false); if (j && j.ok && ((j.hits && j.hits.length) || (j.extra && j.extra.length))) { applyAI(j, lang); afterRead(true); } else if (j && j.ok) { applyNone(j, lang); afterRead(true); } else { fallback(j && (j.reason || j.error)); afterRead(false); } })
+    .catch(function (e) { clearTimeout(tm); BUSY = false; aiScan(false); fallback(e && e.name === 'AbortError' ? 'timeout' : 'network'); afterRead(false); });
 }
 function applyAI(j, lang) {
   var w = RAW(); if (!w) return; H.nohaz = false; var S = w.S; S.sel = []; S.mk = {}; S.src = {}; S.ps = {};
