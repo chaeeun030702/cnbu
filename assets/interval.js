@@ -1,4 +1,4 @@
-/* 홈 상단 바 '인터벌 촬영' — 1분 간격으로 현장사진을 자동 촬영한다. 시작하고 3초 뒤 첫 사진을 찍어 '현장사진 올리기'에 반영하고 공유 시트(사진에 저장)로 보낸다.
+/* 홈 상단 바 '감시 모드' — 1분 간격으로 현장사진을 자동 촬영한다. 시작하고 3초 뒤 첫 사진을 찍어 '현장사진 올리기'에 반영하고 공유 시트(사진에 저장)로 보낸다.
    사진은 /camera 페이지와 같은 IndexedDB(interval-camera/shots)에 쌓이므로 그곳에서 보기·내보내기·전송할 수 있다.
    iPad Safari는 화면이 꺼지거나 이 탭이 가려지면 카메라가 멈춘다 → 화면 유지(Wake Lock)와 복귀 시 자동 복구를 쓴다. */
 (function () {
@@ -44,11 +44,11 @@
   }
   function render() {
     btn.className = 'gh blue' + (running ? ' act' : '');   // 평소 파란색, 촬영 중에는 초록색
-    btn.innerHTML = running ? '<span class="ic">⏺</span><span class="bl on">촬영 중 · ' + lbl(every) + ' · ' + taken + '장</span><span class="cr">▾</span>'
-      : '<span class="ic">📷</span><span class="bl">인터벌 촬영</span><span class="cr">▾</span>';   // 좁은 화면에서는 아이콘만(.bl 숨김), 촬영 중에는 상태 글자를 보인다
+    btn.innerHTML = running ? '<span class="ic">⏺</span><span class="bl on">감시 중 · ' + lbl(every) + ' · ' + taken + '장</span><span class="cr">▾</span>'
+      : '<span class="ic">📷</span><span class="bl">감시 모드</span><span class="cr">▾</span>';   // 좁은 화면에서는 아이콘만(.bl 숨김), 촬영 중에는 상태 글자를 보인다
     var items = [];
-    if (running) items.push(item('■ 촬영 중지', stop));
-    else INTERVALS.forEach(function (s) { items.push(item('▶ ' + lbl(s) + '마다 촬영 시작', function () { start(s); })); });
+    if (running) items.push(item('■ 감시 중지', stop));
+    else INTERVALS.forEach(function (s) { items.push(item('▶ ' + lbl(s) + '마다 감시 시작', function () { start(s); })); });
     items.push(item('촬영 페이지 열기 (설정·전송·저장된 사진)', function () {
       if (running && !confirm('이 화면을 벗어나면 촬영이 멈춥니다. 촬영 페이지로 이동할까요?')) return;
       location.href = 'camera';
