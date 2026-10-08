@@ -151,7 +151,7 @@
  <section id="secPST" class="sec"><div class="sechd bi" data-ui="secPST"></div>
   <iframe id="pstBox" class="frm" scrolling="no" title="다국어 안전포스터" style="width:1160px;height:1650px"></iframe>
   <div class="gpt"><h3 class="bi" data-ui="gptH"></h3>
-   <div class="row"><b>요청 종류</b><select id="gmode" onchange="mkPrompt()"><option value="full">포스터 전체 실사판</option></select>
+   <div class="row"><b>요청 종류</b><select id="gmode" onchange="mkPrompt()"><option value="card">포스터 전체 실사판</option></select>
     <button class="sm" onclick="mkPrompt()">↻ 프롬프트 다시 만들기</button><button class="sm pri" onclick="gptGo()">📋 복사 + ChatGPT 열기</button>
     <button class="sm pri" id="gAuto" onclick="gptAuto()">🤖 실사 포스터 자동 생성</button><label class="sm btnl">🖼️ ChatGPT 결과 이미지 넣기<input type="file" accept="image/*" hidden onchange="onGpt(this)"></label></div>
    <div class="row okey"><b>OpenAI 키</b><span class="keystat" id="oKeyStat2">왼쪽 입력칸 ⑨에 저장한 키로 실사 포스터를 만듭니다.</span></div>
