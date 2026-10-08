@@ -75,6 +75,7 @@ Vercel 환경변수(Settings → Environment Variables):
 claude.ai 아티팩트로도 같은 화면을 게시할 수 있다. 아티팩트에서는 `window.claude.use('mcp')`가 열리고, `assets/app.js`가 이를 감지해 **Gmail 커넥터 모드**로 바뀐다(`connInit`). Vercel 사이트에서는 이 코드가 동작하지 않고 기존 방식 그대로다.
 
 - 메일: **✉️ 메일 발송** → 받는 주소 입력창 → 내 Gmail 계정(Gmail 커넥터 `send_message`)으로 직접 발송. **발송 토큰·서버 설정이 필요 없다.** 본문 맨 위에 사이트 링크(`https://e-safety.vercel.app/`), 제목은 `[경고] 현장사진 위험성평가표 — 현장명 (위험 N건 · 높음 M)`, 현장사진 위험 분석 sheet(HTML) 첨부. (Gmail 커넥터는 본문의 `<img>`를 모두 지워 JPG를 본문에 넣을 수 없고, HTML 첨부가 용량·화질 면에서 JPG 여러 장보다 낫다.) 커넥터 입력 한도(1MiB)를 넘는 첨부는 파일 인자(`$file`)로 보내고, 그 경로가 안 되면 gzip(`.html.gz`)으로 줄여 보낸다.
+- Vercel 사이트의 ⑨ 발송 설정에는 **서버에 메일 설정(`NOTIFY_TOKEN`·Resend)이 있을 때만** 발송 토큰 칸이 보인다. 없으면 숨기고, ✉️ 메일 발송은 아티팩트 버전(Gmail 커넥터)에서 보내라고 안내한다. 아티팩트 안에서는 연결을 기다리지 않고 처음부터 토큰·문자 키 칸을 숨긴다.
 - 아티팩트에서 쓸 수 없는 기능은 숨긴다: 문자 발송(서버·Solapi 필요), 저장·인쇄(다운로드·인쇄 차단), 인터벌 촬영(카메라 차단). AI 사진 판독(서버리스 함수)도 없어 키워드 판독만 된다.
 - 로그인한 본인 계정으로만 동작하며, 커넥터 권한을 쓰는 아티팩트는 공개 링크로 공유할 수 없다.
 - 게시 파일 만들기: `python3 build/artifact.py OUT_DIR` — index.html 을 아티팩트 규격(태그 없는 본문, CSS·JS 합침)으로 바꾸고 나머지 페이지·이미지를 복사한다. `OUT_DIR/index.html` 을 `file_path`로, 나머지를 `files`로, `capabilities: {mcp: {servers: [{server: "Gmail", tools: ["send_message"]}]}}` 와 함께 게시한다.
