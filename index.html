@@ -22,8 +22,8 @@
   <span class="dd no-art"><button class="gh" id="ivBtn" onclick="ddOpen('ivm')" title="iPad 등에서 일정 간격(5초·10초·1분)으로 현장사진 자동 촬영">📷 인터벌 촬영 ▾</button><div class="ddm" id="ivm"></div></span>
   <button class="gh" onclick="resetAll()">↺ 초기화</button>
   <button class="gh" id="eb" onclick="edAll()">✏️ 편집 모드</button>
-  <button class="gh alert" onclick="notifySend('email')" title="[경고] 현장사진 위험성평가표 — 현장명 (위험 N건 · 높음 M) · 위험 분석 sheet 첨부 메일">✉️ 메일 발송</button>
-  <button class="gh alert no-art" onclick="notifySend('sms')" title="[경고] 현장사진 위험성평가표 — 현장명 (위험 N건 · 높음 M) · 문자">💬 문자 발송</button>
+  <button class="gh alert" onclick="notifySend('email')" title="[경고] 현장사진 위험성 분석(위험 N건 · 9이상 M건) · 위험 분석 sheet 첨부 메일">✉️ 메일 발송</button>
+  <button class="gh alert no-art" onclick="notifySend('sms')" title="[경고] 현장사진 위험성 분석(위험 N건 · 9이상 M건) · 문자">💬 문자 발송</button>
   <span class="dd no-art"><button class="gh" onclick="ddOpen('svm')">💾 저장 ▾</button><div class="ddm" id="svm"><button onclick="saveDoc('ra')">위험분석·위험성평가표 HTML</button><button onclick="saveDoc('ptw')">사전작업허가서 HTML</button><button onclick="saveDoc('pst')">안전포스터 HTML</button></div></span>
   <span class="dd no-art"><button class="gh pri" onclick="ddOpen('prm')">🖨️ 인쇄/PDF ▾</button><div class="ddm" id="prm"><button onclick="printDoc('ra')">위험분석·위험성평가표 (A4 가로)</button><button onclick="printDoc('ptw')">사전작업허가서 (A4 세로)</button><button onclick="printDoc('pst')">안전포스터 (A3 세로)</button></div></span>
  </nav>
@@ -95,7 +95,7 @@
   <div class="keystat" id="keyStat"></div>
  </section>
  <section class="step"><h3>⑨ 발송 설정 (메일·문자)</h3>
-  <div class="hint">상단 바의 <b>✉️ 메일 발송</b> · <b>💬 문자 발송</b> 버튼을 누르면 받는 사람을 고르는 창이 뜨고, <b>‘[경고] 현장사진 위험성평가표 — 현장명 (위험 N건 · 높음 M)’</b>을 메일(분석 sheet 첨부)·문자로 보냅니다.</div>
+  <div class="hint">상단 바의 <b>✉️ 메일 발송</b> · <b>💬 문자 발송</b> 버튼을 누르면 받는 사람을 고르는 창이 뜨고, <b>‘[경고] 현장사진 위험성 분석(위험 N건 · 9이상 M건)’</b>을 메일(분석 sheet 첨부)·문자로 보냅니다.</div>
   <div class="subh no-art">💬 문자 — Solapi 키 (이 브라우저에만 저장)</div>
   <div class="solbox no-art">
    <label for="solKey">API Key</label><input id="solKey" autocomplete="off" spellcheck="false" placeholder="예: NCSA…">
