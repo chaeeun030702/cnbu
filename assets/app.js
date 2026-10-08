@@ -400,13 +400,27 @@ function cut43(src, cx, cy, fw, cb) {
     try { cb(c.toDataURL('image/jpeg', 0.88)); } catch (e) {} };
   im.src = src;
 }
+/* 항목 그림 6장: Claude(/api/illust)가 항목 문구를 보고 평면 일러스트(SVG)를 그려 넣는다 (ChatGPT 실사화 안 씀).
+   같은 문구는 다시 그리지 않도록 ILL 에 보관. 실패하면 위험 항목은 현장사진의 표시 위치를 잘라 넣고, 지킬 사항은 아이콘을 둔다. */
+var ILL = {};
 function rowImgs(f, pd, mk, sig) {
   if (!f.hostRowImg) return; var ok = function () { return H.sig.pst === sig; };
-  var photo = H.photo || (H.orig && H.orig.photo);
-  if (photo) (pd.ids || []).forEach(function (id, i) { var p = mk && mk[id]; if (!p) return;
-    cut43(photo, p[0] / 100, p[1] / 100, 0.36, function (d) { if (ok()) f.hostRowImg(i, d, false); }); });
-  if (H.gpt) [[0.2, 0.45], [0.5, 0.5], [0.8, 0.55]].slice(0, pd.nm).forEach(function (c, i) {
-    cut43(H.gpt, c[0], c[1], 0.42, function (d) { if (ok()) f.hostRowImg(3 + i, d, true); }); });
+  var photo = H.photo || (H.orig && H.orig.photo), T = pd.texts || {}, ko = function (v) { return Array.isArray(v) ? v[0] : (v || ''); };
+  var items = [];
+  for (var i = 0; i < pd.nd; i++) items.push({ slot: i, ok: false, title: ko(T['d' + i + '_t']), cause: ko(T['d' + i + '_c']) });
+  for (var j = 0; j < pd.nm; j++) items.push({ slot: 3 + j, ok: true, title: ko(T['m' + j + '_t']), cause: ko(T['m' + j + '_c']) });
+  var crop = function (it) { var id = (pd.ids || [])[it.slot], p = mk && mk[id]; if (it.ok || !photo || !p) return;
+    cut43(photo, p[0] / 100, p[1] / 100, 0.36, function (d) { if (ok()) f.hostRowImg(it.slot, d, false); }); };
+  var need = [];
+  items.forEach(function (it) { var c = ILL[(it.ok ? 'm|' : 'd|') + it.title]; if (c) f.hostRowImg(it.slot, c, it.ok); else need.push(it); });
+  if (!need.length) return;
+  var w = RAW(), sc = w && w.S && w.S.scene ? ko(w.S.scene) : '';
+  fetch('api/illust', { method: 'POST', headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ items: need.map(function (it) { return { title: it.title, cause: it.cause, ok: it.ok }; }), scene: sc, key: APIKEY || undefined }) })
+    .then(function (r) { return r.json(); })
+    .then(function (j) { need.forEach(function (it, k) { var u = j && j.svgs && j.svgs[k];
+      if (u) { ILL[(it.ok ? 'm|' : 'd|') + it.title] = u; if (ok()) f.hostRowImg(it.slot, u, it.ok); } else if (ok()) crop(it); }); })
+    .catch(function () { need.forEach(function (it) { if (ok()) crop(it); }); });
 }
 
 /* ---------- ChatGPT 추가작업 ---------- */
