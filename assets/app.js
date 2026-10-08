@@ -99,7 +99,10 @@ function bindZoomFrames() { ['raBox', 'c49Box', 'genBox', 'pstBox'].forEach(func
 /* ---------- 위험분석 프레임 렌더 후 ---------- */
 window.onRA = function (rows) {
   H.rows = (rows || []).map(function (m) { return { id: m.id, no: m.no, v: m.v, cust: !!m.cust, grp: m.grp }; });
-  var none = !H.rows.length && !!H.nohaz; document.body.classList.toggle('nohaz', none); if (none) H.sig = {}; // 위험 요인이 없으면 2.사전작업허가서·3.안전포스터 시트는 만들지도 보이지도 않는다(다시 판독하면 새로 만든다)
+  // 지식베이스 표지(KB)가 하나도 없으면(위험 요인이 없거나, AI의 '추가 위험'·직접 추가한 항목뿐) 2.사전작업허가서·3.안전포스터는 근거가 없어 만들지도 보이지도 않는다.
+  // 만들면 표본(물속 펌프 감전) 문구가 남아 사진·AI 판독과 어긋난다. 다시 판독해 표지가 나오면 새로 만든다.
+  var noKb = !H.rows.some(function (r) { return !r.cust; }), none = noKb && (H.rows.length > 0 || !!H.nohaz);
+  document.body.classList.toggle('nohaz', none); if (none) H.sig = {};
   document.body.classList.toggle('nodoc', !H.rows.length && !H.nohaz); // 표지가 0건이어도 AI 판독을 마친 사진이면 '위험 요인 확인되지 않음' 문서를 보인다
   renderPanel(); setTimeout(function () { fitFrame('raBox'); fitMain(); }, 60); scheduleSync();
 };
@@ -264,10 +267,11 @@ function applyAI(j, lang) {
   var w = RAW(); if (!w) return; H.nohaz = false; var S = w.S; S.sel = []; S.mk = {}; S.src = {}; S.ps = {};
   j.hits.forEach(function (h) { if (!KBI[h.id] || S.sel.indexOf(h.id) >= 0) return; S.sel.push(h.id); S.mk[h.id] = [Math.round(h.x), Math.round(h.y)]; S.src[h.id] = { ai: arr5(h.evidence, lang) }; });
   S.scene = j.scene ? arr5(j.scene, lang) : null;
+  var noKbHit = !j.hits || !j.hits.length;
   (j.extra || []).slice(0, 3).forEach(function (x) { var t = Array.isArray(x) ? x[0] : x; if (!t) return; var c = { id: 'C' + (++S.cn), name: String(t), cause: String(t), acts: ['관리감독자가 대책을 적는다'], p: 2, s: 2 }; c.ai = 1; if (Array.isArray(x) && x[1]) c.nm5 = arr5(x, lang); S.custom.push(c); S.sel.push(c.id); });
   if (j.domain === 'gen') TAB = 'gen'; else if (j.domain === 'elec') TAB = 'elec';
   applyMeta(true); w.renderAll();
-  status('🤖 AI 판독 완료 — 위험 표지 <b>' + j.hits.length + '</b>건' + ((j.extra || []).length ? ', 지식베이스 밖 추가 위험 ' + j.extra.length + '건(⑥ 목록)' : '') + ' · ' + esc(j.model || '') + '<br><small>체크리스트에서 더하거나 빼고, 빈도·강도는 평가표에서 고칩니다.</small>', 'ok');
+  status('🤖 AI 판독 완료 — 위험 표지 <b>' + j.hits.length + '</b>건' + ((j.extra || []).length ? ', 지식베이스 밖 추가 위험 ' + j.extra.length + '건(⑥ 목록)' : '') + ' · ' + esc(j.model || '') + '<br><small>체크리스트에서 더하거나 빼고, 빈도·강도는 평가표에서 고칩니다.</small>' + (noKbHit ? '<br><small>⚠️ 지식베이스 표지가 없어 <b>사전작업허가서·안전포스터는 만들지 않습니다</b>(추가 위험은 위험분석·평가표에만 반영).</small>' : ''), noKbHit ? 'warn' : 'ok');
 }
 /* AI가 사진에서 위험 요인을 하나도 못 찾았을 때: 키워드 판독으로 임의의 표지를 채우지 않고 '위험 요인 확인되지 않음, 관리감독자 확인 요함'으로 표시한다 */
 function applyNone(j, lang) {
