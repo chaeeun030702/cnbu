@@ -1,7 +1,7 @@
-/* ---------- 사용자 등록 · 분석 결과 PDF · 인터벌 촬영 위험 알림 루틴 ---------- */
+/* ---------- 사용자 등록 · 분석 결과 PDF · 감시 모드 위험 알림 루틴 ---------- */
 /* 사용자 등록: 기본 사용자 2명(assets/recipients.js 의 PRESETS 순서대로 이메일·문자 번호를 짝지음) + 추가 등록.
-   등록한 사용자는 메일·문자 발송 창의 받는 사람 목록이 되고, ‘알림’이 켜진 사용자는 인터벌 촬영 위험 알림의 수신자가 된다. 이 브라우저(localStorage)에만 저장한다.
-   위험 알림 루틴: 인터벌 촬영 중 찍은 사진을 AI로 분석(app.js onFile → runRead)하고, 위험성(빈도×강도) 6 이상이 나오면 알림 사용자에게 메일을 보낸다
+   등록한 사용자는 메일·문자 발송 창의 받는 사람 목록이 되고, ‘알림’이 켜진 사용자는 감시 모드 위험 알림의 수신자가 된다. 이 브라우저(localStorage)에만 저장한다.
+   위험 알림 루틴: 감시 모드 중 찍은 사진을 AI로 분석(app.js onFile → runRead)하고, 위험성(빈도×강도) 6 이상이 나오면 알림 사용자에게 메일을 보낸다
    (제목·본문은 메일 발송과 같고, 분석 결과 화면 PDF + 분석 sheet 첨부). 분석이 끝나기 전에 찍은 사진은 건너뛰고, 한 번 보낸 뒤 10분은 다시 보내지 않는다. */
 var U_MAX = 20, WATCH_COOL = 10 * 60 * 1000, WATCH_RETRY = 60 * 1000;
 /* 알림 단계(위험성 = 빈도×강도, 1~9): 3 이상(중간 이상) · 6 이상(높음 이상, 기본) · 9 이상(최고) — 3단계 중 하나를 고른다 */
@@ -57,7 +57,7 @@ function usersRender() {
   l.innerHTML = usersAll().map(function (u) {
     return '<div class="urow"><div class="uinfo"><div><b>' + esc(u.name || '(이름 없음)') + '</b>' + (u.def ? '<i>기본</i>' : '') + '</div>'
       + '<small>' + (u.email ? esc(u.email) : '<em>이메일 없음</em>') + ' · ' + (u.sms ? esc(uFmt(u.sms)) : '<em>번호 없음</em>') + '</small></div>'
-      + '<label class="ualert" title="인터벌 촬영 위험 알림(메일·문자)을 받습니다"><input type="checkbox"' + (u.alert ? ' checked' : '') + ((u.email || u.sms) ? '' : ' disabled') + ' onchange="userAlert(\'' + u.id + '\',this.checked)">알림</label>'
+      + '<label class="ualert" title="감시 모드 위험 알림(메일·문자)을 받습니다"><input type="checkbox"' + (u.alert ? ' checked' : '') + ((u.email || u.sms) ? '' : ' disabled') + ' onchange="userAlert(\'' + u.id + '\',this.checked)">알림</label>'
       + (u.def ? '<span class="udel"></span>' : '<button type="button" class="udel" title="삭제" onclick="userDel(\'' + u.id + '\')">✕</button>') + '</div>';
   }).join('');
   $('#uWatch').checked = WATCH.on; watchRender();
@@ -113,13 +113,13 @@ function makePdf() { // → Promise<{ b64, blob, pages } | null>  (만들지 못
   }).catch(function () { return null; });
 }
 
-/* ---------- 인터벌 촬영 위험 알림 루틴 ---------- */
+/* ---------- 감시 모드 위험 알림 루틴 ---------- */
 function watchRender() {
   var s = $('#uStat'); if (!s) return;
   $$('#uLevel button').forEach(function (b) { b.classList.toggle('on', +b.getAttribute('data-n') === WATCH_MIN); });
-  var why = !WATCH.on ? '꺼짐 — 켜면 인터벌 촬영 사진마다 위험 분석을 하고, 위험성 ' + WATCH_MIN + ' 이상이면 알림 사용자에게 메일·문자를 보냅니다.'
+  var why = !WATCH.on ? '꺼짐 — 켜면 감시 모드 사진마다 위험 분석을 하고, 위험성 ' + WATCH_MIN + ' 이상이면 알림 사용자에게 메일·문자를 보냅니다.'
     : (typeof ENG !== 'undefined' && ENG !== 'ai') ? '⚠️ AI 판독 모드(②)로 바꿔야 사진을 분석합니다.'
-    : WATCH.msg || '켜짐 — 인터벌 촬영을 시작하면 사진마다 분석합니다.';
+    : WATCH.msg || '켜짐 — 감시 모드를 시작하면 사진마다 분석합니다.';
   s.textContent = why; s.className = 'keystat ' + (WATCH.on ? (/⚠️|✗/.test(why) ? 'warn' : 'on') : '');
 }
 function watchLevel(n) { WATCH_MIN = n === 3 || n === 9 ? n : 6; uSet('cbnu_wlevel', String(WATCH_MIN)); WATCH.msg = ''; usersRender(); }
@@ -128,7 +128,7 @@ function watchToggle() {
   WATCH.msg = ''; usersRender();
 }
 function watchNote(m, c) { WATCH.msg = m; watchRender(); nstat(m, c); }
-function watchWants() { // 인터벌 촬영이 사진을 찍을 때 묻는다 — 지금 분석할 수 있는 상태인가
+function watchWants() { // 감시 모드가 사진을 찍을 때 묻는다 — 지금 분석할 수 있는 상태인가
   return WATCH.on && !WATCH.busy && !BUSY && ENG === 'ai';
 }
 function watchFeed(blob, d) {
@@ -176,7 +176,7 @@ function watchSend(c, d, hhmm) {
     .then(function (j) { return { ch: '문자', n: tels.length, ok: !!j.ok, why: j.ok ? '' : smsWhy(j) }; }, function () { return { ch: '문자', ok: false, why: '서버에 연결하지 못했습니다.' }; }));
   if (canMail) jobs.push(makePdf().then(function (pdf) {
     var body = { channel: 'email', to: mails, counts: c, sheet: sheet, pdf: pdf ? pdf.b64 : undefined, site: site,
-      note: '인터벌 촬영 자동 알림 · ' + hhmm + ' 촬영 사진에서 위험성 ' + WATCH_MIN + ' 이상 ' + c.hit + '건 (최고 ' + c.max + ')' };
+      note: '감시 모드 자동 알림 · ' + hhmm + ' 촬영 사진에서 위험성 ' + WATCH_MIN + ' 이상 ' + c.hit + '건 (최고 ' + c.max + ')' };
     if (gm) body.gmail = gm; else body.token = NTOKEN;
     return postNotify(body).then(function (j) { return { ch: '메일', n: mails.length, ok: !!j.ok, why: j.ok ? (pdf ? '' : 'PDF 없이 HTML만') : mailWhy(j) }; });
   }).catch(function () { return { ch: '메일', ok: false, why: '서버에 연결하지 못했습니다.' }; }));

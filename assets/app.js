@@ -240,7 +240,7 @@ function resetAll() {
   w.renderAll();
 }
 function shrink(src, max, cb) { var im = new Image(); im.onload = function () { var w = im.naturalWidth, h = im.naturalHeight, k = Math.min(1, max / Math.max(w, h)); var c = document.createElement('canvas'); c.width = Math.round(w * k); c.height = Math.round(h * k); c.getContext('2d').drawImage(im, 0, 0, c.width, c.height); cb(c.toDataURL('image/jpeg', 0.86), c.width, c.height); }; im.src = src; }
-var AFTER = null; // 판독이 끝났을 때 한 번 부르는 콜백 (인터벌 촬영 위험 알림 루틴)
+var AFTER = null; // 판독이 끝났을 때 한 번 부르는 콜백 (감시 모드 위험 알림 루틴)
 function afterRead(ok) { var f = AFTER; AFTER = null; if (f) f(ok); }
 function onFile(f, cb) {
   AFTER = cb || null;

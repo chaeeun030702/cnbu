@@ -21,8 +21,8 @@
   <button class="gh" onclick="loadSample('g1')" title="표본 2 · 일반 (현장 사진 sample_일반 1)" aria-label="표본 2 일반"><span class="ic">🏗️</span><span class="bl">표본 2 · 일반</span></button>
   <button class="gh" onclick="resetAll()" title="초기화" aria-label="초기화"><span class="ic">🔄</span><span class="bl">초기화</span></button>
   <button class="gh" id="eb" onclick="edAll()" title="편집 모드" aria-label="편집 모드"><span class="ic">✏️</span><span class="bl">편집 모드</span></button>
-  <button class="gh green" id="uBtn" onclick="usersOpen()" title="메일·문자를 받을 사용자(기본 2명 + 추가) 등록 · 인터벌 촬영 위험 알림" aria-label="사용자 등록"><span class="ic">👤</span><span class="bl">사용자 등록</span></button>
-  <span class="dd no-art"><button class="gh blue" id="ivBtn" onclick="ddOpen('ivm')" title="iPad 등에서 1분 간격으로 현장사진 자동 촬영 — 시작 3초 뒤 첫 사진" aria-label="인터벌 촬영"><span class="ic">📷</span><span class="bl">인터벌 촬영</span><span class="cr">▾</span></button><div class="ddm" id="ivm"></div></span>
+  <button class="gh green" id="uBtn" onclick="usersOpen()" title="메일·문자를 받을 사용자(기본 2명 + 추가) 등록 · 감시 모드 위험 알림" aria-label="사용자 등록"><span class="ic">👤</span><span class="bl">사용자 등록</span></button>
+  <span class="dd no-art"><button class="gh blue" id="ivBtn" onclick="ddOpen('ivm')" title="iPad 등에서 1분 간격으로 현장사진 자동 촬영 — 시작 3초 뒤 첫 사진" aria-label="감시 모드"><span class="ic">📷</span><span class="bl">감시 모드</span><span class="cr">▾</span></button><div class="ddm" id="ivm"></div></span>
   <button class="gh alert" onclick="notifySend('email')" title="[경고] 현장사진 위험성 분석(위험 N건 · 9이상 M건) · 분석 결과 PDF·sheet 첨부 메일" aria-label="메일 발송"><span class="ic">✉️</span><span class="bl">메일 발송</span></button>
   <button class="gh alert no-art" onclick="notifySend('sms')" title="[경고] 현장사진 위험성 분석(위험 N건 · 9이상 M건) · 문자" aria-label="문자 발송"><span class="ic">💬</span><span class="bl">문자 발송</span></button>
   <span class="dd no-art"><button class="gh" onclick="ddOpen('svm')" title="저장" aria-label="저장"><span class="ic">💾</span><span class="bl">저장</span><span class="cr">▾</span></button><div class="ddm" id="svm"><button onclick="saveDoc('ra')">위험분석·위험성평가표 HTML</button><button onclick="saveDoc('ptw')">사전작업허가서 HTML</button><button onclick="saveDoc('pst')">안전포스터 HTML</button></div></span>
@@ -33,14 +33,14 @@
 <dialog id="udlg">
  <form method="dialog" novalidate onsubmit="event.preventDefault();userAdd()">
   <h3>👤 사용자 등록</h3>
-  <div class="hint">기본 사용자 2명과 추가 사용자를 등록합니다. 등록한 사용자는 메일·문자 발송 창의 받는 사람 목록이 되고, <b>알림</b>이 켜진 사용자에게 인터벌 촬영 위험 알림 <b>메일·문자</b>가 갑니다. 이 브라우저에만 저장됩니다.</div>
+  <div class="hint">기본 사용자 2명과 추가 사용자를 등록합니다. 등록한 사용자는 메일·문자 발송 창의 받는 사람 목록이 되고, <b>알림</b>이 켜진 사용자에게 감시 모드 위험 알림 <b>메일·문자</b>가 갑니다. 이 브라우저에만 저장됩니다.</div>
   <div id="uList"></div>
   <div class="ndlab">추가 사용자 등록</div>
   <div class="uadd"><input id="uName" placeholder="이름" autocomplete="off"><input id="uMail" placeholder="이메일" inputmode="email" autocomplete="off" spellcheck="false"><input id="uTel" placeholder="휴대폰 010-1234-5678" inputmode="tel" autocomplete="off"></div>
   <div class="nderr" id="uErr" role="alert"></div>
   <button type="submit" class="sm pri">＋ 사용자 추가</button>
   <div class="no-art">
-   <div class="ndlab ubar">🔔 인터벌 촬영 위험 알림</div>
+   <div class="ndlab ubar">🔔 감시 모드 위험 알림</div>
    <label class="ndck" for="uWatch"><input type="checkbox" id="uWatch" onchange="watchToggle()"><span>촬영한 사진마다 위험 분석 → 위험성이 아래 단계 이상이면 ‘알림’ 사용자에게 메일·문자</span></label>
    <div class="seg" id="uLevel"><button type="button" data-n="3" onclick="watchLevel(3)"><b>3 이상</b><small>중간 이상</small></button><button type="button" data-n="6" onclick="watchLevel(6)"><b>6 이상</b><small>높음 이상 (기본)</small></button><button type="button" data-n="9" onclick="watchLevel(9)"><b>9 이상</b><small>최고 단계만</small></button></div>
    <div class="keystat" id="uStat"></div>

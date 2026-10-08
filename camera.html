@@ -100,7 +100,7 @@ video{width:100%;height:100%;object-fit:contain;display:block}
       <span>전송 완료 <b id="sentc">0</b> · 대기 <b id="pendc">0</b></span>
     </div>
     <div class="row">
-      <button id="tglRun" class="tgl" role="switch" aria-checked="false"><span class="knob"></span>인터벌 촬영 <b>꺼짐</b></button>
+      <button id="tglRun" class="tgl" role="switch" aria-checked="false"><span class="knob"></span>감시 모드 <b>꺼짐</b></button>
       <button id="tglSend" class="tgl" role="switch" aria-checked="false"><span class="knob"></span>전송 <b>꺼짐</b></button>
       <button id="snap">지금 한 장</button>
     </div>
@@ -121,7 +121,7 @@ video{width:100%;height:100%;object-fit:contain;display:block}
 <script>
 /* 주기 촬영 — 페이지가 앞에 떠 있는 동안 N초/분/시간마다 한 장씩 찍어 기기(IndexedDB)에 저장한다.
    iPad Safari는 화면이 꺼지거나 다른 앱·탭으로 가면 카메라가 멈춘다 → Wake Lock + 자동 복구.
-   '인터벌 촬영' 단추로 주기 촬영을, '전송' 단추로 서버 전송(POST multipart: photo, takenAt)을 각각 켜고 끈다.
+   '감시 모드' 단추로 주기 촬영을, '전송' 단추로 서버 전송(POST multipart: photo, takenAt)을 각각 켜고 끈다.
    전송을 꺼 두면 기기에만 저장하고, 다시 켜면 아직 못 보낸 사진부터 차례로 보낸다. */
 
 const $ = id => document.getElementById(id);
