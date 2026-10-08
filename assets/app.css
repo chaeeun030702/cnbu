@@ -5,6 +5,11 @@ html,body{margin:0;height:100%}
 body{font-family:"Malgun Gothic","맑은 고딕","Noto Sans KR",sans-serif;font-size:13px;color:var(--ink);background:#eef2f7}
 button,input,select,textarea{font:inherit}
 #top{position:fixed;top:0;left:0;right:0;height:60px;z-index:50;background:var(--nv);color:#fff;display:flex;align-items:center;gap:14px;padding:0 14px;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+#top .stg{flex:none;width:38px;height:38px;border:0;border-radius:8px;background:none;color:#fff;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;margin-left:-4px}
+#top .stg:hover{background:rgba(255,255,255,.16)}#top .stg:active{background:rgba(255,255,255,.26)}
+body.sidehide #top .stg .pnl{fill:none}
+body.sidehide #side{display:none}
+@media (pointer:coarse){#top .stg{width:44px;height:44px}}
 #top .lg{display:flex;align-items:center;gap:8px;color:#fff;text-decoration:none;flex:none}
 #top .lg img{height:42px;width:auto}
 #top .lgt{display:flex;flex-direction:column;line-height:1.15}

@@ -51,6 +51,14 @@ window.raReady = function () {
 window.ptwReady = function (k) { H.ready[k] = 1; scheduleSync(); };
 window.pstReady = function () { H.ready.pst = 1; scheduleSync(); };
 function fitFrame(id) { var f = $('#' + id); try { var d = f.contentDocument, y = f.contentWindow.scrollY || 0, b = 0; Array.prototype.forEach.call(d.body.children, function (el) { if (el.tagName === 'SCRIPT') return; var r = el.getBoundingClientRect(); if (r.height) b = Math.max(b, r.bottom + y); }); if (b > 50) f.style.height = Math.ceil(b + 16) + 'px'; } catch (e) {} }
+/* 헤더 왼쪽 아이콘으로 왼쪽 입력란(#side)을 켜고 끈다. 끄면 문서가 넓어져 화면 너비에 다시 맞추고, 상태는 이 브라우저에 기억한다 */
+function sideToggle(force) {
+  var hide = typeof force === 'boolean' ? force : !document.body.classList.contains('sidehide');
+  document.body.classList.toggle('sidehide', hide);
+  var b = $('#sideTgl'); if (b) b.setAttribute('aria-expanded', hide ? 'false' : 'true');
+  try { localStorage.setItem('cbnu_sidehide', hide ? '1' : '0'); } catch (e) {}
+  setTimeout(fitMain, 30);
+}
 function fitMain() { var m = $('#main'), d = $('#docs'); if (!m || !d) return; var w = m.clientWidth - 24; var z = Math.min(1, w / 1180); d.style.zoom = z > 0.25 ? z : 0.25; }
 
 /* ---------- 위험분석 프레임 렌더 후 ---------- */
@@ -671,5 +679,6 @@ function notifyGo() {
   $('#m_date').value = (function () { var d = new Date(); return d.getFullYear() + '. ' + (d.getMonth() + 1) + '. ' + d.getDate() + '.'; })();
   document.body.classList.add('nodoc');
   applyUI(); initFrames(); probe(); notifyProbe(); connInit(); solRender();
+  try { if (localStorage.getItem('cbnu_sidehide') === '1') sideToggle(true); } catch (e) {}
   window.addEventListener('resize', fitMain); fitMain();
 })();
