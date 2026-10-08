@@ -44,7 +44,8 @@
   }
   function render() {
     btn.className = 'gh blue' + (running ? ' act' : '');   // 평소 파란색, 촬영 중에는 초록색
-    btn.textContent = running ? '⏺ 촬영 중 · ' + lbl(every) + ' · ' + taken + '장 ▾' : '📷 인터벌 촬영 ▾';
+    btn.innerHTML = running ? '<span class="ic">⏺</span><span class="bl on">촬영 중 · ' + lbl(every) + ' · ' + taken + '장</span><span class="cr">▾</span>'
+      : '<span class="ic">📷</span><span class="bl">인터벌 촬영</span><span class="cr">▾</span>';   // 좁은 화면에서는 아이콘만(.bl 숨김), 촬영 중에는 상태 글자를 보인다
     var items = [];
     if (running) items.push(item('■ 촬영 중지', stop));
     else INTERVALS.forEach(function (s) { items.push(item('▶ ' + lbl(s) + '마다 촬영 시작', function () { start(s); })); });
