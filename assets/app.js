@@ -369,7 +369,7 @@ function posterData(rows, kind) {
     tx.data = KBI[top[0].id].csi; }
   var nums = lawNums(kbRows), g = 'C-C-49-2026';
   tx.law = ['산업안전보건기준에 관한 규칙 제' + nums.join('·') + '조 · KOSHA GUIDE ' + g, 'OSH Standards Rule Art. ' + nums.join(', ') + ' · KOSHA GUIDE ' + g, '产业安全保健标准规则 第' + nums.join('·') + '条 · KOSHA GUIDE ' + g, 'Quy tắc tiêu chuẩn ATVSLĐ Điều ' + nums.join(', ') + ' · KOSHA GUIDE ' + g, 'MMX standartlari qoidasi ' + nums.join(', ') + '-moddalar · KOSHA GUIDE ' + g];
-  return { texts: tx, icons: icons, nd: top.length, nm: acts.length, theme: th };
+  return { texts: tx, icons: icons, nd: top.length, nm: acts.length, theme: th, ids: top.map(function (r) { return r.id; }) };
 }
 function icon(th, ok) { var bg = ok ? '#e8f5ea' : '#fdecea', badge = ok ? '<circle cx="140" cy="20" r="14" fill="#1E7B3A"/><path d="M132,20 l5,5 l10,-11" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>' : '<circle cx="140" cy="20" r="14" fill="#B3261E"/><path d="M133,13 l14,14 M147,13 l-14,14" stroke="#fff" stroke-width="4" stroke-linecap="round"/>';
   return '<svg viewBox="0 0 160 120" preserveAspectRatio="xMidYMid meet"><rect width="160" height="120" fill="' + bg + '"/>' + (ICON[th] || ICON.shock) + badge + '</svg>'; }
@@ -386,9 +386,27 @@ function syncPoster() {
     var d = new Date(), ymd = d.getFullYear() + ('0' + (d.getMonth() + 1)).slice(-2) + ('0' + d.getDate()).slice(-2);
     f.hostPST({ texts: pd.texts, icons: pd.icons, nd: pd.nd, nm: pd.nm, photo: H.photo || (H.orig && H.orig.photo), pw: H.pw, ph: H.ph, marks: marks, fname: H.fname, gpt: H.gpt, lang: LANG,
       code: '2026-CBNU-포스터-' + (k === 'c49' ? '전기' : '일반') + '-' + ymd,
-      src: '사진: 왼쪽 실제 현장사진(' + (H.fname || '업로드') + ') · 오른쪽 ChatGPT 이미지 생성(상황 재현) · 통계: CSI 건설사고 사례 재집계, 1단계 분석보고서 · 외국어 병기는 「안전보건용어 400선」 표준 대역어를 우선 적용했고, 400선 외 용어는 연구자가 번역했다. 현장 적용 전 관리감독자가 확인한다.' });
+      src: '사진: 왼쪽 실제 현장사진(' + (H.fname || '업로드') + ') · 오른쪽 ChatGPT 이미지 생성(상황 재현) · 항목 사진: 위험은 현장사진의 표시 위치, 지킬 사항은 ChatGPT 실사 이미지에서 해당 부분 · 통계: CSI 건설사고 사례 재집계, 1단계 분석보고서 · 외국어 병기는 「안전보건용어 400선」 표준 대역어를 우선 적용했고, 400선 외 용어는 연구자가 번역했다. 현장 적용 전 관리감독자가 확인한다.' });
+    rowImgs(f, pd, w.S.mk, sig);
   }
   setTimeout(function () { fitFrame('pstBox'); fitMain(); mkPrompt(); }, 350);
+}
+/* 항목별 4:3 사진: 위험 = 현장사진에서 표시 위치 주변, 지킬 사항 = ChatGPT 실사 이미지의 왼쪽·가운데·오른쪽 (편집 모드에서 눌러 교체) */
+function cut43(src, cx, cy, fw, cb) {
+  var im = new Image(); im.onload = function () {
+    var W0 = im.naturalWidth, H0 = im.naturalHeight, w = Math.min(W0, W0 * fw), h = w * 0.75; if (h > H0) { h = H0; w = h / 0.75; }
+    var x = Math.max(0, Math.min(W0 - w, cx * W0 - w / 2)), y = Math.max(0, Math.min(H0 - h, cy * H0 - h / 2));
+    var c = document.createElement('canvas'); c.width = 640; c.height = 480; c.getContext('2d').drawImage(im, x, y, w, h, 0, 0, 640, 480);
+    try { cb(c.toDataURL('image/jpeg', 0.88)); } catch (e) {} };
+  im.src = src;
+}
+function rowImgs(f, pd, mk, sig) {
+  if (!f.hostRowImg) return; var ok = function () { return H.sig.pst === sig; };
+  var photo = H.photo || (H.orig && H.orig.photo);
+  if (photo) (pd.ids || []).forEach(function (id, i) { var p = mk && mk[id]; if (!p) return;
+    cut43(photo, p[0] / 100, p[1] / 100, 0.36, function (d) { if (ok()) f.hostRowImg(i, d, false); }); });
+  if (H.gpt) [[0.2, 0.45], [0.5, 0.5], [0.8, 0.55]].slice(0, pd.nm).forEach(function (c, i) {
+    cut43(H.gpt, c[0], c[1], 0.42, function (d) { if (ok()) f.hostRowImg(3 + i, d, true); }); });
 }
 
 /* ---------- ChatGPT 추가작업 ---------- */
