@@ -29,7 +29,11 @@ function gmGet() { var u = uGet('cbnu_gm_user'), p = uGet('cbnu_gm_pass'); retur
 function gmValid() { return !!gmGet(); }
 function gmSave() {
   var u = ($('#gmUser').value || '').trim().toLowerCase(), p = ($('#gmPass').value || '').replace(/\s+/g, '') || (gmGet() ? gmGet().pass : ''), st = $('#gmStat');
-  var bad = !/^[^\s@]+@gmail\.com$/.test(u) ? 'Gmail 주소를 입력하세요.' : !/^[A-Za-z0-9]{12,32}$/.test(p) ? '앱 비밀번호(16자리, 공백 없이)를 입력하세요.' : '';
+  // 앱 비밀번호는 영문 16자리(구글이 4자리씩 공백을 넣어 보여 주지만 공백은 지워 넣는다). 특수문자가 있으면 로그인 비밀번호로 본다
+  var bad = !/^[^\s@]+@gmail\.com$/.test(u) ? 'Gmail 주소를 입력하세요.'
+    : !p ? '앱 비밀번호를 입력하세요 (16자리).'
+    : /[^A-Za-z0-9]/.test(p) ? '특수문자가 들어 있어 로그인 비밀번호로 보입니다. 앱 비밀번호는 영문 16자리이며, 아래 링크에서 새로 만들어야 합니다.'
+    : p.length !== 16 ? '입력한 글자 수는 ' + p.length + '자입니다. 앱 비밀번호는 16자리입니다 (공백 제외).' : '';
   if (bad) { st.textContent = bad; st.className = 'keystat warn'; return; }
   uSet('cbnu_gm_user', u); uSet('cbnu_gm_pass', p); $('#gmPass').value = ''; gmRender(); nstat('✓ Gmail 계정을 이 브라우저에만 저장했습니다.', 'on');
 }
@@ -37,7 +41,7 @@ function gmClear() { try { localStorage.removeItem('cbnu_gm_user'); localStorage
 function gmRender() {
   var g = gmGet(), st = $('#gmStat'); if (!st) return;
   if (g && !$('#gmUser').value) $('#gmUser').value = g.user;
-  $('#gmPass').placeholder = g ? '저장됨 (…' + g.pass.slice(-4) + ') — 바꿀 때만 입력' : '앱 비밀번호 16자리';
+  $('#gmPass').placeholder = g ? '저장됨 (…' + g.pass.slice(-4) + ') — 바꿀 때만 입력' : '앱 비밀번호 16자리 (영문)';
   st.className = 'keystat ' + (g ? 'on' : ''); st.textContent = g ? '✓ 저장됨 — ' + g.user + ' 계정으로 메일을 보냅니다.' : '저장하면 발송 토큰 없이 이 계정으로 메일을 보냅니다.';
 }
 
