@@ -26,6 +26,10 @@
       "maxDuration": 60,
       "memory": 512
     },
+    "api/illust.js": {
+      "maxDuration": 120,
+      "memory": 512
+    },
     "api/poster.js": {
       "maxDuration": 300,
       "memory": 1024,
