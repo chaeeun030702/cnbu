@@ -165,10 +165,13 @@ body.out-ra #secPTW,body.out-ra #secPST,body.out-ptw #secRA,body.out-ptw #secPST
 .ndb{display:flex;justify-content:flex-end;gap:8px}.ndb button.sm{margin-top:0;padding:6px 16px}
 .art .no-art{display:none!important}
 #ndlg form{max-height:calc(100vh - 28px);overflow-y:auto}
-#ndSolRow{display:none}
-#ndSolRow button.sm{margin-top:8px}
 #ndlg .ndlab{margin:10px 0 4px;font-size:12.5px;font-weight:700;color:var(--nv2)}
 #ndPre{display:flex;flex-direction:column;gap:6px}
 #ndlg label.ndck{display:flex;align-items:center;gap:9px;margin:0;padding:8px 10px;border:1px solid #c5d0de;border-radius:6px;font-size:14px;font-weight:600;color:var(--ink);cursor:pointer}
 #ndlg label.ndck:has(input:checked){border-color:var(--nv2);background:#EEF3FA}
 #ndlg label.ndck input{width:18px;height:18px;flex:none;margin:0;accent-color:var(--nv2)}
+.subh{margin:12px 10px 4px;font-size:12px;font-weight:800;color:var(--nv2)}
+.solbox{display:flex;flex-direction:column;gap:3px}
+.solbox label{font-size:12px;font-weight:700;color:var(--mut);margin-top:5px}
+.solbox input{border:1px solid #c5d0de;border-radius:5px;padding:6px 8px;width:100%}
+.solbtns{display:flex;gap:6px;margin-top:6px}.solbtns button.sm{margin-top:0}
