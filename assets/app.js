@@ -278,19 +278,26 @@ function runRead() {
     .then(function (j) { clearTimeout(tm); BUSY = false; aiScan(false); if (j && j.ok && ((j.hits && j.hits.length) || (j.extra && j.extra.length))) { applyAI(j, lang); afterRead(true); } else if (j && j.ok) { applyNone(j, lang); afterRead(true); } else { fallback(j && (j.reason || j.error)); afterRead(false); } })
     .catch(function (e) { clearTimeout(tm); BUSY = false; aiScan(false); fallback(e && e.name === 'AbortError' ? 'timeout' : 'network'); afterRead(false); });
 }
+/* 이전 판독에서 들어간 AI 추가 위험(지식베이스 밖)은 새 판독 전에 지운다 */
+function clearAiExtra(S) { var gone = {}; S.custom = (S.custom || []).filter(function (c) { if (c.ai) { gone[c.id] = 1; return false; } return true; });
+  S.sel = (S.sel || []).filter(function (id) { return !gone[id]; }); Object.keys(gone).forEach(function (id) { if (S.mk) delete S.mk[id]; if (S.ps) delete S.ps[id]; }); }
 function applyAI(j, lang) {
-  var w = RAW(); if (!w) return; H.nohaz = false; var S = w.S; S.sel = []; S.mk = {}; S.src = {}; S.ps = {};
-  j.hits.forEach(function (h) { if (!KBI[h.id] || S.sel.indexOf(h.id) >= 0) return; S.sel.push(h.id); S.mk[h.id] = [Math.round(h.x), Math.round(h.y)]; S.src[h.id] = { ai: arr5(h.evidence, lang) }; });
+  var w = RAW(); if (!w) return; H.nohaz = false; var S = w.S; S.sel = []; S.mk = {}; S.src = {}; S.ps = {}; clearAiExtra(S);
+  j.hits.forEach(function (h) { if (!KBI[h.id] || S.sel.indexOf(h.id) >= 0) return; S.sel.push(h.id); S.mk[h.id] = [Math.round(h.x * 10) / 10, Math.round(h.y * 10) / 10]; S.src[h.id] = { ai: arr5(h.evidence, lang) }; });
   S.scene = j.scene ? arr5(j.scene, lang) : null;
   var noKbHit = !j.hits || !j.hits.length;
-  (j.extra || []).slice(0, 3).forEach(function (x) { var t = Array.isArray(x) ? x[0] : x; if (!t) return; var c = { id: 'C' + (++S.cn), name: String(t), cause: String(t), acts: ['관리감독자가 대책을 적는다'], p: 2, s: 2 }; c.ai = 1; if (Array.isArray(x) && x[1]) c.nm5 = arr5(x, lang); S.custom.push(c); S.sel.push(c.id); });
+  (j.extra || []).slice(0, 3).forEach(function (e) { // 지식베이스 밖 추가 위험 — 사진에 위치 번호도 표시
+    var x = e && !Array.isArray(e) && typeof e === 'object' ? e.text : e, t = Array.isArray(x) ? x[0] : x; if (!t) return;
+    var c = { id: 'C' + (++S.cn), name: String(t), cause: String(t), acts: ['관리감독자가 대책을 적는다'], p: 2, s: 2 }; c.ai = 1; if (Array.isArray(x) && x[1]) c.nm5 = arr5(x, lang);
+    S.custom.push(c); S.sel.push(c.id);
+    if (e && e.x != null && e.y != null) S.mk[c.id] = [Math.round(e.x * 10) / 10, Math.round(e.y * 10) / 10]; });
   if (j.domain === 'gen') TAB = 'gen'; else if (j.domain === 'elec') TAB = 'elec';
   applyMeta(true); w.renderAll();
   status('🤖 AI 판독 완료 — 위험 표지 <b>' + j.hits.length + '</b>건' + ((j.extra || []).length ? ', 지식베이스 밖 추가 위험 ' + j.extra.length + '건(⑥ 목록)' : '') + ' · ' + esc(j.model || '') + '<br><small>체크리스트에서 더하거나 빼고, 빈도·강도는 평가표에서 고칩니다.</small>' + (noKbHit ? '<br><small>⚠️ 지식베이스 표지가 없어 <b>사전작업허가서·안전포스터는 만들지 않습니다</b>(추가 위험은 위험분석·평가표에만 반영).</small>' : ''), noKbHit ? 'warn' : 'ok');
 }
 /* AI가 사진에서 위험 요인을 하나도 못 찾았을 때: 키워드 판독으로 임의의 표지를 채우지 않고 '위험 요인 확인되지 않음, 관리감독자 확인 요함'으로 표시한다 */
 function applyNone(j, lang) {
-  var w = RAW(); if (!w) return; H.nohaz = true; var S = w.S; S.sel = []; S.mk = {}; S.src = {}; S.ps = {}; S.scene = j.scene && j.scene[0] ? arr5(j.scene, lang) : null;
+  var w = RAW(); if (!w) return; H.nohaz = true; var S = w.S; S.sel = []; S.mk = {}; S.src = {}; S.ps = {}; clearAiExtra(S); S.scene = j.scene && j.scene[0] ? arr5(j.scene, lang) : null;
   applyMeta(true); w.renderAll();
   status('🤖 AI 판독 완료 — <b>위험 요인 확인되지 않음, 관리감독자 확인 요함</b> · ' + esc(j.model || '') + '<br><small>사진에서 표지를 찾지 못했습니다. 관리감독자가 현장에서 직접 확인하고, 필요하면 체크리스트에서 표지를 고르세요.</small>', 'warn');
 }
