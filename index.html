@@ -128,9 +128,10 @@
   <div class="solbox no-art">
    <label for="gmUser">Gmail 주소</label><input id="gmUser" autocomplete="off" spellcheck="false" placeholder="예: chaeeun075@gmail.com">
    <label for="gmPass">앱 비밀번호 (16자리)</label><input type="password" id="gmPass" autocomplete="off" spellcheck="false" placeholder="앱 비밀번호 16자리">
+   <label class="gmshow"><input type="checkbox" onchange="document.getElementById('gmPass').type=this.checked?'text':'password'"> 입력한 글자 보기</label>
    <div class="solbtns"><button type="button" class="sm pri" onclick="gmSave()">저장</button><button type="button" class="sm" onclick="gmClear()">삭제</button></div>
    <div class="keystat" id="gmStat"></div>
-   <div class="hint">저장하면 발송 토큰 없이 이 계정으로 ✉️ 메일 발송과 인터벌 촬영 위험 알림 메일이 나갑니다. Google 계정 → 보안 → 2단계 인증 → <b>앱 비밀번호</b>를 만들어 넣으세요(로그인 비밀번호 아님). 허용된 계정만 쓸 수 있고, 서버는 저장하지 않으며 발송 요청에만 실어 보냅니다.</div>
+   <div class="hint">저장하면 발송 토큰 없이 이 계정으로 ✉️ 메일 발송과 인터벌 촬영 위험 알림 메일이 나갑니다. <b>로그인 비밀번호는 쓸 수 없습니다.</b> ① <a href="https://myaccount.google.com/security" target="_blank" rel="noopener">구글 보안 설정</a>에서 2단계 인증을 켠 뒤 ② <a href="https://myaccount.google.com/apppasswords" target="_blank" rel="noopener">앱 비밀번호 만들기</a>에서 이름(예: e-safety)을 넣고 만들면 나오는 <b>영문 16자리</b>(4자리씩 띄어 보임, 공백은 있어도 됩니다)를 넣으세요. 허용된 계정만 쓸 수 있고, 서버는 저장하지 않으며 발송 요청에만 실어 보냅니다.</div>
   </div>
   <div id="mailTok" class="no-art">
   <div class="subh">✉️ 메일 — 발송 토큰 (이 사이트의 서버로 보낼 때만)</div>
