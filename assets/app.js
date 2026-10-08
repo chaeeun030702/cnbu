@@ -423,6 +423,28 @@ function rowImgs(f, pd, mk, sig) {
     .catch(function () { need.forEach(function (it) { if (ok()) crop(it); }); });
 }
 
+/* ‘🎨 위험·반드시 그림 Claude 자동 생성’ — 지금 포스터의 위험 3건·반드시 지킬 사항 3건 문구로 항목 그림을 새로 그린다(표본 포함) */
+var RSVGBUSY = false;
+function rowSvgAuto() {
+  var f = W('pstBox'); if (!f || !f.hostGet || !f.hostRowImg) { $('#gmsg').textContent = '먼저 현장사진을 올리거나 표본을 고르세요.'; return; }
+  if (RSVGBUSY) return; var g = f.hostGet(), rows = f.document.querySelectorAll('.rules .ricon'), items = [];
+  for (var i = 0; i < rows.length && i < 6; i++) { var row = rows[i].closest('.row'); if (row && row.style.display === 'none') continue;
+    var ok = i >= 3, kk = ok ? 'm' + (i - 3) : 'd' + i; if (!g[kk + '_t']) continue; items.push({ slot: i, ok: ok, title: g[kk + '_t'], cause: g[kk + '_c'] || '' }); }
+  if (!items.length) { $('#gmsg').textContent = '그릴 항목이 없습니다.'; return; }
+  var btn = $('#rSvg'), t0 = Date.now(), sig = H.sig.pst; RSVGBUSY = true; btn.disabled = true;
+  var tick = setInterval(function () { $('#gmsg').textContent = '🎨 Claude가 항목 그림 ' + items.length + '장을 그리는 중… ' + Math.round((Date.now() - t0) / 1000) + '초'; }, 1000);
+  var end = function (msg) { clearInterval(tick); RSVGBUSY = false; btn.disabled = false; $('#gmsg').textContent = msg; };
+  var w = RAW(), sc = w && w.S && w.S.scene ? (Array.isArray(w.S.scene) ? w.S.scene[0] : w.S.scene) : '';
+  fetch('api/illust', { method: 'POST', headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ items: items.map(function (it) { return { title: it.title, cause: it.cause, ok: it.ok }; }), scene: sc, key: APIKEY || undefined }) })
+    .then(function (r) { return r.json(); }).then(function (j) {
+      if (!j || !j.svgs) return end(j && j.reason === 'no_key' ? '서버와 브라우저에 Claude 키가 없습니다. 왼쪽 입력칸 ⑧에 키를 저장하세요.' : 'Claude 그림을 받지 못했습니다. 다시 눌러 주세요.');
+      var n = 0, fail = [];
+      items.forEach(function (it, k) { var u = j.svgs[k]; if (u && H.sig.pst === sig) { ILL[(it.ok ? 'm|' : 'd|') + it.title] = u; f.hostRowImg(it.slot, u, it.ok); n++; } else if (!u) fail.push((it.ok ? '반드시' : '위험') + ((it.slot % 3) + 1)); });
+      end(fail.length ? 'Claude 그림 ' + n + '장 완료, 일부 실패(' + fail.join(', ') + ') — 다시 누르세요.' : '✓ Claude가 항목 그림 ' + n + '장을 새로 그려 넣었습니다 (' + Math.round((Date.now() - t0) / 1000) + '초). 편집 모드에서 그림을 눌러 바꿀 수도 있습니다.');
+    }).catch(function () { end('서버에 연결하지 못했습니다.'); });
+}
+
 /* ---------- ChatGPT 추가작업 ---------- */
 function mkPrompt() {
   var f = W('pstBox'); if (!f || !f.hostGet) return; var g = f.hostGet(), w = RAW(); if (!w) return;
@@ -478,7 +500,7 @@ function withLogo(src, cb) { var im = new Image(), lg = new Image(), n = 0;
 function gptAuto() {
   var photo = H.photo || (H.orig && H.orig.photo); if (!photo) { $('#gmsg').textContent = '먼저 현장사진을 올리거나 표본을 고르세요.'; return; }
   mkPrompt(); var mode = $('#gmode').value, btn = $('#gAuto'), t0 = Date.now();
-  btn.disabled = true; $('#gmsg').textContent = '⏳ Claude가 만든 프롬프트로 실사 이미지를 생성하는 중입니다 (30~90초)…';
+  btn.disabled = true; $('#gmsg').textContent = '⏳ Claude가 만든 프롬프트로 오른쪽 이미지를 실사화하는 중입니다 (30~90초)…';
   var tick = setInterval(function () { $('#gmsg').textContent = '⏳ 실사 이미지 생성 중… ' + Math.round((Date.now() - t0) / 1000) + '초'; }, 1000);
   var end = function (msg) { clearInterval(tick); btn.disabled = false; $('#gmsg').textContent = msg; };
   shrink(photo, 1024, function (small) {
