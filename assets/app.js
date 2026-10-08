@@ -434,6 +434,16 @@ var CMCP = null;
 var IN_ART = !!(window.claude && typeof window.claude.use === 'function'); // 아티팩트 뷰어 안이면 스크립트보다 먼저 window.claude 가 있다
 var CONN = IN_ART ? 0 : -1;                                                    // 0 연결 중 · 1 Gmail 커넥터 사용 가능 · -1 아티팩트 아님/사용 불가
 var ARTIFACT_URL = 'https://claude.ai/artifact/44cnudKouvMjRAiy7tmTim';
+/* 클릭하는 순간에도 Gmail 커넥터를 찾는다 — 뷰어가 window.claude 를 스크립트보다 늦게 붙이거나 연결이 늦어도 메일이 나가게 한다 */
+function connEnsure() {
+  if (CMCP) return Promise.resolve(true);
+  if (!(window.claude && typeof window.claude.use === 'function')) return Promise.resolve(false);
+  IN_ART = true; CONN = 0; document.body.classList.add('art');
+  return window.claude.use('mcp').then(function (m) {
+    if (!m) { CONN = -1; document.body.classList.remove('art'); return false; }
+    CMCP = m; CONN = 1; return true;
+  }, function () { CONN = -1; return false; });
+}
 function connInit() {
   if (!IN_ART) return;
   document.body.classList.add('art'); // 커넥터 연결을 기다리지 않고 아티팩트에서 쓸 수 없는 칸(토큰·문자 키)을 처음부터 숨긴다
@@ -562,7 +572,14 @@ function notifySend(channel) {
   if (NBUSY) return;
   var w = RAW(), cnt = sheetCounts();
   if (!w || !cnt.total) { nstat('먼저 사진을 올리고 문서를 생성하세요.', 'warn'); return; }
-  if (IN_ART && !CMCP) { nstat(CONN === 0 ? 'Gmail 커넥터에 연결하는 중입니다. 잠시 후 다시 누르세요.' : 'Gmail 커넥터를 쓸 수 없습니다. claude.ai에 로그인한 본인 계정에서 이 아티팩트를 여세요.', 'warn'); return; }
+  if (!CMCP && channel === 'email' && window.claude && typeof window.claude.use === 'function') { // 아티팩트: 커넥터를 (다시) 찾아 연결한 뒤 이어서 진행
+    nstat('Gmail 커넥터에 연결하는 중…');
+    connEnsure().then(function (ok) {
+      if (ok) { var t = $('#ntoast'); if (t) t.className = ''; notifySend(channel); }
+      else nstat('Gmail 커넥터를 쓸 수 없습니다. claude.ai에 로그인한 본인 계정에서 이 아티팩트를 열어 주세요.', 'warn');
+    });
+    return;
+  }
   if (!CMCP && channel === 'email' && !MAIL_SRV) { nstat('이 사이트에서는 메일을 보낼 수 없습니다. 메일은 Claude 아티팩트 버전(Gmail 커넥터)에서 발송하세요.', 'warn'); var cf = $('#nCfg'); if (cf) cf.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
   if (!CMCP && channel === 'sms') { solLoad(); if (!solValid()) { solNeed(); return; } }
   if (CMCP && channel !== 'email') { nstat('문자 발송은 Vercel 사이트(e-safety.vercel.app)에서만 됩니다.', 'warn'); return; }
