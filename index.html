@@ -33,7 +33,7 @@
 <dialog id="udlg">
  <form method="dialog" novalidate onsubmit="event.preventDefault();userAdd()">
   <h3>👤 사용자 등록</h3>
-  <div class="hint">기본 사용자 2명과 추가 사용자를 등록합니다. 등록한 사용자는 메일·문자 발송 창의 받는 사람 목록이 되고, <b>알림</b>이 켜진 사용자에게 인터벌 촬영 위험 알림 메일이 갑니다. 이 브라우저에만 저장됩니다.</div>
+  <div class="hint">기본 사용자 2명과 추가 사용자를 등록합니다. 등록한 사용자는 메일·문자 발송 창의 받는 사람 목록이 되고, <b>알림</b>이 켜진 사용자에게 인터벌 촬영 위험 알림 <b>메일·문자</b>가 갑니다. 이 브라우저에만 저장됩니다.</div>
   <div id="uList"></div>
   <div class="ndlab">추가 사용자 등록</div>
   <div class="uadd"><input id="uName" placeholder="이름" autocomplete="off"><input id="uMail" placeholder="이메일" inputmode="email" autocomplete="off" spellcheck="false"><input id="uTel" placeholder="휴대폰 010-1234-5678" inputmode="tel" autocomplete="off"></div>
@@ -41,9 +41,9 @@
   <button type="submit" class="sm pri">＋ 사용자 추가</button>
   <div class="no-art">
    <div class="ndlab ubar">🔔 인터벌 촬영 위험 알림</div>
-   <label class="ndck" for="uWatch"><input type="checkbox" id="uWatch" onchange="watchToggle()"><span>촬영한 사진마다 위험 분석 → 위험성 6 이상이면 ‘알림’ 사용자에게 메일</span></label>
+   <label class="ndck" for="uWatch"><input type="checkbox" id="uWatch" onchange="watchToggle()"><span>촬영한 사진마다 위험 분석 → 위험성 6 이상이면 ‘알림’ 사용자에게 메일·문자</span></label>
    <div class="keystat" id="uStat"></div>
-   <div class="hint">AI 판독 모드에서 분석이 끝나기 전에 찍은 사진은 건너뛰고, 한 번 보낸 뒤 10분 동안은 다시 보내지 않습니다. 분석 결과 화면 PDF와 분석 sheet가 첨부됩니다.</div>
+   <div class="hint">AI 판독 모드에서 분석이 끝나기 전에 찍은 사진은 건너뛰고, 한 번 보낸 뒤 10분 동안은 다시 보내지 않습니다. 메일에는 분석 결과 화면 PDF와 분석 sheet가 첨부되고(Gmail 계정 필요), 문자는 ⑨에 Solapi 키가 저장돼 있어야 갑니다.</div>
    <div class="hint">메일을 보낼 <b>Gmail 계정(앱 비밀번호)</b>은 왼쪽 <b>⑨ 발송 설정</b>에 저장합니다. 자동 알림은 사람이 누르지 않아 Gmail 커넥터를 쓸 수 없고, 저장한 계정으로 보냅니다.</div>
   </div>
   <div class="ndb"><button type="button" class="sm" onclick="usersClose()">닫기</button></div>
