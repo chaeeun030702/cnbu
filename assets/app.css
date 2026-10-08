@@ -139,6 +139,7 @@ button.sm.pri{background:var(--nv2);color:#fff}
 #gptFull img{max-width:100%;border:1px solid #ccc;border-radius:6px}
 #sitefoot{max-width:1123px;margin:6px auto 20px;color:#f1f4f8;font-size:11.5px;text-align:center;line-height:1.5}
 body.nodoc .sec,body.nodoc .aiban{visibility:hidden;height:0;overflow:hidden;margin:0}
+body.nohaz #secPTW,body.nohaz #secPST{visibility:hidden;height:0;overflow:hidden;margin:0}
 body:not(.nodoc) #emptyMsg{display:none}
 body.out-ra #secPTW,body.out-ra #secPST,body.out-ptw #secRA,body.out-ptw #secPST,body.out-pst #secRA,body.out-pst #secPTW{visibility:hidden;height:0;overflow:hidden;margin:0}
 @media (max-width:900px){
