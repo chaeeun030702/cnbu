@@ -188,13 +188,16 @@ function resetAll() {
   w.renderAll();
 }
 function shrink(src, max, cb) { var im = new Image(); im.onload = function () { var w = im.naturalWidth, h = im.naturalHeight, k = Math.min(1, max / Math.max(w, h)); var c = document.createElement('canvas'); c.width = Math.round(w * k); c.height = Math.round(h * k); c.getContext('2d').drawImage(im, 0, 0, c.width, c.height); cb(c.toDataURL('image/jpeg', 0.86), c.width, c.height); }; im.src = src; }
-function onFile(f) {
-  if (!f || !/^image\//.test(f.type)) return; var r = new FileReader();
+var AFTER = null; // 판독이 끝났을 때 한 번 부르는 콜백 (인터벌 촬영 위험 알림 루틴)
+function afterRead(ok) { var f = AFTER; AFTER = null; if (f) f(ok); }
+function onFile(f, cb) {
+  AFTER = cb || null;
+  if (!f || !/^image\//.test(f.type)) { afterRead(false); return; } var r = new FileReader();
   r.onload = function () { shrink(r.result, 1600, function (small, pw, ph) {
-    var w = RAW(); if (!w) return; H.sample = null; H.photo = small; H.pw = pw; H.ph = ph; H.fname = f.name; H.gpt = null; H.sig = {}; $('#gptFull').style.display = 'none';
+    var w = RAW(); if (!w) { afterRead(false); return; } H.sample = null; H.photo = small; H.pw = pw; H.ph = ph; H.fname = f.name; H.gpt = null; H.sig = {}; $('#gptFull').style.display = 'none';
     $('#thumb').innerHTML = '<img src="' + small + '" alt="">'; $('#drop').classList.add('has');
     var S = freshState(w); S.ph2 = false; S.sel = []; S.mk = {}; S.src = {}; S.scene = null; S.fname = f.name; S.memo = $('#m_memo').value; S.corr = { sum: false, rain: false, morn: false, fore: false }; w.S = S;
-    w.hostPhoto(small, function () { if (ENG === 'ai') runRead(); else if (ENG === 'kw') runKw(); else { applyMeta(true); w.renderAll(); status('✋ 직접 선택 — 체크리스트에서 보이는 위험 표지를 고르세요.', 'info'); } });
+    w.hostPhoto(small, function () { if (ENG === 'ai') runRead(); else if (ENG === 'kw') { runKw(); afterRead(false); } else { applyMeta(true); w.renderAll(); status('✋ 직접 선택 — 체크리스트에서 보이는 위험 표지를 고르세요.', 'info'); afterRead(false); } });
   }); };
   r.readAsDataURL(f);
 }
@@ -202,14 +205,14 @@ function runKw() { var w = RAW(); if (!w) return; w.S.memo = $('#m_memo').value 
 
 /* ---------- AI 판독 (/api/read) ---------- */
 function runRead() {
-  var w = RAW(); if (BUSY || !w || !H.photo) return; BUSY = true; var lang = LANG;
+  var w = RAW(); if (BUSY || !w || !H.photo) { afterRead(false); return; } BUSY = true; var lang = LANG;
   status('<span class="spin"></span> AI가 사진을 판독하는 중입니다… (20~40초)', 'busy');
   var ctrl = window.AbortController ? new AbortController() : null, tm = setTimeout(function () { if (ctrl) ctrl.abort(); }, 65000);
   fetch('api/read', { method: 'POST', headers: { 'content-type': 'application/json' }, signal: ctrl ? ctrl.signal : undefined,
     body: JSON.stringify({ image: H.photo, name: H.fname, lang: lang, key: APIKEY || undefined, site: { kind: $('#m_proc').value, place: $('#m_site').value } }) })
     .then(function (r) { return r.json().catch(function () { return { ok: false, reason: 'http_' + r.status }; }); })
-    .then(function (j) { clearTimeout(tm); BUSY = false; if (j && j.ok && j.hits && j.hits.length) applyAI(j, lang); else fallback(j && (j.reason || j.error)); })
-    .catch(function (e) { clearTimeout(tm); BUSY = false; fallback(e && e.name === 'AbortError' ? 'timeout' : 'network'); });
+    .then(function (j) { clearTimeout(tm); BUSY = false; if (j && j.ok && j.hits && j.hits.length) { applyAI(j, lang); afterRead(true); } else { fallback(j && (j.reason || j.error)); afterRead(false); } })
+    .catch(function (e) { clearTimeout(tm); BUSY = false; fallback(e && e.name === 'AbortError' ? 'timeout' : 'network'); afterRead(false); });
 }
 function applyAI(j, lang) {
   var w = RAW(); if (!w) return; var S = w.S; S.sel = []; S.mk = {}; S.src = {}; S.ps = {};
@@ -422,7 +425,7 @@ function nstat(t, c) {
 }
 function sheetCounts() {
   var w = RAW(); var v = w ? Array.prototype.slice.call(w.document.querySelectorAll('table.ra tbody tr[data-id] td.rk')).map(function (td) { return +td.getAttribute('data-r') || 0; }).filter(Boolean) : [];
-  return { total: v.length, nine: v.filter(function (x) { return x >= 9; }).length, high: v.filter(function (x) { return x >= 6; }).length, mid: v.filter(function (x) { return x >= 3 && x < 6; }).length, low: v.filter(function (x) { return x < 3; }).length };
+  return { max: Math.max.apply(null, v.concat(0)), total: v.length, nine: v.filter(function (x) { return x >= 9; }).length, high: v.filter(function (x) { return x >= 6; }).length, mid: v.filter(function (x) { return x >= 3 && x < 6; }).length, low: v.filter(function (x) { return x < 3; }).length };
 }
 function ntokSave() { var v = ($('#nTok').value || '').trim(); if (!v) return; NTOKEN = v; try { localStorage.setItem('cbnu_ntok', v); } catch (e) {} $('#nTok').value = ''; nstat('✓ 발송 토큰을 이 브라우저에만 저장했습니다.', 'on'); }
 function ntokClear() { NTOKEN = ''; try { localStorage.removeItem('cbnu_ntok'); } catch (e) {} nstat('발송 토큰을 지웠습니다.'); }
@@ -455,33 +458,46 @@ function connInit() {
   }).catch(function () { CONN = -1; });
 }
 function b64OfBuf(buf) { var u = new Uint8Array(buf), s = ''; for (var i = 0; i < u.length; i += 0x8000) s += String.fromCharCode.apply(null, u.subarray(i, i + 0x8000)); return btoa(s); }
-function mailHtmlC(title, site, c) {
+function mailHtmlC(title, site, c, note, hasPdf) {
   var meta = [['현장명', site.name], ['공종·작업', site.proc], ['평가일', site.date], ['관리감독자', site.by]].filter(function (x) { return x[1]; })
     .map(function (x) { return '<b>' + x[0] + '</b> ' + esc(x[1]); }).join(' &nbsp;·&nbsp; ');
   return '<div style="font-family:\'Malgun Gothic\',Apple SD Gothic Neo,sans-serif;font-size:14px;color:#1c1c1c;max-width:640px">'
     + '<p style="margin:0 0 12px"><a href="' + SITE_URL + '">' + SITE_URL + '</a></p>'
     + '<div style="background:#B03A2E;color:#fff;padding:12px 14px;border-radius:6px;font-size:17px;font-weight:800">' + esc(title) + '</div>'
+    + (note ? '<p style="margin:8px 0;padding:8px 10px;background:#FBEDEB;border-left:4px solid #B03A2E;color:#7a2018">' + esc(note) + '</p>' : '')
     + '<p style="margin:12px 0 4px">위험 <b>' + c.total + '건</b> · <span style="color:#B03A2E"><b>9이상 ' + c.nine + '건</b></span> <span style="color:#778;font-size:12px">(위험성 = 빈도 × 강도, 최대 9)</span></p>'
     + (meta ? '<p style="margin:4px 0 10px;color:#334">' + meta + '</p>' : '')
-    + '<p>첨부한 <b>현장사진 위험 분석 sheet</b>(HTML 파일)를 열어 위험 분석과 위험성평가표를 확인하세요.</p>'
+    + '<p>첨부한 ' + (hasPdf ? '<b>분석 결과 PDF</b>(A4 가로)와 ' : '') + '<b>현장사진 위험 분석 sheet</b>(HTML 파일)에서 위험 분석과 위험성평가표를 확인하세요.</p>'
     + '<p style="color:#778;font-size:12px">자동 생성 결과는 초안입니다. AI는 최초 검토, 최종 판단은 관리감독자가 진행합니다.</p></div>';
 }
-/* 분석 sheet(약 1MB)는 커넥터 입력 한도(1MiB)를 넘으므로 파일 인자($file)로 보낸다. 그 경로가 안 되면 gzip(.html.gz)으로 줄여 보낸다. */
-function connSend(list, title, cnt, site, sheet) {
-  var base = { to: list, subject: title, body: SITE_URL + '\n\n' + title + '\n\n첨부한 현장사진 위험 분석 sheet(HTML 파일)를 열어 확인하세요.', htmlBody: mailHtmlC(title, site, cnt) };
-  var NAME = 'site-photo-risk-analysis-sheet.html';
-  var call = function (att) { return CMCP.callTool('Gmail', 'send_message', Object.assign({}, base, { attachments: [att] })); };
-  var viaGzip = function () {
-    if (typeof CompressionStream !== 'function') return Promise.reject({ code: 'too_large' });
-    return new Response(new Blob([sheet]).stream().pipeThrough(new CompressionStream('gzip'))).arrayBuffer().then(function (buf) {
-      var b64 = b64OfBuf(buf); if (b64.length > 900000) return Promise.reject({ code: 'too_large' });
-      return call({ content: b64, filename: NAME + '.gz', mimeType: 'application/gzip' });
+/* 커넥터 입력 한도는 1MiB. 큰 첨부는 파일 인자($file, 호출당 1개)로 보낸다 → PDF 를 $file 로, 분석 sheet(HTML)는 gzip 으로 줄여 함께 붙인다(너무 크면 PDF 만).
+   파일 인자를 쓸 수 없으면 PDF·gzip HTML 을 한도 안에서 인라인으로 붙인다. */
+function connSend(list, title, cnt, site, sheet, pdf, note) {
+  var HN = 'site-photo-risk-analysis-sheet.html', PN = 'site-photo-risk-analysis.pdf';
+  var call = function (atts) { // 본문의 첨부 안내는 실제로 붙은 것에 맞춘다 → 결과는 PDF 가 붙었는지(true/false)
+    var hp = atts.some(function (a) { return a.mimeType === 'application/pdf'; });
+    return CMCP.callTool('Gmail', 'send_message', { to: list, subject: title, attachments: atts, htmlBody: mailHtmlC(title, site, cnt, note, hp),
+      body: SITE_URL + '\n\n' + title + (note ? '\n' + note : '') + '\n\n첨부한 ' + (hp ? '분석 결과 PDF와 ' : '') + '현장사진 위험 분석 sheet(HTML 파일)를 확인하세요.' }).then(function () { return hp; });
+  };
+  var gz = function () {
+    if (typeof CompressionStream !== 'function') return Promise.resolve(null);
+    return new Response(new Blob([sheet]).stream().pipeThrough(new CompressionStream('gzip'))).arrayBuffer().then(function (buf) { return b64OfBuf(buf); }, function () { return null; });
+  };
+  var gzAtt = function (b64) { return { content: b64, filename: HN + '.gz', mimeType: 'application/gzip' }; };
+  var inline = function () { // 인라인(1MiB 한도)으로 붙일 수 있는 만큼
+    return gz().then(function (b64) {
+      var atts = [], used = 0;
+      if (pdf && pdf.b64.length <= 600000) { atts.push({ content: pdf.b64, filename: PN, mimeType: 'application/pdf' }); used += pdf.b64.length; }
+      if (b64 && used + b64.length <= 850000) atts.push(gzAtt(b64));
+      return atts.length ? call(atts) : Promise.reject({ code: 'too_large' });
     });
   };
+  var viaFile = function (blob, name, type, rest) { return call([{ content: { $file: { data: blob, name: name, type: type } }, filename: name, mimeType: type }].concat(rest)); };
   return CMCP.listTools().then(function (r) { return !!(r && r.fileArgs); }, function () { return false; }).then(function (fa) {
-    if (!fa) return viaGzip();
-    return call({ content: { $file: { data: new Blob([sheet], { type: 'text/html' }), name: NAME, type: 'text/html' } }, filename: NAME, mimeType: 'text/html' })
-      .catch(function (e) { return (e && (e.code === 'bad_request' || e.code === 'capability_disabled' || e.code === 'tool_error')) ? viaGzip() : Promise.reject(e); });
+    if (!fa) return inline();
+    var go = pdf ? gz().then(function (b64) { return viaFile(pdf.blob, PN, 'application/pdf', b64 && b64.length <= 700000 ? [gzAtt(b64)] : []); })
+      : viaFile(new Blob([sheet], { type: 'text/html' }), HN, 'text/html', []);
+    return go.catch(function (e) { return (e && (e.code === 'bad_request' || e.code === 'capability_disabled' || e.code === 'tool_error')) ? inline() : Promise.reject(e); });
   });
 }
 function connWhy(e) {
@@ -513,7 +529,7 @@ function notifyProbe() {
       : '이 사이트에서는 메일을 보낼 수 없습니다(서버에 메일 설정 없음). 메일은 ' + mailLink() + '에서 발송하세요. 문자는 위 Solapi 키로 발송됩니다.';
   }).catch(function () { var el = $('#nCfg'); if (el) el.textContent = '이 주소에서는 서버 함수를 쓸 수 없습니다 (Vercel 배포에서만 동작).'; });
 }
-var NCH = '';
+var NCH = '', N_MAX = 10;
 /* 문자: 사용자가 입력한 Solapi 키는 이 브라우저에만 저장(발송 성공 시)하고, 발송 요청에만 실어 서버로 보낸다. 서버는 저장하지 않는다 */
 var SOL = { key: '', secret: '', from: '' };
 function solLoad() { try { SOL = { key: localStorage.getItem('cbnu_sol_key') || '', secret: localStorage.getItem('cbnu_sol_secret') || '', from: localStorage.getItem('cbnu_sol_from') || '' }; } catch (e) {} }
@@ -545,7 +561,7 @@ function solNeed() { // 키가 없으면 ⑨ 로 안내한다
 function nLoad(k) { try { return localStorage.getItem(k) || ''; } catch (e) { return ''; } }
 /* 수신자: 체크리스트(PRESETS, assets/recipients.js) + 직접 입력 1칸. 마지막 체크 상태는 이 브라우저에 기억한다(처음엔 첫 항목만 체크) */
 function nFmt(v, mail) { return mail ? v : v.replace(/^(01\d)(\d{3,4})(\d{4})$/, '$1-$2-$3'); }
-function nPresets(mail) { return (typeof PRESETS !== 'undefined' && PRESETS[mail ? 'email' : 'sms']) || []; }
+function nPresets(mail) { return typeof usersFor === 'function' ? usersFor(mail).map(function (x) { return x.v; }) : ((typeof PRESETS !== 'undefined' && PRESETS[mail ? 'email' : 'sms']) || []); }
 function nChecked(mail) {
   var list = nPresets(mail), saved = null;
   try { saved = JSON.parse(localStorage.getItem('cbnu_nsel_' + (mail ? 'email' : 'sms')) || 'null'); } catch (e) {}
@@ -554,7 +570,7 @@ function nChecked(mail) {
 function nRender(mail) {
   var on = nChecked(mail);
   $('#ndPre').innerHTML = nPresets(mail).map(function (v, i) {
-    return '<label class="ndck" for="ndPre' + i + '"><input type="checkbox" id="ndPre' + i + '" value="' + esc(v) + '"' + (on.indexOf(v) >= 0 ? ' checked' : '') + '><span>' + esc(nFmt(v, mail)) + '</span></label>';
+    return '<label class="ndck" for="ndPre' + i + '"><input type="checkbox" id="ndPre' + i + '" value="' + esc(v) + '"' + (on.indexOf(v) >= 0 ? ' checked' : '') + '><span>' + (typeof uNameOf === 'function' && uNameOf(v, mail) ? '<b>' + esc(uNameOf(v, mail)) + '</b> ' : '') + esc(nFmt(v, mail)) + '</span></label>';
   }).join('');
 }
 function nPicked() { return $$('#ndPre input:checked').map(function (i) { return i.value; }); }
@@ -565,9 +581,9 @@ function nSplit(v, mail) {
     if (!(mail ? /^[^\s@,;<>"]{1,64}@[^\s@,;<>"]{1,200}\.[^\s@,;<>"]{2,}$/ : /^01[016789]\d{7,8}$/).test(t)) return null;
     if (out.indexOf(t) < 0) out.push(t);
   }
-  return out.length > 3 ? null : out;
+  return out.length > N_MAX ? null : out;
 }
-/* 버튼 → 입력창: 받는 이메일 주소 / 휴대폰 번호(최대 3개, 쉼표로 구분)와 제목을 확인하고 발송한다 */
+/* 버튼 → 입력창: 받는 이메일 주소 / 휴대폰 번호(최대 10개, 쉼표로 구분)와 제목을 확인하고 발송한다 */
 function notifySend(channel) {
   if (NBUSY) return;
   var w = RAW(), cnt = sheetCounts();
@@ -580,7 +596,7 @@ function notifySend(channel) {
     });
     return;
   }
-  if (!CMCP && channel === 'email' && !MAIL_SRV) { nstat('이 사이트에서는 메일을 보낼 수 없습니다. 메일은 Claude 아티팩트 버전(Gmail 커넥터)에서 발송하세요.', 'warn'); var cf = $('#nCfg'); if (cf) cf.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+  if (!CMCP && channel === 'email' && !MAIL_SRV && !gmValid()) { nstat('이 사이트에서는 메일을 보낼 수 없습니다. 👤 사용자 등록에서 Gmail 계정을 저장하거나, Claude 아티팩트 버전(Gmail 커넥터)에서 발송하세요.', 'warn'); var cf = $('#nCfg'); if (cf) cf.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
   if (!CMCP && channel === 'sms') { solLoad(); if (!solValid()) { solNeed(); return; } }
   if (CMCP && channel !== 'email') { nstat('문자 발송은 Vercel 사이트(e-safety.vercel.app)에서만 됩니다.', 'warn'); return; }
   var mail = channel === 'email'; NCH = channel;
@@ -588,8 +604,8 @@ function notifySend(channel) {
   $('#ndLab').textContent = mail ? '받는 이메일 (선택)' : '받는 휴대폰 번호 (선택)'; nRender(mail);
   var to = $('#ndTo'); to.type = mail ? 'email' : 'tel'; to.multiple = mail; to.placeholder = mail ? 'name@example.com' : '010-1234-5678'; to.value = '';
   $('#ndTitle').textContent = ntitle(cnt);
-  $('#ndNote').textContent = CMCP ? '내 Gmail 계정(Gmail 커넥터)으로 발송합니다. 현장사진 위험 분석 sheet(HTML 파일)가 첨부됩니다.' : mail ? '현장사진 위험 분석 sheet(HTML 파일)가 첨부됩니다.' : '문자 요금이 발생합니다(Solapi 잔액에서 차감). 저장해 둔 Solapi 키는 발송 요청에만 실어 서버를 거쳐 Solapi로 전달됩니다(서버는 저장하지 않음). 제목이 길면 장문(LMS)으로 나갑니다.';
-  $('#ndTokRow').style.display = (NTOKEN || CMCP || !mail) ? 'none' : ''; // 문자는 Solapi 키를 직접 넣으므로 토큰이 필요 없다
+  $('#ndNote').textContent = CMCP ? '내 Gmail 계정(Gmail 커넥터)으로 발송합니다. 분석 결과 화면 PDF와 현장사진 위험 분석 sheet(HTML 파일)가 첨부됩니다.' : mail ? (gmValid() ? gmGet().user + ' 계정으로 발송합니다. ' : '') + '분석 결과 화면 PDF와 현장사진 위험 분석 sheet(HTML 파일)가 첨부됩니다.' : '문자 요금이 발생합니다(Solapi 잔액에서 차감). 저장해 둔 Solapi 키는 발송 요청에만 실어 서버를 거쳐 Solapi로 전달됩니다(서버는 저장하지 않음). 제목이 길면 장문(LMS)으로 나갑니다.';
+  $('#ndTokRow').style.display = (NTOKEN || CMCP || !mail || gmValid()) ? 'none' : ''; // 문자는 Solapi 키를 직접 넣으므로 토큰이 필요 없다
   $('#ndTok').value = ''; $('#ndErr').textContent = '';
   var d = $('#ndlg'); if (d.showModal) d.showModal(); else d.setAttribute('open', '');
   setTimeout(function () { ($('#ndTokRow').style.display === 'none' ? $('#ndGo') : $('#ndTok')).focus(); }, 30);
@@ -602,40 +618,43 @@ function notifyGo() {
   if (extra === null) { err.textContent = mail ? '추가 입력의 이메일 주소를 확인하세요.' : '추가 입력의 휴대폰 번호를 확인하세요 (010 등 국내 번호).'; return; }
   var list = picked.slice(); extra.forEach(function (v) { if (list.indexOf(v) < 0) list.push(v); });
   if (!list.length) { err.textContent = mail ? '받는 이메일을 체크하거나 추가 입력에 주소를 넣으세요.' : '받는 번호를 체크하거나 추가 입력에 번호를 넣으세요.'; return; }
-  if (list.length > 3) { err.textContent = '받는 사람은 최대 3명입니다.'; return; }
+  if (list.length > N_MAX) { err.textContent = '받는 사람은 최대 ' + N_MAX + '명입니다.'; return; }
   var tok = NTOKEN || ($('#ndTok').value || '').trim();
   var cred = null;
   if (!mail && !CMCP) {
     solLoad(); if (!solValid()) { ndClose(); solNeed(); return; }
     cred = { key: SOL.key, secret: SOL.secret, sender: SOL.from };
   }
-  if (!tok && !CMCP && mail) { err.textContent = '발송 토큰을 입력하세요.'; return; }
+  var gm = (mail && !CMCP) ? gmGet() : null;
+  if (!tok && !CMCP && mail && !gm) { err.textContent = '발송 토큰을 입력하세요.'; return; }
   if (!w || !cnt.total) { err.textContent = '먼저 사진을 올리고 문서를 생성하세요.'; return; }
   if (CMCP) { // Claude 아티팩트: Gmail 커넥터로 직접 발송
     var site0 = { name: $('#m_site').value, proc: $('#m_proc').value, date: $('#m_date').value, by: $('#m_by').value }, title0 = ntitle(cnt), sheet0 = '';
     try { sheet0 = w.sheetHtml(); } catch (e) { err.textContent = '분석 sheet를 만들지 못했습니다.'; return; }
     try { localStorage.setItem('cbnu_nsel_email', JSON.stringify(picked)); } catch (e) {}
-    ndClose(); NBUSY = true; nstat('메일 발송 중…');
-    connSend(list, title0, cnt, site0, sheet0)
-      .then(function () { nstat('✓ 메일 발송 완료 (' + list.join(', ') + ') — ' + title0, 'on'); }, function (e) { nstat('✗ ' + connWhy(e), 'warn'); })
+    ndClose(); NBUSY = true; nstat('분석 결과 PDF 만드는 중…');
+    makePdf().then(function (pdf) { nstat('메일 발송 중…'); return connSend(list, title0, cnt, site0, sheet0, pdf, ''); })
+      .then(function (hp) { nstat('✓ 메일 발송 완료 (' + list.join(', ') + ') — ' + title0 + (hp ? '' : ' (PDF는 용량 때문에 빠지고 HTML만 첨부)'), 'on'); }, function (e) { nstat('✗ ' + connWhy(e), 'warn'); })
       .then(function () { NBUSY = false; });
     return;
   }
-  var body = { token: tok, solapi: cred, channel: NCH, to: list, counts: cnt, link: location.origin + '/', site: { name: $('#m_site').value, proc: $('#m_proc').value, date: $('#m_date').value, by: $('#m_by').value } };
+  var body = { token: gm ? undefined : tok, gmail: gm || undefined, solapi: cred, channel: NCH, to: list, counts: cnt, link: location.origin + '/', site: { name: $('#m_site').value, proc: $('#m_proc').value, date: $('#m_date').value, by: $('#m_by').value } };
   if (mail) { try { body.sheet = w.sheetHtml(); } catch (e) { err.textContent = '분석 sheet를 만들지 못했습니다.'; return; } }
   var title = ntitle(cnt), name = mail ? '메일' : '문자';
   try { localStorage.setItem(mail ? 'cbnu_nsel_email' : 'cbnu_nsel_sms', JSON.stringify(picked)); } catch (e) {}
-  ndClose(); NBUSY = true; nstat(name + ' 발송 중…');
-  fetch('/api/notify', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
-    .then(function (r) { return r.json().catch(function () { return { ok: false, error: r.status === 413 ? 'too_large' : 'http_' + r.status }; }); })
-    .then(function (j) {
-      var why = { bad_token: '발송 토큰이 맞지 않습니다.', no_token_configured: '서버에 NOTIFY_TOKEN 이 설정되지 않았습니다.', too_fast: '잠시 후 다시 시도하세요 (연속 발송 제한).',
-        not_configured: '서버에 ' + name + ' 발송 설정이 없습니다 (환경변수).', too_large: '분석 sheet가 너무 큽니다 (사진을 줄여 다시 올려 주세요).', sheet: '분석 sheet가 올바르지 않거나 너무 큽니다.',
-        bad_recipient: '받는 ' + (mail ? '주소' : '번호') + ' 형식이 맞지 않습니다.', no_recipient: '받는 ' + (mail ? '주소' : '번호') + '가 없습니다.', bad_credentials: 'Solapi 키·시크릿·발신번호 형식이 맞지 않습니다.', sms_rejected: 'Solapi가 문자를 거절했습니다' };
-      if (j.ok) { if (mail) { NTOKEN = tok; try { localStorage.setItem('cbnu_ntok', tok); } catch (e) {} } nstat('✓ ' + name + ' 발송 완료 (' + list.join(', ') + ') — ' + title, 'on'); }
-      else { if (j.error === 'bad_token') { NTOKEN = ''; try { localStorage.removeItem('cbnu_ntok'); } catch (e) {} } nstat('✗ ' + name + ' 발송 실패: ' + (why[j.error] || j.error || '알 수 없음') + (j.detail && !mail ? ' — ' + String(j.detail).slice(0, 140) : ''), 'warn'); }
-    })
-    .catch(function () { nstat('서버에 연결하지 못했습니다.', 'warn'); })
+  ndClose(); NBUSY = true;
+  var prep = mail ? (nstat('분석 결과 PDF 만드는 중…'), makePdf()) : Promise.resolve(null);
+  prep.then(function (pdf) {
+    if (pdf) body.pdf = pdf.b64;
+    nstat(name + ' 발송 중…');
+    return fetch('/api/notify', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+      .then(function (r) { return r.json().catch(function () { return { ok: false, error: r.status === 413 ? 'too_large' : 'http_' + r.status }; }); })
+      .then(function (j) {
+        if (j.ok) { if (mail && !gm && tok) { NTOKEN = tok; try { localStorage.setItem('cbnu_ntok', tok); } catch (e) {} } nstat('✓ ' + name + ' 발송 완료 (' + list.join(', ') + ') — ' + title + (mail && !pdf ? ' (PDF 없이 HTML만)' : ''), 'on'); }
+        else { if (j.error === 'bad_token') { NTOKEN = ''; try { localStorage.removeItem('cbnu_ntok'); } catch (e) {} }
+          nstat('✗ ' + name + ' 발송 실패: ' + (mail ? mailWhy(j) : ({ bad_credentials: 'Solapi 키·시크릿·발신번호 형식이 맞지 않습니다.', sms_rejected: 'Solapi가 문자를 거절했습니다', too_fast: '잠시 후 다시 시도하세요 (연속 발송 제한).', not_configured: '서버에 문자 발송 설정이 없습니다 (환경변수).', bad_recipient: '받는 번호 형식이 맞지 않습니다.', no_recipient: '받는 번호가 없습니다.' }[j.error] || j.error || '알 수 없음') + (j.detail ? ' — ' + String(j.detail).slice(0, 140) : '')), 'warn'); }
+      });
+  }).catch(function () { nstat('서버에 연결하지 못했습니다.', 'warn'); })
     .then(function () { NBUSY = false; });
 }
 

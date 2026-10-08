@@ -87,8 +87,8 @@
       .then(function () {
         var c = document.createElement('canvas'); c.width = video.videoWidth; c.height = video.videoHeight;
         var g = c.getContext('2d'); g.drawImage(video, 0, 0);
-        var now = new Date(), isFirst = feedFirst;
-        var clean = isFirst ? new Promise(function (r) { c.toBlob(r, 'image/jpeg', QUALITY); }) : Promise.resolve(null);   // 촬영 시각 글자를 넣기 전 원본
+        var now = new Date(), isFirst = feedFirst, watch = typeof window.watchWants === 'function' && window.watchWants();   // watch: 위험 알림 루틴이 이 사진을 분석할 수 있는 상태
+        var clean = (isFirst || watch) ? new Promise(function (r) { c.toBlob(r, 'image/jpeg', QUALITY); }) : Promise.resolve(null);   // 촬영 시각 글자를 넣기 전 원본
         return clean.then(function (cleanBlob) {
           var size = Math.max(16, Math.round(c.height / 36)), pad = size / 2;
           g.font = '600 ' + size + 'px sans-serif'; g.textBaseline = 'bottom';
@@ -98,7 +98,7 @@
           return new Promise(function (r) { c.toBlob(r, 'image/jpeg', QUALITY); }).then(function (blob) {
             if (!blob) throw new Error('이미지 생성 실패');
             return putShot({ blob: blob, takenAt: now.getTime(), sent: false });
-          }).then(function () { if (isFirst && cleanBlob) feedSitePhoto(cleanBlob, now); });
+          }).then(function () { if (!cleanBlob) return; if (watch) { feedFirst = false; window.watchFeed(cleanBlob, now); } else if (isFirst) feedSitePhoto(cleanBlob, now); });
         });
       })
       .then(function () { taken++; render(); })
