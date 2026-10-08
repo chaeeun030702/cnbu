@@ -40,6 +40,7 @@ th .tr{display:block;font-weight:400}
 .bxh{font-size:7.6pt;font-weight:800;color:#1F4E79;margin-bottom:.6mm}
 .verdict{font-size:6.8pt;line-height:1.35;padding:1.4mm 2.5mm;border-radius:4px;background:#fdeeee;border:1px solid #B03A2E}
 .verdict .vl{margin:.3mm 0}
+.hcard.nh{border-left-color:#B7791F;background:#FFF8E6}
 .verdict b.k{color:#B03A2E}
 .verdict .sec3{font-size:5.9pt}
 .listhd{background:#1F4E79;color:#fff;font-size:8.2pt;font-weight:800;padding:1mm 3mm;border-radius:3px}
@@ -189,7 +190,7 @@ body.embed .bar,body.embed #panel{display:none!important}
 <h4>2. 키워드 판독</h4>
 <textarea id="memo" placeholder="현장 메모 (예: 우천 후 양수기 배수, 분전반, 외국인 근로자)"></textarea>
 <button class="pb" id="kwBtn">🔎 키워드 판독</button>
-<div class="res" id="kwRes">파일명과 현장 메모를 키워드 사전(keywords.json)과 맞춰 표지를 자동 체크한다. 맞는 단어가 없으면 기본 표지 3종(U01·U05·U16)을 적용한다.</div>
+<div class="res" id="kwRes">파일명과 현장 메모를 키워드 사전(keywords.json)과 맞춰 표지를 자동 체크한다. 맞는 단어가 없으면 표지를 채우지 않고 '위험 요인 확인되지 않음, 관리감독자 확인 요함'으로 표시한다.</div>
 <h4>3. 가능성 보정 조건</h4>
 <div id="corrIn"></div>
 <h4>4. 분야 판정</h4>
@@ -290,6 +291,17 @@ function suppOf(m){return m.cust?[]:(m.kb.supp||[]);}
 function scOf(m){return m.cust?'X':(D.SCMAP[m.id]||'G');}
 
 /* ---------- 1면 ---------- */
+/* 판독된 표지가 하나도 없을 때(AI가 위험 요인을 못 찾음): 임의의 표지를 채우지 않고 '확인되지 않음 · 관리감독자 확인 요함'을 보인다 */
+var NH=['위험 요인 확인되지 않음, 관리감독자 확인 요함','No hazard identified — supervisor check required','未发现危险因素，需管理监督员确认','Không xác định được yếu tố nguy hiểm — cần người giám sát kiểm tra','Xavf omili aniqlanmadi — nazoratchi tekshiruvi talab etiladi'],NH2=['AI 자동 판독에서 사진 속 위험 요인이 확인되지 않았습니다. 관리감독자가 현장에서 직접 확인하세요.','The AI reading found no hazard in the photo. The supervisor must check on site.','AI自动判读未在照片中发现危险因素，请管理监督员到现场亲自确认。','AI không phát hiện yếu tố nguy hiểm trong ảnh. Người giám sát phải kiểm tra tại hiện trường.','AI tahlili suratda xavf omilini aniqlamadi. Nazoratchi joyida oʻzi tekshirishi kerak.'];
+function nhRow(){return '<tr><td colspan="20" style="text-align:center;padding:5mm 2mm;font-weight:800;color:#7a4b00;background:#FFF8E6">'+tx('r_nh',NH,'sec3',true)+'</td></tr>';}
+function renderP1None(){
+ $('#verdict').innerHTML='<div class="vl"><b class="k">■ </b>'+tx('v_nh',NH,'sec3',true)+'</div>';
+ $('#scene').innerHTML=S.scene?tx('scene_x',S.scene,'sec3',true):tx(S.ph2?'scene2':'scene_gen',null,'sec3');
+ setK('v_list',fmt('list_n',{n:0}),true);$('#listhd').innerHTML='<span class="ed" data-k="v_list">'+KO.v_list+'</span>'+trS('v_list');
+ $('#mks').innerHTML='';fillAll($('#S1'));
+ var box=$('#cards');box.innerHTML='';
+ var el=frag('<div class="hcard nh"><div class="hh"><span class="ht">'+tx('c_nh',NH,'sec3',true)+'</span></div><div class="hd">'+tx('c_nh2',NH2,'sec3',true)+'</div></div>');fillAll(el);box.appendChild(el);
+ return $('#S1');}
 function confKey(m){return m.ph?('conf_'+m.ph.conf):((S.src[m.id]&&S.src[m.id].ai)?'conf_ai':'conf_k');}
 function evHTML(m){if(m.ph)return tx(m.pre+'ev',m.ph.ev,'sec3');
  var a,src=S.src[m.id]||{};
@@ -301,7 +313,7 @@ function cardHTML(m){var col=rkc(m.v);var ck=confKey(m);
  +'<div class="hm"><span class="kid">'+(m.cust?m.id:m.id)+'</span>'+KO[ck]+'<span class="sec3">'+trS(ck)+'</span></div><div class="hd">'+evHTML(m)+'</div></div>';}
 function domInfo(rows){var nE=0,nG=0,nC=0,hot=0,sp={};rows.forEach(function(m){if(m.cust)nC++;else if(m.id.charAt(0)==='U')nE++;else nG++;if(!m.cust&&m.kb.hot)hot=1;suppOf(m).forEach(function(x){sp[x]=1;});});
  var dom=nE?'e':(nG?'g':'n');var order=['jeon','go','jung','mil','gul','bang'];return {nE:nE,nG:nG,nC:nC,dom:dom,hot:hot,supp:order.filter(function(x){return sp[x];})};}
-function renderP1(rows){var di=domInfo(rows);
+function renderP1(rows){if(!rows.length)return renderP1None();var di=domInfo(rows);
  var cnt=J(fmt('cnt_e',{n:di.nE}),' · ',fmt('cnt_g',{n:di.nG}));if(di.nC)cnt=J(cnt,' · ',fmt('cnt_c',{n:di.nC}));
  var l1=J(arrOf('dom_h'),': ',arrOf('dom_'+di.dom),' (',cnt,')');
  var h='<div class="vl"><b class="k">■ </b>'+tx('v_dom',l1,'sec3',true)+'</div>';
@@ -428,8 +440,8 @@ function renderAll(){$$('.sheet.dyn').forEach(function(s){s.parentNode.removeChi
  if(!STR.k633x){STR.k633x=STR.k633;KO.k633x='안전보건관리책임자';}
  fillAll(document);var rows=rowsModel();
  var last=renderP1(rows);renderP2(rows);
- var l2=flowRows($('#S2'),ttl('rg_t','p2s')+rgHead(),ttl('rg_t',null,true)+rgHead(),rows.map(rgRow),null);
- flowRows(l2,ttl('ra_t','ra_s')+metaHTML()+raHead(),ttl('ra_t',null,true)+raHead(),rows.map(raRow),lastBlock());
+ var l2=flowRows($('#S2'),ttl('rg_t','p2s')+rgHead(),ttl('rg_t',null,true)+rgHead(),(rows.length?rows.map(rgRow):[nhRow()]),null);
+ flowRows(l2,ttl('ra_t','ra_s')+metaHTML()+raHead(),ttl('ra_t',null,true)+raHead(),(rows.length?rows.map(raRow):[nhRow()]),lastBlock());
  var sh=$$('.sheet');sh.forEach(function(s,i){var a=$('.pn',s),b=$('.pt',s);if(a)a.textContent=i+1;if(b)b.textContent=sh.length;s.setAttribute('data-pno',i+1);});
  if(ed)applyEd(true);renderPanel(rows);try{if(window.parent!==window&&parent.onRA)parent.onRA(rows);}catch(e){}}
 
@@ -453,8 +465,7 @@ function togglePanel(){document.body.classList.toggle('withpanel');renderAll();}
 function doKw(){var t=(S.fname+' '+(S.memo||'')).toLowerCase();var hits={};
  Object.keys(D.KEYS).forEach(function(id){var w=D.KEYS[id].filter(function(k){return t.indexOf(String(k).toLowerCase())>=0;});if(w.length)hits[id]=w;});
  var ids=KBORD.filter(function(id){return hits[id];});S.src={};
- if(!ids.length){var g=/굴착기|포크레인|비계|추락|크레인|excavat|scaffold/.test(t)&&!/전기|분전|케이블|전선|elect/.test(t);ids=(g?D.BASEG:D.BASE).slice();ids.forEach(function(id){S.src[id]={base:1};});
-  S.kwmsg='맞는 키워드 없음 → 기본 표지 '+ids.length+'종('+ids.join('·')+') 적용';}
+ if(!ids.length){S.kwmsg='맞는 키워드 없음 → 위험 요인 확인되지 않음, 관리감독자 확인 요함';}
  else{ids.forEach(function(id){S.src[id]={kw:hits[id]};});S.kwmsg='키워드 판독: '+ids.map(function(id){return id+'('+hits[id].join(', ')+')';}).join(' ');}
  var cr={rain:['우천','강우','빗물','비 온','비온','장마','rain'],fore:['외국인','foreign','통역','이주','migrant'],sum:['6월','7월','8월','여름','summer'],morn:['오전','아침','morning']};
  Object.keys(cr).forEach(function(k){if(cr[k].some(function(w){return t.indexOf(w)>=0;}))S.corr[k]=true;});

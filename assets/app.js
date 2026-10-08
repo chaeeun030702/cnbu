@@ -64,7 +64,7 @@ function fitMain() { var m = $('#main'), d = $('#docs'); if (!m || !d) return; v
 /* ---------- 위험분석 프레임 렌더 후 ---------- */
 window.onRA = function (rows) {
   H.rows = (rows || []).map(function (m) { return { id: m.id, no: m.no, v: m.v, cust: !!m.cust, grp: m.grp }; });
-  document.body.classList.toggle('nodoc', !H.rows.length);
+  document.body.classList.toggle('nodoc', !H.rows.length && !H.nohaz); // 표지가 0건이어도 AI 판독을 마친 사진이면 '위험 요인 확인되지 않음' 문서를 보인다
   renderPanel(); setTimeout(function () { fitFrame('raBox'); fitMain(); }, 60); scheduleSync();
 };
 var SYNC_T = null;
@@ -174,6 +174,7 @@ function applyMeta(noRender) {
 /* ---------- 표본·사진 ---------- */
 function freshState(w) { var S = w.initState(); S.ps = {}; return S; }
 function loadSample(n) {
+  H.nohaz = false;
   var w = RAW(); if (!w) { H.pending = function () { loadSample(n); }; return; }
   var s = SAMPLES[n]; H.sample = n; H.fname = s.name; H.gpt = null; H.sig = {}; $('#gptFull').style.display = 'none';
   var S = freshState(w);
@@ -189,6 +190,7 @@ function loadSample(n) {
     gf.querySelector('b').textContent = '실사판 포스터 — Claude가 ChatGPT에서 샘플 포스터 양식을 참조해 생성 (표본 ' + (n === 'e2' ? '1' : '2') + ', 오른쪽 위 충북대학교 심볼 합성)'; }
 }
 function resetAll() {
+  H.nohaz = false;
   var w = RAW(); if (!w) return; H.sample = null; H.photo = null; H.fname = ''; H.gpt = null; H.sig = {};
   var S = freshState(w); S.ph2 = false; S.sel = []; S.mk = {}; S.src = {}; S.scene = null; S.fname = '-'; S.corr = { sum: false, rain: false, morn: false, fore: false }; w.S = S;
   $('#thumb').innerHTML = ''; $('#drop').classList.remove('has'); status('', ''); $('#gptFull').style.display = 'none';
@@ -202,14 +204,14 @@ function onFile(f, cb) {
   AFTER = cb || null;
   if (!f || !/^image\//.test(f.type)) { afterRead(false); return; } var r = new FileReader();
   r.onload = function () { shrink(r.result, 1600, function (small, pw, ph) {
-    var w = RAW(); if (!w) { afterRead(false); return; } H.sample = null; H.photo = small; H.pw = pw; H.ph = ph; H.fname = f.name; H.gpt = null; H.sig = {}; $('#gptFull').style.display = 'none';
+    var w = RAW(); if (!w) { afterRead(false); return; } H.nohaz = false; H.sample = null; H.photo = small; H.pw = pw; H.ph = ph; H.fname = f.name; H.gpt = null; H.sig = {}; $('#gptFull').style.display = 'none';
     $('#thumb').innerHTML = '<img src="' + small + '" alt="">'; $('#drop').classList.add('has');
     var S = freshState(w); S.ph2 = false; S.sel = []; S.mk = {}; S.src = {}; S.scene = null; S.fname = f.name; S.memo = $('#m_memo').value; S.corr = { sum: false, rain: false, morn: false, fore: false }; w.S = S;
     w.hostPhoto(small, function () { if (ENG === 'ai') runRead(); else if (ENG === 'kw') { runKw(); afterRead(false); } else { applyMeta(true); w.renderAll(); status('✋ 직접 선택 — 체크리스트에서 보이는 위험 표지를 고르세요.', 'info'); afterRead(false); } });
   }); };
   r.readAsDataURL(f);
 }
-function runKw() { var w = RAW(); if (!w) return; w.S.memo = $('#m_memo').value + ' ' + $('#m_proc').value; w.S.fname = H.fname || w.S.fname; w.S.scene = null; w.doKw(); applyMeta(true); w.renderAll(); status('🔎 ' + esc(w.S.kwmsg || '키워드 판독 완료'), 'ok'); }
+function runKw() { var w = RAW(); if (!w) return; w.S.memo = $('#m_memo').value + ' ' + $('#m_proc').value; w.S.fname = H.fname || w.S.fname; w.S.scene = null; w.doKw(); H.nohaz = !w.S.sel.length; applyMeta(true); w.renderAll(); status('🔎 ' + esc(w.S.kwmsg || '키워드 판독 완료'), 'ok'); }
 
 /* ---------- AI 판독 (/api/read) ---------- */
 function runRead() {
@@ -219,17 +221,23 @@ function runRead() {
   fetch('api/read', { method: 'POST', headers: { 'content-type': 'application/json' }, signal: ctrl ? ctrl.signal : undefined,
     body: JSON.stringify({ image: H.photo, name: H.fname, lang: lang, key: APIKEY || undefined, site: { kind: $('#m_proc').value, place: $('#m_site').value } }) })
     .then(function (r) { return r.json().catch(function () { return { ok: false, reason: 'http_' + r.status }; }); })
-    .then(function (j) { clearTimeout(tm); BUSY = false; if (j && j.ok && j.hits && j.hits.length) { applyAI(j, lang); afterRead(true); } else { fallback(j && (j.reason || j.error)); afterRead(false); } })
+    .then(function (j) { clearTimeout(tm); BUSY = false; if (j && j.ok && ((j.hits && j.hits.length) || (j.extra && j.extra.length))) { applyAI(j, lang); afterRead(true); } else if (j && j.ok) { applyNone(j, lang); afterRead(true); } else { fallback(j && (j.reason || j.error)); afterRead(false); } })
     .catch(function (e) { clearTimeout(tm); BUSY = false; fallback(e && e.name === 'AbortError' ? 'timeout' : 'network'); afterRead(false); });
 }
 function applyAI(j, lang) {
-  var w = RAW(); if (!w) return; var S = w.S; S.sel = []; S.mk = {}; S.src = {}; S.ps = {};
+  var w = RAW(); if (!w) return; H.nohaz = false; var S = w.S; S.sel = []; S.mk = {}; S.src = {}; S.ps = {};
   j.hits.forEach(function (h) { if (!KBI[h.id] || S.sel.indexOf(h.id) >= 0) return; S.sel.push(h.id); S.mk[h.id] = [Math.round(h.x), Math.round(h.y)]; S.src[h.id] = { ai: arr5(h.evidence, lang) }; });
   S.scene = j.scene ? arr5(j.scene, lang) : null;
   (j.extra || []).slice(0, 3).forEach(function (x) { var t = Array.isArray(x) ? x[0] : x; if (!t) return; var c = { id: 'C' + (++S.cn), name: String(t), cause: String(t), acts: ['관리감독자가 대책을 적는다'], p: 2, s: 2 }; c.ai = 1; if (Array.isArray(x) && x[1]) c.nm5 = arr5(x, lang); S.custom.push(c); S.sel.push(c.id); });
   if (j.domain === 'gen') TAB = 'gen'; else if (j.domain === 'elec') TAB = 'elec';
   applyMeta(true); w.renderAll();
   status('🤖 AI 판독 완료 — 위험 표지 <b>' + j.hits.length + '</b>건' + ((j.extra || []).length ? ', 지식베이스 밖 추가 위험 ' + j.extra.length + '건(⑥ 목록)' : '') + ' · ' + esc(j.model || '') + '<br><small>체크리스트에서 더하거나 빼고, 빈도·강도는 평가표에서 고칩니다.</small>', 'ok');
+}
+/* AI가 사진에서 위험 요인을 하나도 못 찾았을 때: 키워드 판독으로 임의의 표지를 채우지 않고 '위험 요인 확인되지 않음, 관리감독자 확인 요함'으로 표시한다 */
+function applyNone(j, lang) {
+  var w = RAW(); if (!w) return; H.nohaz = true; var S = w.S; S.sel = []; S.mk = {}; S.src = {}; S.ps = {}; S.scene = j.scene && j.scene[0] ? arr5(j.scene, lang) : null;
+  applyMeta(true); w.renderAll();
+  status('🤖 AI 판독 완료 — <b>위험 요인 확인되지 않음, 관리감독자 확인 요함</b> · ' + esc(j.model || '') + '<br><small>사진에서 표지를 찾지 못했습니다. 관리감독자가 현장에서 직접 확인하고, 필요하면 체크리스트에서 표지를 고르세요.</small>', 'warn');
 }
 function fallback(err) {
   var why = err === 'no_key' ? 'API 키가 없어 AI 판독을 하지 못했습니다' : (err === 'bad_key' ? 'API 키가 거부되었습니다(⑧ 확인)' : 'AI 판독 실패' + (err ? ' (' + err + ')' : ''));

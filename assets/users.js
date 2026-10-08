@@ -144,7 +144,7 @@ function watchFeed(blob, d) {
 function watchCheck(d) {
   var c = sheetCounts(), hhmm = d.toLocaleTimeString('ko-KR', { hour12: false, hour: '2-digit', minute: '2-digit' });
   c.hit = watchHits(c);
-  if (!c.hit) { watchNote('✓ ' + hhmm + ' 분석 — 위험성 ' + WATCH_MIN + ' 이상 없음 (위험 ' + c.total + '건, 최고 ' + c.max + ')'); return; }
+  if (!c.hit) { watchNote(c.total ? '✓ ' + hhmm + ' 분석 — 위험성 ' + WATCH_MIN + ' 이상 없음 (위험 ' + c.total + '건, 최고 ' + c.max + ')' : '✓ ' + hhmm + ' 분석 — 위험 요인 확인되지 않음 (관리감독자 확인 요함)'); return; }
   var now = Date.now();
   if (now - WATCH.last < WATCH_COOL) { watchNote('🔔 ' + hhmm + ' 위험성 ' + WATCH_MIN + ' 이상 ' + c.hit + '건 — 방금 알림을 보내 ' + Math.ceil((WATCH.last + WATCH_COOL - now) / 60000) + '분 뒤에 다시 보냅니다.'); return; }
   if (now < WATCH.retry) { watchNote('🔔 ' + hhmm + ' 위험성 ' + WATCH_MIN + ' 이상 ' + c.hit + '건 — 직전 발송이 실패해 잠시 후 다시 시도합니다.', 'warn'); return; }
