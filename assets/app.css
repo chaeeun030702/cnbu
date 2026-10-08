@@ -2,6 +2,7 @@
 :root{--nv:#002A5C;--nv2:#1F4E79;--ln:#D8E0EA;--bg:#8A8F98;--ink:#111;--mut:#5B6475;--red:#B3261E;--grn:#1E7B3A;--tr:#B00020}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%}
+html{touch-action:pan-x pan-y} /* 화면 전체 핀치 확대는 막고, 결과 문서 확대는 앱이 직접 처리한다 */
 body{font-family:"Malgun Gothic","맑은 고딕","Noto Sans KR",sans-serif;font-size:13px;color:var(--ink);background:#eef2f7}
 button,input,select,textarea{font:inherit}
 #top{position:fixed;top:0;left:0;right:0;height:60px;z-index:50;background:var(--nv);color:#fff;display:flex;align-items:center;gap:14px;padding:0 14px;box-shadow:0 2px 8px rgba(0,0,0,.3)}
@@ -38,7 +39,10 @@ body.sidehide #side{display:none}
 #wrap{display:flex;height:100vh;padding-top:60px}
 #side{width:392px;flex:none;background:#fff;border-right:1px solid #CBD5E1;overflow-y:auto;padding:10px 10px 30px}
 #main{flex:1;background:var(--bg);overflow:auto;padding:12px}
-#docs{width:1180px;margin:0 auto;transform-origin:top left}
+#docsBox{margin:0 auto;position:relative}
+#docs{width:1180px;transform-origin:0 0}
+#zlab{position:fixed;right:18px;bottom:18px;z-index:55;background:rgba(0,42,92,.92);color:#fff;font-weight:800;font-size:14px;padding:7px 14px;border-radius:18px;opacity:0;pointer-events:none;transition:opacity .2s}#zlab.on{opacity:1}
+@media print{#zlab{display:none!important}}
 .step{border:1px solid var(--ln);border-radius:7px;margin-bottom:9px;overflow:hidden}
 .step h3{margin:0;background:#F1F5FA;border-bottom:1px solid var(--ln);padding:7px 10px;font-size:13.5px;color:var(--nv);font-weight:800}
 .step>*:not(h3){margin-left:10px;margin-right:10px}

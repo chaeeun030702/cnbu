@@ -57,9 +57,44 @@ function sideToggle(force) {
   document.body.classList.toggle('sidehide', hide);
   var b = $('#sideTgl'); if (b) b.setAttribute('aria-expanded', hide ? 'false' : 'true');
   try { localStorage.setItem('cbnu_sidehide', hide ? '1' : '0'); } catch (e) {}
-  setTimeout(fitMain, 30);
+  DOCZ = 0; setTimeout(fitMain, 30);
 }
-function fitMain() { var m = $('#main'), d = $('#docs'); if (!m || !d) return; var w = m.clientWidth - 24; var z = Math.min(1, w / 1180); d.style.zoom = z > 0.25 ? z : 0.25; }
+/* 결과 문서(오른쪽 #main, 1180px)만 확대·축소한다 — 입력란은 그대로. Ctrl(⌘)+휠 · 트랙패드 핀치 · 터치 두 손가락 핀치로 배율을 바꾸고, 빈 배경을 두 번 누르면 화면 너비에 맞춘다.
+   CSS zoom 은 iPad Safari 에서 iframe 안쪽까지 줄지 않아 오른쪽이 잘렸으므로 transform: scale + 배율에 맞춘 #docsBox(너비·높이)를 쓴다. 넘치면 #main 이 스크롤되어 밀어서 볼 수 있다 */
+var DOCZ = 0, ZMIN = 0.25, ZMAX = 1.5, ZT = 0; // DOCZ 0 = 화면 너비에 맞춤
+function docFit() { var m = $('#main'); return Math.max(ZMIN, Math.min(1, (m.clientWidth - 24) / 1180)); }
+function curZ() { return DOCZ || docFit(); }
+function fitMain() {
+  var m = $('#main'), d = $('#docs'), b = $('#docsBox'); if (!m || !d || !b) return;
+  var z = curZ(); d.style.transform = 'scale(' + z + ')'; b.style.width = Math.round(1180 * z) + 'px'; b.style.height = Math.ceil(d.offsetHeight * z) + 'px';
+  bindZoomFrames();
+}
+function zoomLabel(z) { var e = $('#zlab'); if (!e) return; e.textContent = DOCZ ? Math.round(z * 100) + '%' : '맞춤 ' + Math.round(z * 100) + '%'; e.className = 'on'; clearTimeout(ZT); ZT = setTimeout(function () { e.className = ''; }, 900); }
+function zoomAt(nz, px, py) { // px,py: #main 안의 기준점(화면 좌표). 그 지점이 제자리에 머물도록 스크롤을 맞춘다
+  var m = $('#main'), old = curZ(); nz = Math.max(ZMIN, Math.min(ZMAX, nz)); if (Math.abs(nz - old) < 0.002) return;
+  var cx = (m.scrollLeft + px - 12) / old, cy = (m.scrollTop + py - 12) / old;
+  DOCZ = Math.abs(nz - docFit()) < 0.01 ? 0 : nz; fitMain();
+  var z = curZ(); m.scrollLeft = Math.max(0, cx * z + 12 - px); m.scrollTop = Math.max(0, cy * z + 12 - py); zoomLabel(z);
+}
+function zoomFit() { DOCZ = 0; fitMain(); var m = $('#main'); m.scrollLeft = 0; zoomLabel(curZ()); }
+var PZ = null; // 핀치 상태
+function bindZoom(doc, frame) { // doc: #main 이 들어 있는 문서 또는 iframe 문서. frame 이 있으면 좌표를 부모 화면 좌표로 바꾼다
+  if (doc.__zb) return; doc.__zb = 1;
+  var m = $('#main');
+  function pt(x, y) { if (!frame) return { x: x, y: y }; var r = frame.getBoundingClientRect(), z = curZ(); return { x: r.left + x * z, y: r.top + y * z }; }
+  function inMain(p) { var r = m.getBoundingClientRect(); return { x: p.x - r.left, y: p.y - r.top }; }
+  var tgt = frame ? doc : m;
+  tgt.addEventListener('wheel', function (e) {
+    if (!(e.ctrlKey || e.metaKey)) return; e.preventDefault();
+    var p = inMain(pt(e.clientX, e.clientY)); zoomAt(curZ() * Math.exp(-e.deltaY * 0.0022), p.x, p.y);
+  }, { passive: false });
+  function dist(t) { var a = pt(t[0].clientX, t[0].clientY), b = pt(t[1].clientX, t[1].clientY); return { d: Math.hypot(a.x - b.x, a.y - b.y), c: inMain({ x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }) }; }
+  tgt.addEventListener('touchstart', function (e) { if (e.touches.length === 2) { var s = dist(e.touches); PZ = { d0: s.d, z0: curZ() }; } }, { passive: true });
+  tgt.addEventListener('touchmove', function (e) { if (PZ && e.touches.length === 2) { e.preventDefault(); var s = dist(e.touches); zoomAt(PZ.z0 * s.d / PZ.d0, s.c.x, s.c.y); } }, { passive: false });
+  tgt.addEventListener('touchend', function (e) { if (e.touches.length < 2) PZ = null; }, { passive: true });
+  if (frame) { try { var st = doc.createElement('style'); st.textContent = 'html,body{touch-action:pan-x pan-y}'; doc.head.appendChild(st); } catch (x) {} }
+}
+function bindZoomFrames() { ['raBox', 'c49Box', 'genBox', 'pstBox'].forEach(function (id) { try { var f = $('#' + id), d = f && f.contentDocument; if (d && d.body) bindZoom(d, f); } catch (e) {} }); }
 
 /* ---------- 위험분석 프레임 렌더 후 ---------- */
 window.onRA = function (rows) {
@@ -687,5 +722,7 @@ function notifyGo() {
   document.body.classList.add('nodoc');
   applyUI(); initFrames(); probe(); notifyProbe(); connInit(); solRender();
   try { if (localStorage.getItem('cbnu_sidehide') === '1') sideToggle(true); } catch (e) {}
-  window.addEventListener('resize', fitMain); fitMain();
+  window.addEventListener('resize', fitMain); fitMain(); bindZoom(document); $('#main').addEventListener('dblclick', function (e) { if (e.target === this || e.target.id === 'docsBox') zoomFit(); });
+  if (window.ResizeObserver) new ResizeObserver(fitMain).observe($('#docs')); // 문서 높이가 바뀌면 스크롤 범위를 맞춘다
+  ['raBox', 'c49Box', 'genBox', 'pstBox'].forEach(function (id) { var f = $('#' + id); if (f) f.addEventListener('load', function () { setTimeout(fitMain, 50); }); });
 })();
