@@ -411,10 +411,10 @@ function renderGloss() { var b = $('#glossBody'); if (!b) return; var q = ($('#g
 
 /* ---------- 위험 분석 자료 발송 (상단 바: 메일 발송 · 문자 발송) ---------- */
 /* 버튼을 누르면 받는 이메일 주소·휴대폰 번호를 입력하는 창이 뜬다(마지막 입력은 이 브라우저에 기억).
-   제목(메일·문자 공통): ‘[경고] 현장사진 위험성평가표 — 현장명 (위험 N건 · 높음 M)’. 메일에는 현장사진 위험 분석 sheet(위험분석·위험성평가표 HTML)를 첨부한다.
+   제목(메일·문자 공통): ‘[경고] 현장사진 위험성 분석(위험 N건 · 9이상 M건)’ — 9이상 = 위험성(빈도×강도)이 9 이상인 건수. 메일에는 현장사진 위험 분석 sheet(위험분석·위험성평가표 HTML)를 첨부한다.
    실제 제목은 서버가 같은 규칙으로 만든다. 발송 토큰이 맞아야 보낼 수 있다(/api/notify). */
 var NTOKEN = '', NBUSY = false, NTIMER = 0;
-function ntitle(c) { var n = ($('#m_site').value || '').replace(/\s+/g, ' ').trim().slice(0, 60); return '[경고] 현장사진 위험성평가표' + (n ? ' — ' + n : '') + ' (위험 ' + c.total + '건 · 높음 ' + c.high + ')'; }
+function ntitle(c) { return '[경고] 현장사진 위험성 분석(위험 ' + c.total + '건 · 9이상 ' + c.nine + '건)'; }
 function nstat(t, c) {
   var e = $('#ntoast'); if (!e) return; e.textContent = t; e.className = 'on ' + (c === 'on' ? 'ok' : (c || '')); clearTimeout(NTIMER);
   NTIMER = setTimeout(function () { e.className = ''; }, c === 'warn' ? 9000 : 6000);
@@ -422,7 +422,7 @@ function nstat(t, c) {
 }
 function sheetCounts() {
   var w = RAW(); var v = w ? Array.prototype.slice.call(w.document.querySelectorAll('table.ra tbody tr[data-id] td.rk')).map(function (td) { return +td.getAttribute('data-r') || 0; }).filter(Boolean) : [];
-  return { total: v.length, high: v.filter(function (x) { return x >= 6; }).length, mid: v.filter(function (x) { return x >= 3 && x < 6; }).length, low: v.filter(function (x) { return x < 3; }).length };
+  return { total: v.length, nine: v.filter(function (x) { return x >= 9; }).length, high: v.filter(function (x) { return x >= 6; }).length, mid: v.filter(function (x) { return x >= 3 && x < 6; }).length, low: v.filter(function (x) { return x < 3; }).length };
 }
 function ntokSave() { var v = ($('#nTok').value || '').trim(); if (!v) return; NTOKEN = v; try { localStorage.setItem('cbnu_ntok', v); } catch (e) {} $('#nTok').value = ''; nstat('✓ 발송 토큰을 이 브라우저에만 저장했습니다.', 'on'); }
 function ntokClear() { NTOKEN = ''; try { localStorage.removeItem('cbnu_ntok'); } catch (e) {} nstat('발송 토큰을 지웠습니다.'); }
@@ -446,7 +446,7 @@ function mailHtmlC(title, site, c) {
   return '<div style="font-family:\'Malgun Gothic\',Apple SD Gothic Neo,sans-serif;font-size:14px;color:#1c1c1c;max-width:640px">'
     + '<p style="margin:0 0 12px"><a href="' + SITE_URL + '">' + SITE_URL + '</a></p>'
     + '<div style="background:#B03A2E;color:#fff;padding:12px 14px;border-radius:6px;font-size:17px;font-weight:800">' + esc(title) + '</div>'
-    + '<p style="margin:12px 0 4px">위험 <b>' + c.total + '건</b> — <span style="color:#B03A2E"><b>높음 ' + c.high + '</b></span> · 보통 ' + c.mid + ' · 낮음 ' + c.low + '</p>'
+    + '<p style="margin:12px 0 4px">위험 <b>' + c.total + '건</b> · <span style="color:#B03A2E"><b>9이상 ' + c.nine + '건</b></span> <span style="color:#778;font-size:12px">(위험성 = 빈도 × 강도, 최대 9)</span></p>'
     + (meta ? '<p style="margin:4px 0 10px;color:#334">' + meta + '</p>' : '')
     + '<p>첨부한 <b>현장사진 위험 분석 sheet</b>(HTML 파일)를 열어 위험 분석과 위험성평가표를 확인하세요.</p>'
     + '<p style="color:#778;font-size:12px">자동 생성 결과는 초안입니다. AI는 최초 검토, 최종 판단은 관리감독자가 진행합니다.</p></div>';

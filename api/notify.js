@@ -9,7 +9,7 @@
 //        sheet   = 현장사진 위험 분석 sheet(위험분석·위험성평가표) HTML 문서 — 메일에 첨부 (email 필수)
 //  출력  { ok, error?, detail? }          GET → 서버 설정 상태 { token, email, sms }
 //
-//  제목  '[경고] 현장사진 위험성평가표 — 현장명 (위험 N건 · 높음 M)'  (현장명이 비면 ' — 현장명' 생략)
+//  제목  '[경고] 현장사진 위험성 분석(위험 N건 · 9이상 M건)'  (9이상 = 위험성(빈도×강도)이 9 이상인 건수)
 //  메일  제목 = 위 제목, 첨부 = 현장사진 위험 분석 sheet
 //  문자  내용 = 위 제목 (한글 90바이트를 넘으면 LMS)
 //
@@ -72,14 +72,14 @@ function safeEq(a, b) {
 }
 
 function titleOf(site, counts) {
-  return '[경고] 현장사진 위험성평가표' + (site.name ? ' — ' + site.name : '') + ' (위험 ' + counts.total + '건 · 높음 ' + counts.high + ')';
+  return '[경고] 현장사진 위험성 분석(위험 ' + counts.total + '건 · 9이상 ' + counts.nine + '건)';
 }
 
 function emailHtml(title, site, counts) {
   const meta = [['현장명', site.name], ['공종·작업', site.proc], ['평가일', site.date], ['관리감독자', site.by]]
     .filter((x) => x[1]).map((x) => '<b>' + x[0] + '</b> ' + esc(x[1])).join(' &nbsp;·&nbsp; ');
   const sum = counts.total
-    ? '<p style="margin:12px 0 4px">위험 <b>' + counts.total + '건</b> — <span style="color:#B03A2E"><b>높음 ' + counts.high + '</b></span> · 보통 ' + counts.mid + ' · 낮음 ' + counts.low + '</p>' : '';
+    ? '<p style="margin:12px 0 4px">위험 <b>' + counts.total + '건</b> · <span style="color:#B03A2E"><b>9이상 ' + counts.nine + '건</b></span> <span style="color:#778;font-size:12px">(위험성 = 빈도 × 강도, 최대 9)</span></p>' : '';
   return '<div style="font-family:\'Malgun Gothic\',Apple SD Gothic Neo,sans-serif;font-size:14px;color:#1c1c1c;max-width:640px">'
     + '<p style="margin:0 0 12px"><a href="' + SITE_URL + '">' + SITE_URL + '</a></p>'
     + '<div style="background:#B03A2E;color:#fff;padding:12px 14px;border-radius:6px;font-size:17px;font-weight:800">' + esc(title) + '</div>'
@@ -173,7 +173,7 @@ module.exports = async function handler(req, res) {
 
   const s = body.site || {}, c = body.counts || {};
   const site = { name: clip(s.name, 60), proc: clip(s.proc, 80), date: clip(s.date, 30), by: clip(s.by, 30) };
-  const counts = { total: num(c.total), high: num(c.high), mid: num(c.mid), low: num(c.low) };
+  const counts = { total: num(c.total), nine: num(c.nine), high: num(c.high), mid: num(c.mid), low: num(c.low) };
 
   let out;
   try { out = channel === 'email' ? await sendEmail(to, sheet, site, counts) : await sendSms(to, site, counts, cred); }
