@@ -267,6 +267,17 @@ function aiScan(on) {
   var pts = [[22, 30], [68, 42], [40, 70], [80, 75]].map(function (p, i) { return '<span class="ping" style="left:' + p[0] + '%;top:' + p[1] + '%;animation-delay:' + (i * 0.35) + 's"></span>'; }).join('');
   t.insertAdjacentHTML('beforeend', '<div class="aiscan"><i></i>' + pts + '<b><em>🤖</em>AI 판독 중<s></s></b></div>');
 }
+/* AI 사진 판독이 끝나면 포스터 오른쪽 이미지를 ChatGPT로 자동 실사화한다 (OpenAI 키가 서버나 ⑨에 있을 때만) */
+function autoGpt() {
+  if (!(OKEY || SERVEROKEY)) return; var ph = H.photo;
+  var tries = 0, go = function () {
+    if (H.photo !== ph) return; // 그 사이 다른 사진으로 바뀌면 취소
+    var f = W('pstBox'), b = $('#gAuto');
+    if (!f || !f.hostGet || !H.ready.pst || (b && b.disabled)) { if (++tries < 20) setTimeout(go, 1000); return; }
+    $('#gmsg').textContent = '🤖 AI 판독이 끝나 포스터 오른쪽 이미지를 ChatGPT로 자동 실사화합니다…'; gptAuto();
+  };
+  setTimeout(go, 1800);
+}
 function runRead() {
   var w = RAW(); if (BUSY || !w || !H.photo) { afterRead(false); return; } BUSY = true; var lang = LANG;
   status('<span class="spin"></span> AI(Claude Sonnet 5.5)가 사진을 판독하는 중입니다… (20~60초)', 'busy');
@@ -275,7 +286,7 @@ function runRead() {
   fetch('api/read', { method: 'POST', headers: { 'content-type': 'application/json' }, signal: ctrl ? ctrl.signal : undefined,
     body: JSON.stringify({ image: H.photo, name: H.fname, lang: lang, key: APIKEY || undefined, site: { kind: $('#m_proc').value, place: $('#m_site').value } }) })
     .then(function (r) { return r.json().catch(function () { return { ok: false, reason: 'http_' + r.status }; }); })
-    .then(function (j) { clearTimeout(tm); BUSY = false; aiScan(false); if (j && j.ok && ((j.hits && j.hits.length) || (j.extra && j.extra.length))) { applyAI(j, lang); afterRead(true); } else if (j && j.ok) { applyNone(j, lang); afterRead(true); } else { fallback(j && (j.reason || j.error)); afterRead(false); } })
+    .then(function (j) { clearTimeout(tm); BUSY = false; aiScan(false); if (j && j.ok && ((j.hits && j.hits.length) || (j.extra && j.extra.length))) { applyAI(j, lang); afterRead(true); autoGpt(); } else if (j && j.ok) { applyNone(j, lang); afterRead(true); } else { fallback(j && (j.reason || j.error)); afterRead(false); } })
     .catch(function (e) { clearTimeout(tm); BUSY = false; aiScan(false); fallback(e && e.name === 'AbortError' ? 'timeout' : 'network'); afterRead(false); });
 }
 /* 이전 판독에서 들어간 AI 추가 위험(지식베이스 밖)은 새 판독 전에 지운다 */
