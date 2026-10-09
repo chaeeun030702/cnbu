@@ -52,6 +52,7 @@ body.ko-only .tr{display:none!important}
 .cimg{flex:1;min-height:60mm;position:relative;background:#dfe6ec;overflow:hidden}
 .cimg svg,.cimg img{position:absolute;inset:0;width:100%;height:100%}
 .cimg img{object-fit:cover;object-position:center;display:block}
+.cimg img.full{object-fit:contain}.cimg img.cbg{object-fit:cover;filter:blur(6px) brightness(.55);transform:scale(1.08)}
 .aitag{position:absolute;left:1.5mm;top:1.5mm;background:rgba(0,0,0,.58);color:#fff;font-size:10px;padding:.7mm 2.2mm;border-radius:6px;z-index:2}
 .ccap{padding:2.5mm 4mm;text-align:center}
 .card.ok .ccap{background:#E6F2E8}.card.no .ccap{background:#FBE7E5}
@@ -344,9 +345,9 @@ window.hostPST=function(o){o=o||{};capKo();snap();var ai=document.getElementById
   document.getElementById('kimg').innerHTML=O.kimg;
   ai.src=o.gpt||O.ai;ai.style.display='block';if(il)il.style.display='none';gp.style.display='none';tg.textContent=O.tag;}
  else{var T=o.texts||{};Object.keys(T).forEach(function(k){var a=T[k];KOT[k]=esc(a[0]);STR[k]={en:a[1]||'',zh:a[2]||'',vi:a[3]||'',uz:a[4]||''};});
-  var bad=document.querySelector('.card.no .cimg');var W=o.pw||1600,H=o.ph||1200,r=Math.max(W,H)*0.034;
+  var bad=document.querySelector('.card.no .cimg');var W=o.pw||1600,H=o.ph||1200,r=Math.max(W,H)*0.017;
   var mk=(o.marks||[]).map(function(p,i){var x=p[0]*W/100,y=p[1]*H/100;return '<circle cx="'+x+'" cy="'+y+'" r="'+(r*1.9)+'" fill="none" stroke="#FFD23F" stroke-width="'+(r*0.2)+'" stroke-dasharray="'+(r*0.5)+' '+(r*0.28)+'"/><circle cx="'+(x+r*1.35)+'" cy="'+(y-r*1.35)+'" r="'+r+'" fill="#B3261E" stroke="#fff" stroke-width="'+(r*0.16)+'"/><text x="'+(x+r*1.35)+'" y="'+(y-r*1.35+r*0.42)+'" text-anchor="middle" font-size="'+(r*1.2)+'" font-weight="900" fill="#fff" font-family="Malgun Gothic,Noto Sans KR,sans-serif">'+(p[2]||i+1)+'</text>';}).join('');
-  bad.innerHTML='<img class="swap" alt="실제 현장사진" src="'+(o.photo||'')+'"><svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid slice" style="pointer-events:none">'+mk+'</svg><span class="aitag">실제 현장사진 · '+esc(o.fname||'업로드')+'</span>';
+  bad.innerHTML='<img class="cbg" alt="" aria-hidden="true" src="'+(o.photo||'')+'"><img class="swap full" alt="실제 현장사진" src="'+(o.photo||'')+'"><svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet" style="pointer-events:none">'+mk+'</svg><span class="aitag">실제 현장사진 · '+esc(o.fname||'업로드')+'</span>';
   var nd=o.nd==null?3:o.nd,nm=o.nm==null?3:o.nm;document.querySelectorAll('.panel.risk .row').forEach(function(r,i){r.style.display=i<nd?'':'none';});document.querySelectorAll('.panel.must .row').forEach(function(r,i){r.style.display=i<nm?'':'none';});
   var ic=o.icons||[];document.querySelectorAll('.rules .ricon').forEach(function(rr,i){if(ic[i])rr.innerHTML='<span class="num">'+((i%3)+1)+'</span>'+ic[i];});
   if(o.gpt){ai.src=o.gpt;ai.style.display='block';gp.style.display='none';tg.textContent='ChatGPT 이미지 생성 · 상황 재현';}
