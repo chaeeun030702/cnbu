@@ -494,12 +494,18 @@ function mkPrompt() {
   var f = W('pstBox'); if (!f || !f.hostGet) return; var g = f.hostGet(), w = RAW(); if (!w) return;
   var enOf = function (k) { var s = f.STR && f.STR[k]; return (s && s.en) || g[k] || ''; };
   var items = H.rows.filter(function (r) { return KBI[r.id]; }).sort(function (a, b) { return b.v - a.v; }).slice(0, 4).map(function (r) { return KBI[r.id].tag[1]; });
-  var p;
+  var p, ms = ['m0', 'm1', 'm2'].filter(function (k) { return g[k + '_t']; }).map(function (k) {
+    var t = enOf(k + '_t'), c = enOf(k + '_c'); if (t === g[k + '_t'] && f.STR && f.STR[k + '_t'] && f.STR[k + '_t'].ko) t = f.STR[k + '_t'].ko;
+    return t + (c && c !== t ? ' (' + c + ')' : '') + (t !== g[k + '_t'] ? ' [Korean: ' + g[k + '_t'] + ']' : '');
+  });
   if ($('#gmode').value === 'card') {
     p = 'Create ONE photorealistic image, landscape 3:2, that looks like a real documentary photo of a Korean construction site, for a realistic safety poster.\n'
       + 'THIS MUST BE A SAFE SCENE: it is the GOOD-PRACTICE photo showing the correct, fully controlled way of working. Nothing unsafe may appear anywhere in the image.\n'
-      + 'Scene: ' + enOf('good_t') + ' — ' + enOf('good_c') + '\n'
-      + 'Use the attached site photo only for the type of place and equipment. Every hazard below is already CONTROLLED, and the control measure is clearly visible:\n- ' + items.join('\n- ') + '\n'
+      + (ms.length ? 'The image MUST show exactly these ' + ms.length + ' required safety measures from the poster (the green panel "반드시 지켜야 합니다!"), each one clearly visible as an action being done in the same scene, so a viewer can point to each of them:\n'
+          + ms.map(function (m, k) { return (k + 1) + ') ' + m; }).join('\n') + '\n'
+          + 'These measures are the subject of the photo. Do not show other procedures in their place (for example, do not replace them with a generic lockout or tester scene unless that is one of the measures).\n'
+        : 'Scene: ' + enOf('good_t') + ' — ' + enOf('good_c') + '\n')
+      + 'Use the attached site photo only for the type of place and equipment. Related hazards are already CONTROLLED:\n- ' + items.join('\n- ') + '\n'
       + 'Safety details that must be visible: all workers wear white hard hats with chin straps fastened, hi-vis vests, safety boots and the task-specific PPE (e.g. insulating gloves and boots for electrical work, full-body harness clipped to an anchor for work at height); '
       + 'power is isolated with lockout-tagout where relevant; cables are off the ground on stands, away from water and vehicle paths; guardrails, barriers and signage panels (no readable text) are in place; '
       + 'a supervisor or watcher stands nearby; the area is tidy. No bare hands on equipment, no one standing in water with live equipment, no missing guardrails, no unsafe posture.\n'
