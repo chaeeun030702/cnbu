@@ -329,7 +329,8 @@ function syncPTW() {
   var sig = [ids.join(), H.sample, H.photo ? H.photo.length : 0, JSON.stringify(w.S.mk)].join('|');
   if (H.sig[k] === sig) { if (H.sig[k + 'L'] !== LANG) { f.setLang(LANG); H.sig[k + 'L'] = LANG; } setTimeout(function () { fitFrame(k + 'Box'); fitMain(); }, 150); return; }
   H.sig[k] = sig; H.sig[k + 'L'] = LANG;
-  var mk = {}; Object.keys(w.S.mk).forEach(function (id) { mk[id] = w.S.mk[id]; });
+  var mk = {}, ks = Object.keys(w.S.mk).filter(function (id) { return id[0] !== 'C'; }), sp = spreadPct(ks.map(function (id) { return w.S.mk[id]; }), H.pw || 1600, H.ph || 1200, 0.075);
+  ks.forEach(function (id, i) { mk[id] = sp[i]; });
   if (own && sameSet(ids, base)) f.hostPTW({ sample: true, lang: LANG });
   else if (own) f.hostPTW({ same: true, ids: ids, lang: LANG });
   else f.hostPTW({ ids: ids, photo: H.photo || (H.orig && H.orig.photo), mk: mk, fname: H.fname, lang: LANG, kb: ptwTexts(k, w, ids), blankF: k === 'c49' ? ['voltage'] : [] });
@@ -395,6 +396,15 @@ function posterData(rows, kind) {
 }
 function icon(th, ok) { var bg = ok ? '#e8f5ea' : '#fdecea', badge = ok ? '<circle cx="140" cy="20" r="14" fill="#1E7B3A"/><path d="M132,20 l5,5 l10,-11" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>' : '<circle cx="140" cy="20" r="14" fill="#B3261E"/><path d="M133,13 l14,14 M147,13 l-14,14" stroke="#fff" stroke-width="4" stroke-linecap="round"/>';
   return '<svg viewBox="0 0 160 120" preserveAspectRatio="xMidYMid meet"><rect width="160" height="120" fill="' + bg + '"/>' + (ICON[th] || ICON.shock) + badge + '</svg>'; }
+/* 번호 표시 겹침 방지 — 점들(%)을 서로 최소 거리(사진 긴 변 대비 비율)만큼 밀어낸다 */
+function spreadPct(pts, W, Hh, frac) {
+  var D = Math.max(W, Hh) * frac, P = pts.map(function (p) { return { x: p[0] * W / 100, y: p[1] * Hh / 100 }; });
+  for (var it = 0; it < 80; it++) { var mv = false;
+    for (var a = 0; a < P.length; a++) for (var b = a + 1; b < P.length; b++) { var dx = P[b].x - P[a].x, dy = P[b].y - P[a].y, d = Math.sqrt(dx * dx + dy * dy);
+      if (d < D) { if (d < 0.01) { dx = Math.cos(b * 2.4); dy = Math.sin(b * 2.4); d = 1; } var k = (D - d) / 2 / d; P[a].x -= dx * k; P[a].y -= dy * k; P[b].x += dx * k; P[b].y += dy * k; mv = true; } }
+    P.forEach(function (q) { q.x = Math.min(W - D / 2, Math.max(D / 2, q.x)); q.y = Math.min(Hh - D / 2, Math.max(D / 2, q.y)); }); if (!mv) break; }
+  return P.map(function (q) { return [Math.round(q.x / W * 1000) / 10, Math.round(q.y / Hh * 1000) / 10]; });
+}
 function syncPoster() {
   var w = RAW(); if (!w || !H.rows.length || !H.ready.pst) return; var f = W('pstBox'); if (!f || !f.hostPST) return;
   var ids = w.S.sel.slice(), k = ptwKind();
@@ -405,6 +415,7 @@ function syncPoster() {
   else {
     var pd = posterData(H.rows, k), marks = [];
     H.rows.forEach(function (r) { var p = w.S.mk[r.id]; if (p) marks.push([p[0], p[1], r.no]); });
+    var spm = spreadPct(marks, H.pw || 1600, H.ph || 1200, 0.085); marks = marks.map(function (m, i) { return [spm[i][0], spm[i][1], m[2]]; });
     var d = new Date(), ymd = d.getFullYear() + ('0' + (d.getMonth() + 1)).slice(-2) + ('0' + d.getDate()).slice(-2);
     f.hostPST({ texts: pd.texts, icons: pd.icons, nd: pd.nd, nm: pd.nm, theme: pd.theme, photo: H.photo || (H.orig && H.orig.photo), pw: H.pw, ph: H.ph, marks: marks, fname: H.fname, gpt: H.gpt, lang: LANG,
       code: '2026-CBNU-포스터-' + (k === 'c49' ? '전기' : '일반') + '-' + ymd,
