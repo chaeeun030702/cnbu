@@ -302,6 +302,15 @@ function renderP1None(){
  var box=$('#cards');box.innerHTML='';
  var el=frag('<div class="hcard nh"><div class="hh"><span class="ht">'+tx('c_nh',NH,'sec3',true)+'</span></div><div class="hd">'+tx('c_nh2',NH2,'sec3',true)+'</div></div>');fillAll(el);box.appendChild(el);
  return $('#S1');}
+/* 사진 위 번호 — 겹치면 서로 밀어내고, 옮겨진 번호는 가는 선으로 원래 위치(점)와 잇는다 */
+function mkHTML(list){var pw=$('#pw'),W=parseFloat(pw&&pw.style.width)||124,Hh=parseFloat(pw&&pw.style.height)||90,D=6.4;
+ var P=list.map(function(m,i){var p=S.mk[m.id];return {m:m,ox:p[0]*W/100,oy:p[1]*Hh/100,x:p[0]*W/100,y:p[1]*Hh/100,i:i};});
+ for(var it=0;it<80;it++){var moved=false;
+  for(var a=0;a<P.length;a++)for(var b=a+1;b<P.length;b++){var A=P[a],B=P[b],dx=B.x-A.x,dy=B.y-A.y,d=Math.sqrt(dx*dx+dy*dy);
+   if(d<D){if(d<0.01){var ang=(b*2.4);dx=Math.cos(ang);dy=Math.sin(ang);d=1;}var k=(D-d)/2/d;A.x-=dx*k;A.y-=dy*k;B.x+=dx*k;B.y+=dy*k;moved=true;}}
+  P.forEach(function(q){q.x=Math.min(W-D/2,Math.max(D/2,q.x));q.y=Math.min(Hh-D/2,Math.max(D/2,q.y));});if(!moved)break;}
+ var svg='<svg style="position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none" viewBox="0 0 '+W+' '+Hh+'" preserveAspectRatio="none">'+P.filter(function(q){return Math.hypot(q.x-q.ox,q.y-q.oy)>1.2;}).map(function(q){var c=rkc(q.m.v);return '<line x1="'+q.ox.toFixed(2)+'" y1="'+q.oy.toFixed(2)+'" x2="'+q.x.toFixed(2)+'" y2="'+q.y.toFixed(2)+'" stroke="#fff" stroke-width="1.1"/><line x1="'+q.ox.toFixed(2)+'" y1="'+q.oy.toFixed(2)+'" x2="'+q.x.toFixed(2)+'" y2="'+q.y.toFixed(2)+'" stroke="'+c+'" stroke-width=".5"/><circle cx="'+q.ox.toFixed(2)+'" cy="'+q.oy.toFixed(2)+'" r=".9" fill="'+c+'" stroke="#fff" stroke-width=".35"/>';}).join('')+'</svg>';
+ return svg+P.map(function(q){return '<span class="mk" style="left:'+(q.x/W*100).toFixed(2)+'%;top:'+(q.y/Hh*100).toFixed(2)+'%;background:'+rkc(q.m.v)+'">'+q.m.no+'</span>';}).join('');}
 function confKey(m){return m.ph?('conf_'+m.ph.conf):((S.src[m.id]&&S.src[m.id].ai)?'conf_ai':'conf_k');}
 function evHTML(m){if(m.ph)return tx(m.pre+'ev',m.ph.ev,'sec3');
  var a,src=S.src[m.id]||{};
@@ -327,7 +336,7 @@ function renderP1(rows){if(!rows.length)return renderP1None();var di=domInfo(row
  $('#scene').innerHTML=S.scene?tx('scene_x',S.scene,'sec3',true):tx(S.ph2?'scene2':'scene_gen',null,'sec3');
  setK('v_list',fmt('list_n',{n:rows.length}),true);
  var lh='<span class="ed" data-k="v_list">'+KO.v_list+'</span>'+trS('v_list');$('#listhd').innerHTML=lh;
- $('#mks').innerHTML=rows.filter(function(m){return S.mk[m.id];}).map(function(m){var p=S.mk[m.id];return '<span class="mk" style="left:'+p[0]+'%;top:'+p[1]+'%;background:'+rkc(m.v)+'">'+m.no+'</span>';}).join('');
+ $('#mks').innerHTML=mkHTML(rows.filter(function(m){return S.mk[m.id];}));
  fillAll($('#S1'));
  var sheet=$('#S1'),last=sheet,box=$('#cards');box.innerHTML='';
  rows.forEach(function(m){var el=frag(cardHTML(m));fillAll(el);box.appendChild(el);
