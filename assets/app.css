@@ -16,6 +16,7 @@ body.sidehide #side{display:none}
 #top .lgt{display:flex;flex-direction:column;line-height:1.15}
 #top .lgt b{font-size:13px;font-weight:800;letter-spacing:.5px}
 #top .lgt span{font-size:8.5px;letter-spacing:1.2px;opacity:.85}
+#top img.gsl{height:28px;width:auto;flex:none;margin-left:10px;border-radius:3px;box-shadow:0 0 0 1px rgba(255,255,255,.35)}
 #top .tt{min-width:0;flex:1;border-left:1px solid rgba(255,255,255,.3);padding-left:14px}
 #top h1{margin:0;font-size:17px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #top h1 .uitr{display:inline;margin-left:8px;font-size:11px;font-weight:500;color:#cfe0f5}
@@ -148,6 +149,7 @@ body.out-ra #secPTW,body.out-ra #secPST,body.out-ptw #secRA,body.out-ptw #secPST
  #top{height:auto;flex-wrap:wrap;padding:8px 12px;gap:6px}
  #top .tt{border-left:0;padding-left:0;flex-basis:100%;order:3}
  #top h1{white-space:normal;font-size:15px}
+ #top img.gsl{height:22px;margin-left:6px}#top .lgt span{display:none}
  #top .tb{flex-wrap:wrap;order:2;max-width:100%}
  #wrap{flex-direction:column;height:auto;padding-top:0}
  #top{position:static}
