@@ -5,7 +5,7 @@ html,body{margin:0;height:100%}
 html{touch-action:pan-x pan-y} /* 화면 전체 핀치 확대는 막고, 결과 문서 확대는 앱이 직접 처리한다 */
 body{font-family:"Malgun Gothic","맑은 고딕","Noto Sans KR",sans-serif;font-size:13px;color:var(--ink);background:#eef2f7}
 button,input,select,textarea{font:inherit}
-#top{position:fixed;top:0;left:0;right:0;height:60px;z-index:50;background:var(--nv);color:#fff;display:flex;align-items:center;gap:14px;padding:0 14px;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+#top{position:fixed;top:0;left:0;right:0;height:60px;z-index:50;background:#1F6F3F;color:#fff;display:flex;align-items:center;gap:14px;padding:0 14px;box-shadow:0 2px 8px rgba(0,0,0,.3)}
 #top .stg{flex:none;width:38px;height:38px;border:0;border-radius:8px;background:none;color:#fff;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;margin-left:-4px}
 #top .stg:hover{background:rgba(255,255,255,.16)}#top .stg:active{background:rgba(255,255,255,.26)}
 body.sidehide #top .stg .pnl{fill:none}
@@ -25,7 +25,7 @@ body.sidehide #side{display:none}
 #top .tb{display:flex;gap:6px;align-items:center;flex:none}
 .gh{background:#fff;color:var(--nv);border:0;border-radius:16px;padding:6px 11px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
 .gh:hover{background:#e3ecf7}.gh.pri{background:#FFD23F}.gh.act{background:#2E8B57;color:#fff}
-.gh.green{background:#2E8B57;color:#fff}.gh.green:hover{background:#27774A}
+.gh.green{background:#2E8B57;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.85)}.gh.green:hover{background:#27774A}
 .gh.blue{background:#1A73E8;color:#fff}.gh.blue:hover{background:#1765CC}.gh.blue.act{background:#2E8B57}.gh.blue.act:hover{background:#27774A}
 .gh .ic{font-size:14px;line-height:1}.gh .bl{margin-left:5px}.gh .cr{margin-left:3px;font-size:10px}.gh .bl+.ic{margin-left:4px}
 .gh{display:inline-flex;align-items:center;justify-content:center}
