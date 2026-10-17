@@ -5,23 +5,24 @@ html,body{margin:0;height:100%}
 html{touch-action:pan-x pan-y} /* 화면 전체 핀치 확대는 막고, 결과 문서 확대는 앱이 직접 처리한다 */
 body{font-family:"Malgun Gothic","맑은 고딕","Noto Sans KR",sans-serif;font-size:13px;color:var(--ink);background:#eef2f7}
 button,input,select,textarea{font:inherit}
-#top{position:fixed;top:0;left:0;right:0;height:60px;z-index:50;background:#1F6F3F;color:#fff;display:flex;align-items:center;gap:14px;padding:0 14px;box-shadow:0 2px 8px rgba(0,0,0,.3)}
-#top .stg{flex:none;width:38px;height:38px;border:0;border-radius:8px;background:none;color:#fff;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;margin-left:-4px}
+#top{position:fixed;top:0;left:0;right:0;height:54px;z-index:50;background:#1F6F3F;color:#fff;display:flex;align-items:center;gap:13px;padding:0 14px;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+#top .stg{flex:none;width:34px;height:34px;border:0;border-radius:8px;background:none;color:#fff;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;margin-left:-4px}
 #top .stg:hover{background:rgba(255,255,255,.16)}#top .stg:active{background:rgba(255,255,255,.26)}
 body.sidehide #top .stg .pnl{fill:none}
 body.sidehide #side{display:none}
 @media (pointer:coarse){#top .stg{width:44px;height:44px}}
 #top .lg{display:flex;align-items:center;gap:8px;color:#fff;text-decoration:none;flex:none}
-#top .lg img{height:42px;width:auto}
+#top .lg img{height:38px;width:auto}
 #top .lgt{display:flex;flex-direction:column;line-height:1.15}
-#top .lgt b{font-size:13px;font-weight:800;letter-spacing:.5px}
-#top .lgt span{font-size:8.5px;letter-spacing:1.2px;opacity:.85}
-#top .tt{min-width:0;flex:1;border-left:1px solid rgba(255,255,255,.3);padding-left:14px}
-#top h1{margin:0;font-size:17px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#top h1 .uitr{display:inline;margin-left:8px;font-size:11px;font-weight:500;color:#cfe0f5}
-#top .st{font-size:11px;opacity:.9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#top .lgt b{font-size:11.7px;font-weight:800;letter-spacing:.5px}
+#top .lgt span{font-size:7.7px;letter-spacing:1.2px;opacity:.85}
+#top .tt{min-width:0;flex:1;border-left:1px solid rgba(255,255,255,.3);padding-left:13px}
+#top h1{margin:0;font-size:15.3px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#top h1 .uitr{display:inline;margin-left:7px;font-size:10px;font-weight:500;color:#cfe0f5}
+#top .st{font-size:10px;opacity:.9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #top .st .uitr{display:none}
 #top .tb{display:flex;gap:6px;align-items:center;flex:none}
+#top .tb .gh{font-size:11px;padding:5px 10px}#top .tb .gh .ic{font-size:13px}
 .gh{background:#fff;color:var(--nv);border:0;border-radius:16px;padding:6px 11px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
 .gh:hover{background:#e3ecf7}.gh.pri{background:#FFD23F}.gh.act{background:#2E8B57;color:#fff}
 .gh.green{background:#2E8B57;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.85)}.gh.green:hover{background:#27774A}
@@ -29,7 +30,7 @@ body.sidehide #side{display:none}
 .gh .ic{font-size:14px;line-height:1}.gh .bl{margin-left:5px}.gh .cr{margin-left:3px;font-size:10px}.gh .bl+.ic{margin-left:4px}
 .gh{display:inline-flex;align-items:center;justify-content:center}
 /* 상단 메뉴: 넓은 화면은 아이콘+글자, 폭이 모자라면(iPad 가로 1180px 등) 아이콘만 — 글자는 길게 누르면 뜨는 title. 촬영 중 상태 글자(.bl.on)만 남긴다 */
-@media (max-width:1500px){#top .tb .gh .bl:not(.on){display:none}#top .tb .gh{min-width:40px;height:36px;padding:0 10px}#top .tb .gh .ic{font-size:17px}#top .tb{gap:5px}}
+@media (max-width:1500px){#top .tb .gh .bl:not(.on){display:none}#top .tb .gh{min-width:36px;height:32px;padding:0 9px}#top .tb .gh .ic{font-size:15px}#top .tb{gap:5px}}
 @media (pointer:coarse){#top .tb .gh{height:42px;min-width:44px}}
 .dd{position:relative}
 .ddm{display:none;position:absolute;right:0;top:34px;background:#fff;border:1px solid var(--ln);border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.25);min-width:230px;z-index:60;overflow:hidden}
@@ -37,7 +38,7 @@ body.sidehide #side{display:none}
 .dd.dl .ddm{right:auto;left:0}
 .ddm button{display:block;width:100%;text-align:left;border:0;background:#fff;padding:9px 12px;cursor:pointer;color:#111}
 .ddm button:hover{background:#eef3fa}
-#wrap{display:flex;height:100vh;padding-top:60px}
+#wrap{display:flex;height:100vh;padding-top:54px}
 #side{width:392px;flex:none;background:#fff;border-right:1px solid #CBD5E1;overflow-y:auto;padding:10px 10px 30px}
 #main{flex:1;background:var(--bg);overflow:auto;padding:12px}
 #docsBox{margin:0 auto;position:relative}
@@ -232,6 +233,6 @@ body.out-ra #secPTW,body.out-ra #secPST,body.out-ptw #secRA,body.out-ptw #secPST
 @keyframes dots{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
 @keyframes ping{0%{box-shadow:0 0 0 0 rgba(255,210,63,.8)}100%{box-shadow:0 0 0 14px rgba(255,210,63,0)}}
 
-#top .lg.gs{border-left:1px solid rgba(255,255,255,.3);padding-left:14px;cursor:default}
-#top .lg.gs img{height:30px}
+#top .lg.gs{border-left:1px solid rgba(255,255,255,.3);padding-left:13px;cursor:default}
+#top .lg.gs img{height:27px}
 @media (max-width:1250px){#top .lg.gs{display:none}}
