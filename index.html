@@ -68,8 +68,18 @@
 <div id="wrap">
 <aside id="side">
  <section class="step"><h3 class="bi" data-ui="s1"></h3>
+  <div class="seg" id="modeSeg"><button data-m="photo" class="on">📷 현장사진 올리기</button><button data-m="text">📝 작업내용 설명</button></div>
+  <div id="mPhoto">
   <label class="drop" id="drop"><input type="file" id="file" accept="image/*" hidden><span class="cam">📷</span><span class="bi" data-ui="drop"></span><span id="thumb"></span></label>
   <div class="hint bi" data-ui="privacy"></div>
+  </div>
+  <div id="mText" style="display:none">
+   <div class="txlab">작업내용을 글로 설명하면 위험을 판정해 문서를 자동으로 작성합니다.</div>
+   <button type="button" class="txsample" onclick="txSample()" title="눌러서 예시 문장 넣기"><small>예시 — 눌러서 넣기</small>○○공사현장에서 2026/12/01 배전반 교체 작업을 진행 예정</button>
+   <textarea id="txIn" rows="5" placeholder="현장명·날짜·작업 내용·장비·인원(외국인 근로자 포함 여부) 등을 적어 주세요"></textarea>
+   <button class="go" onclick="runText()">▶ 작업내용 분석 · 문서 자동 작성</button>
+   <div class="hint">결과물: 분석 근거(RAG) — 지식베이스 검색 경로 · 위험성평가표 · 사전작업허가서(PTW) · 안전 위험 표지 및 문구. 글은 판독에만 쓰고 서버에 저장하지 않습니다.</div>
+  </div>
   <div id="rdStat" class="rdstat"></div>
  </section>
  <section class="step"><h3 class="bi" data-ui="s2"></h3>
@@ -150,6 +160,7 @@
   <iframe id="genBox" class="frm" scrolling="no" title="사전작업허가서 (일반 건설)" style="width:860px;height:4000px;display:none"></iframe></section>
  <section id="secPST" class="sec"><div class="sechd bi" data-ui="secPST"></div>
   <iframe id="pstBox" class="frm" scrolling="no" title="다국어 안전포스터" style="width:1160px;height:1650px"></iframe>
+  <iframe id="signBox" class="frm" scrolling="no" title="안전 위험 표지 및 문구" style="width:860px;height:1200px"></iframe>
   <div class="gpt"><h3 class="bi" data-ui="gptH"></h3>
    <div class="row"><b>요청 종류</b><select id="gmode" onchange="mkPrompt()"><option value="card">오른쪽 이미지 ChatGPT 실사화 (올바른 작업 모습) → 포스터에 바로 넣기</option></select>
     <button class="sm" onclick="mkPrompt()">↻ 프롬프트 다시 만들기</button><button class="sm pri" onclick="gptGo()">📋 복사 + ChatGPT 열기</button>

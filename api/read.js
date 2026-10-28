@@ -3,6 +3,7 @@
 //
 //  입력  POST { image: "data:image/jpeg;base64,…", name, site:{kind,place,no}, lang, key? }
 //        key = 화면 ⑦에서 사용자가 브라우저에 저장한 Anthropic API 키(선택). 없으면 서버 환경변수 사용.
+//  또는  POST { text: "작업내용 설명", key? } → 사진 없이 글로 위험 표지를 고른다(모든 문장 5개 언어)
 //  출력  { ok, model, domain:'elec'|'gen', hits:[{id,x,y,conf,evidence:[ko,foreign]}],
 //          scene:[ko,foreign], extra:[[ko,foreign],…] }
 //
@@ -79,6 +80,33 @@ function systemPrompt(lang) {
   ].join('\n');
 }
 
+
+// 작업내용 설명(글) 모드 — 사진 없이 관리감독자가 적은 작업 계획 문장으로 위험 표지를 고른다
+function textPrompt() {
+  return [
+    '당신은 건설현장 안전 전문가이다. 산업안전보건기준에 관한 규칙과 KOSHA GUIDE C-C-49-2026',
+    '「안전작업허가에 관한 기술지원규정」(2026. 1. 30. 개정)을 근거로, 안전관리자나 관리감독자가 글로 적은',
+    '작업내용(예정 작업)을 읽고 그 작업에서 생길 수 있는 위험을 사전에 판정한다. 사진은 없다.',
+    '',
+    '먼저 작업 영역(domain)을 정한다. "elec": 전기설비가 작업 대상(배전반·분전반·케이블·활선·변압기 등), "gen": 그 밖의 일반 건설작업.',
+    '',
+    '아래 위험 표지 지식베이스 39종에서, 설명된 작업을 그대로 수행할 때 실제로 생길 가능성이 높은 표지만 고른다(보통 3~8개).',
+    '작업과 관계없는 표지는 고르지 않는다. 두 영역의 표지를 함께 골라도 된다.',
+    '',
+    '[전기설비부문 표지 U01~U19]', kbText('elec'), '', '[일반작업 표지 G01~G20]', kbText('gen'), '',
+    '출력 규칙',
+    '1. JSON 하나만 출력한다. 코드펜스·설명문을 붙이지 않는다.',
+    '2. 모든 문장 배열은 [한국어, English, 中文(简体), Tiếng Việt, O\'zbek] 5개 원소를 반드시 같은 순서로 채운다.',
+    '3. 형식: {"domain":"elec"|"gen","meta":{"site":"현장명 또는 \"\"","date":"YYYY. M. D. 또는 \"\"","work":"작업명(한국어 30자 이내)"},',
+    '   "scene":[5개 언어 — 작업 계획 요약 한 문장],',
+    '   "hits":[{"id":"U03","conf":0.8,"evidence":[5개 언어 — 이 작업에서 이 위험이 생기는 이유 한 문장(한국어 40자 이내)]}],',
+    '   "extra":[{"text":[5개 언어 — 지식베이스에 없는 추가 위험 한 문장],"acts":[[5개 언어 — 대책 한 문장],…],"p":2,"s":3}]}',
+    '4. conf 는 0~1, 0.5 미만이면 넣지 않는다. extra 는 최대 3개, 없으면 [], p·s 는 3×3 빈도·강도(1~3).',
+    '5. 날짜가 2026/12/01 처럼 적혀 있으면 "2026. 12. 1." 로 바꾼다.',
+    '6. 번역은 「외국인 노동자를 위한 안전보건용어 400선」의 표준 대역어를 우선 쓴다.',
+  ].join('\n');
+}
+
 function parseDataUrl(s) {
   var m = /^data:(image\/(?:jpeg|png|webp|gif));base64,([A-Za-z0-9+/=]+)$/.exec(String(s || ''));
   if (!m) return null;
@@ -135,6 +163,7 @@ module.exports = async function handler(req, res) {
   var key = clientKey || process.env.ANTHROPIC_API_KEY;
   var keyFrom = clientKey ? 'client' : 'server';
   if (!key) return res.status(200).json({ ok: false, reason: 'no_key' });
+  if (typeof body.text === 'string' && body.text.trim()) return readText(body, key, keyFrom, res);
   var img = parseDataUrl(body.image);
   if (!img) return res.status(400).json({ ok: false, reason: 'bad_image' });
   if (img.b64.length * 0.75 > MAX_BYTES) return res.status(413).json({ ok: false, reason: 'too_large' });
@@ -236,3 +265,32 @@ module.exports = async function handler(req, res) {
       detail: String(e && e.message || e) });
   }
 };
+
+// ── 작업내용 설명(글) 판독 ──
+function arr5(a) { a = Array.isArray(a) ? a : [String(a || '')]; var o = []; for (var i = 0; i < 5; i++) o.push(String(a[i] == null ? '' : a[i]).slice(0, 300)); return o; }
+async function readText(body, key, keyFrom, res) {
+  var text = String(body.text).slice(0, 2000);
+  var payload = { model: MODEL, max_tokens: 9000, output_config: { effort: 'medium' }, system: textPrompt(),
+    messages: [{ role: 'user', content: '작업내용 설명:\n' + text + '\n\n규칙대로 JSON만 출력하라.' }] };
+  var ctrl = new AbortController(); var timer = setTimeout(function () { ctrl.abort(); }, 110000);
+  try {
+    var r = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', signal: ctrl.signal, headers: apiHeaders(key), body: JSON.stringify(payload) });
+    clearTimeout(timer); var data = await r.json();
+    if (!r.ok) return res.status(200).json({ ok: false, reason: r.status === 401 ? 'bad_key' : 'api_' + r.status, keyFrom: keyFrom, detail: data && data.error && data.error.message });
+    if (data.stop_reason === 'refusal' || data.stop_reason === 'max_tokens') return res.status(200).json({ ok: false, reason: data.stop_reason, keyFrom: keyFrom });
+    var out = extractJson((data.content || []).filter(function (c) { return c.type === 'text'; }).map(function (c) { return c.text; }).join('\n'));
+    var ids = {}; KB.forEach(function (x) { ids[x.id] = true; }); var seen = {};
+    var hits = (out.hits || []).filter(function (h) { return h && ids[h.id] && !seen[h.id] && Number(h.conf) >= 0.5 && (seen[h.id] = true); })
+      .map(function (h) { return { id: h.id, x: null, y: null, conf: Math.round(clamp(h.conf, 0, 1) * 100) / 100, evidence: arr5(h.evidence) }; });
+    var extra = (Array.isArray(out.extra) ? out.extra : []).slice(0, 3).map(function (e) {
+      return { text: arr5(e && e.text), acts: (Array.isArray(e && e.acts) ? e.acts : []).slice(0, 4).map(arr5), p: clamp(Math.round(e && e.p || 2), 1, 3), s: clamp(Math.round(e && e.s || 2), 1, 3), x: null, y: null };
+    }).filter(function (e) { return e.text[0]; });
+    var m = out.meta || {};
+    var domain = out.domain === 'gen' || out.domain === 'elec' ? out.domain : (hits.some(function (h) { return h.id.charAt(0) === 'U'; }) ? 'elec' : 'gen');
+    return res.status(200).json({ ok: true, mode: 'text', model: MODEL, lang: 'all', domain: domain, hits: hits, scene: arr5(out.scene), extra: extra,
+      meta: { site: String(m.site || '').slice(0, 60), date: String(m.date || '').slice(0, 20), work: String(m.work || '').slice(0, 60) }, keyFrom: keyFrom, usage: data.usage });
+  } catch (e) {
+    clearTimeout(timer);
+    return res.status(200).json({ ok: false, reason: e.name === 'AbortError' ? 'timeout' : 'error', detail: String(e && e.message || e) });
+  }
+}

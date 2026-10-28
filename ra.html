@@ -14,6 +14,10 @@ body.withpanel{padding-left:340px}
 .sheet:last-of-type{page-break-after:auto;break-after:auto}
 .keep{position:absolute;top:5.5mm;right:6mm;z-index:5;border:.8pt solid #B3261E;border-radius:1.2mm;background:#fff;color:#B3261E;padding:1.1mm 2.6mm 1.2mm;text-align:right;line-height:1.4;max-width:78mm}.keep b{font-size:8pt;font-weight:800}.keep small{display:block;font-size:6pt;color:#555;font-weight:600}.keep .tr{display:block;font-size:6pt;font-weight:600}
 .ttl{text-align:center;margin-bottom:1.6mm}
+body.txtmode #S1,body.txtmode .sheet.p1c{display:none!important}
+tr.addtr td{border:0!important;padding:1.2mm 0 0!important;text-align:left}tr.addtr button{font:inherit;font-size:8pt;font-weight:800;color:#1F6F3F;background:#EEF7F0;border:1px dashed #1F6F3F;border-radius:1.2mm;padding:.8mm 3mm;cursor:pointer}tr.addtr button:hover{background:#DDF0E2}
+.trbusy{position:fixed;right:10px;bottom:10px;z-index:99;background:#1F6F3F;color:#fff;font-size:12px;padding:6px 10px;border-radius:6px}
+@media print{tr.addtr,.trbusy{display:none!important}}
 .ttl h1{font-size:15pt;letter-spacing:3px;font-weight:800;color:#002A5C}
 .ttl.small h1{font-size:12pt;letter-spacing:2px}
 .ttl .zh{font-size:8pt;color:#B00;font-weight:700;letter-spacing:.5px}
@@ -287,7 +291,7 @@ function fld(m,f){var key=m.pre+f,arr;
  setK(key,arr);return key;}
 function splitAct(arr){var parts=arr.map(function(s,i){var re=(i===0||i===2)?/(?=[①②③④⑤⑥⑦⑧⑨])/:/(?=\(\d\)\s)/;return String(s).split(re).map(function(x){return x.trim();}).filter(Boolean);});
  var n=parts[0].length;if(n>1&&parts.every(function(p){return p.length===n;})){var o=[];for(var j=0;j<n;j++)o.push(parts.map(function(p){return p[j];}));return o;}return [arr];}
-function acts(m){if(m.cust)return m.cust.acts.map(function(a){return needArr(a);});if(m.ph)return m.ph.act;return splitAct(m.kb.ra.act);}
+function acts(m){if(m.cust)return m.cust.acts5||m.cust.acts.map(function(a){return needArr(a);});if(m.ph)return m.ph.act;return splitAct(m.kb.ra.act);}
 function suppOf(m){return m.cust?[]:(m.kb.supp||[]);}
 function scOf(m){return m.cust?'X':(D.SCMAP[m.id]||'G');}
 
@@ -342,7 +346,7 @@ function renderP1(rows){if(!rows.length)return renderP1None();var di=domInfo(row
  var sheet=$('#S1'),last=sheet,box=$('#cards');box.innerHTML='';
  rows.forEach(function(m){var el=frag(cardHTML(m));fillAll(el);box.appendChild(el);
   if(!fits(sheet)&&box.children.length>1){box.removeChild(el);
-   sheet=newSheet(last,'<div class="ttl small"><h1>'+KO.p1t+' '+KO.cont+'</h1><div class="zh">'+trS('p1t')+' '+trS('cont')+'</div></div><div class="listhd">'+lh+'</div><div class="cards full" style="margin-top:1.2mm"></div>');
+   sheet=newSheet(last,'<div class="ttl small"><h1>'+KO.p1t+' '+KO.cont+'</h1><div class="zh">'+trS('p1t')+' '+trS('cont')+'</div></div><div class="listhd">'+lh+'</div><div class="cards full" style="margin-top:1.2mm"></div>','p1c');
    last=sheet;box=$('.cards',sheet);box.appendChild(el);}});
  return last;}
 
@@ -446,14 +450,49 @@ function flowRows(after,firstInner,contInner,rowsH,tail){var sheet=newSheet(afte
  return last;}
 function ttl(k,sub,cont){return (k==='ra_t'&&!cont?'<div class="keep"><b>보존기간 3년</b><small>산업안전보건법 시행규칙 제37조의4②</small>'+trS('keepRA')+'</div>':'')+'<div class="ttl small"><h1>'+KO[k]+(cont?' '+KO.cont:'')+'</h1><div class="zh">'+trS(k)+(cont?' '+trS('cont'):'')+'</div>'+(sub?'<div class="sub1">'+tx(sub,null,'sec3')+'</div>':'')+'</div>';}
 
-function renderAll(){$$('.sheet.dyn').forEach(function(s){s.parentNode.removeChild(s);});
+
+/* 작업내용 설명(글) 모드 — 사진을 전제로 한 문구를 글 판독 문구로 바꾼다 */
+var TXO={p2s:['작업내용 설명에서 판독한 표지를 열쇠로 1단계 통계·2단계 위험성평가·법령 조문·CSI 사고사례를 찾아 문서에 연결했다','Indicators read from the work description were used as keys to link stage-1 statistics, stage-2 risk assessment, legal articles and CSI cases','以作业内容说明判读的标志为线索，关联第1阶段统计·第2阶段风险评估·法令条文·CSI事故案例','Dấu hiệu đọc từ mô tả công việc được dùng làm khóa để liên kết thống kê, đánh giá rủi ro, điều luật và ca CSI','Ish tavsifidan aniqlangan belgilar statistika, baholash, qonun moddalari va CSI holatlariga bogʻlandi'],
+ g_h:['GraphRAG식 검색 경로 도해 — 작업내용 → 표지 → 시나리오 → 조문 → 문서','GraphRAG-style retrieval path — work description → indicators → scenarios → articles → documents','GraphRAG式检索路径图 — 作业内容 → 标志 → 情景 → 条文 → 文件','Sơ đồ truy xuất kiểu GraphRAG — mô tả công việc → dấu hiệu → kịch bản → điều luật → tài liệu','GraphRAG qidiruv yoʻli — ish tavsifi → belgilar → stsenariy → moddalar → hujjatlar'],
+ g_photo:['작업내용','Work description','作业内容','Mô tả công việc','Ish tavsifi'],
+ g_c1:['① 작업내용','① Work description','① 作业内容','① Mô tả công việc','① Ish tavsifi'],
+ ra_s:['작업내용 판독 표지별 3×3 평가 · 빈도·강도는 드롭다운으로 수정하면 위험성이 바로 다시 계산된다 · 표 아래 ‘＋ 행 추가’로 항목을 늘린다','3×3 assessment per indicator read from the work description · change frequency/severity in the drop-downs · add rows with “+ Add row”','按作业内容判读标志进行3×3评估 · 通过下拉菜单修改频率·强度后风险立即重新计算 · 用“＋ 添加行”增加项目','Đánh giá 3×3 theo dấu hiệu đọc từ mô tả công việc · đổi tần suất/mức độ bằng danh sách · thêm dòng bằng “＋ Thêm dòng”','Ish tavsifidan aniqlangan belgilar boʻyicha 3×3 baholash · chastota/ogʻirlikni roʻyxatdan oʻzgartiring · “＋ Qator qoʻshish” bilan qator qoʻshing'],
+ m_photo:['작업내용 설명','Work description','作业内容说明','Mô tả công việc','Ish tavsifi'],
+ n_ra:['글로 적은 작업내용만으로는 누전차단기 정격, 접지 결선, 현장 조건처럼 적히지 않은 사항을 알 수 없다. 작업 전에 현장에서 확인한 뒤 빈도·강도를 고치고, 근로자 참여(산업안전보건법 제36조제2항) 아래 다시 평가한다.','A written description cannot show unstated conditions such as RCD rating, earthing or site conditions. Check on site before work, correct frequency/severity and reassess with worker participation (OSH Act Art. 36(2)).','仅凭书面作业内容无法得知漏电断路器额定值、接地接线、现场条件等未写明事项。作业前在现场确认后修改频率·强度，并在工人参与下（产业安全保健法第36条第2款）重新评估。','Mô tả bằng chữ không cho biết các điều kiện chưa ghi như định mức RCD, nối đất, điều kiện hiện trường. Kiểm tra tại hiện trường trước khi làm, sửa tần suất/mức độ và đánh giá lại với sự tham gia của công nhân (Luật ATVSLĐ Điều 36 khoản 2).','Yozma tavsifdan RCD nominali, yerga ulash, joy sharoiti kabi yozilmagan holatlarni bilib boʻlmaydi. Ishdan oldin joyida tekshirib, chastota/ogʻirlikni tuzating va ishchilar ishtirokida qayta baholang (MMX qonuni 36-modda 2-band).']};
+var TXB={};
+function txWords(on){Object.keys(TXO).forEach(function(k){if(!TXB[k])TXB[k]={st:D.ST0[k],ko:KO[k],tr:STR[k]?JSON.parse(JSON.stringify(STR[k])):null};
+ if(on){var a=TXO[k];D.ST0[k]=a[0];KO[k]=esc(a[0]);STR[k]={en:a[1],zh:a[2],vi:a[3],uz:a[4]};}
+ else{var b=TXB[k];D.ST0[k]=b.st;KO[k]=b.ko;if(b.tr)STR[k]=JSON.parse(JSON.stringify(b.tr));}
+ $$('.ed[data-k="'+k+'"]').forEach(function(e){e.innerHTML=KO[k];});
+ $$('.tr[data-i="'+k+'"]').forEach(function(t){var c=t.parentElement,e=null;if(c&&!c.classList.contains('ed'))e=c.previousElementSibling;if(!e||!e.classList.contains('ed'))e=t.previousElementSibling;if(e&&e.classList.contains('ed')&&!e.getAttribute('data-k'))e.innerHTML=KO[k];});});}
+
+function renderAll(){$$('.sheet.dyn').forEach(function(s){s.parentNode.removeChild(s);});if(!!S.txt!==!!document.body.classList.contains('txtmode'))txWords(!!S.txt);document.body.classList.toggle('txtmode',!!S.txt);
  if(!STR.k633x){STR.k633x=STR.k633;KO.k633x='안전보건관리책임자';}
  fillAll(document);var rows=rowsModel();
  var last=renderP1(rows);renderP2(rows);
  var l2=flowRows($('#S2'),ttl('rg_t','p2s')+rgHead(),ttl('rg_t',null,true)+rgHead(),(rows.length?rows.map(rgRow):[nhRow()]),null);
- flowRows(l2,ttl('ra_t','ra_s')+metaHTML()+raHead(),ttl('ra_t',null,true)+raHead(),(rows.length?rows.map(raRow):[nhRow()]),lastBlock());
- var sh=$$('.sheet');sh.forEach(function(s,i){var a=$('.pn',s),b=$('.pt',s);if(a)a.textContent=i+1;if(b)b.textContent=sh.length;s.setAttribute('data-pno',i+1);});
+ flowRows(l2,ttl('ra_t','ra_s')+metaHTML()+raHead(),ttl('ra_t',null,true)+raHead(),(rows.length?rows.map(raRow):[nhRow()]).concat([addTr()]),lastBlock());
+ var sh=$$('.sheet').filter(function(x){return x.offsetParent!==null||getComputedStyle(x).display!=='none';});sh.forEach(function(s,i){var a=$('.pn',s),b=$('.pt',s);if(a)a.textContent=i+1;if(b)b.textContent=sh.length;s.setAttribute('data-pno',i+1);});
  if(ed)applyEd(true);renderPanel(rows);try{if(window.parent!==window&&parent.onRA)parent.onRA(rows);}catch(e){}}
+
+
+/* ---------- 위험성평가표 행 추가 · 고친 문장 다국어 번역 ---------- */
+function addTr(){return '<tr class="addtr"><td colspan="14"><button type="button" class="addrow" title="표 아래에 새 위험요인 행을 추가한다 — 칸을 눌러 고친다">＋ 행 추가 (새 위험요인)</button></td></tr>';}
+function addRow(){var c={id:'C'+(++S.cn),name:'새 위험요인 — 칸을 눌러 적는다',cause:'원인·유해요인을 적는다',acts:['감소대책을 적는다'],p:2,s:2,user:1};
+ S.custom.push(c);S.sel.push(c.id);renderAll();
+ var tr=document.querySelector('table.ra tr[data-id="'+c.id+'"]');if(tr){$$('.ed',tr).forEach(function(e){e.setAttribute('contenteditable','true');});tr.scrollIntoView({block:'center'});var f=$('.wk .ed',tr);if(f)f.focus();}}
+var EDK={},TRB=0;
+function plain(h){var d=document.createElement('div');d.innerHTML=h||'';return d.textContent.replace(/\s+/g,' ').trim();}
+function trPending(){var out=[],seen={};$$('.ed[data-k]').forEach(function(e){var k=e.getAttribute('data-k');if(seen[k])return;seen[k]=1;
+  var st=STR[k],nd=STR.need||{},miss=!st||LS.some(function(l){return !st[l]||st[l]===nd[l];});
+  if(EDK[k]||(miss&&/^cu_/.test(k))){var t=plain(KO[k]);if(t&&t!=='—')out.push({k:k,t:t});}});return out;}
+function trFill(){if(CUR==='ko'||TRB)return;var items=trPending();if(!items.length)return;var key='';try{key=parent.APIKEY||'';}catch(e){}
+ TRB=1;var b=document.createElement('div');b.className='trbusy';b.textContent='🌐 고친 문장 '+items.length+'건 번역 중…';document.body.appendChild(b);
+ fetch('api/tr',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({items:items.slice(0,40),key:key||undefined})})
+  .then(function(r){return r.json();}).then(function(j){TRB=0;b.remove();if(!j||!j.ok){return;}
+   Object.keys(j.out||{}).forEach(function(k){STR[k]=j.out[k];delete EDK[k];});fillAll(document);
+   try{if(parent!==window&&parent.onRAtr)parent.onRAtr(Object.keys(j.out||{}).length);}catch(e){}})
+  .catch(function(){TRB=0;b.remove();});}
 
 /* ---------- 패널 ---------- */
 function renderPanel(rows){var di=domInfo(rows||rowsModel());
@@ -493,6 +532,7 @@ document.addEventListener('change',function(ev){var t=ev.target;
  if(t.id==='fileIn'&&t.files&&t.files[0]){var f=t.files[0];var rd=new FileReader();rd.onload=function(){var im=$('#photo');if(!PH0&&S.ph2)PH0=im.src;im.onload=function(){sizePhoto();renderAll();};
   im.src=rd.result;S.ph2=false;S.mk={};S.fname=f.name;S.memo=$('#memo').value;doKw();renderAll();};rd.readAsDataURL(f);t.value='';}});
 document.addEventListener('click',function(ev){var t=ev.target;
+ if(t.closest&&t.closest('.addrow')){ev.preventDefault();addRow();return;}
  var pin=t.closest&&t.closest('[data-pin]');if(pin){var id=pin.getAttribute('data-pin');ARM=(ARM===id)?null:id;renderPanel();return;}
  var del=t.closest&&t.closest('[data-del]');if(del){var id2=del.getAttribute('data-del');S.custom=S.custom.filter(function(c){return c.id!==id2;});S.sel=S.sel.filter(function(x){return x!==id2;});delete S.mk[id2];renderAll();return;}
  if(t.id==='kwBtn'){S.memo=$('#memo').value;doKw();renderAll();return;}
@@ -507,7 +547,8 @@ function applyEd(on){$$('.ed,.tr,.sheet h1').forEach(function(c){if(on)c.setAttr
 function tgl(){ed=!ed;applyEd(ed);var e=$('#eb');e.classList.toggle('act',ed);e.textContent=ed?'✓ 편집 중':'✏️ 편집 모드';}
 document.addEventListener('input',function(ev){var t=ev.target;if(!t||!t.classList)return;
  if(t.classList.contains('tr')){if(CUR==='ko')return;var k=t.getAttribute('data-i');if(STR[k])STR[k][CUR]=t.textContent;}
- else if(t.classList.contains('ed')&&t.getAttribute('data-k')){KO[t.getAttribute('data-k')]=t.innerHTML;}});
+ else if(t.classList.contains('ed')&&t.getAttribute('data-k')){KO[t.getAttribute('data-k')]=t.innerHTML;EDK[t.getAttribute('data-k')]=1;}});
+var TRT=null;document.addEventListener('focusout',function(ev){var t=ev.target;if(t&&t.classList&&t.classList.contains('ed')&&EDK[t.getAttribute('data-k')]&&CUR!=='ko'){clearTimeout(TRT);TRT=setTimeout(trFill,1200);}});
 document.addEventListener('keydown',function(ev){if((ev.ctrlKey||ev.metaKey)&&(ev.key==='e'||ev.key==='E')){ev.preventDefault();tgl();}});
 function sheetHtml(){var was=ed;if(ed)tgl();
  $$('select').forEach(function(s){for(var i=0;i<s.options.length;i++){if(s.options[i].selected)s.options[i].setAttribute('selected','');else s.options[i].removeAttribute('selected');}});
@@ -518,7 +559,7 @@ function saveHtml(){var h=sheetHtml();
  var b=new Blob([h],{type:'text/html;charset=utf-8'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=document.title+'_수정본.html';
  document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},500);return h.length;}
 function prt(){window.print();}
-function setLang(l){CUR=l;document.documentElement.setAttribute('data-lang',l);$$('.bar .lg').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-l')===l);});renderAll();}
+function setLang(l){CUR=l;document.documentElement.setAttribute('data-lang',l);$$('.bar .lg').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-l')===l);});renderAll();trFill();}
 window.addEventListener('beforeprint',function(){if(document.body.classList.contains('withpanel')){document.body.classList.remove('withpanel');window.__pp=1;}});
 window.addEventListener('afterprint',function(){if(window.__pp){document.body.classList.add('withpanel');window.__pp=0;}});
 window.addEventListener('load',function(){if(/embed=1/.test(location.search)){document.body.classList.remove('withpanel');document.body.classList.add('embed');}FTH=$('#S1 .ft').outerHTML;sizePhoto();if(window.parent!==window&&parent.raReady){parent.raReady();return;}var go=function(){setLang(document.documentElement.getAttribute('data-lang')||'zh');};

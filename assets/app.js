@@ -2,7 +2,7 @@
    상태의 기준은 위험분석 프레임(ra.html)의 S 다. 이 파일은 사진·판독·패널을 다루고, 프레임 렌더가 끝날 때마다(onRA)
    허가서와 포스터를 다시 맞춘다. 생성 결과는 초안이며 최종 판단은 관리감독자가 한다. */
 'use strict';
-var LANG = 'zh', ENG = 'ai', OUT = 'all', DOMSEL = 'auto', TAB = 'elec', APIKEY = '', SERVERKEY = null, BUSY = false, EDIT = false;
+var MODE = 'photo', LANG = 'zh', ENG = 'ai', OUT = 'all', DOMSEL = 'auto', TAB = 'elec', APIKEY = '', SERVERKEY = null, BUSY = false, EDIT = false;
 var LIX = { ko: 0, en: 1, zh: 2, vi: 3, uz: 4 };
 var KBI = {}; KB.forEach(function (k) { KBI[k.id] = k; });
 var H = { sample: null, photo: null, pw: 1600, ph: 1164, fname: '', gpt: null, ready: { ra: 0, c49: 0, gen: 0, pst: 0 }, sig: {}, rows: [], pending: null, orig: null, meta: {} };
@@ -38,6 +38,7 @@ function initFrames() {
   $('#c49Box').src = 'ptw-c49.html?embed=1';
   $('#genBox').src = 'ptw-gen.html?embed=1';
   $('#pstBox').src = 'poster.html?embed=1';
+  $('#signBox').src = 'sign.html?embed=1';
 }
 window.raReady = function () {
   H.ready.ra = 1; var w = RAW();
@@ -50,6 +51,8 @@ window.raReady = function () {
 };
 window.ptwReady = function (k) { H.ready[k] = 1; scheduleSync(); };
 window.pstReady = function () { H.ready.pst = 1; scheduleSync(); };
+window.signReady = function () { H.ready.sign = 1; scheduleSync(); };
+window.onRAtr = function (n) { status('🌐 고친 문장 ' + n + '건을 영어·중국어·베트남어·우즈베크어로 번역했습니다.', 'ok'); };
 function fitFrame(id) { var f = $('#' + id); try { var d = f.contentDocument, y = f.contentWindow.scrollY || 0, b = 0; Array.prototype.forEach.call(d.body.children, function (el) { if (el.tagName === 'SCRIPT') return; var r = el.getBoundingClientRect(); if (r.height) b = Math.max(b, r.bottom + y); }); if (b > 50) f.style.height = Math.ceil(b + 16) + 'px'; } catch (e) {} }
 /* 헤더 왼쪽 아이콘으로 왼쪽 입력란(#side)을 켜고 끈다. 끄면 문서가 넓어져 화면 너비에 다시 맞추고, 상태는 이 브라우저에 기억한다 */
 function sideToggle(force) {
@@ -94,7 +97,7 @@ function bindZoom(doc, frame) { // doc: #main 이 들어 있는 문서 또는 if
   tgt.addEventListener('touchend', function (e) { if (e.touches.length < 2) PZ = null; }, { passive: true });
   if (frame) { try { var st = doc.createElement('style'); st.textContent = 'html,body{touch-action:pan-x pan-y}'; doc.head.appendChild(st); } catch (x) {} }
 }
-function bindZoomFrames() { ['raBox', 'c49Box', 'genBox', 'pstBox'].forEach(function (id) { try { var f = $('#' + id), d = f && f.contentDocument; if (d && d.body) bindZoom(d, f); } catch (e) {} }); }
+function bindZoomFrames() { ['raBox', 'c49Box', 'genBox', 'pstBox', 'signBox'].forEach(function (id) { try { var f = $('#' + id), d = f && f.contentDocument; if (d && d.body) bindZoom(d, f); } catch (e) {} }); }
 
 /* ---------- 위험분석 프레임 렌더 후 ---------- */
 window.onRA = function (rows) {
@@ -174,7 +177,8 @@ function setLang(l) {
   LANG = l; applyUI(); var w = RAW(); if (w) w.setLang(l);
   ['c49Box', 'genBox'].forEach(function (id) { var x = W(id); try { if (x && x.setLang) x.setLang(l); } catch (e) {} });
   var p = W('pstBox'); try { if (p && p.setLang) p.setLang(l); } catch (e) {}
-  setTimeout(function () { fitFrame('c49Box'); fitFrame('genBox'); fitFrame('pstBox'); mkPrompt(); }, 300);
+  var sg = W('signBox'); try { if (sg && sg.setLang) sg.setLang(l); } catch (e) {}
+  setTimeout(function () { fitFrame('c49Box'); fitFrame('genBox'); fitFrame('pstBox'); fitFrame('signBox'); mkPrompt(); }, 300);
 }
 function setEng(e) { ENG = e; applyUI(); if (e === 'ai' && H.photo && !H.sample && !BUSY) runRead(); else if (e === 'kw' && H.photo && !H.sample) runKw(); }
 function setOut(o) { OUT = o; document.body.classList.remove('out-ra', 'out-ptw', 'out-pst'); if (o !== 'all') document.body.classList.add('out-' + o); applyUI(); setTimeout(fitMain, 50); }
@@ -203,8 +207,8 @@ function applyMeta(noRender) {
   var sb = w.document.querySelector('#S1 .sub1 .ed');
   if (e2) { if (sb) sb.innerHTML = H.orig.sub; orig('p1s'); }
   else { var ai = ENG === 'ai' && w.S.src && Object.keys(w.S.src).some(function (k) { return w.S.src[k] && w.S.src[k].ai; });
-    if (sb) sb.textContent = (H.fname || '현장사진') + ' · ' + (ai ? 'AI 사진 판독 + ' : '') + '체크리스트(지식베이스) 기반 판독 · [4단계 홈페이지]';
-    var f = H.fname || 'site photo';
+    if (sb) sb.textContent = H.txt ? '작업내용 설명 · ' + (ai ? 'AI 판독 + ' : '') + '체크리스트(지식베이스) 기반 판독 · [4단계 홈페이지]' : (H.fname || '현장사진') + ' · ' + (ai ? 'AI 사진 판독 + ' : '') + '체크리스트(지식베이스) 기반 판독 · [4단계 홈페이지]';
+    var f = H.txt ? 'work description' : (H.fname || 'site photo');
     w.STR.p1s = { en: 'Photo: ' + f + ' · ' + (ai ? 'AI photo reading + ' : '') + 'knowledge-base checklist · [Stage 4 website]', zh: '照片：' + f + ' · ' + (ai ? 'AI照片判读 + ' : '') + '清单（知识库）判读 · [第4阶段网站]', vi: 'Ảnh: ' + f + ' · ' + (ai ? 'AI đọc ảnh + ' : '') + 'danh mục cơ sở tri thức · [trang web giai đoạn 4]', uz: 'Surat: ' + f + ' · ' + (ai ? 'SI surat tahlili + ' : '') + 'bilim bazasi roʻyxati · [4-bosqich sayti]' }; }
   w.HDATE = $('#m_date').value.trim(); w.HBY = by;
   if (!noRender) w.renderAll();
@@ -215,7 +219,7 @@ function freshState(w) { var S = w.initState(); S.ps = {}; return S; }
 function loadSample(n) {
   H.nohaz = false;
   var w = RAW(); if (!w) { H.pending = function () { loadSample(n); }; return; }
-  var s = SAMPLES[n]; H.sample = n; H.fname = s.name; H.gpt = null; H.sig = {}; $('#gptFull').style.display = 'none';
+  var s = SAMPLES[n]; setMode('photo', true); H.sample = n; H.fname = s.name; H.gpt = null; H.sig = {}; $('#gptFull').style.display = 'none';
   var S = freshState(w);
   if (n === 'g1') { S.ph2 = false; S.sel = []; S.mk = {}; S.src = {}; s.hits.forEach(function (h) { S.sel.push(h[0]); S.mk[h[0]] = [h[1], h[2]]; S.src[h[0]] = { ai: h[3] }; });
     S.scene = s.scene; S.corr = JSON.parse(JSON.stringify(s.corr)); S.fname = s.name; TAB = 'gen'; }
@@ -238,8 +242,8 @@ function photoSample(url, name) {
 }
 function resetAll() {
   H.nohaz = false;
-  var w = RAW(); if (!w) return; H.sample = null; H.photo = null; H.fname = ''; H.gpt = null; H.sig = {};
-  var S = freshState(w); S.ph2 = false; S.sel = []; S.mk = {}; S.src = {}; S.scene = null; S.fname = '-'; S.corr = { sum: false, rain: false, morn: false, fore: false }; w.S = S;
+  var w = RAW(); if (!w) return; H.sample = null; H.photo = null; H.fname = ''; H.gpt = null; H.sig = {}; H.txt = false;
+  var S = freshState(w); S.txt = 0; S.ph2 = false; S.sel = []; S.mk = {}; S.src = {}; S.scene = null; S.fname = '-'; S.corr = { sum: false, rain: false, morn: false, fore: false }; w.S = S;
   $('#thumb').innerHTML = ''; $('#drop').classList.remove('has'); status('', ''); $('#gptFull').style.display = 'none';
   ['m_site', 'm_proc', 'm_date', 'm_by', 'm_memo'].forEach(function (k) { $('#' + k).value = ''; });
   w.renderAll();
@@ -251,7 +255,7 @@ function onFile(f, cb) {
   AFTER = cb || null;
   if (!f || !/^image\//.test(f.type)) { afterRead(false); return; } var r = new FileReader();
   r.onload = function () { shrink(r.result, 1600, function (small, pw, ph) {
-    var w = RAW(); if (!w) { afterRead(false); return; } H.nohaz = false; H.sample = null; H.photo = small; H.pw = pw; H.ph = ph; H.fname = f.name; H.gpt = null; H.sig = {}; $('#gptFull').style.display = 'none';
+    var w = RAW(); if (!w) { afterRead(false); return; } setMode('photo', true); H.nohaz = false; H.sample = null; H.photo = small; H.pw = pw; H.ph = ph; H.fname = f.name; H.gpt = null; H.sig = {}; $('#gptFull').style.display = 'none';
     $('#thumb').innerHTML = '<img src="' + small + '" alt="">'; $('#drop').classList.add('has');
     var S = freshState(w); S.ph2 = false; S.sel = []; S.mk = {}; S.src = {}; S.scene = null; S.fname = f.name; S.memo = $('#m_memo').value; S.corr = { sum: false, rain: false, morn: false, fore: false }; w.S = S;
     w.hostPhoto(small, function () { if (ENG === 'ai') runRead(); else if (ENG === 'kw') { runKw(); afterRead(false); } else { applyMeta(true); w.renderAll(); status('✋ 직접 선택 — 체크리스트에서 보이는 위험 표지를 고르세요.', 'info'); afterRead(false); } });
@@ -337,14 +341,14 @@ function syncPTW() {
   var ids = w.S.sel.filter(function (id) { return id[0] !== 'C'; });
   var own = (k === 'c49' && H.sample === 'e2') || (k === 'gen' && H.sample === 'g1');
   var base = k === 'c49' ? w.D.PHORD : SAMPLES.g1.hits.map(function (h) { return h[0]; });
-  var sig = [ids.join(), H.sample, H.photo ? H.photo.length : 0, JSON.stringify(w.S.mk)].join('|');
+  var sig = [ids.join(), H.sample, H.photo ? H.photo.length : 0, JSON.stringify(w.S.mk), H.txt ? 'T' + (w.S.memo || '').length : ''].join('|');
   if (H.sig[k] === sig) { if (H.sig[k + 'L'] !== LANG) { f.setLang(LANG); H.sig[k + 'L'] = LANG; } setTimeout(function () { fitFrame(k + 'Box'); fitMain(); }, 150); return; }
   H.sig[k] = sig; H.sig[k + 'L'] = LANG;
   var mk = {}, ks = Object.keys(w.S.mk).filter(function (id) { return id[0] !== 'C'; }), sp = spreadPct(ks.map(function (id) { return w.S.mk[id]; }), H.pw || 1600, H.ph || 1200, 0.075);
   ks.forEach(function (id, i) { mk[id] = sp[i]; });
   if (own && sameSet(ids, base)) f.hostPTW({ sample: true, lang: LANG });
   else if (own) f.hostPTW({ same: true, ids: ids, lang: LANG });
-  else f.hostPTW({ ids: ids, photo: H.photo || (H.orig && H.orig.photo), mk: mk, fname: H.fname, lang: LANG, kb: ptwTexts(k, w, ids), blankF: k === 'c49' ? ['voltage'] : [] });
+  else f.hostPTW({ ids: ids, text: !!H.txt, photo: H.txt ? null : (H.photo || (H.orig && H.orig.photo)), mk: H.txt ? {} : mk, fname: H.fname, lang: LANG, kb: ptwTexts(k, w, ids), blankF: k === 'c49' ? ['voltage'] : [] });
   setTimeout(function () { fitFrame(k + 'Box'); fitMain(); }, 250);
 }
 
@@ -365,7 +369,7 @@ function ptwTexts(k, w, ids) {
     o.rdCorr = on.length ? J5(['가능성 보정: ', 'Likelihood correction: ', '可能性修正：', 'Điều chỉnh khả năng: ', 'Ehtimollik tuzatishi: '], joinA(on.map(function (c) { return c.lab; }), ' · '), ' +1') : ['가능성 보정: 없음', 'Likelihood correction: none', '可能性修正：无', 'Điều chỉnh khả năng: không', 'Ehtimollik tuzatishi: yoʻq'];
     o.rdRa = ['연결 위험성평가표: 4단계 홈페이지 위험성평가표 (같은 표지 번호)', 'Linked risk assessment: Stage 4 website RA sheet (same indicator numbers)', '关联风险评估表：第4阶段网站风险评估表（标志编号相同）', 'Bảng đánh giá liên kết: bảng RA trên trang giai đoạn 4 (cùng số dấu hiệu)', 'Bogʻlangan baholash: 4-bosqich sayti RA jadvali (belgi raqamlari bir xil)'];
     if (top) o.rdRisk = J5(['핵심 위험: ', 'Key risk: ', '核心危险：', 'Rủi ro chính: ', 'Asosiy xavf: '], short(top.tag, 60), ' — ', top.cause);
-    o.vSummary = J5(['현장사진 판독 위험: ', 'Hazards read from the photo: ', '现场照片判读危险：', 'Nguy hiểm đọc từ ảnh: ', 'Suratdan aniqlangan xavflar: '], tags3, [' — 작업 내용·범위는 관리감독자가 적는다', ' — the supervisor fills in the work scope', ' — 作业内容·范围由管理监督员填写', ' — giám sát viên ghi nội dung, phạm vi công việc', ' — ish mazmuni va doirasini nazoratchi yozadi']);
+    o.vSummary = J5(H.txt ? ['작업내용 설명 판독 위험: ', 'Hazards read from the work description: ', '作业内容说明判读危险：', 'Nguy hiểm đọc từ mô tả công việc: ', 'Ish tavsifidan aniqlangan xavflar: '] : ['현장사진 판독 위험: ', 'Hazards read from the photo: ', '现场照片判读危险：', 'Nguy hiểm đọc từ ảnh: ', 'Suratdan aniqlangan xavflar: '], tags3, [' — 작업 내용·범위는 관리감독자가 적는다', ' — the supervisor fills in the work scope', ' — 作业内容·范围由管理监督员填写', ' — giám sát viên ghi nội dung, phạm vi công việc', ' — ish mazmuni va doirasini nazoratchi yozadi']);
     o.vRaNo = ['4단계 홈페이지 위험성평가표', 'Stage 4 website RA sheet', '第4阶段网站风险评估表', 'Bảng RA trên trang giai đoạn 4', '4-bosqich sayti RA jadvali'];
     ['vArea', 'vEqNo', 'vEqName', 'vEquip', 'vHead', 'vIso1', 'vIso2', 'vKey', 'vSpecial', 'vVolt'].forEach(function (x) { o[x] = BL; });
     o.vLoc = site ? [site, '', '', '', ''] : BL;
@@ -417,6 +421,7 @@ function spreadPct(pts, W, Hh, frac) {
   return P.map(function (q) { return [Math.round(q.x / W * 1000) / 10, Math.round(q.y / Hh * 1000) / 10]; });
 }
 function syncPoster() {
+  if (H.txt) { syncSign(); return; }
   var w = RAW(); if (!w || !H.rows.length || !H.ready.pst) return; var f = W('pstBox'); if (!f || !f.hostPST) return;
   var ids = w.S.sel.slice(), k = ptwKind();
   var sig = [ids.join(), JSON.stringify(H.rows.map(function (r) { return r.v; })), H.sample, H.photo ? H.photo.length : 0, H.gpt ? H.gpt.length : 0, JSON.stringify(w.S.mk), k].join('|');
@@ -571,9 +576,9 @@ function gptAuto() {
 
 /* ---------- 편집·인쇄·저장 ---------- */
 function edAll() { EDIT = !EDIT; var w = RAW(); if (w && !!w.ed !== EDIT) w.tgl();
-  ['c49Box', 'genBox', 'pstBox'].forEach(function (id) { var x = W(id); try { if (x && x.hostEdit) x.hostEdit(EDIT); } catch (e) {} });
+  ['c49Box', 'genBox', 'pstBox', 'signBox'].forEach(function (id) { var x = W(id); try { if (x && x.hostEdit) x.hostEdit(EDIT); } catch (e) {} });
   var b = $('#eb'); b.classList.toggle('act', EDIT); b.textContent = EDIT ? '✓ 편집 중' : '✏️ 편집 모드'; }
-function frameOf(k) { return k === 'ra' ? 'raBox' : (k === 'pst' ? 'pstBox' : ptwKind() + 'Box'); }
+function frameOf(k) { return k === 'ra' ? 'raBox' : (k === 'pst' ? (MODE === 'text' ? 'signBox' : 'pstBox') : ptwKind() + 'Box'); }
 function printDoc(k) { $$('.ddm').forEach(function (m) { m.classList.remove('open'); }); var x = W(frameOf(k)); try { x.focus(); x.print(); } catch (e) {} }
 /* ---------- 위험성평가표 → Excel(.xlsx) ----------
    화면의 위험성평가표(위험분석·평가표 문서 안 table.ra)를 읽어 한 시트로 만든다 — 문서에서 고친 값(편집 모드, 빈도·강도 선택)이 그대로 들어간다.
@@ -933,3 +938,69 @@ function notifyGo() {
   if (window.ResizeObserver) new ResizeObserver(fitMain).observe($('#docs')); // 문서 높이가 바뀌면 스크롤 범위를 맞춘다
   ['raBox', 'c49Box', 'genBox', 'pstBox'].forEach(function (id) { var f = $('#' + id); if (f) f.addEventListener('load', function () { setTimeout(fitMain, 50); }); });
 })();
+
+
+/* ---------- 시작 옵션: ① 현장사진 올리기 / ② 작업내용 설명 ----------
+   작업내용 설명은 사진 없이 안전관리자·관리감독자가 적은 작업 계획 문장으로 위험 표지를 고르고,
+   분석 근거(RAG) 경로·위험성평가표·사전작업허가서(PTW)·안전 위험 표지 및 문구를 만든다. */
+var TXEX = '○○공사현장에서 2026/12/01 배전반 교체 작업을 진행 예정';
+UI.s1 = ['① 시작 옵션', '① Start options', '① 开始选项', '① Tùy chọn bắt đầu', '① Boshlash usuli'];
+UI.secSGN = ['3. 안전 위험 표지 및 문구 — A4 세로 · 빨강·노랑·흰색', '3. Safety danger signs & messages — A4 portrait · red, yellow, white', '3. 安全危险标志及标语 — A4纵向 · 红·黄·白', '3. Biển báo & khẩu hiệu nguy hiểm — A4 dọc · đỏ, vàng, trắng', '3. Xavf belgilari va ogohlantirishlar — A4 tik · qizil, sariq, oq'];
+UI.secRAT = ['1. 분석 근거(RAG) — 지식베이스 검색 경로 · 위험성평가표 — A4 가로', '1. Evidence (RAG) — knowledge-base retrieval path · risk assessment — A4 landscape', '1. 分析依据(RAG) — 知识库检索路径 · 风险评估表 — A4横向', '1. Căn cứ (RAG) — đường truy xuất tri thức · đánh giá rủi ro — A4 ngang', '1. Asos (RAG) — bilim bazasi qidiruv yoʻli · xavfni baholash — A4 yotiq'];
+UI.outSGN = ['안전 표지', 'Safety signs', '安全标志', 'Biển báo', 'Xavf belgilari'];
+UI.emptyT = ['작업내용을 적고 분석을 누르면 분석 근거(RAG)·위험성평가표·사전작업허가서·안전 위험 표지가 자동으로 만들어집니다.', 'Describe the work and press Analyse to generate the RAG evidence, risk assessment, permit and safety signs.', '填写作业内容并点击分析，即可自动生成分析依据(RAG)、风险评估表、事前作业许可证和安全危险标志。', 'Nhập nội dung công việc rồi bấm Phân tích để tự lập căn cứ (RAG), đánh giá rủi ro, giấy phép và biển báo.', 'Ish mazmunini yozib, Tahlil tugmasini bosing — RAG asoslari, baholash, ruxsatnoma va belgilar avtomatik yaratiladi.'];
+function setMode(m, quiet) {
+  MODE = m; document.body.classList.toggle('mode-text', m === 'text');
+  $$('#modeSeg button').forEach(function (b) { b.classList.toggle('on', b.dataset.m === m); });
+  $('#mPhoto').style.display = m === 'photo' ? '' : 'none'; $('#mText').style.display = m === 'text' ? '' : 'none';
+  var hr = $('#secRA .sechd'); if (hr) hr.setAttribute('data-ui', m === 'text' ? 'secRAT' : 'secRA');
+  var hd = $('#secPST .sechd'); if (hd) hd.setAttribute('data-ui', m === 'text' ? 'secSGN' : 'secPST');
+  var ob = $('#outSeg button[data-o="pst"]'); if (ob) ob.setAttribute('data-ui', m === 'text' ? 'outSGN' : 'outPST');
+  var em = $('#emptyMsg'); if (em) em.setAttribute('data-ui', m === 'text' ? 'emptyT' : 'empty');
+  $$('#prm button, #svm button').forEach(function (b) { var a = b.getAttribute('onclick') || ''; if (/'pst'/.test(a)) b.textContent = m === 'text' ? (/print/.test(a) ? '안전 위험 표지 및 문구 (A4 세로)' : '안전 위험 표지 및 문구 HTML') : (/print/.test(a) ? '안전포스터 (A3 세로)' : '안전포스터 HTML'); });
+  if (m === 'photo') H.txt = false;
+  applyUI(); if (!quiet) { H.sig = {}; scheduleSync(); setTimeout(fitMain, 60); if (m === 'text') setTimeout(function () { $('#txIn').focus(); }, 50); }
+}
+function txSample() { var t = $('#txIn'); if (!t.value.trim()) t.value = TXEX; t.focus(); }
+function runText() {
+  var text = ($('#txIn').value || '').trim(); if (!text) { $('#txIn').focus(); status('작업내용을 적어 주세요. 위의 흐린 예시를 누르면 예시 문장이 들어갑니다.', 'warn'); return; }
+  var w = RAW(); if (!w || BUSY) return; setMode('text', true);
+  H.nohaz = false; H.sample = null; H.photo = null; H.fname = '작업내용 설명'; H.gpt = null; H.sig = {}; H.txt = true; $('#gptFull').style.display = 'none';
+  var S = freshState(w); S.ph2 = false; S.sel = []; S.mk = {}; S.src = {}; S.scene = null; S.fname = '작업내용 설명'; S.txt = 1; S.memo = text; S.corr = { sum: false, rain: false, morn: false, fore: false }; w.S = S;
+  if (ENG !== 'ai') { txKw(text); return; }
+  BUSY = true; status('<span class="spin"></span> AI(Claude Sonnet 5.5)가 작업내용을 읽고 위험을 판정하는 중입니다… (20~60초)', 'busy');
+  var ctrl = window.AbortController ? new AbortController() : null, tm = setTimeout(function () { if (ctrl) ctrl.abort(); }, 125000);
+  fetch('api/read', { method: 'POST', headers: { 'content-type': 'application/json' }, signal: ctrl ? ctrl.signal : undefined,
+    body: JSON.stringify({ text: text, key: APIKEY || undefined }) })
+    .then(function (r) { return r.json().catch(function () { return { ok: false, reason: 'http_' + r.status }; }); })
+    .then(function (j) { clearTimeout(tm); BUSY = false; if (j && j.ok) applyText(j); else { txKw(text); status('⚠️ AI 판독 실패' + (j && j.reason ? ' (' + esc(j.reason) + ')' : '') + ' — 키워드 판독으로 대체했습니다. ' + esc(RAW().S.kwmsg || ''), 'warn'); } })
+    .catch(function (e) { clearTimeout(tm); BUSY = false; txKw(text); status('⚠️ AI 판독 실패 (' + (e && e.name === 'AbortError' ? 'timeout' : 'network') + ') — 키워드 판독으로 대체했습니다.', 'warn'); });
+}
+function txKw(text) { var w = RAW(); if (!w) return; w.S.memo = text + ' ' + $('#m_memo').value + ' ' + $('#m_proc').value; w.S.fname = '작업내용 설명'; w.doKw(); w.S.fname = '작업내용 설명'; H.nohaz = !w.S.sel.length; applyMeta(true); w.renderAll(); status('🔎 키워드 판독 — ' + esc(w.S.kwmsg || '완료'), 'ok'); }
+function applyText(j) {
+  var w = RAW(); if (!w) return; var S = w.S; S.sel = []; S.mk = {}; S.src = {}; S.ps = {}; clearAiExtra(S);
+  (j.hits || []).forEach(function (h) { if (!KBI[h.id] || S.sel.indexOf(h.id) >= 0) return; S.sel.push(h.id); S.src[h.id] = { ai: h.evidence }; });
+  S.scene = j.scene && j.scene[0] ? j.scene : null;
+  (j.extra || []).slice(0, 3).forEach(function (e) { var t = e.text || []; if (!t[0]) return;
+    var acts5 = (e.acts || []).filter(function (a) { return a && a[0]; });
+    var c = { id: 'C' + (++S.cn), name: t[0], cause: t[0], acts: acts5.length ? acts5.map(function (a) { return a[0]; }) : ['관리감독자가 대책을 적는다'], p: e.p || 2, s: e.s || 2, ai: 1, nm5: t };
+    if (acts5.length) c.acts5 = acts5; S.custom.push(c); S.sel.push(c.id); });
+  var m = j.meta || {};
+  if (m.site && !$('#m_site').value.trim()) $('#m_site').value = m.site;
+  if (m.work && !$('#m_proc').value.trim()) $('#m_proc').value = m.work + (m.date ? ' (' + m.date + ' 예정)' : '');
+  if (j.domain === 'gen') TAB = 'gen'; else if (j.domain === 'elec') TAB = 'elec';
+  H.nohaz = !S.sel.length; applyMeta(true); w.renderAll();
+  status('📝 작업내용 판독 완료 — 위험 표지 <b>' + (j.hits || []).length + '</b>건' + ((j.extra || []).length ? ', 지식베이스 밖 추가 위험 ' + j.extra.length + '건' : '') + ' · ' + esc(j.model || '') + '<br><small>분석 근거(RAG)·위험성평가표·사전작업허가서·안전 위험 표지를 만들었습니다. 체크리스트에서 더하거나 빼고, 평가표 아래 ‘＋ 행 추가’로 항목을 늘릴 수 있습니다.</small>', 'ok');
+  setTimeout(function () { $('#docs').scrollIntoView({ behavior: 'smooth' }); }, 400);
+}
+/* 안전 위험 표지 및 문구 — 위험성 높은 순으로 항목마다 표지 1장 (빨강: 위험 · 노랑: 경고 그림 · 흰색: 지킬 사항) */
+function syncSign() {
+  var w = RAW(), f = W('signBox'); if (!w || !f || !f.hostSign || !H.ready.sign) return;
+  var rows = w.rowsModel().slice().sort(function (a, b) { return b.v - a.v || a.no - b.no; });
+  var items = rows.map(function (m) { var a = w.acts(m) || [];
+    return { id: m.id, v: m.v, elec: m.id.charAt(0) === 'U' || (m.cust && TAB === 'elec'), name: w.STRarr(w.fld(m, 'name')), acts: a.slice(0, 3).map(function (x) { return Array.isArray(x) ? x.map(function (y) { return String(y || '').replace(/^([①-⑨]|\(\d\))\s*/, ''); }) : [String(x), '', '', '', '']; }) }; });
+  var d = { items: items, site: $('#m_site').value.trim(), work: $('#m_proc').value.trim(), date: $('#m_date').value.trim(), lang: LANG };
+  var sig = JSON.stringify(d); if (H.sig.sign === sig) return; H.sig.sign = sig;
+  f.hostSign(d); setTimeout(function () { fitFrame('signBox'); fitMain(); }, 200);
+}
+document.addEventListener('click', function (ev) { var b = ev.target.closest && ev.target.closest('#modeSeg button'); if (b) setMode(b.dataset.m); });
