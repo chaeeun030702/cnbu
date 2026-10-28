@@ -943,7 +943,7 @@ function notifyGo() {
 /* ---------- 시작 옵션: ① 현장사진 올리기 / ② 작업내용 설명 ----------
    작업내용 설명은 사진 없이 안전관리자·관리감독자가 적은 작업 계획 문장으로 위험 표지를 고르고,
    분석 근거(RAG) 경로·위험성평가표·사전작업허가서(PTW)·안전 위험 표지 및 문구를 만든다. */
-var TXEX = '○○공사현장에서 2026/12/01 배전반 교체 작업을 진행 예정';
+var TXEX = 'OO공사 현장에서 2026/00/00 배전반 교체 작업 진행, 장비 지게차 1대, 인원 관리자 1명 전기공 1명 보통인부 1명(중국인), 날씨 흐림';
 UI.s1 = ['① 시작 옵션', '① Start options', '① 开始选项', '① Tùy chọn bắt đầu', '① Boshlash usuli'];
 UI.secSGN = ['3. 안전 위험 표지 및 문구 — A4 세로 · 빨강·노랑·흰색', '3. Safety danger signs & messages — A4 portrait · red, yellow, white', '3. 安全危险标志及标语 — A4纵向 · 红·黄·白', '3. Biển báo & khẩu hiệu nguy hiểm — A4 dọc · đỏ, vàng, trắng', '3. Xavf belgilari va ogohlantirishlar — A4 tik · qizil, sariq, oq'];
 UI.secRAT = ['1. 분석 근거(RAG) — 지식베이스 검색 경로 · 위험성평가표 — A4 가로', '1. Evidence (RAG) — knowledge-base retrieval path · risk assessment — A4 landscape', '1. 分析依据(RAG) — 知识库检索路径 · 风险评估表 — A4横向', '1. Căn cứ (RAG) — đường truy xuất tri thức · đánh giá rủi ro — A4 ngang', '1. Asos (RAG) — bilim bazasi qidiruv yoʻli · xavfni baholash — A4 yotiq'];
