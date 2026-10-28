@@ -96,6 +96,7 @@ td.grid4 .ci{width:23.5%}
 .fn .tr{margin-bottom:.8mm}
 .sheet.hid{display:none}
 @media print{.blk.hid{display:none!important}.panel{display:none!important}}
+.nophoto .rph2{display:none!important}.nophoto .rdg{grid-template-columns:1fr!important}
 </style><style>.rdsheet .rdg{display:grid;grid-template-columns:70mm 1fr;gap:4mm;margin:2mm 0}.rph2{position:relative;border:1px solid #888;border-radius:3px;overflow:hidden;height:86mm}.rph2 img{width:100%;height:100%;object-fit:cover;display:block}
 .mk2{position:absolute;transform:translate(-50%,-50%);background:#C0392B;color:#fff;font-size:9pt;font-weight:800;width:15pt;height:15pt;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
 .rdh2{font-weight:800;color:#1F4E79;font-size:9pt;margin:1mm 0}.hl2{margin:0;padding-left:0;list-style:none;font-size:7.3pt;line-height:1.28}.hl2 .tr{font-size:6.6pt}.hl2 li{margin:0 0 1.2mm}.hl2 .id{background:#1F4E79;color:#fff;border-radius:2px;padding:0 3px;font-size:7pt}.hl2 .cf{color:#666}.hl2 .ev{color:#333}
@@ -418,7 +419,7 @@ function restoreKB(){Object.keys(KBO).forEach(function(k){var x=KBO[k];x.el.inne
 function setKB(k,a){var t=document.querySelector('.tr[data-i="'+k+'"]');if(!t)return;var kb=t.parentElement;if(!KBO[k])KBO[k]={el:kb,html:kb.innerHTML,str:STR[k]?JSON.parse(JSON.stringify(STR[k])):null};
  var f=kb.querySelector('.f');if(f)f.innerHTML=esc(a[0]);else kb.innerHTML=esc(a[0])+'<span class="tr" data-i="'+k+'"></span>';STR[k]={en:a[1]||'',zh:a[2]||'',vi:a[3]||'',uz:a[4]||''};}
 function blankRow(k){var th=document.querySelector('th .tr[data-i="'+k+'"]');if(!th)return;var tr=th.closest('tr');tr.querySelectorAll('.f').forEach(function(f){FO.push({el:f,html:f.innerHTML});f.innerHTML='';});}
-window.hostPTW=function(o){o=o||{};restoreKB();
+window.hostPTW=function(o){o=o||{};restoreKB();document.body.classList.toggle('nophoto',!!o.text);
  if(o.sample){if(PH)PH.innerHTML=ORIG;if(CAP&&document.querySelector(CAP))document.querySelector(CAP).innerHTML=CAP0;engReset();}
  else if(o.same){var ids0=o.ids||[];if(PH&&PH.innerHTML!==ORIG){PH.innerHTML=ORIG;if(CAP&&document.querySelector(CAP))document.querySelector(CAP).innerHTML=CAP0;}document.querySelectorAll('.engi').forEach(function(e){e.checked=ids0.indexOf(e.value)>=0;});window.__setNew(false);engRun();}
  else{var ids=o.ids||[];

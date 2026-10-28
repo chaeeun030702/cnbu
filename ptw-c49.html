@@ -116,6 +116,7 @@ input[type=checkbox]{width:3.1mm;height:3.1mm;accent-color:#002A5C;vertical-alig
 .ai .tr{font-weight:600}
 .panel .cnt{font-weight:700;color:#C55A11}
 
+.nophoto .rph,.nophoto .rcap{display:none!important}
 </style><style>.eg{margin:2px 0}.eg b{display:block;font-size:11px;color:#1F4E79}.eg label{display:inline-block;width:49%;font-size:10.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#domBanner{display:none;margin:4px 0;padding:6px 9px;border:2px solid #C0392B;background:#fdeeee;font-size:12px;font-weight:700;color:#8a1c12}#domBanner.on{display:block}tr.dim{opacity:.45}</style><style>
 body.embed{padding-top:4px!important;background:transparent!important}
 body.embed .bar,body.embed #panel{display:none!important}
@@ -228,7 +229,7 @@ function restoreKB(){Object.keys(KBO).forEach(function(k){var x=KBO[k];x.el.inne
 function setKB(k,a){var t=document.querySelector('.tr[data-i="'+k+'"]');if(!t)return;var kb=t.parentElement;if(!KBO[k])KBO[k]={el:kb,html:kb.innerHTML,str:STR[k]?JSON.parse(JSON.stringify(STR[k])):null};
  var f=kb.querySelector('.f');if(f)f.innerHTML=esc(a[0]);else kb.innerHTML=esc(a[0])+'<span class="tr" data-i="'+k+'"></span>';STR[k]={en:a[1]||'',zh:a[2]||'',vi:a[3]||'',uz:a[4]||''};}
 function blankRow(k){var th=document.querySelector('th .tr[data-i="'+k+'"]');if(!th)return;var tr=th.closest('tr');tr.querySelectorAll('.f').forEach(function(f){FO.push({el:f,html:f.innerHTML});f.innerHTML='';});}
-window.hostPTW=function(o){o=o||{};restoreKB();
+window.hostPTW=function(o){o=o||{};restoreKB();document.body.classList.toggle('nophoto',!!o.text);
  if(o.sample){if(PH)PH.innerHTML=ORIG;if(CAP&&document.querySelector(CAP))document.querySelector(CAP).innerHTML=CAP0;engReset();}
  else if(o.same){var ids0=o.ids||[];if(PH&&PH.innerHTML!==ORIG){PH.innerHTML=ORIG;if(CAP&&document.querySelector(CAP))document.querySelector(CAP).innerHTML=CAP0;}document.querySelectorAll('.engi').forEach(function(e){e.checked=ids0.indexOf(e.value)>=0;});window.__setNew(false);engRun();}
  else{var ids=o.ids||[];

@@ -236,3 +236,15 @@ body.out-ra #secPTW,body.out-ra #secPST,body.out-ptw #secRA,body.out-ptw #secPST
 #top .lg.gs{border-left:1px solid rgba(255,255,255,.3);padding-left:13px;cursor:default}
 #top .lg.gs img{height:27px}
 @media (max-width:1250px){#top .lg.gs{display:none}}
+
+/* 시작 옵션 — 현장사진 / 작업내용 설명 */
+#modeSeg{margin-bottom:8px}#modeSeg button{font-size:12.5px;padding:8px 4px}
+#mText .txlab{font-size:12px;color:#333;margin-bottom:6px}
+#mText .txsample{display:block;width:100%;text-align:left;background:#F4F6F8;border:1px dashed #B8C2CC;border-radius:6px;padding:7px 9px;margin-bottom:6px;color:#9AA3AD;font-size:12.5px;line-height:1.45;cursor:pointer;font-family:inherit;filter:blur(.25px);opacity:.85}
+#mText .txsample small{display:block;font-size:10.5px;color:#B0B7BF;margin-bottom:2px;filter:none}
+#mText .txsample:hover{opacity:1;filter:none;color:#7A848E}
+#txIn{width:100%;box-sizing:border-box;border:1.5px solid #1F6F3F;border-radius:6px;padding:8px 9px;font:inherit;font-size:13px;line-height:1.5;resize:vertical;min-height:96px}
+#txIn:focus{outline:2px solid #2E8B57;outline-offset:1px}
+#mText .go{margin-top:8px;width:100%}
+body.mode-text #pstBox,body.mode-text .gpt,body.mode-text #gptFull{display:none!important}
+body:not(.mode-text) #signBox{display:none!important}
