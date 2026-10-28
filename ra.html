@@ -450,7 +450,23 @@ function flowRows(after,firstInner,contInner,rowsH,tail){var sheet=newSheet(afte
  return last;}
 function ttl(k,sub,cont){return (k==='ra_t'&&!cont?'<div class="keep"><b>보존기간 3년</b><small>산업안전보건법 시행규칙 제37조의4②</small>'+trS('keepRA')+'</div>':'')+'<div class="ttl small"><h1>'+KO[k]+(cont?' '+KO.cont:'')+'</h1><div class="zh">'+trS(k)+(cont?' '+trS('cont'):'')+'</div>'+(sub?'<div class="sub1">'+tx(sub,null,'sec3')+'</div>':'')+'</div>';}
 
-function renderAll(){$$('.sheet.dyn').forEach(function(s){s.parentNode.removeChild(s);});document.body.classList.toggle('txtmode',!!S.txt);
+
+/* 작업내용 설명(글) 모드 — 사진을 전제로 한 문구를 글 판독 문구로 바꾼다 */
+var TXO={p2s:['작업내용 설명에서 판독한 표지를 열쇠로 1단계 통계·2단계 위험성평가·법령 조문·CSI 사고사례를 찾아 문서에 연결했다','Indicators read from the work description were used as keys to link stage-1 statistics, stage-2 risk assessment, legal articles and CSI cases','以作业内容说明判读的标志为线索，关联第1阶段统计·第2阶段风险评估·法令条文·CSI事故案例','Dấu hiệu đọc từ mô tả công việc được dùng làm khóa để liên kết thống kê, đánh giá rủi ro, điều luật và ca CSI','Ish tavsifidan aniqlangan belgilar statistika, baholash, qonun moddalari va CSI holatlariga bogʻlandi'],
+ g_h:['GraphRAG식 검색 경로 도해 — 작업내용 → 표지 → 시나리오 → 조문 → 문서','GraphRAG-style retrieval path — work description → indicators → scenarios → articles → documents','GraphRAG式检索路径图 — 作业内容 → 标志 → 情景 → 条文 → 文件','Sơ đồ truy xuất kiểu GraphRAG — mô tả công việc → dấu hiệu → kịch bản → điều luật → tài liệu','GraphRAG qidiruv yoʻli — ish tavsifi → belgilar → stsenariy → moddalar → hujjatlar'],
+ g_photo:['작업내용','Work description','作业内容','Mô tả công việc','Ish tavsifi'],
+ g_c1:['① 작업내용','① Work description','① 作业内容','① Mô tả công việc','① Ish tavsifi'],
+ ra_s:['작업내용 판독 표지별 3×3 평가 · 빈도·강도는 드롭다운으로 수정하면 위험성이 바로 다시 계산된다 · 표 아래 ‘＋ 행 추가’로 항목을 늘린다','3×3 assessment per indicator read from the work description · change frequency/severity in the drop-downs · add rows with “+ Add row”','按作业内容判读标志进行3×3评估 · 通过下拉菜单修改频率·强度后风险立即重新计算 · 用“＋ 添加行”增加项目','Đánh giá 3×3 theo dấu hiệu đọc từ mô tả công việc · đổi tần suất/mức độ bằng danh sách · thêm dòng bằng “＋ Thêm dòng”','Ish tavsifidan aniqlangan belgilar boʻyicha 3×3 baholash · chastota/ogʻirlikni roʻyxatdan oʻzgartiring · “＋ Qator qoʻshish” bilan qator qoʻshing'],
+ m_photo:['작업내용 설명','Work description','作业内容说明','Mô tả công việc','Ish tavsifi'],
+ n_ra:['글로 적은 작업내용만으로는 누전차단기 정격, 접지 결선, 현장 조건처럼 적히지 않은 사항을 알 수 없다. 작업 전에 현장에서 확인한 뒤 빈도·강도를 고치고, 근로자 참여(산업안전보건법 제36조제2항) 아래 다시 평가한다.','A written description cannot show unstated conditions such as RCD rating, earthing or site conditions. Check on site before work, correct frequency/severity and reassess with worker participation (OSH Act Art. 36(2)).','仅凭书面作业内容无法得知漏电断路器额定值、接地接线、现场条件等未写明事项。作业前在现场确认后修改频率·强度，并在工人参与下（产业安全保健法第36条第2款）重新评估。','Mô tả bằng chữ không cho biết các điều kiện chưa ghi như định mức RCD, nối đất, điều kiện hiện trường. Kiểm tra tại hiện trường trước khi làm, sửa tần suất/mức độ và đánh giá lại với sự tham gia của công nhân (Luật ATVSLĐ Điều 36 khoản 2).','Yozma tavsifdan RCD nominali, yerga ulash, joy sharoiti kabi yozilmagan holatlarni bilib boʻlmaydi. Ishdan oldin joyida tekshirib, chastota/ogʻirlikni tuzating va ishchilar ishtirokida qayta baholang (MMX qonuni 36-modda 2-band).']};
+var TXB={};
+function txWords(on){Object.keys(TXO).forEach(function(k){if(!TXB[k])TXB[k]={st:D.ST0[k],ko:KO[k],tr:STR[k]?JSON.parse(JSON.stringify(STR[k])):null};
+ if(on){var a=TXO[k];D.ST0[k]=a[0];KO[k]=esc(a[0]);STR[k]={en:a[1],zh:a[2],vi:a[3],uz:a[4]};}
+ else{var b=TXB[k];D.ST0[k]=b.st;KO[k]=b.ko;if(b.tr)STR[k]=JSON.parse(JSON.stringify(b.tr));}
+ $$('.ed[data-k="'+k+'"]').forEach(function(e){e.innerHTML=KO[k];});
+ $$('.tr[data-i="'+k+'"]').forEach(function(t){var c=t.parentElement,e=null;if(c&&!c.classList.contains('ed'))e=c.previousElementSibling;if(!e||!e.classList.contains('ed'))e=t.previousElementSibling;if(e&&e.classList.contains('ed')&&!e.getAttribute('data-k'))e.innerHTML=KO[k];});});}
+
+function renderAll(){$$('.sheet.dyn').forEach(function(s){s.parentNode.removeChild(s);});if(!!S.txt!==!!document.body.classList.contains('txtmode'))txWords(!!S.txt);document.body.classList.toggle('txtmode',!!S.txt);
  if(!STR.k633x){STR.k633x=STR.k633;KO.k633x='안전보건관리책임자';}
  fillAll(document);var rows=rowsModel();
  var last=renderP1(rows);renderP2(rows);

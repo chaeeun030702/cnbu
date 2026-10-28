@@ -946,12 +946,14 @@ function notifyGo() {
 var TXEX = '○○공사현장에서 2026/12/01 배전반 교체 작업을 진행 예정';
 UI.s1 = ['① 시작 옵션', '① Start options', '① 开始选项', '① Tùy chọn bắt đầu', '① Boshlash usuli'];
 UI.secSGN = ['3. 안전 위험 표지 및 문구 — A4 세로 · 빨강·노랑·흰색', '3. Safety danger signs & messages — A4 portrait · red, yellow, white', '3. 安全危险标志及标语 — A4纵向 · 红·黄·白', '3. Biển báo & khẩu hiệu nguy hiểm — A4 dọc · đỏ, vàng, trắng', '3. Xavf belgilari va ogohlantirishlar — A4 tik · qizil, sariq, oq'];
+UI.secRAT = ['1. 분석 근거(RAG) — 지식베이스 검색 경로 · 위험성평가표 — A4 가로', '1. Evidence (RAG) — knowledge-base retrieval path · risk assessment — A4 landscape', '1. 分析依据(RAG) — 知识库检索路径 · 风险评估表 — A4横向', '1. Căn cứ (RAG) — đường truy xuất tri thức · đánh giá rủi ro — A4 ngang', '1. Asos (RAG) — bilim bazasi qidiruv yoʻli · xavfni baholash — A4 yotiq'];
 UI.outSGN = ['안전 표지', 'Safety signs', '安全标志', 'Biển báo', 'Xavf belgilari'];
 UI.emptyT = ['작업내용을 적고 분석을 누르면 분석 근거(RAG)·위험성평가표·사전작업허가서·안전 위험 표지가 자동으로 만들어집니다.', 'Describe the work and press Analyse to generate the RAG evidence, risk assessment, permit and safety signs.', '填写作业内容并点击分析，即可自动生成分析依据(RAG)、风险评估表、事前作业许可证和安全危险标志。', 'Nhập nội dung công việc rồi bấm Phân tích để tự lập căn cứ (RAG), đánh giá rủi ro, giấy phép và biển báo.', 'Ish mazmunini yozib, Tahlil tugmasini bosing — RAG asoslari, baholash, ruxsatnoma va belgilar avtomatik yaratiladi.'];
 function setMode(m, quiet) {
   MODE = m; document.body.classList.toggle('mode-text', m === 'text');
   $$('#modeSeg button').forEach(function (b) { b.classList.toggle('on', b.dataset.m === m); });
   $('#mPhoto').style.display = m === 'photo' ? '' : 'none'; $('#mText').style.display = m === 'text' ? '' : 'none';
+  var hr = $('#secRA .sechd'); if (hr) hr.setAttribute('data-ui', m === 'text' ? 'secRAT' : 'secRA');
   var hd = $('#secPST .sechd'); if (hd) hd.setAttribute('data-ui', m === 'text' ? 'secSGN' : 'secPST');
   var ob = $('#outSeg button[data-o="pst"]'); if (ob) ob.setAttribute('data-ui', m === 'text' ? 'outSGN' : 'outPST');
   var em = $('#emptyMsg'); if (em) em.setAttribute('data-ui', m === 'text' ? 'emptyT' : 'empty');
@@ -985,8 +987,7 @@ function applyText(j) {
     if (acts5.length) c.acts5 = acts5; S.custom.push(c); S.sel.push(c.id); });
   var m = j.meta || {};
   if (m.site && !$('#m_site').value.trim()) $('#m_site').value = m.site;
-  if (m.date && !$('#m_date').value.trim()) $('#m_date').value = m.date;
-  if (m.work && !$('#m_proc').value.trim()) $('#m_proc').value = m.work;
+  if (m.work && !$('#m_proc').value.trim()) $('#m_proc').value = m.work + (m.date ? ' (' + m.date + ' 예정)' : '');
   if (j.domain === 'gen') TAB = 'gen'; else if (j.domain === 'elec') TAB = 'elec';
   H.nohaz = !S.sel.length; applyMeta(true); w.renderAll();
   status('📝 작업내용 판독 완료 — 위험 표지 <b>' + (j.hits || []).length + '</b>건' + ((j.extra || []).length ? ', 지식베이스 밖 추가 위험 ' + j.extra.length + '건' : '') + ' · ' + esc(j.model || '') + '<br><small>분석 근거(RAG)·위험성평가표·사전작업허가서·안전 위험 표지를 만들었습니다. 체크리스트에서 더하거나 빼고, 평가표 아래 ‘＋ 행 추가’로 항목을 늘릴 수 있습니다.</small>', 'ok');
