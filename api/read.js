@@ -97,13 +97,14 @@ function textPrompt() {
     '출력 규칙',
     '1. JSON 하나만 출력한다. 코드펜스·설명문을 붙이지 않는다.',
     '2. 모든 문장 배열은 [한국어, English, 中文(简体), Tiếng Việt, O\'zbek] 5개 원소를 반드시 같은 순서로 채운다.',
-    '3. 형식: {"domain":"elec"|"gen","meta":{"site":"현장명 또는 \"\"","date":"YYYY. M. D. 또는 \"\"","work":"작업명(한국어 30자 이내)"},',
+    '3. 형식: {"domain":"elec"|"gen","meta":{"site":"현장명 또는 \"\"","date":"YYYY. M. D. 또는 \"\"","work":"작업명(한국어 30자 이내)","place":"작업 위치(예: 관리동 2층) 또는 \"\"","equip":"장비 또는 \"\"","total":전체 인원 수 또는 0,"foreign":{"count":외국인 근로자 수 또는 0,"nations":["중국"],"langs":["zh"]}},',
     '   "scene":[5개 언어 — 작업 계획 요약 한 문장],',
     '   "hits":[{"id":"U03","conf":0.8,"evidence":[5개 언어 — 이 작업에서 이 위험이 생기는 이유 한 문장(한국어 40자 이내)]}],',
     '   "extra":[{"text":[5개 언어 — 지식베이스에 없는 추가 위험 한 문장],"acts":[[5개 언어 — 대책 한 문장],…],"p":2,"s":3}]}',
     '4. conf 는 0~1, 0.5 미만이면 넣지 않는다. extra 는 최대 3개, 없으면 [], p·s 는 3×3 빈도·강도(1~3).',
     '5. 날짜가 2026/12/01 처럼 적혀 있으면 "2026. 12. 1." 로 바꾼다.',
     '6. 번역은 「외국인 노동자를 위한 안전보건용어 400선」의 표준 대역어를 우선 쓴다.',
+    '7. foreign.langs 는 외국인 근로자의 사용 언어 코드(zh 중국어, vi 베트남어, uz 우즈베크어, en 영어, 그 밖은 other). 외국인 근로자가 적혀 있으면 U15(외국인 근로자 — 한국어 전용 표지·작업지시)를 반드시 고른다.',
   ].join('\n');
 }
 
@@ -288,7 +289,7 @@ async function readText(body, key, keyFrom, res) {
     var m = out.meta || {};
     var domain = out.domain === 'gen' || out.domain === 'elec' ? out.domain : (hits.some(function (h) { return h.id.charAt(0) === 'U'; }) ? 'elec' : 'gen');
     return res.status(200).json({ ok: true, mode: 'text', model: MODEL, lang: 'all', domain: domain, hits: hits, scene: arr5(out.scene), extra: extra,
-      meta: { site: String(m.site || '').slice(0, 60), date: String(m.date || '').slice(0, 20), work: String(m.work || '').slice(0, 60) }, keyFrom: keyFrom, usage: data.usage });
+      meta: { site: String(m.site || '').slice(0, 60), date: String(m.date || '').slice(0, 20), work: String(m.work || '').slice(0, 60), place: String(m.place || '').slice(0, 60), equip: String(m.equip || '').slice(0, 60), total: Math.max(0, Math.min(999, parseInt(m.total, 10) || 0)), foreign: { count: Math.max(0, Math.min(999, parseInt(m.foreign && m.foreign.count, 10) || 0)), nations: (m.foreign && Array.isArray(m.foreign.nations) ? m.foreign.nations : []).slice(0, 5).map(String), langs: (m.foreign && Array.isArray(m.foreign.langs) ? m.foreign.langs : []).slice(0, 5).map(String) } }, keyFrom: keyFrom, usage: data.usage });
   } catch (e) {
     clearTimeout(timer);
     return res.status(200).json({ ok: false, reason: e.name === 'AbortError' ? 'timeout' : 'error', detail: String(e && e.message || e) });
