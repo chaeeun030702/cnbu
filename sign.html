@@ -36,6 +36,17 @@ body.embed{background:transparent}
 [contenteditable=true]{outline:1px dashed #1A73E8;outline-offset:1px}
 @page{size:A4 portrait;margin:0}
 @media print{html,body{background:#fff}.sheet{margin:0;box-shadow:none}[contenteditable]{outline:none}}
+
+/* 외국어 위 · 한국어 아래 */
+.hd .htr{font-size:15pt;font-weight:900;color:var(--red);line-height:1.2;margin-bottom:.6mm}
+.sg .top b.fg{font-size:17pt;letter-spacing:2px}
+.sg .top b.fg+b.kd{font-size:11pt;letter-spacing:4px;font-weight:800}
+.sg .nm .tr{display:block;font-size:10.5pt;font-weight:900;margin:0 0 .5mm}
+.sg .nm .tr:not(:empty)+.ko{display:block;font-size:8.5pt;font-weight:800}
+.sg .ic .tr{display:block;font-size:6.2pt;font-weight:700;color:#111}.sg .ic .tr:not(:empty)+.ko{display:block;font-size:5.8pt;font-weight:600;color:#333}
+.sg .bot .lab .tr{font-size:8pt;margin:0 1.5mm 0 0}
+.sg .bot li .tr{display:-webkit-box!important;font-size:7.8pt;color:#111;font-weight:600}
+.sg .bot li .tr:not(:empty)+.ko{display:-webkit-box;font-size:7pt;color:#333;-webkit-line-clamp:2}
 </style></head><body>
 <div id="pages"></div>
 <script id="strdata">var DATA=null;</script>
@@ -57,18 +68,19 @@ var W={
  ai:['AI는 최초 검토, 최종 판단은 관리감독자가 진행.','AI drafts first; the supervisor makes the final decision.','AI进行初步审查，最终判断由管理监督员作出。','AI rà soát ban đầu, giám sát viên quyết định cuối cùng.','SI dastlabki koʻrib chiqadi, yakuniy qarorni nazoratchi qabul qiladi.']
 };
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
-function bi(a,cls){a=a||[];var t=LANG==='ko'?'':(a[LI[LANG]]||'');return '<span class="ko'+(cls?' '+cls:'')+'">'+esc(a[0])+'</span><span class="tr">'+esc(t)+'</span>';}
+/* 다국어 병기: 외국어가 위, 한국어가 아래 (한국어만 고르면 한국어 한 줄) */
+function bi(a,cls){a=a||[];var t=LANG==='ko'?'':(a[LI[LANG]]||'');return '<span class="tr">'+esc(t)+'</span><span class="ko'+(cls?' '+cls:'')+'">'+esc(a[0])+'</span>';}
 function codes(it){var c=SGM[it.id]||['215'];var w=c.filter(function(x){return x.charAt(0)==='2';})[0]||'215';return {w:w,o:c.filter(function(x){return x!==w;}).slice(0,3)};}
 function sgImg(c,cls){return '<img class="'+(cls||'')+'" src="'+SG[c]+'" alt="'+esc(SGN[c][0])+'">';}
 function card(it){var acts=(it.acts||[]).slice(0,2).map(function(a){return '<li>'+bi(a)+'</li>';}).join(''),cd=codes(it);
- var ics=cd.o.map(function(c){return '<div class="ic">'+sgImg(c)+'<span class="ko">'+esc(SGN[c][0])+'</span><span class="tr">'+(LANG==='ko'?'':esc(SGN[c][LI[LANG]]))+'</span></div>';}).join('');
- return '<div class="sg"><div class="top"><b>'+esc(W.danger[0])+'</b><span class="tr">'+(LANG==='ko'?'':esc(W.danger[LI[LANG]]))+'</span></div>'
-  +'<div class="mid">'+sgImg(cd.w,'ws')+'<div class="nm">'+bi(it.name)+'<span class="wn" style="display:block;font-size:7pt;font-weight:700;color:#111;margin-top:.6mm">'+esc(SGN[cd.w][0])+(LANG==='ko'?'':' · '+esc(SGN[cd.w][LI[LANG]]))+'</span></div></div>'
+ var ics=cd.o.map(function(c){return '<div class="ic">'+sgImg(c)+'<span class="tr">'+(LANG==='ko'?'':esc(SGN[c][LI[LANG]]))+'</span><span class="ko">'+esc(SGN[c][0])+'</span></div>';}).join('');
+ return '<div class="sg"><div class="top">'+(LANG==='ko'?'':'<b class="fg">'+esc(W.danger[LI[LANG]])+'</b>')+'<b class="kd">'+esc(W.danger[0])+'</b></div>'
+  +'<div class="mid">'+sgImg(cd.w,'ws')+'<div class="nm">'+bi(it.name)+'<span class="wn" style="display:block;font-size:7pt;font-weight:700;color:#111;margin-top:.6mm">'+(LANG==='ko'?'':esc(SGN[cd.w][LI[LANG]])+' · ')+esc(SGN[cd.w][0])+'</span></div></div>'
   +'<div class="bot"><span class="rk">'+esc(it.id)+' · '+it.v+'</span>'+(ics?'<div class="ics">'+ics+'</div>':'')+'<div class="lab">'+bi(W.must)+'</div><ul>'+acts+'</ul></div></div>';}
 function render(){var d=DATA||{items:[]},items=d.items||[],pg=[],h='';
  for(var i=0;i<items.length;i+=6)pg.push(items.slice(i,i+6));if(!pg.length)pg.push([]);
  pg.forEach(function(list,n){
-  h+='<div class="sheet"><div class="hd"><div><h1>'+esc(W.title[0])+'<span class="tr">'+(LANG==='ko'?'':esc(W.title[LI[LANG]]))+'</span></h1></div>'
+  h+='<div class="sheet"><div class="hd"><div>'+(LANG==='ko'?'':'<div class="htr">'+esc(W.title[LI[LANG]])+'</div>')+'<h1>'+esc(W.title[0])+'</h1></div>'
    +'<div class="meta">'+(d.site?'<div>'+esc(W.site[0])+': <b>'+esc(d.site)+'</b></div>':'')+(d.work?'<div>'+esc(W.work[0])+': <b>'+esc(d.work)+'</b></div>':'')+(d.date?'<div>'+esc(d.date)+'</div>':'')+'</div></div>'
    +(list.length?'<div class="grid">'+list.map(card).join('')+'</div>':'<div class="empty">'+bi(W.empty)+'</div>')
    +'<div class="ft"><span class="ai">'+esc(W.ai[0])+'</span><span>표지 도안: 산업안전보건법 시행규칙 별표 6 안전·보건표지 · '+(n+1)+' / '+pg.length+'</span></div></div>';});
