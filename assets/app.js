@@ -242,7 +242,7 @@ function photoSample(url, name) {
 }
 function resetAll() {
   H.nohaz = false;
-  var w = RAW(); if (!w) return; H.sample = null; H.photo = null; H.fname = ''; H.gpt = null; H.sig = {}; H.txt = false;
+  var w = RAW(); if (!w) return; H.sample = null; H.photo = null; H.fname = ''; H.gpt = null; H.sig = {}; H.txt = false; H.foreign = null;
   var S = freshState(w); S.txt = 0; S.ph2 = false; S.sel = []; S.mk = {}; S.src = {}; S.scene = null; S.fname = '-'; S.corr = { sum: false, rain: false, morn: false, fore: false }; w.S = S;
   $('#thumb').innerHTML = ''; $('#drop').classList.remove('has'); status('', ''); $('#gptFull').style.display = 'none';
   ['m_site', 'm_proc', 'm_date', 'm_by', 'm_memo'].forEach(function (k) { $('#' + k).value = ''; });
@@ -341,14 +341,14 @@ function syncPTW() {
   var ids = w.S.sel.filter(function (id) { return id[0] !== 'C'; });
   var own = (k === 'c49' && H.sample === 'e2') || (k === 'gen' && H.sample === 'g1');
   var base = k === 'c49' ? w.D.PHORD : SAMPLES.g1.hits.map(function (h) { return h[0]; });
-  var sig = [ids.join(), H.sample, H.photo ? H.photo.length : 0, JSON.stringify(w.S.mk), H.txt ? 'T' + (w.S.memo || '').length : ''].join('|');
+  var sig = [ids.join(), H.sample, H.photo ? H.photo.length : 0, JSON.stringify(w.S.mk), H.txt ? 'T' + (w.S.memo || '').length + JSON.stringify(H.foreign || {}) : ''].join('|');
   if (H.sig[k] === sig) { if (H.sig[k + 'L'] !== LANG) { f.setLang(LANG); H.sig[k + 'L'] = LANG; } setTimeout(function () { fitFrame(k + 'Box'); fitMain(); }, 150); return; }
   H.sig[k] = sig; H.sig[k + 'L'] = LANG;
   var mk = {}, ks = Object.keys(w.S.mk).filter(function (id) { return id[0] !== 'C'; }), sp = spreadPct(ks.map(function (id) { return w.S.mk[id]; }), H.pw || 1600, H.ph || 1200, 0.075);
   ks.forEach(function (id, i) { mk[id] = sp[i]; });
   if (own && sameSet(ids, base)) f.hostPTW({ sample: true, lang: LANG });
   else if (own) f.hostPTW({ same: true, ids: ids, lang: LANG });
-  else f.hostPTW({ ids: ids, text: !!H.txt, photo: H.txt ? null : (H.photo || (H.orig && H.orig.photo)), mk: H.txt ? {} : mk, fname: H.fname, lang: LANG, kb: ptwTexts(k, w, ids), blankF: k === 'c49' ? ['voltage'] : [] });
+  else { f.hostPTW({ ids: ids, text: !!H.txt, photo: H.txt ? null : (H.photo || (H.orig && H.orig.photo)), mk: H.txt ? {} : mk, fname: H.fname, lang: LANG, kb: ptwTexts(k, w, ids), blankF: k === 'c49' ? ['voltage'] : [] }); if (H.txt) fillForeign(f.document, k); }
   setTimeout(function () { fitFrame(k + 'Box'); fitMain(); }, 250);
 }
 
@@ -958,14 +958,14 @@ function setMode(m, quiet) {
   var ob = $('#outSeg button[data-o="pst"]'); if (ob) ob.setAttribute('data-ui', m === 'text' ? 'outSGN' : 'outPST');
   var em = $('#emptyMsg'); if (em) em.setAttribute('data-ui', m === 'text' ? 'emptyT' : 'empty');
   $$('#prm button, #svm button').forEach(function (b) { var a = b.getAttribute('onclick') || ''; if (/'pst'/.test(a)) b.textContent = m === 'text' ? (/print/.test(a) ? '안전 위험 표지 및 문구 (A4 세로)' : '안전 위험 표지 및 문구 HTML') : (/print/.test(a) ? '안전포스터 (A3 세로)' : '안전포스터 HTML'); });
-  if (m === 'photo') H.txt = false;
+  if (m === 'photo') { H.txt = false; H.foreign = null; }
   applyUI(); if (!quiet) { H.sig = {}; scheduleSync(); setTimeout(fitMain, 60); if (m === 'text') setTimeout(function () { $('#txIn').focus(); }, 50); }
 }
 function txSample() { var t = $('#txIn'); if (!t.value.trim()) t.value = TXEX; t.focus(); }
 function runText() {
   var text = ($('#txIn').value || '').trim(); if (!text) { $('#txIn').focus(); status('작업내용을 적어 주세요. 위의 흐린 예시를 누르면 예시 문장이 들어갑니다.', 'warn'); return; }
   var w = RAW(); if (!w || BUSY) return; setMode('text', true);
-  H.nohaz = false; H.sample = null; H.photo = null; H.fname = '작업내용 설명'; H.gpt = null; H.sig = {}; H.txt = true; $('#gptFull').style.display = 'none';
+  H.nohaz = false; H.sample = null; H.photo = null; H.fname = '작업내용 설명'; H.gpt = null; H.sig = {}; H.txt = true; H.foreign = parseForeign(text); $('#gptFull').style.display = 'none';
   var S = freshState(w); S.ph2 = false; S.sel = []; S.mk = {}; S.src = {}; S.scene = null; S.fname = '작업내용 설명'; S.txt = 1; S.memo = text; S.corr = { sum: false, rain: false, morn: false, fore: false }; w.S = S;
   if (ENG !== 'ai') { txKw(text); return; }
   BUSY = true; status('<span class="spin"></span> AI(Claude Sonnet 5.5)가 작업내용을 읽고 위험을 판정하는 중입니다… (20~60초)', 'busy');
@@ -976,7 +976,7 @@ function runText() {
     .then(function (j) { clearTimeout(tm); BUSY = false; if (j && j.ok) applyText(j); else { txKw(text); status('⚠️ AI 판독 실패' + (j && j.reason ? ' (' + esc(j.reason) + ')' : '') + ' — 키워드 판독으로 대체했습니다. ' + esc(RAW().S.kwmsg || ''), 'warn'); } })
     .catch(function (e) { clearTimeout(tm); BUSY = false; txKw(text); status('⚠️ AI 판독 실패 (' + (e && e.name === 'AbortError' ? 'timeout' : 'network') + ') — 키워드 판독으로 대체했습니다.', 'warn'); });
 }
-function txKw(text) { var w = RAW(); if (!w) return; w.S.memo = text + ' ' + $('#m_memo').value + ' ' + $('#m_proc').value; w.S.fname = '작업내용 설명'; w.doKw(); w.S.fname = '작업내용 설명'; H.nohaz = !w.S.sel.length; applyMeta(true); w.renderAll(); status('🔎 키워드 판독 — ' + esc(w.S.kwmsg || '완료'), 'ok'); }
+function txKw(text) { setTimeout(fwLang, 300); var w = RAW(); if (!w) return; w.S.memo = text + ' ' + $('#m_memo').value + ' ' + $('#m_proc').value; w.S.fname = '작업내용 설명'; w.doKw(); w.S.fname = '작업내용 설명'; addU15(w.S); H.nohaz = !w.S.sel.length; applyMeta(true); w.renderAll(); status('🔎 키워드 판독 — ' + esc(w.S.kwmsg || '완료'), 'ok'); }
 function applyText(j) {
   var w = RAW(); if (!w) return; var S = w.S; S.sel = []; S.mk = {}; S.src = {}; S.ps = {}; clearAiExtra(S);
   (j.hits || []).forEach(function (h) { if (!KBI[h.id] || S.sel.indexOf(h.id) >= 0) return; S.sel.push(h.id); S.src[h.id] = { ai: h.evidence }; });
@@ -985,11 +985,14 @@ function applyText(j) {
     var acts5 = (e.acts || []).filter(function (a) { return a && a[0]; });
     var c = { id: 'C' + (++S.cn), name: t[0], cause: t[0], acts: acts5.length ? acts5.map(function (a) { return a[0]; }) : ['관리감독자가 대책을 적는다'], p: e.p || 2, s: e.s || 2, ai: 1, nm5: t };
     if (acts5.length) c.acts5 = acts5; S.custom.push(c); S.sel.push(c.id); });
-  var m = j.meta || {};
+  var m = j.meta || {}, mf = m.foreign || {};
+  if (mf.count > 0) H.foreign = { count: mf.count, total: m.total || (H.foreign && H.foreign.total) || 0, nations: mf.nations && mf.nations.length ? mf.nations : (H.foreign ? H.foreign.nations : []), langs: mf.langs && mf.langs.length ? mf.langs : (H.foreign ? H.foreign.langs : []) };
+  else if (H.foreign && m.total) H.foreign.total = m.total;
+  addU15(S);
   if (m.site && !$('#m_site').value.trim()) $('#m_site').value = m.site;
-  if (m.work && !$('#m_proc').value.trim()) $('#m_proc').value = m.work + (m.date ? ' (' + m.date + ' 예정)' : '');
+  if (m.work && !$('#m_proc').value.trim()) $('#m_proc').value = (m.place ? m.place + ' ' : '') + m.work + (m.date ? ' (' + m.date + ' 예정)' : '');
   if (j.domain === 'gen') TAB = 'gen'; else if (j.domain === 'elec') TAB = 'elec';
-  H.nohaz = !S.sel.length; applyMeta(true); w.renderAll();
+  H.nohaz = !S.sel.length; applyMeta(true); w.renderAll(); fwLang();
   status('📝 작업내용 판독 완료 — 위험 표지 <b>' + (j.hits || []).length + '</b>건' + ((j.extra || []).length ? ', 지식베이스 밖 추가 위험 ' + j.extra.length + '건' : '') + ' · ' + esc(j.model || '') + '<br><small>분석 근거(RAG)·위험성평가표·사전작업허가서·안전 위험 표지를 만들었습니다. 체크리스트에서 더하거나 빼고, 평가표 아래 ‘＋ 행 추가’로 항목을 늘릴 수 있습니다.</small>', 'ok');
   setTimeout(function () { $('#docs').scrollIntoView({ behavior: 'smooth' }); }, 400);
 }
@@ -1004,3 +1007,50 @@ function syncSign() {
   f.hostSign(d); setTimeout(function () { fitFrame('signBox'); fitMain(); }, 200);
 }
 document.addEventListener('click', function (ev) { var b = ev.target.closest && ev.target.closest('#modeSeg button'); if (b) setMode(b.dataset.m); });
+
+/* ---------- 작업내용 설명: 외국인 근로자 ----------
+   글에 외국인 근로자가 적혀 있으면(예: 보통인부 1명(중국인)) 위험성평가표에 U15를 넣고, 허가서의 ‘외국인 근로자 참여’ 칸(있음·인원·국적·사용 언어)을 채우며,
+   병기 언어를 그 근로자의 언어로 바꾼다. AI 판독 결과(meta.foreign)를 우선하고, 없으면 글에서 직접 찾는다. */
+var FWN = { '중국': 'zh', '조선족': 'zh', '베트남': 'vi', '우즈베키스탄': 'uz', '우즈벡': 'uz', '필리핀': 'en', '네팔': 'other', '캄보디아': 'other', '태국': 'other', '몽골': 'other', '인도네시아': 'other', '미얀마': 'other', '스리랑카': 'other', '방글라데시': 'other', '파키스탄': 'other', '카자흐스탄': 'other', '러시아': 'other' };
+function parseForeign(t) {
+  t = String(t || ''); var n = 0, nations = [], langs = [], total = 0, m, re = /(\d+)\s*명/g;
+  while ((m = re.exec(t))) total += +m[1];
+  Object.keys(FWN).forEach(function (k) {
+    var r = new RegExp('(\\d+)\\s*명\\s*[\\(（]\\s*' + k + '|' + k + '\\s*(?:인|국적)\\s*(\\d+)\\s*명|' + k + '\\s*(?:인|국적)', 'g'), x, hit = false;
+    while ((x = r.exec(t))) { hit = true; n += +(x[1] || x[2] || 1); }
+    if (hit) { var nm = k === '우즈벡' ? '우즈베키스탄' : (k === '조선족' ? '중국' : k); if (nations.indexOf(nm) < 0) nations.push(nm); if (langs.indexOf(FWN[k]) < 0) langs.push(FWN[k]); } });
+  if (!n && /외국인/.test(t)) { var y = /외국인[^\d]{0,6}(\d+)\s*명/.exec(t); n = y ? +y[1] : 1; }
+  return n ? { count: n, total: total, nations: nations, langs: langs } : null;
+}
+function addU15(S) { var f = H.foreign; if (!f || !f.count || !KBI.U15 || S.sel.indexOf('U15') >= 0) return; S.sel.push('U15');
+  var nat = f.nations && f.nations.length ? f.nations.join('·') : '외국인';
+  S.src.U15 = { ai: ['작업내용에 외국인 근로자 ' + f.count + '명(' + nat + ') — 모국어 표지·작업지시 필요', 'Work description lists ' + f.count + ' foreign worker(s) — signs and instructions in their language needed', '作业内容中有外籍工人' + f.count + '名 — 需要母语标志·作业指示', 'Mô tả có ' + f.count + ' lao động nước ngoài — cần biển báo, chỉ dẫn bằng tiếng mẹ đẻ', 'Tavsifda ' + f.count + ' chet ellik ishchi — ona tilida belgi va koʻrsatma kerak'] }; }
+function fwLang() { var f = H.foreign, l = f && f.langs ? f.langs.filter(function (x) { return LIX[x]; })[0] : null; if (l && l !== LANG) setLang(l); }
+function fillForeign(d, k) { var f = H.foreign; if (!d) return;
+  var LN = { zh: '中文', vi: 'Tiếng Việt', uz: 'Oʻzbekcha', en: 'English' }, langs = f && f.langs ? f.langs : [], txt = function (e) { return (e.textContent || '').replace(/\s+/g, ' ').trim(); };
+  var on = function (box, yes) { if (box) { box.checked = !!yes; box.removeAttribute('data-auto'); if (yes) box.setAttribute('checked', ''); else box.removeAttribute('checked'); } };
+  if (k === 'c49') { var th = d.querySelector('[data-i="foreign"]'), tr = th && th.closest('tr'); if (!tr) return;
+    var fw = tr.querySelectorAll('input[data-x="fw"]'); on(fw[0], f && f.count); on(fw[1], !(f && f.count));
+    var hc = tr.querySelector('.f.s'); if (hc) hc.textContent = f && f.count ? String(f.count) : '0';
+    Array.prototype.forEach.call(tr.querySelectorAll('label.ck'), function (lb) { var t = txt(lb), box = lb.querySelector('input'); if (!box || box.getAttribute('data-x') === 'fw') return;
+      var code = Object.keys(LN).filter(function (c) { return t.indexOf(LN[c]) === 0; })[0]; if (code) on(box, langs.indexOf(code) >= 0); else if (/^기타/.test(t)) on(box, langs.indexOf('other') >= 0); });
+  } else { var th2 = d.querySelector('[data-i="w041"]'), tr2 = th2 && th2.closest('tr'); if (!tr2) return;
+    var fl = tr2.querySelectorAll('.fl'), ln = fl[0] ? fl[0].querySelectorAll('.ln') : []; if (ln[0]) ln[0].textContent = f && f.count ? String(f.count) : '0'; if (ln[1] && f && f.total) ln[1].textContent = String(f.total);
+    var NAT = ['중국', '베트남', '우즈베키스탄'], nats = f && f.nations ? f.nations : [];
+    Array.prototype.forEach.call(fl, function (row) { var isNat = /^국적/.test(txt(row)), isLang = /^사용 언어/.test(txt(row)); if (!isNat && !isLang) return;
+      Array.prototype.forEach.call(row.querySelectorAll('.ci'), function (ci) { var t = txt(ci.querySelector('.ci-t') || ci), box = ci.querySelector('input'); if (!box) return;
+        if (isNat) { var nk = NAT.filter(function (x) { return t.indexOf(x) === 0; })[0]; on(box, nk ? nats.indexOf(nk) >= 0 : nats.some(function (x) { return NAT.indexOf(x) < 0; })); }
+        else { var code = Object.keys(LN).filter(function (c) { return t.indexOf(LN[c]) === 0; })[0]; on(box, code ? langs.indexOf(code) >= 0 : langs.indexOf('other') >= 0); } }); });
+  }
+}
+/* ---------- 작업내용 설명: ‘사진 판독’ → ‘자료 판독’ ----------
+   글 모드에서는 문서(위험분석·허가서·표지) 안의 ‘사진 판독’ 문구를 ‘자료 판독’으로 바꾼다. 언어를 바꿔 다시 그려도 계속 바뀌도록 각 문서에 감시자를 둔다. */
+var RL = [['현장사진 판독', '작업내용 자료 판독'], ['사진 판독', '자료 판독'], ['照片判读', '资料判读'], ['Photo reading', 'Document reading'], ['photo reading', 'document reading'], ['Photo read', 'Document read'], ['đọc ảnh', 'đọc tài liệu'], ['Đọc ảnh', 'Đọc tài liệu'], ['surat tahlili', 'hujjat tahlili'], ['Surat tahlili', 'Hujjat tahlili']];
+function relabel(root) { if (!H.txt || !root) return; var d = root.ownerDocument || root, tw = d.createTreeWalker(root, 4, null), n, list = [];
+  while ((n = tw.nextNode())) { var v = n.nodeValue; if (v && (v.indexOf('판독') >= 0 || v.indexOf('判读') >= 0 || /[Pp]hoto read|[đĐ]ọc ảnh|[Ss]urat tahlili/.test(v))) list.push(n); }
+  list.forEach(function (x) { var v = x.nodeValue, o = v; RL.forEach(function (r) { v = v.split(r[0]).join(r[1]); }); if (v !== o) x.nodeValue = v; }); }
+function watchRelabel() { ['raBox', 'c49Box', 'genBox', 'signBox'].forEach(function (id) { try { var d = $('#' + id).contentDocument; if (!d || !d.body) return;
+  if (!d.__rl) { d.__rl = 1; var t = null, mo = new MutationObserver(function () { if (!H.txt) return; clearTimeout(t); t = setTimeout(function () { relabel(d.body); }, 60); });
+    mo.observe(d.body, { childList: true, subtree: true, characterData: true }); }
+  relabel(d.body); } catch (e) {} }); }
+setInterval(function () { if (H.txt) watchRelabel(); }, 1500);
