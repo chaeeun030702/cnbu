@@ -5,7 +5,7 @@
 /* 안전 위험 표지 및 문구 (A4 세로) — 작업내용 설명 모드에서 위험 항목마다 표지 1장. 색은 빨강·노랑·흰색(+검정 글자)만 쓴다 */
 :root{--red:#D7191C;--yel:#FFD400;--blk:#111}
 *{box-sizing:border-box}html,body{margin:0;background:#8b9097;font-family:'Noto Sans KR','Malgun Gothic',sans-serif;color:var(--blk)}
-body.embed{background:transparent}
+body.embed{background:transparent}html:has(body.embed){background:transparent!important}
 .sheet{width:210mm;height:297mm;background:#fff;margin:0 auto 14px;padding:10mm 10mm 9mm;position:relative;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.4);page-break-after:always;break-after:page;display:flex;flex-direction:column}
 .hd{display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2.2pt solid var(--red);padding-bottom:2mm;margin-bottom:4mm}
 .hd h1{margin:0;font-size:20pt;font-weight:900;letter-spacing:2px}
