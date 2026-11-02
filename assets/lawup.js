@@ -117,7 +117,7 @@
       .then(function (r) { return r.json().catch(function () { return { ok: false, reason: 'http_' + r.status }; }); })
       .then(function (j) {
         clearInterval(tick); b.disabled = false;
-        if (!j || !j.ok) { msg('확인하지 못했습니다 (' + ((j && (j.error || j.reason)) || '오류') + '). 아래 "직접 바꾸기"로 고칠 수 있습니다.', 'warn'); return; }
+        if (!j || !j.ok) { var why = j && (j.reason === 'api_401' || j.reason === 'no_key' || j.reason === 'bad_key') ? 'Claude API 키가 없거나 유효하지 않습니다. 왼쪽 Claude API 키 칸에 키를 넣거나 Vercel의 ANTHROPIC_API_KEY를 새 키로 바꿔 주세요' : '확인하지 못했습니다 (' + ((j && (j.error || j.reason)) || '오류') + ')'; msg(why + '. 아래 "직접 바꾸기"로 고칠 수 있습니다.', 'warn'); return; }
         LAST = {}; j.laws.forEach(function (x, i) { var l = LAWS[i]; LAST[l.id] = x;
           D.checked[l.id] = { date: j.checked, effective: x.effective, promulgated: x.promulgated, source: x.source }; });
         save(); render();
