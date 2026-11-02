@@ -35,6 +35,10 @@
       "memory": 1024,
       "includeFiles": "api/_ref/**"
     },
+    "api/laws.js": {
+      "maxDuration": 300,
+      "memory": 512
+    },
     "api/tr.js": {
       "maxDuration": 120,
       "memory": 512,
