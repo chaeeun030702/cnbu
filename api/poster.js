@@ -14,7 +14,10 @@
 const fs = require('fs');
 const path = require('path');
 
-const MODEL = process.env.OPENAI_IMAGE_MODEL || 'gpt-image-1';
+// gpt-image-1 은 OpenAI에서 종료됨("does not exist"). 환경변수 → gpt-image-2 → gpt-image-1.5 → gpt-image-1-mini 순으로 시도한다.
+const MODELS = [process.env.OPENAI_IMAGE_MODEL, 'gpt-image-2', 'gpt-image-1.5', 'gpt-image-1-mini']
+  .filter(function (m, i, a) { return m && m !== 'gpt-image-1' && a.indexOf(m) === i; });
+const MODEL = MODELS[0];
 const QUALITY = process.env.OPENAI_IMAGE_QUALITY || 'medium';
 const MAX_PHOTO = 4 * 1024 * 1024;
 const MAX_PROMPT = 6000;
@@ -42,31 +45,41 @@ module.exports = async function handler(req, res) {
   if (!photo) return res.status(400).json({ ok: false, error: 'photo' });
   const full = body.mode !== 'card';
 
-  const fd = new FormData();
-  fd.append('model', MODEL);
-  fd.append('n', '1');
-  fd.append('quality', QUALITY);
-  fd.append('size', full ? '1024x1536' : '1536x1024');
-  if (full) {
-    const ref = fs.readFileSync(path.join(__dirname, '_ref', 'layout.jpg'));
-    fd.append('image[]', new Blob([ref], { type: 'image/jpeg' }), 'layout.jpg');
-    fd.append('prompt', 'The FIRST image is a layout reference: copy its poster layout, colors and section structure, but NOT its text and NOT any logo. '
-      + 'The SECOND image is the real site photo. ' + prompt);
-  } else {
-    fd.append('prompt', 'The attached image is the real site photo. ' + prompt);
+  function form(model) {
+    const fd = new FormData();
+    fd.append('model', model);
+    fd.append('n', '1');
+    fd.append('quality', QUALITY);
+    fd.append('size', full ? '1024x1536' : '1536x1024');
+    if (full) {
+      const ref = fs.readFileSync(path.join(__dirname, '_ref', 'layout.jpg'));
+      fd.append('image[]', new Blob([ref], { type: 'image/jpeg' }), 'layout.jpg');
+      fd.append('prompt', 'The FIRST image is a layout reference: copy its poster layout, colors and section structure, but NOT its text and NOT any logo. '
+        + 'The SECOND image is the real site photo. ' + prompt);
+    } else {
+      fd.append('prompt', 'The attached image is the real site photo. ' + prompt);
+    }
+    fd.append('image[]', photo.blob, 'site.' + photo.ext);
+    return fd;
   }
-  fd.append('image[]', photo.blob, 'site.' + photo.ext);
 
   try {
-    const r = await fetch('https://api.openai.com/v1/images/edits', { method: 'POST', headers: { Authorization: 'Bearer ' + key }, body: fd });
-    const j = await r.json().catch(function () { return {}; });
-    if (!r.ok) {
-      const code = r.status === 401 ? 'bad_key' : (j.error && j.error.code) || ('http_' + r.status);
-      return res.status(200).json({ ok: false, error: code, detail: j.error && j.error.message ? String(j.error.message).slice(0, 200) : '' });
+    let last = null;
+    for (const model of MODELS) {
+      const r = await fetch('https://api.openai.com/v1/images/edits', { method: 'POST', headers: { Authorization: 'Bearer ' + key }, body: form(model) });
+      const j = await r.json().catch(function () { return {}; });
+      const msg = j.error && j.error.message ? String(j.error.message) : '';
+      if (!r.ok) {
+        last = { ok: false, model: model, error: r.status === 401 ? 'bad_key' : (j.error && j.error.code) || ('http_' + r.status), detail: msg.slice(0, 200) };
+        // 모델이 없거나 이 계정에서 쓸 수 없으면 다음 모델로
+        if (/does not exist|not found|model_not_found|do not have access|must be verified/i.test(msg) || r.status === 404) continue;
+        return res.status(200).json(last);
+      }
+      const b64 = j.data && j.data[0] && j.data[0].b64_json;
+      if (!b64) return res.status(200).json({ ok: false, model: model, error: 'empty' });
+      return res.status(200).json({ ok: true, model: model, mode: full ? 'full' : 'card', image: 'data:image/png;base64,' + b64 });
     }
-    const b64 = j.data && j.data[0] && j.data[0].b64_json;
-    if (!b64) return res.status(200).json({ ok: false, error: 'empty' });
-    return res.status(200).json({ ok: true, model: MODEL, mode: full ? 'full' : 'card', image: 'data:image/png;base64,' + b64 });
+    return res.status(200).json(last || { ok: false, error: 'no_model' });
   } catch (e) {
     return res.status(200).json({ ok: false, error: 'network' });
   }
