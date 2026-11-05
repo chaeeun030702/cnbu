@@ -72,7 +72,7 @@ module.exports = async function handler(req, res) {
       if (!r.ok) {
         last = { ok: false, model: model, error: r.status === 401 ? 'bad_key' : (j.error && j.error.code) || ('http_' + r.status), detail: msg.slice(0, 200) };
         // 모델이 없거나 이 계정에서 쓸 수 없으면 다음 모델로
-        if (/does not exist|not found|model_not_found|do not have access|must be verified/i.test(msg) || r.status === 404) continue;
+        if (j.error && j.error.code === 'model_not_found' || /does not exist|not found|model_not_found|not have access|must be verified/i.test(msg) || r.status === 404) continue;
         return res.status(200).json(last);
       }
       const b64 = j.data && j.data[0] && j.data[0].b64_json;
