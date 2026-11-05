@@ -169,12 +169,24 @@ async function renderShots() {
 async function openCamera() {
   closeCamera();
   const w = +els.res.value;
-  stream = await navigator.mediaDevices.getUserMedia({
-    video: { facingMode: { ideal: els.facing.value }, width: { ideal: w }, height: { ideal: Math.round(w*3/4) } }, audio: false
-  });
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: { ideal: els.facing.value }, width: { ideal: w }, height: { ideal: Math.round(w*3/4) } }, audio: false
+    });
+  } catch (e) {   // 일부 PC·웹캠은 조건에서 실패 → 조건 없이 다시
+    if (e && e.name === "NotAllowedError") throw e;
+    stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+  }
   els.video.srcObject = stream;
   await els.video.play().catch(() => {});
   stream.getVideoTracks()[0].addEventListener("ended", () => { if (running) say("카메라가 멈췄습니다. 자동으로 다시 켭니다…", ["복구 중","warn"]); });
+}
+function camErr(e) {
+  const n = e && e.name;
+  if (n === "NotAllowedError") return "카메라 권한이 거부되었습니다. 주소창 왼쪽 자물쇠(또는 설정 > Safari > 카메라)에서 허용해 주세요.";
+  if (n === "NotFoundError" || n === "OverconstrainedError") return "이 기기에 연결된 카메라가 없습니다. 웹캠을 연결하거나 휴대폰·태블릿에서 이 페이지를 열어 주세요.";
+  if (n === "NotReadableError") return "다른 프로그램이 카메라를 쓰고 있습니다. 그 프로그램을 닫고 다시 시도해 주세요.";
+  return "카메라를 켤 수 없습니다: " + (e && e.message || e);
 }
 function closeCamera() { if (stream) stream.getTracks().forEach(t => t.stop()); stream = null; els.video.srcObject = null; }
 const cameraAlive = () => stream && stream.getVideoTracks().some(t => t.readyState === "live") && els.video.videoWidth > 0;
@@ -240,7 +252,7 @@ function schedule() {
 }
 async function start() {
   if (!navigator.mediaDevices?.getUserMedia) return say("이 브라우저는 카메라를 지원하지 않거나 HTTPS가 아닙니다.", ["오류","err"]);
-  try { await openCamera(); } catch (e) { return say("카메라를 켤 수 없습니다: " + e.message, ["오류","err"]); }
+  try { await openCamera(); } catch (e) { return say(camErr(e), ["오류","err"]); }
   await lockScreen();
   running = true; taken = 0; els.count.textContent = 0; startedAt = Date.now();
   const hours = +els.total.value || 0; endAt = hours ? startedAt + hours*3600*1000 : 0;
@@ -293,7 +305,7 @@ els.tglSend.onclick = () => {
   let u; try { u = new URL(els.url.value.trim()); if (!/^https?:$/.test(u.protocol)) throw 0; } catch { return say("전송 주소를 먼저 올바르게 입력해 주세요(https://…).", ["오류","err"]); }
   try { localStorage.setItem("cam.url", u.href); } catch {}
   sendOn = true; setToggle(els.tglSend, true); say("전송을 켰습니다. 못 보낸 사진부터 보냅니다."); flush();
-}; els.snap.onclick = async () => { if (!stream) { try { await openCamera(); } catch (e) { return say("카메라를 켤 수 없습니다: " + e.message); } } await capture(true); if (!running) closeCamera(); };
+}; els.snap.onclick = async () => { if (!stream) { try { await openCamera(); } catch (e) { return say(camErr(e)); } } await capture(true); if (!running) closeCamera(); };
 renderShots();
 </script>
 </body>

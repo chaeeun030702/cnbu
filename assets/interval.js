@@ -61,6 +61,9 @@
     closeCamera();
     return navigator.mediaDevices.getUserMedia({
       video: { facingMode: { ideal: 'environment' }, width: { ideal: WIDTH }, height: { ideal: Math.round(WIDTH * 3 / 4) } }, audio: false
+    }).catch(function (e) {   // 일부 PC·웹캠은 해상도·방향 조건에서 실패한다 → 조건 없이 한 번 더
+      if (e && e.name === 'NotAllowedError') throw e;
+      return navigator.mediaDevices.getUserMedia({ video: true, audio: false });
     }).then(function (s) {
       stream = s;
       if (!video) {
@@ -157,7 +160,11 @@
       toast(FIRST_DELAY + '초 뒤 첫 사진을 찍고, 이후 ' + lbl(every) + '마다 촬영합니다. 이 화면을 켜 둔 채 앞에 두세요.');
     }).catch(function (e) {
       closeCamera(); running = false; render();
-      toast(e && e.name === 'NotAllowedError' ? '카메라 권한이 거부되었습니다. 설정 > Safari > 카메라에서 허용해 주세요.' : '카메라를 켤 수 없습니다: ' + (e && e.message || e));
+      var n = e && e.name;
+      toast(n === 'NotAllowedError' ? '카메라 권한이 거부되었습니다. 주소창 왼쪽 자물쇠(또는 설정 > Safari > 카메라)에서 카메라를 허용해 주세요.'
+        : (n === 'NotFoundError' || n === 'OverconstrainedError') ? '이 기기에 연결된 카메라가 없습니다. 웹캠을 연결하거나, 카메라가 있는 휴대폰·태블릿에서 이 사이트를 열어 감시 모드를 켜 주세요.'
+        : n === 'NotReadableError' ? '다른 프로그램(화상회의 등)이 카메라를 쓰고 있습니다. 그 프로그램을 닫고 다시 시도해 주세요.'
+        : '카메라를 켤 수 없습니다: ' + (e && e.message || e), 6000);
     });
   }
   function stop() {
