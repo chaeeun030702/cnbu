@@ -2,7 +2,7 @@
    상태의 기준은 위험분석 프레임(ra.html)의 S 다. 이 파일은 사진·판독·패널을 다루고, 프레임 렌더가 끝날 때마다(onRA)
    허가서와 포스터를 다시 맞춘다. 생성 결과는 초안이며 최종 판단은 관리감독자가 한다. */
 'use strict';
-var MODE = 'photo', LANG = 'zh', ENG = 'ai', OUT = 'all', DOMSEL = 'auto', TAB = 'elec', APIKEY = '', SERVERKEY = null, BUSY = false, EDIT = false;
+var MODE = 'photo', LANG = 'zh', ENG = 'ai', OUT = 'all', DOMSEL = 'auto', TAB = 'elec', APIKEY = '', KEYCHK = null, SERVERKEY = null, BUSY = false, EDIT = false;
 var LIX = { ko: 0, en: 1, zh: 2, vi: 3, uz: 4 };
 var KBI = {}; KB.forEach(function (k) { KBI[k.id] = k; });
 var H = { sample: null, photo: null, pw: 1600, ph: 1164, fname: '', gpt: null, ready: { ra: 0, c49: 0, gen: 0, pst: 0 }, sig: {}, rows: [], pending: null, orig: null, meta: {} };
@@ -317,19 +317,28 @@ function applyNone(j, lang) {
   status('🤖 AI 판독 완료 — <b>위험 요인 확인되지 않음, 관리감독자 확인 요함</b> · ' + esc(j.model || '') + '<br><small>사진에서 표지를 찾지 못했습니다. 관리감독자가 현장에서 직접 확인하고, 필요하면 체크리스트에서 표지를 고르세요.</small>', 'warn');
 }
 function fallback(err) {
-  var why = err === 'no_key' ? 'API 키가 없어 AI 판독을 하지 못했습니다' : (err === 'bad_key' ? 'API 키가 거부되었습니다(⑧ 확인)' : 'AI 판독 실패' + (err ? ' (' + err + ')' : ''));
+  var why = err === 'no_key' ? 'API 키가 없어 AI 판독을 하지 못했습니다' : (err === 'bad_key' ? (APIKEY ? '⑧에 저장한 API 키가 거부되었습니다' : '서버 API 키가 거부되었습니다') : 'AI 판독 실패' + (err ? ' (' + err + ')' : ''));
   runKw(); status('⚠️ ' + esc(why) + ' — 키워드 판독으로 대체했습니다. ' + esc(RAW() ? RAW().S.kwmsg || '' : ''), 'warn');
 }
 
 /* ---------- API 키 ---------- */
 function renderKey() { var e = $('#keyStat'); if (!e) return;
-  if (APIKEY) { e.textContent = '이 브라우저에 저장된 키 사용 중 (…' + APIKEY.slice(-4) + ')'; e.className = 'keystat on'; }
+  if (APIKEY) { var t = '…' + APIKEY.slice(-4), c = KEYCHK;
+    if (c === 'busy') { e.textContent = '저장된 키 (' + t + ') 확인 중…'; e.className = 'keystat'; }
+    else if (c && c.ok) { e.textContent = '✓ 이 브라우저에 저장된 키를 우선 사용 (' + t + ') · 확인됨'; e.className = 'keystat on'; }
+    else if (c) { e.textContent = '✗ 저장된 키 (' + t + ')가 거부됨' + (c.error ? ' — ' + c.error : '') + ' · 만료·삭제된 키일 수 있으니 console.anthropic.com → API Keys에서 새 키를 만들어 넣으세요'; e.className = 'keystat warn'; }
+    else { e.textContent = '이 브라우저에 저장된 키를 우선 사용 (' + t + ')'; e.className = 'keystat on'; } }
   else if (SERVERKEY) { e.textContent = '입력한 키 없음 — 서버 키로 AI 판독'; e.className = 'keystat on'; }
   else if (SERVERKEY === false) { e.textContent = '서버에도 키가 없습니다 — AI 판독 대신 키워드 판독을 씁니다'; e.className = 'keystat warn'; }
   else { e.textContent = '키 상태 확인 중…'; e.className = 'keystat'; } }
 function keySave() { var v = ($('#apiKey').value || '').trim(); if (!v) return; if (!/^sk-ant-/.test(v)) { $('#keyStat').textContent = 'sk-ant- 로 시작하는 키를 넣으세요'; $('#keyStat').className = 'keystat warn'; return; }
-  APIKEY = v; try { localStorage.setItem('cbnu_key', v); } catch (e) {} $('#apiKey').value = ''; renderKey(); if (H.photo && !H.sample && ENG === 'ai') runRead(); }
-function keyClear() { APIKEY = ''; try { localStorage.removeItem('cbnu_key'); } catch (e) {} renderKey(); }
+  APIKEY = v; try { localStorage.setItem('cbnu_key', v); } catch (e) {} $('#apiKey').value = ''; keyCheck(); if (H.photo && !H.sample && ENG === 'ai') runRead(); }
+function keyClear() { APIKEY = ''; KEYCHK = null; try { localStorage.removeItem('cbnu_key'); } catch (e) {} renderKey(); }
+/* 저장된 키로 짧은 요청을 보내 실제로 쓸 수 있는지 확인 */
+function keyCheck() { if (!APIKEY) return; KEYCHK = 'busy'; renderKey();
+  fetch('api/read', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ check: true, key: APIKEY }) })
+    .then(function (r) { return r.json(); }).then(function (j) { KEYCHK = j || { ok: false }; renderKey(); })
+    .catch(function () { KEYCHK = null; renderKey(); }); }
 function probe() { fetch('api/read').then(function (r) { return r.json(); }).then(function (j) { SERVERKEY = !!(j && j.key); renderKey(); }).catch(function () { SERVERKEY = false; renderKey(); }); }
 
 /* ---------- 사전작업허가서 ---------- */
@@ -932,7 +941,7 @@ function notifyGo() {
   ['m_site', 'm_proc', 'm_by'].forEach(function (k) { $('#' + k).addEventListener('change', function () { applyMeta(); }); });
   $('#m_date').value = (function () { var d = new Date(); return d.getFullYear() + '. ' + (d.getMonth() + 1) + '. ' + d.getDate() + '.'; })();
   document.body.classList.add('nodoc');
-  applyUI(); initFrames(); probe(); renderOKey(); oprobe(); notifyProbe(); connInit(); solRender();
+  applyUI(); initFrames(); probe(); keyCheck(); renderOKey(); oprobe(); notifyProbe(); connInit(); solRender();
   try { if (localStorage.getItem('cbnu_sidehide') === '1') sideToggle(true); } catch (e) {}
   window.addEventListener('resize', fitMain); fitMain(); bindZoom(document); $('#main').addEventListener('dblclick', function (e) { if (e.target === this || e.target.id === 'docsBox') zoomFit(); });
   if (window.ResizeObserver) new ResizeObserver(fitMain).observe($('#docs')); // 문서 높이가 바뀌면 스크롤 범위를 맞춘다
