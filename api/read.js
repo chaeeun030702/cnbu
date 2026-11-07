@@ -118,7 +118,8 @@ function parseDataUrl(s) {
 function cleanKey(k) { return String(k || '').trim().replace(/^["']|["']$/g, '').trim(); }
 function apiHeaders(key) {
   var h = { 'content-type': 'application/json', 'x-api-key': cleanKey(key), 'anthropic-version': '2023-06-01' };
-  if (WORKSPACE) h['anthropic-workspace-id'] = WORKSPACE;
+  // Workspace ID는 서버 키와 Workspace에 묶이지 않은 키(sk-ant-usr-…)에만 붙인다. 화면에 넣은 일반 API 키(sk-ant-api…)에는 붙이지 않는다
+  if (WORKSPACE && /^sk-ant-usr/.test(String(key || '').trim()) || WORKSPACE && String(key || '').trim() === String(process.env.ANTHROPIC_API_KEY || '').trim().replace(/^["']|["']$/g, '')) h['anthropic-workspace-id'] = WORKSPACE;
   return h;
 }
 
@@ -170,6 +171,17 @@ module.exports = async function handler(req, res) {
   var key = clientKey || process.env.ANTHROPIC_API_KEY;
   var keyFrom = clientKey ? 'client' : 'server';
   if (!key) return res.status(200).json({ ok: false, reason: 'no_key' });
+  // POST { check:true, key } → 그 키로 짧은 요청을 보내 쓸 수 있는지만 알려 준다(키 값은 돌려주지 않음)
+  if (body.check) {
+    try {
+      var cr = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', headers: apiHeaders(key),
+        body: JSON.stringify({ model: MODEL, max_tokens: 16, messages: [{ role: 'user', content: 'Reply with OK.' }] }) });
+      var cd = await cr.json().catch(function () { return {}; });
+      var ck2 = cleanKey(key);
+      return res.status(200).json({ ok: cr.ok, keyFrom: keyFrom, status: cr.status, prefix: ck2.slice(0, 10),
+        apiKeyType: /^sk-ant-api\d\d-/.test(ck2), error: cr.ok ? '' : (cd.error && cd.error.message) || '' });
+    } catch (e) { return res.status(200).json({ ok: false, keyFrom: keyFrom, error: String(e && e.message || e) }); }
+  }
   if (typeof body.text === 'string' && body.text.trim()) return readText(body, key, keyFrom, res);
   var img = parseDataUrl(body.image);
   if (!img) return res.status(400).json({ ok: false, reason: 'bad_image' });

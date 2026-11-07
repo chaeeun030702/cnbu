@@ -22,7 +22,8 @@ function gloss() {
 }
 function headers(key) {
   const h = { 'content-type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01' };
-  if (WORKSPACE) h['anthropic-workspace-id'] = WORKSPACE;
+  // Workspace ID는 서버 키와 Workspace에 묶이지 않은 키(sk-ant-usr-…)에만 붙인다. 화면에 넣은 일반 API 키(sk-ant-api…)에는 붙이지 않는다
+  if (WORKSPACE && /^sk-ant-usr/.test(String(key || '').trim()) || WORKSPACE && String(key || '').trim() === String(process.env.ANTHROPIC_API_KEY || '').trim().replace(/^["']|["']$/g, '')) h['anthropic-workspace-id'] = WORKSPACE;
   return h;
 }
 
