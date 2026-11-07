@@ -140,7 +140,8 @@ module.exports = async function handler(req, res) {
       commit: (process.env.VERCEL_GIT_COMMIT_SHA || '').slice(0, 7) };
     // 키 값은 보여주지 않고 형태만 진단: 길이, 형식, 공백·따옴표 섞임 여부
     var rk = String(process.env.ANTHROPIC_API_KEY || ''), ck = cleanKey(rk);
-    if (rk) info.keyShape = { length: ck.length, format: /^sk-ant-api\d\d-[A-Za-z0-9_\-]{20,}$/.test(ck) ? 'ok' : 'unexpected', hadSpaceOrQuote: rk !== ck };
+    if (rk) info.keyShape = { length: ck.length, format: /^sk-ant-api\d\d-[A-Za-z0-9_\-]{20,}$/.test(ck) ? 'ok' : 'unexpected', hadSpaceOrQuote: rk !== ck,
+      prefix: ck.slice(0, 10), badChars: (ck.match(/[^A-Za-z0-9_\-]/g) || []).length };
     // GET /api/read?test=1 → 서버 키로 짧은 텍스트 요청을 보내 Anthropic 응답을 그대로 보여준다(진단용)
     if (req.query && req.query.test && process.env.ANTHROPIC_API_KEY) {
       try {
