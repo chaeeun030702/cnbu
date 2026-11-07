@@ -114,8 +114,10 @@ function parseDataUrl(s) {
   return { mime: m[1], b64: m[2] };
 }
 
+// Vercel에 키를 붙여 넣을 때 섞인 공백·줄바꿈·따옴표를 걷어낸다
+function cleanKey(k) { return String(k || '').trim().replace(/^["']|["']$/g, '').trim(); }
 function apiHeaders(key) {
-  var h = { 'content-type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01' };
+  var h = { 'content-type': 'application/json', 'x-api-key': cleanKey(key), 'anthropic-version': '2023-06-01' };
   if (WORKSPACE) h['anthropic-workspace-id'] = WORKSPACE;
   return h;
 }
@@ -136,6 +138,9 @@ module.exports = async function handler(req, res) {
     var info = { ok: true, service: 'e-safety read', model: MODEL,
       key: !!process.env.ANTHROPIC_API_KEY, workspace: !!WORKSPACE, indicators: KB.length,
       commit: (process.env.VERCEL_GIT_COMMIT_SHA || '').slice(0, 7) };
+    // 키 값은 보여주지 않고 형태만 진단: 길이, 형식, 공백·따옴표 섞임 여부
+    var rk = String(process.env.ANTHROPIC_API_KEY || ''), ck = cleanKey(rk);
+    if (rk) info.keyShape = { length: ck.length, format: /^sk-ant-api\d\d-[A-Za-z0-9_\-]{20,}$/.test(ck) ? 'ok' : 'unexpected', hadSpaceOrQuote: rk !== ck };
     // GET /api/read?test=1 → 서버 키로 짧은 텍스트 요청을 보내 Anthropic 응답을 그대로 보여준다(진단용)
     if (req.query && req.query.test && process.env.ANTHROPIC_API_KEY) {
       try {
